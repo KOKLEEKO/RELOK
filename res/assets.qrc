@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/app-store.svg</file>
+        <file>assets/back.svg</file>
+        <file>assets/browser.svg</file>
+        <file>assets/close.svg</file>
+        <file>assets/email.svg</file>
+        <file>assets/github.svg</file>
+        <file>assets/instagram.svg</file>
+        <file>assets/ko-fi.svg</file>
+        <file>assets/linkedin.svg</file>
+        <file>assets/google-play.svg</file>
+        <file>assets/refresh.svg</file>
+        <file>assets/star-empty.svg</file>
+        <file>assets/star-filled.svg</file>
+        <file>assets/tip-beer.svg</file>
+        <file>assets/tip-bone.svg</file>
+        <file>assets/tip-burger.svg</file>
+        <file>assets/tip-cookie.svg</file>
+        <file>assets/tip-icecream.svg</file>
+        <file>assets/tip-coffee.svg</file>
+        <file>assets/tip-wine.svg</file>
+        <file>assets/twitter.svg</file>
+        <file>assets/webassembly.svg</file>
+        <file>assets/website.svg</file>
+        <file>assets/youtube.svg</file>
+        <file>assets/lg-store.svg</file>
+        <file>assets/ms-store.svg</file>
+    </qresource>
+</RCC>

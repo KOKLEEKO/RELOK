@@ -1,0 +1,95 @@
+name: Android-upload
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches:
+      - 'releases/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1.138.0
+        with:
+          ruby-version: 3.2.1
+          bundler-cache: true
+
+      - name: Set up NDK
+        run: |
+          ANDROID_NDK_VERSION=21.3.6528147
+          SDKMANAGER=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager
+          echo "y" | $SDKMANAGER --sdk_root=$ANDROID_SDK_ROOT --install "platform-tools" "platforms;android-29" "build-tools;29.0.2" "ndk;$ANDROID_NDK_VERSION"
+          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/$ANDROID_NDK_VERSION" >> $GITHUB_ENV
+
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Install Qt
+        uses: johanremilien/install-qt-action@v3
+        with:
+          target: android
+          modules: qtpurchasing
+
+      - name: Define version code with offset
+        env:
+          RUN_NUMBER: ${{ github.run_number }}
+          INITIAL_VERSION_CODE: 73
+        run: |
+          VERSION_CODE=$((INITIAL_VERSION_CODE + RUN_NUMBER))
+          echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
+
+      - name: qmake
+        run: qmake "ANDROID_VERSION_CODE=${{ env.version_code }}"
+
+      - name: make
+        run: make -j$(nproc) && make -j$(nproc) apk_install_target
+
+      - name: Decode Keystore File
+        uses: timheuer/base64-to-file@v1.2
+        id: android_keystore
+        with:
+          fileName: "android_keystore.keystore"
+          encodedString: ${{ secrets.KEYSTORE_FILE }}
+
+      - name: androiddeployqt
+        run: androiddeployqt --input android-WordClock-deployment-settings.json --output android-build --android-platform android-33 --jdk /opt/homebrew/opt/openjdk@11 --gradle --aab --jarsigner --release --sign $QT_ANDROID_KEYSTORE_PATH $QT_ANDROID_KEYSTORE_ALIAS --storepass $QT_ANDROID_KEYSTORE_STORE_PASS --keypass $QT_ANDROID_KEYSTORE_KEY_PASS
+        env:
+          QT_ANDROID_KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
+          QT_ANDROID_KEYSTORE_STORE_PASS: ${{ secrets.KEYSTORE_PASSWORD }}
+          QT_ANDROID_KEYSTORE_ALIAS: ${{ secrets.KEY_ALIAS}}
+          QT_ANDROID_KEYSTORE_KEY_PASS: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: APK
+          path: ${{ github.workspace }}/android-build/build/outputs/apk/release/*.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v3
+        with:
+          name: AAB
+          path: ${{ github.workspace }}/android-build/build/outputs/bundle/release/*.aab
+
+      - name: Decode Service Account Key JSON File
+        uses: timheuer/base64-to-file@v1.2
+        id: service_account_json_file
+        with:
+          fileName: "serviceAccount.json"
+          encodedString: ${{ secrets.GPLAY_SERVICE_ACCOUNT_KEY_JSON }}
+
+      - name: Deploy Android release
+        run: bundle exec fastlane android deploy
+        env:
+          ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
+          AAB_PATH: ${{ github.workspace }}/android-build/build/outputs/bundle/release/android-build-release.aab

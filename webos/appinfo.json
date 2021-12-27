@@ -1,0 +1,13 @@
+{
+  "id": "io.kokleeko.wordclock",
+  "version": "1.0.0",
+  "vendor": "Kokleeko S.L",
+  "type": "qml",
+  "main": "main.qml",
+  "title": "WordClock",
+  "icon": "icon.png",
+  "requiredPermissions": [
+    "time.query",
+    "applications.operation"
+  ]
+}

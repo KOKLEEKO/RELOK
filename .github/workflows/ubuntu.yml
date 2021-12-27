@@ -1,0 +1,32 @@
+name: Ubuntu
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Qt
+      uses: johanremilien/install-qt-action@v3
+      with:
+        modules: qtpurchasing qtwebengine
+
+    - name: qmake
+      run: qmake
+
+    - name: make
+      run: make -j$(nproc)
+
+    - name: make check
+      run: make -j$(nproc) check
+
+    - name: tree
+      run: tree .

@@ -1,0 +1,44 @@
+name: WebAssembly
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup emsdk
+      uses: mymindstorm/setup-emsdk@v11
+      with:
+        version: 1.39.8
+
+    - name: Install Qt
+      uses: johanremilien/install-qt-action@v3
+      with:
+        arch: wasm_32
+        modules: qtpurchasing
+
+    - name: qmake
+      run: qmake
+
+    - name: make
+      run: make -j$(nproc)
+
+    - name: make check
+      run: make -j$(nproc) check
+
+    - name: Prepare webapp
+      run: cp WordClock.js WordClock.wasm wasm/app/
+
+    - name: Upload webapp
+      uses: actions/upload-artifact@v3
+      with:
+        name: app
+        path: ${{ github.workspace }}/wasm/app

@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/controls/ColorFactorPicker.qml</file>
+        <file>qml/controls/ColorHuePicker.qml</file>
+        <file>qml/controls/Details.qml</file>
+        <file>qml/controls/Menu.qml</file>
+        <file>qml/controls/MenuItem.qml</file>
+        <file>qml/controls/MenuSection.qml</file>
+        <file>qml/controls/Picker.qml</file>
+        <file>qml/controls/Title.qml</file>
+        <file>qml/languages/en.qml</file>
+        <file>qml/languages/fr.qml</file>
+        <file>qml/languages/Language.qml</file>
+        <file>qml/languages/es.qml</file>
+        <file>qml/SettingsMenu.qml</file>
+        <file>qml/WebAccess.qml</file>
+        <file>qml/WordClock.qml</file>
+        <file>qml/controls/ColorHexField.qml</file>
+        <file>qml/controls/IconButton.qml</file>
+        <file>qml/languages/en_US.qml</file>
+        <file>qml/languages/.fr_CA.qml</file>
+        <file>qml/controls/SmallPositionSelector.qml</file>
+        <file>qml/controls/PositionSelector.qml</file>
+        <file>qml/controls/AccessoryText.qml</file>
+        <file>qml/controls/ColorPicker.qml</file>
+        <file>qml/controls/LargePositionSelector.qml</file>
+    </qresource>
+</RCC>

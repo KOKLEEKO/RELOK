@@ -1,0 +1,35 @@
+name: Windows
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Qt
+      uses: johanremilien/install-qt-action@v3
+      with:
+        modules: qtpurchasing qtwebengine
+
+    - name: qmake
+      run: call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" && qmake
+      shell: cmd
+
+    - name: nmake
+      run: call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" && nmake
+      shell: cmd
+
+    - name: nmake check
+      run: call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" && nmake check
+      shell: cmd
+
+    - name: tree
+      run: tree .
