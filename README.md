@@ -1,6 +1,9 @@
 # WordClock
 QML Word Clock (POC)
 
+[![codefactor](https://www.codefactor.io/repository/github/johanremilien/WordClock/badge)](https://www.codefactor.io/repository/github/johanremilien/WordClock)
+![ViewCount](https://views.whatilearened.today/views/github/johanremilien/WordClock.svg)
+
 Spanish version:
 - 17:09 (05:09 PM)
 <img width="752" alt="image" src="https://user-images.githubusercontent.com/15193153/158068581-e07e3cbc-2a06-496b-bf9f-391ae6e0779f.png">
