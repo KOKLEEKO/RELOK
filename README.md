@@ -1,9 +1,8 @@
 # WordClock
 QML Word Clock (POC)
 
-<a href="https://www.codefactor.io/repository/github/johanremilien/WordClock" alt="codefactor">
-   <img src="https://www.codefactor.io/repository/github/johanremilien/WordClock/badge"/>
-</a>
+[![codefactor](https://www.codefactor.io/repository/github/johanremilien/WordClock/badge)](https://www.codefactor.io/repository/github/johanremilien/WordClock)
+![ViewCount](https://views.whatilearened.today/views/github/johanremilien/WordClock.svg)
 
 Spanish version:
 - 17:09 (05:09 PM)
