@@ -8,6 +8,16 @@ Window {
     visible: true
     color: "black"
 
+    function reset_table(table) {
+        var rowsCount = table.length
+        for (var i = 0; i < rowsCount; ++i) {
+            var columnsCount = table[i].length
+            for (var j = 0; j < columnsCount; ++j) {
+                table[i][j] = false
+            }
+        }
+    }
+
     function son_las() {
         tmp_enable_table[0][1]  = true
         tmp_enable_table[0][2]  = true
@@ -27,206 +37,212 @@ Window {
         tmp_enable_table[6][10] = true
     }
     function updateMatrix() {
-      var written_time_table = written_time.split(':')
-      switch(written_time_table[0]) {
-      case "ES LA UNA":
-          tmp_enable_table[0][0] = true
-          tmp_enable_table[0][1] = true
-          tmp_enable_table[0][5] = true
-          tmp_enable_table[0][6] = true
-          tmp_enable_table[0][5] = true
-          tmp_enable_table[0][8] = true
-          tmp_enable_table[0][9] = true
-          tmp_enable_table[0][10] = true
-          break;
-      case "SON LAS DOS":
-          son_las()
-          tmp_enable_table[1][0] = true
-          tmp_enable_table[1][1] = true
-          tmp_enable_table[1][2] = true
-          break;
-      case "SON LAS TRES":
-          son_las()
-          tmp_enable_table[1][4] = true
-          tmp_enable_table[1][5] = true
-          tmp_enable_table[1][6] = true
-          tmp_enable_table[1][7] = true
-          break;
-      case "SON LAS CUATRO":
-          son_las()
-          tmp_enable_table[2][0] = true
-          tmp_enable_table[2][1] = true
-          tmp_enable_table[2][2] = true
-          tmp_enable_table[2][3] = true
-          tmp_enable_table[2][4] = true
-          tmp_enable_table[2][5] = true
-          break;
-      case "SON LAS CINCO":
-          son_las()
-          tmp_enable_table[2][6] = true
-          tmp_enable_table[2][7] = true
-          tmp_enable_table[2][8] = true
-          tmp_enable_table[2][9] = true
-          tmp_enable_table[2][10] = true
-          break;
-      case "SON LAS SEIS":
-          son_las()
-          tmp_enable_table[3][0] = true
-          tmp_enable_table[3][1] = true
-          tmp_enable_table[3][2] = true
-          tmp_enable_table[3][3] = true
-          break;
-      case "SON LAS SIETE":
-          son_las()
-          tmp_enable_table[3][5] = true
-          tmp_enable_table[3][6] = true
-          tmp_enable_table[3][7] = true
-          tmp_enable_table[3][8] = true
-          tmp_enable_table[3][9] = true
-          break;
-      case "SON LAS OCHO":
-          son_las()
-          tmp_enable_table[4][0] = true
-          tmp_enable_table[4][1] = true
-          tmp_enable_table[4][2] = true
-          tmp_enable_table[4][3] = true
-          break;
-      case "SON LAS NUEVE":
-          son_las()
-          tmp_enable_table[4][4] = true
-          tmp_enable_table[4][5] = true
-          tmp_enable_table[4][6] = true
-          tmp_enable_table[4][7] = true
-          tmp_enable_table[4][8] = true
-          break;
-      case "SON LAS DIEZ":
-          son_las()
-          tmp_enable_table[5][2] = true
-          tmp_enable_table[5][3] = true
-          tmp_enable_table[5][4] = true
-          tmp_enable_table[5][5] = true
-          break;
-      case "SON LAS ONCE":
-          son_las()
-          tmp_enable_table[5][7] = true
-          tmp_enable_table[5][8] = true
-          tmp_enable_table[5][9] = true
-          tmp_enable_table[5][10] = true
-          break;
-      case "SON LAS DOCE":
-          son_las()
-          tmp_enable_table[6][0] = true
-          tmp_enable_table[6][1] = true
-          tmp_enable_table[6][2] = true
-          tmp_enable_table[6][3] = true
-          break;
-      }
-      switch(written_time_table[1]) {
-      case "Y CINCO":
-          y()
-          tmp_enable_table[8][6] = true
-          tmp_enable_table[8][7] = true
-          tmp_enable_table[8][8] = true
-          tmp_enable_table[8][9] = true
-          tmp_enable_table[8][10] = true
-          break;
-      case "Y DIEZ":
-          y()
-          tmp_enable_table[7][7] = true
-          tmp_enable_table[7][8] = true
-          tmp_enable_table[7][9] = true
-          tmp_enable_table[7][10] = true
-          break;
-      case "Y CUARTO":
-          y()
-          tmp_enable_table[9][5] = true
-          tmp_enable_table[9][6] = true
-          tmp_enable_table[9][7] = true
-          tmp_enable_table[9][8] = true
-          tmp_enable_table[9][9] = true
-          tmp_enable_table[9][10] = true
-          break;
-      case "Y VIENTE":
-          y()
-          tmp_enable_table[7][1] = true
-          tmp_enable_table[7][2] = true
-          tmp_enable_table[7][3] = true
-          tmp_enable_table[7][4] = true
-          tmp_enable_table[7][5] = true
-          tmp_enable_table[7][6] = true
-          break;
-      case "Y VIENTICINCO":
-          y()
-          tmp_enable_table[8][0] = true
-          tmp_enable_table[8][1] = true
-          tmp_enable_table[8][2] = true
-          tmp_enable_table[8][3] = true
-          tmp_enable_table[8][4] = true
-          tmp_enable_table[8][5] = true
-          tmp_enable_table[8][6] = true
-          tmp_enable_table[8][7] = true
-          tmp_enable_table[8][8] = true
-          tmp_enable_table[8][9] = true
-          tmp_enable_table[8][10] = true
-          break;
-      case "Y MEDIA":
-          y()
-          tmp_enable_table[9][0] = true
-          tmp_enable_table[9][1] = true
-          tmp_enable_table[9][2] = true
-          tmp_enable_table[9][3] = true
-          tmp_enable_table[9][4] = true
-          break;
-      case "MENOS VIENTICINCO":
-          menos()
-          tmp_enable_table[8][0] = true
-          tmp_enable_table[8][1] = true
-          tmp_enable_table[8][2] = true
-          tmp_enable_table[8][3] = true
-          tmp_enable_table[8][4] = true
-          tmp_enable_table[8][5] = true
-          tmp_enable_table[8][6] = true
-          tmp_enable_table[8][7] = true
-          tmp_enable_table[8][8] = true
-          tmp_enable_table[8][9] = true
-          tmp_enable_table[8][10] = true
-          break;
-      case "MENOS VIENTE":
-          menos()
-          tmp_enable_table[7][1] = true
-          tmp_enable_table[7][2] = true
-          tmp_enable_table[7][3] = true
-          tmp_enable_table[7][4] = true
-          tmp_enable_table[7][5] = true
-          tmp_enable_table[7][6] = true
-          break;
-      case "MENOS CUARTO":
-          menos()
-          tmp_enable_table[9][5] = true
-          tmp_enable_table[9][6] = true
-          tmp_enable_table[9][7] = true
-          tmp_enable_table[9][8] = true
-          tmp_enable_table[9][9] = true
-          tmp_enable_table[9][10] = true
-          break;
-      case "MENOS DIEZ":
-          menos()
-          tmp_enable_table[7][7] = true
-          tmp_enable_table[7][8] = true
-          tmp_enable_table[7][9] = true
-          tmp_enable_table[7][10] = true
-          break;
-      case "MENOS CINCO":
-          menos()
-          tmp_enable_table[8][6] = true
-          tmp_enable_table[8][7] = true
-          tmp_enable_table[8][8] = true
-          tmp_enable_table[8][9] = true
-          tmp_enable_table[8][10] = true
-          break;
-      }
-      enable_table = tmp_enable_table
-     }
+        /*
+          Instead of resetting all tables
+          I should compare the previous 'written_time_table' with the new one
+          to reset only what needs to be reset.
+        */
+        reset_table(tmp_enable_table)
+        var written_time_table = written_time.split(':')
+        switch(written_time_table[0]) {
+        case "ES LA UNA":
+            tmp_enable_table[0][0] = true
+            tmp_enable_table[0][1] = true
+            tmp_enable_table[0][5] = true
+            tmp_enable_table[0][6] = true
+            tmp_enable_table[0][5] = true
+            tmp_enable_table[0][8] = true
+            tmp_enable_table[0][9] = true
+            tmp_enable_table[0][10] = true
+            break;
+        case "SON LAS DOS":
+            son_las()
+            tmp_enable_table[1][0] = true
+            tmp_enable_table[1][1] = true
+            tmp_enable_table[1][2] = true
+            break;
+        case "SON LAS TRES":
+            son_las()
+            tmp_enable_table[1][4] = true
+            tmp_enable_table[1][5] = true
+            tmp_enable_table[1][6] = true
+            tmp_enable_table[1][7] = true
+            break;
+        case "SON LAS CUATRO":
+            son_las()
+            tmp_enable_table[2][0] = true
+            tmp_enable_table[2][1] = true
+            tmp_enable_table[2][2] = true
+            tmp_enable_table[2][3] = true
+            tmp_enable_table[2][4] = true
+            tmp_enable_table[2][5] = true
+            break;
+        case "SON LAS CINCO":
+            son_las()
+            tmp_enable_table[2][6] = true
+            tmp_enable_table[2][7] = true
+            tmp_enable_table[2][8] = true
+            tmp_enable_table[2][9] = true
+            tmp_enable_table[2][10] = true
+            break;
+        case "SON LAS SEIS":
+            son_las()
+            tmp_enable_table[3][0] = true
+            tmp_enable_table[3][1] = true
+            tmp_enable_table[3][2] = true
+            tmp_enable_table[3][3] = true
+            break;
+        case "SON LAS SIETE":
+            son_las()
+            tmp_enable_table[3][5] = true
+            tmp_enable_table[3][6] = true
+            tmp_enable_table[3][7] = true
+            tmp_enable_table[3][8] = true
+            tmp_enable_table[3][9] = true
+            break;
+        case "SON LAS OCHO":
+            son_las()
+            tmp_enable_table[4][0] = true
+            tmp_enable_table[4][1] = true
+            tmp_enable_table[4][2] = true
+            tmp_enable_table[4][3] = true
+            break;
+        case "SON LAS NUEVE":
+            son_las()
+            tmp_enable_table[4][4] = true
+            tmp_enable_table[4][5] = true
+            tmp_enable_table[4][6] = true
+            tmp_enable_table[4][7] = true
+            tmp_enable_table[4][8] = true
+            break;
+        case "SON LAS DIEZ":
+            son_las()
+            tmp_enable_table[5][2] = true
+            tmp_enable_table[5][3] = true
+            tmp_enable_table[5][4] = true
+            tmp_enable_table[5][5] = true
+            break;
+        case "SON LAS ONCE":
+            son_las()
+            tmp_enable_table[5][7] = true
+            tmp_enable_table[5][8] = true
+            tmp_enable_table[5][9] = true
+            tmp_enable_table[5][10] = true
+            break;
+        case "SON LAS DOCE":
+            son_las()
+            tmp_enable_table[6][0] = true
+            tmp_enable_table[6][1] = true
+            tmp_enable_table[6][2] = true
+            tmp_enable_table[6][3] = true
+            break;
+        }
+        switch(written_time_table[1]) {
+        case "Y CINCO":
+            y()
+            tmp_enable_table[8][6] = true
+            tmp_enable_table[8][7] = true
+            tmp_enable_table[8][8] = true
+            tmp_enable_table[8][9] = true
+            tmp_enable_table[8][10] = true
+            break;
+        case "Y DIEZ":
+            y()
+            tmp_enable_table[7][7] = true
+            tmp_enable_table[7][8] = true
+            tmp_enable_table[7][9] = true
+            tmp_enable_table[7][10] = true
+            break;
+        case "Y CUARTO":
+            y()
+            tmp_enable_table[9][5] = true
+            tmp_enable_table[9][6] = true
+            tmp_enable_table[9][7] = true
+            tmp_enable_table[9][8] = true
+            tmp_enable_table[9][9] = true
+            tmp_enable_table[9][10] = true
+            break;
+        case "Y VIENTE":
+            y()
+            tmp_enable_table[7][1] = true
+            tmp_enable_table[7][2] = true
+            tmp_enable_table[7][3] = true
+            tmp_enable_table[7][4] = true
+            tmp_enable_table[7][5] = true
+            tmp_enable_table[7][6] = true
+            break;
+        case "Y VIENTICINCO":
+            y()
+            tmp_enable_table[8][0] = true
+            tmp_enable_table[8][1] = true
+            tmp_enable_table[8][2] = true
+            tmp_enable_table[8][3] = true
+            tmp_enable_table[8][4] = true
+            tmp_enable_table[8][5] = true
+            tmp_enable_table[8][6] = true
+            tmp_enable_table[8][7] = true
+            tmp_enable_table[8][8] = true
+            tmp_enable_table[8][9] = true
+            tmp_enable_table[8][10] = true
+            break;
+        case "Y MEDIA":
+            y()
+            tmp_enable_table[9][0] = true
+            tmp_enable_table[9][1] = true
+            tmp_enable_table[9][2] = true
+            tmp_enable_table[9][3] = true
+            tmp_enable_table[9][4] = true
+            break;
+        case "MENOS VIENTICINCO":
+            menos()
+            tmp_enable_table[8][0] = true
+            tmp_enable_table[8][1] = true
+            tmp_enable_table[8][2] = true
+            tmp_enable_table[8][3] = true
+            tmp_enable_table[8][4] = true
+            tmp_enable_table[8][5] = true
+            tmp_enable_table[8][6] = true
+            tmp_enable_table[8][7] = true
+            tmp_enable_table[8][8] = true
+            tmp_enable_table[8][9] = true
+            tmp_enable_table[8][10] = true
+            break;
+        case "MENOS VIENTE":
+            menos()
+            tmp_enable_table[7][1] = true
+            tmp_enable_table[7][2] = true
+            tmp_enable_table[7][3] = true
+            tmp_enable_table[7][4] = true
+            tmp_enable_table[7][5] = true
+            tmp_enable_table[7][6] = true
+            break;
+        case "MENOS CUARTO":
+            menos()
+            tmp_enable_table[9][5] = true
+            tmp_enable_table[9][6] = true
+            tmp_enable_table[9][7] = true
+            tmp_enable_table[9][8] = true
+            tmp_enable_table[9][9] = true
+            tmp_enable_table[9][10] = true
+            break;
+        case "MENOS DIEZ":
+            menos()
+            tmp_enable_table[7][7] = true
+            tmp_enable_table[7][8] = true
+            tmp_enable_table[7][9] = true
+            tmp_enable_table[7][10] = true
+            break;
+        case "MENOS CINCO":
+            menos()
+            tmp_enable_table[8][6] = true
+            tmp_enable_table[8][7] = true
+            tmp_enable_table[8][8] = true
+            tmp_enable_table[8][9] = true
+            tmp_enable_table[8][10] = true
+            break;
+        }
+        enable_table = tmp_enable_table
+    }
 
     property string time: "0:0"
     property int dots: 0
