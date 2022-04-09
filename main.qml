@@ -6,10 +6,11 @@ Window {
     id: root
 
     function updateTable() {
+        //var time = "00:00"
         var splitted_time = time.split(':')
         var hours_value = splitted_time[0]
         var minutes_value = splitted_time[1]
-        if (minutes_value > 30)
+        if (minutes_value >= 35)
             hours_value++
         hours_array_index = hours_value % 12
         minutes_array_index = Math.floor(minutes_value/5)
