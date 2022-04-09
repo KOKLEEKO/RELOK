@@ -35,7 +35,7 @@ Window {
         onoff_dots = tmp_onoff_dots
     }
 
-    property Language language: Spanish{}
+    property Language language: English{}
     readonly property color background_color: "black"
     readonly property color on_color: "red"
     readonly property color off_color: "grey"
