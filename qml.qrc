@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Spanish.qml</file>
+        <file>spanish.qml</file>
         <file>Language.qml</file>
         <file>Helpers.js</file>
-        <file>English.qml</file>
+        <file>english.qml</file>
     </qresource>
 </RCC>

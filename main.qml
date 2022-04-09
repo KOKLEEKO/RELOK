@@ -1,9 +1,23 @@
+import QtQml 2.15
 import QtQuick 2.15
 import QtQuick.Window 2.15
+
 import "Helpers.js" as Helpers
 
 Window {
     id: root
+
+    function detectAndUseDeviceLanguage() {
+        switch (Qt.locale().name.substring(0,2)) {
+        case "es":
+            language_url = "qrc:/spanish.qml"
+            break;
+        default:
+        case "en":
+            language_url = "qrc:/english.qml"
+            break;
+        }
+    }
 
     function updateTable() {
         //var time = "00:00"
@@ -35,13 +49,14 @@ Window {
         onoff_dots = tmp_onoff_dots
     }
 
-    property Language language: English{}
+    property url language_url
+    property Language language
     readonly property color background_color: "black"
     readonly property color on_color: "red"
     readonly property color off_color: "grey"
     readonly property real dot_size: 10
 
-    property string time: ""
+    property string time
     property int onoff_dots: 4
     property int tmp_onoff_dots: 0
     property int previous_hours_array_index: -1
@@ -71,7 +86,16 @@ Window {
     height: 480
     visible: true
     color: background_color
-    Component.onCompleted: timeChanged.connect(updateTable)
+    Component.onCompleted: {
+        timeChanged.connect(updateTable)
+        detectAndUseDeviceLanguage()
+    }
+
+    Loader {
+        active: true
+        source: language_url
+        onLoaded: language = item
+    }
 
     Timer {
         interval: 1000
