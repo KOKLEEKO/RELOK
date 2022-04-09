@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>Spanish.qml</file>
+        <file>Language.qml</file>
+        <file>Helpers.js</file>
     </qresource>
 </RCC>
