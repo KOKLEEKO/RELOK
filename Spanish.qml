@@ -18,6 +18,45 @@ Language {
     function y(enable) {
         tmp_enable_table[6][5]  = enable
     }
+    function cinco_minutos(enable) {
+        tmp_enable_table[8][6] = enable
+        tmp_enable_table[8][7] = enable
+        tmp_enable_table[8][8] = enable
+        tmp_enable_table[8][9] = enable
+        tmp_enable_table[8][10] = enable
+    }
+    function diez_minutos(enable) {
+        tmp_enable_table[7][7] = enable
+        tmp_enable_table[7][8] = enable
+        tmp_enable_table[7][9] = enable
+        tmp_enable_table[7][10] = enable
+    }
+    function quince_minutos(enable) {
+        tmp_enable_table[9][5] = enable
+        tmp_enable_table[9][6] = enable
+        tmp_enable_table[9][7] = enable
+        tmp_enable_table[9][8] = enable
+        tmp_enable_table[9][9] = enable
+        tmp_enable_table[9][10] = enable
+    }
+    function veinte_minutos(enable) {
+        tmp_enable_table[7][1] = enable
+        tmp_enable_table[7][2] = enable
+        tmp_enable_table[7][3] = enable
+        tmp_enable_table[7][4] = enable
+        tmp_enable_table[7][5] = enable
+        tmp_enable_table[7][6] = enable
+    }
+    function veinticinco_minutos(enable) {
+        tmp_enable_table[8][0] = enable
+        tmp_enable_table[8][1] = enable
+        tmp_enable_table[8][2] = enable
+        tmp_enable_table[8][3] = enable
+        tmp_enable_table[8][4] = enable
+        tmp_enable_table[8][5] = enable
+        cinco_minutos(enable)
+    }
+
     function menos(enable) {
         tmp_enable_table[6][6] = enable
         tmp_enable_table[6][7] = enable
@@ -116,124 +155,74 @@ Language {
     function minutes_00(enable) { }
     function minutes_05(enable) { //"Y CINCO"
         y(enable)
-        tmp_enable_table[8][6] = enable
-        tmp_enable_table[8][7] = enable
-        tmp_enable_table[8][8] = enable
-        tmp_enable_table[8][9] = enable
-        tmp_enable_table[8][10] = enable
+        cinco_minutos(enable)
     }
     function minutes_10(enable) { //"Y DIEZ"
         y(enable)
-        tmp_enable_table[7][7] = enable
-        tmp_enable_table[7][8] = enable
-        tmp_enable_table[7][9] = enable
-        tmp_enable_table[7][10] = enable
+        diez_minutos(enable)
     }
     function minutes_15(enable) { //"Y CUARTO"
         y(enable)
-        tmp_enable_table[9][5] = enable
-        tmp_enable_table[9][6] = enable
-        tmp_enable_table[9][7] = enable
-        tmp_enable_table[9][8] = enable
-        tmp_enable_table[9][9] = enable
-        tmp_enable_table[9][10] = enable
+        quince_minutos(enable)
     }
-    function minutes_20(enable) { //"Y VIENTE"
+    function minutes_20(enable) { //"Y VEINTE"
         y(enable)
-        tmp_enable_table[7][1] = enable
-        tmp_enable_table[7][2] = enable
-        tmp_enable_table[7][3] = enable
-        tmp_enable_table[7][4] = enable
-        tmp_enable_table[7][5] = enable
-        tmp_enable_table[7][6] = enable
+        veinte_minutos(enable)
     }
-    function minutes_25(enable) { //"Y VIENTICINCO"
+    function minutes_25(enable) { //"Y VEINTICINCO"
         y(enable)
-        tmp_enable_table[8][0] = enable
-        tmp_enable_table[8][1] = enable
-        tmp_enable_table[8][2] = enable
-        tmp_enable_table[8][3] = enable
-        tmp_enable_table[8][4] = enable
-        tmp_enable_table[8][5] = enable
-        tmp_enable_table[8][6] = enable
-        tmp_enable_table[8][7] = enable
-        tmp_enable_table[8][8] = enable
-        tmp_enable_table[8][9] = enable
-        tmp_enable_table[8][10] = enable
+        veinticinco_minutos(enable)
     }
-    function minutes_30(value) { //"Y MEDIA"
-        y(value)
-        tmp_enable_table[9][0] = value
-        tmp_enable_table[9][1] = value
-        tmp_enable_table[9][2] = value
-        tmp_enable_table[9][3] = value
-        tmp_enable_table[9][4] = value
+    function minutes_30(enable) { //"Y MEDIA"
+        y(enable)
+        tmp_enable_table[9][0] = enable
+        tmp_enable_table[9][1] = enable
+        tmp_enable_table[9][2] = enable
+        tmp_enable_table[9][3] = enable
+        tmp_enable_table[9][4] = enable
     }
-    function minutes_35(enable) { //"MENOS VIENTICINCO"
+    function minutes_35(enable) { //"MENOS VEINTICINCO"
         menos(enable)
-        tmp_enable_table[8][0] = enable
-        tmp_enable_table[8][1] = enable
-        tmp_enable_table[8][2] = enable
-        tmp_enable_table[8][3] = enable
-        tmp_enable_table[8][4] = enable
-        tmp_enable_table[8][5] = enable
-        tmp_enable_table[8][6] = enable
-        tmp_enable_table[8][7] = enable
-        tmp_enable_table[8][8] = enable
-        tmp_enable_table[8][9] = enable
-        tmp_enable_table[8][10] = enable
+        veinticinco_minutos(enable)
     }
-    function minutes_40(enable) { //"MENOS VIENTE"
+    function minutes_40(enable) { //"MENOS VEINTE"
         menos(enable)
-        tmp_enable_table[7][1] = enable
-        tmp_enable_table[7][2] = enable
-        tmp_enable_table[7][3] = enable
-        tmp_enable_table[7][4] = enable
-        tmp_enable_table[7][5] = enable
-        tmp_enable_table[7][6] = enable
+        veinte_minutos(enable)
     }
     function minutes_45(enable) { //"MENOS CUARTO"
         menos(enable)
-        tmp_enable_table[9][5] = enable
-        tmp_enable_table[9][6] = enable
-        tmp_enable_table[9][7] = enable
-        tmp_enable_table[9][8] = enable
-        tmp_enable_table[9][9] = enable
-        tmp_enable_table[9][10] = enable
+        quince_minutos(enable)
     }
     function minutes_50(enable) { //"MENOS DIEZ"
         menos(enable)
-        tmp_enable_table[7][7] = enable
-        tmp_enable_table[7][8] = enable
-        tmp_enable_table[7][9] = enable
-        tmp_enable_table[7][10] = enable
+        diez_minutos(enable)
     }
     function minutes_55(enable) { //"MENOS CINCO"
         menos(enable)
-        tmp_enable_table[8][6] = enable
-        tmp_enable_table[8][7] = enable
-        tmp_enable_table[8][8] = enable
-        tmp_enable_table[8][9] = enable
-        tmp_enable_table[8][10] = enable
+        cinco_minutos(enable)
+    }
+
+    function written_time(hours_array_index, minutes_array_index){
+        return written_hours_array[hours_array_index] + ' ' + written_minutes_array[minutes_array_index]
     }
 
     table:
         // 0    1    2    3    4    5    6    7    8    9   10
-        [['E', 'S', 'O', 'N', ' ', 'L', 'A', 'S', 'U', 'N', 'A']  // 0
-        ,['D', 'O', 'S', ' ', 'T', 'R', 'E', 'S', ' ', ' ', ' ']  // 1
-        ,['C', 'U', 'A', 'T', 'R', 'O', 'C', 'I', 'N', 'C', 'O']  // 2
-        ,['S', 'E', 'I', 'S', ' ', 'S', 'I', 'E', 'T', 'E', ' ']  // 3
-        ,['O', 'C', 'H', 'O', 'N', 'U', 'E', 'V', 'E', ' ', ' ']  // 4
-        ,[' ', ' ', 'D', 'I', 'E', 'Z', ' ', 'O', 'N', 'C', 'E']  // 5
-        ,['D', 'O', 'C', 'E', ' ', 'Y', 'M', 'E', 'N', 'O', 'S']  // 6
-        ,[' ', 'V', 'E', 'I', 'N', 'T', 'E', 'D', 'I', 'E', 'Z']  // 7
-        ,['V', 'E', 'I', 'N', 'T', 'I', 'C', 'I', 'N', 'C', 'O']  // 8
-        ,['M', 'E', 'D', 'I', 'A', 'C', 'U', 'A', 'R', 'T', 'O']] // 9
+        [["E", "S", "O", "N", " ", "L", "A", "S", "U", "N", "A"]  // 0
+        ,["D", "O", "S", " ", "T", "R", "E", "S", " ", " ", " "]  // 1
+        ,["C", "U", "A", "T", "R", "O", "C", "I", "N", "C", "O"]  // 2
+        ,["S", "E", "I", "S", " ", "S", "I", "E", "T", "E", " "]  // 3
+        ,["O", "C", "H", "O", "N", "U", "E", "V", "E", " ", " "]  // 4
+        ,[" ", " ", "D", "I", "E", "Z", " ", "O", "N", "C", "E"]  // 5
+        ,["D", "O", "C", "E", " ", "Y", "M", "E", "N", "O", "S"]  // 6
+        ,[" ", "V", "E", "I", "N", "T", "E", "D", "I", "E", "Z"]  // 7
+        ,["V", "E", "I", "N", "T", "I", "C", "I", "N", "C", "O"]  // 8
+        ,["M", "E", "D", "I", "A", "C", "U", "A", "R", "T", "O"]] // 9
     written_hours_array:
         ["SON LAS DOCE", "ES LA UNA", "SON LAS DOS", "SON LAS TRES", "SON LAS CUATRO", "SON LAS CINCO",
         "SON LAS SEIS", "SON LAS SIETE", "SON LAS OCHO", "SON LAS NUEVE", "SON LAS DIEZ",
         "SON LAS ONCE"]
     written_minutes_array:
-        ["", "Y CINCO", "Y DIEZ", "Y CUARTO", "Y VIENTE", "Y VIENTICINCO", "Y MEDIA",
-        "MENOS VIENTICINCO", "MENOS VIENTE", "MENOS CUARTO", "MENOS DIEZ", "MENOS CINCO"]
+        ["", "Y CINCO", "Y DIEZ", "Y CUARTO", "Y VEINTE", "Y VEINTICINCO", "Y MEDIA",
+        "MENOS VEINTICINCO", "MENOS VEINTE", "MENOS CUARTO", "MENOS DIEZ", "MENOS CINCO"]
 }
