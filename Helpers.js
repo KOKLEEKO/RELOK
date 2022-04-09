@@ -8,8 +8,12 @@ function createTable(rows, columns, defaultValue) {
    return new Array(rows).fill().map(() => new Array(columns).fill(defaultValue))
 }
 
-function unimplemented (name) {
-    console.error(`[${name}] not implemented`)
+function createUndefinedMethod(object, name, ...args) {
+    Object.defineProperty(object, name, {value: (args) => unimplementedMethodWarning(name) });
+}
+
+function unimplementedMethodWarning (name) {
+    console.warn(`[${name}] not implemented`)
 }
 
 function inRange (min, value, max) {
