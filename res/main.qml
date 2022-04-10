@@ -8,42 +8,56 @@ Window {
     id: root
 
     function detectAndUseDeviceLanguage() {
-        switch (Qt.locale().name.substring(0,2)) {
-        case "es":
-            language_url = "qrc:/spanish.qml"
-            break;
-        default:
-        case "en":
-            language_url = "qrc:/english.qml"
-            break;
+        if (language_url == "") {
+            switch (Qt.locale().name.substring(0,2)) {
+            case "es":
+                language_url = "qrc:/spanish.qml"
+                break;
+            default:
+            case "en":
+                language_url = "qrc:/english.qml"
+                break;
+            }
         }
     }
 
     function updateTable() {
-        //var time = "00:00"
         var splitted_time = time.split(':')
         var hours_value = splitted_time[0]
-        var minutes_value = splitted_time[1]
+        const minutes_value = splitted_time[1]
+        const tmp_isSpecial = (hours_value === minutes_value)
         if (minutes_value >= 35)
             hours_value++
         hours_array_index = hours_value % 12
         minutes_array_index = Math.floor(minutes_value/5)
-        tmp_onoff_dots = minutes_value % 5
+        const tmp_onoff_dots = minutes_value % 5
         console.debug(time,
                       language.written_time(hours_array_index, minutes_array_index),
                       tmp_onoff_dots)
-        if (previous_hours_array_index !== hours_array_index) {
-            if (previous_hours_array_index !== -1)
-                language["hours_" + hours_array[previous_hours_array_index]](false)
-            language["hours_" + hours_array[hours_array_index]](true)
-            previous_hours_array_index = hours_array_index
+        if (tmp_isSpecial) {
+            language.special_message(true)
+        } else {
+            if (previous_hours_array_index !== hours_array_index) {
+                if (previous_hours_array_index !== -1)
+                    language["hours_" + hours_array[previous_hours_array_index]](false)
+                if (!tmp_isSpecial) {
+                    language["hours_" + hours_array[hours_array_index]](true)
+                    previous_hours_array_index = hours_array_index
+                }
+            }
+            if (previous_minutes_array_index !== minutes_array_index) {
+                if (previous_minutes_array_index !== -1)
+                    language["minutes_" + minutes_array[previous_minutes_array_index]](false)
+                if (!tmp_isSpecial) {
+                    language["minutes_" + minutes_array[minutes_array_index]](true)
+                    previous_minutes_array_index = minutes_array_index
+                }
+            }
         }
-        if (previous_minutes_array_index !== minutes_array_index) {
-            if (previous_minutes_array_index !== -1)
-                language["minutes_" + minutes_array[previous_minutes_array_index]](false)
-            language["minutes_" + minutes_array[minutes_array_index]](true)
-            previous_minutes_array_index = minutes_array_index
-        }
+        if (wasSpecial)
+            language.special_message(false)
+        wasSpecial = tmp_isSpecial
+
         //update table and dots at the same time
         onoff_table = tmp_enable_table
         onoff_dots = tmp_onoff_dots
@@ -57,8 +71,8 @@ Window {
     readonly property real dot_size: 10
 
     property string time
+    property bool wasSpecial: false
     property int onoff_dots: 4
-    property int tmp_onoff_dots: 0
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
     readonly property int hours_array_step: 1
@@ -143,7 +157,7 @@ Window {
             Repeater {
                 model: 4
                 Rectangle {
-                    readonly property bool isEnabled: index+1 <= tmp_onoff_dots
+                    readonly property bool isEnabled: index+1 <= onoff_dots
                     color: isEnabled ? on_color : off_color
                     width: dot_size
                     height: width
