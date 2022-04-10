@@ -22,9 +22,9 @@ Window {
     }
 
     function updateTable() {
-        var splitted_time = time.split(':')
-        var hours_value = splitted_time[0]
-        const minutes_value = splitted_time[1]
+        var split_time = time.split(':')
+        var hours_value = split_time[0]
+        const minutes_value = split_time[1]
         const tmp_is_special = enable_special_message && (hours_value === minutes_value)
         if (minutes_value >= 35)
             hours_value++
