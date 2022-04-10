@@ -1,5 +1,3 @@
-import QtQuick 2.15
-
 Language {
     function it_is(enable) {
         tmp_enable_table[0][0] = enable
