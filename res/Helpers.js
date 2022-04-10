@@ -20,20 +20,24 @@ function inRange (min, value, max) {
     return (min <= value && value <= max)
 }
 
+/*
+    The following method is used only during development
+    to detect which letter can be added to fill the gaps in a table
+*/
 function missingLetters(table) {
     var missingLetters = new Array(26).fill().map((element, index) => String.fromCharCode(index+65))
-    var availableSpot = 0;
+    var availableSpot = 0
     const rows = table.length
     for (var row = 0; row < rows; ++row) {
         const columns = table[row].length
         for (var column = 0; column < columns; ++column) {
             const letter = table[row][column]
             if (letter === " ") {
-                availableSpot++;
+                availableSpot++
             } else {
                 const index = missingLetters.indexOf(letter);
                 if (index !== -1) {
-                  missingLetters.splice(index, 1);
+                  missingLetters.splice(index, 1)
                 }
             }
         }
