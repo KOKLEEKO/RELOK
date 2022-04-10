@@ -12,11 +12,11 @@ Window {
             switch (Qt.locale().name.substring(0,2)) {
             case "es":
                 language_url = "qrc:/spanish.qml"
-                break;
+                break
             default:
             case "en":
                 language_url = "qrc:/english.qml"
-                break;
+                break
             }
         }
     }
