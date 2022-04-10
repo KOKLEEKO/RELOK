@@ -5,5 +5,6 @@
         <file>Language.qml</file>
         <file>Helpers.js</file>
         <file>english.qml</file>
+        <file>french.qml</file>
     </qresource>
 </RCC>
