@@ -25,7 +25,7 @@ Window {
         var splitted_time = time.split(':')
         var hours_value = splitted_time[0]
         const minutes_value = splitted_time[1]
-        const tmp_isSpecial = (hours_value === minutes_value)
+        const tmp_is_special = enable_special_message && (hours_value === minutes_value)
         if (minutes_value >= 35)
             hours_value++
         hours_array_index = hours_value % 12
@@ -34,13 +34,13 @@ Window {
         console.debug(time,
                       language.written_time(hours_array_index, minutes_array_index),
                       tmp_onoff_dots)
-        if (tmp_isSpecial) {
+        if (tmp_is_special) {
             language.special_message(true)
         } else {
             if (previous_hours_array_index !== hours_array_index) {
                 if (previous_hours_array_index !== -1)
                     language["hours_" + hours_array[previous_hours_array_index]](false)
-                if (!tmp_isSpecial) {
+                if (!tmp_is_special) {
                     language["hours_" + hours_array[hours_array_index]](true)
                     previous_hours_array_index = hours_array_index
                 }
@@ -48,15 +48,15 @@ Window {
             if (previous_minutes_array_index !== minutes_array_index) {
                 if (previous_minutes_array_index !== -1)
                     language["minutes_" + minutes_array[previous_minutes_array_index]](false)
-                if (!tmp_isSpecial) {
+                if (!tmp_is_special) {
                     language["minutes_" + minutes_array[minutes_array_index]](true)
                     previous_minutes_array_index = minutes_array_index
                 }
             }
         }
-        if (wasSpecial)
+        if (was_special)
             language.special_message(false)
-        wasSpecial = tmp_isSpecial
+        was_special = tmp_is_special
 
         //update table and dots at the same time
         onoff_table = tmp_enable_table
@@ -69,9 +69,10 @@ Window {
     readonly property color on_color: "red"
     readonly property color off_color: "grey"
     readonly property real dot_size: 10
+    property bool enable_special_message: true
 
     property string time
-    property bool wasSpecial: false
+    property bool was_special: false
     property int onoff_dots: 4
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
