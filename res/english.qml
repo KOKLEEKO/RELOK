@@ -106,9 +106,8 @@ Language {
         tmp_enable_table[6][9] = enable
         tmp_enable_table[6][10] = enable
     }
-    function hours_08(enable) { //"IT IS _ HEIGHT _"
+    function hours_08(enable) { //"IT IS _ EIGHT _"
         it_is(enable)
-        tmp_enable_table[5][0] = enable
         tmp_enable_table[5][1] = enable
         tmp_enable_table[5][2] = enable
         tmp_enable_table[5][3] = enable
@@ -212,13 +211,13 @@ Language {
         ,["T", "I", "M", "E", "Q", "U", "A", "R", "T", "E", "R"]  // 2
         ,["T", "E", "N", " ", "T", "O", " ", "R", "I", "S", "E"]  // 3
         ,["P", "A", "S", "T", " ", "E", "L", "E", "V", "E", "N"]  // 4
-        ,["H", "E", "I", "G", "H", "T", " ", "N", "I", "N", "E"]  // 5
+        ,[" ", "E", "I", "G", "H", "T", " ", "N", "I", "N", "E"]  // 5
         ,["T", "W", "E", "L", "V", "E", "S", "E", "V", "E", "N"]  // 6
         ,["T", "E", "N", "F", "I", "V", "E", "F", "O", "U", "R"]  // 7
         ,["S", "I", "X", "T", "H", "R", "E", "E", "T", "W", "O"]  // 8
         ,["O", "N", "E", " ", "O", "'", "C", "L", "O", "C", "K"]] // 9
     written_hours_array:
-        ["TWELVE", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "HEIGHT", "NINE", "TEN",
+        ["TWELVE", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN",
         "ELEVEN"]
     written_minutes_array:
         ["O'CLOCK", "FIVE PAST", "TEN PAST", "QUARTER PAST", "TWENTY PAST", "TWENTY-FIVE PAST", "HALF PAST",
