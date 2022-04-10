@@ -45,7 +45,6 @@ Language {
     }
     function twentyfive_minutes(enable) {
         twenty_minutes(enable)
-        tmp_enable_table[1][6] = enable
         five_minutes(enable)
     }
 
@@ -138,7 +137,6 @@ Language {
     }
 
     function minutes_00(enable) { // "O'CLOCK"
-        tmp_enable_table[9][4] = enable
         tmp_enable_table[9][5] = enable
         tmp_enable_table[9][6] = enable
         tmp_enable_table[9][7] = enable
@@ -162,7 +160,7 @@ Language {
         twenty_minutes(enable)
         past(enable)
     }
-    function minutes_25(enable) { //"TWENTY-FIVE PAST"
+    function minutes_25(enable) { //"TWENTY FIVE PAST"
         twentyfive_minutes(enable)
         past(enable)
     }
@@ -173,7 +171,7 @@ Language {
         tmp_enable_table[0][9] = enable
         past(enable)
     }
-    function minutes_35(enable) { //"TWENTY-FIVE TO"
+    function minutes_35(enable) { //"TWENTY FIVE TO"
         twentyfive_minutes(enable)
         to(enable)
     }
@@ -194,9 +192,23 @@ Language {
         to(enable)
     }
 
+    function special_message(enable) { //"IT IS TIME TO RISE"
+        it_is(enable)
+        tmp_enable_table[2][0] = enable
+        tmp_enable_table[2][1] = enable
+        tmp_enable_table[2][2] = enable
+        tmp_enable_table[2][3] = enable
+        tmp_enable_table[3][4] = enable
+        tmp_enable_table[3][5] = enable
+        tmp_enable_table[3][7] = enable
+        tmp_enable_table[3][8] = enable
+        tmp_enable_table[3][9] = enable
+        tmp_enable_table[3][10] = enable
+    }
+
     function written_time(hours_array_index, minutes_array_index){
         var written_time = "IT IS"
-        if (minutes_array_index > 0)
+        if (minutes_array_index !== 0)
             written_time += ' ' + written_minutes_array[minutes_array_index]
         written_time += ' ' + written_hours_array[hours_array_index]
         if (minutes_array_index === 0)
@@ -205,21 +217,21 @@ Language {
     }
 
     table:
-        // 0    1    2    3    4    5    6    7    8    9   10
-        [["I", "T", " ", "I", "S", " ", "H", "A", "L", "F", " "]  // 0
-        ,["T", "W", "E", "N", "T", "Y", "-", "F", "I", "V", "E"]  // 1
-        ,["T", "I", "M", "E", "Q", "U", "A", "R", "T", "E", "R"]  // 2
-        ,["T", "E", "N", " ", "T", "O", " ", "R", "I", "S", "E"]  // 3
-        ,["P", "A", "S", "T", " ", "E", "L", "E", "V", "E", "N"]  // 4
-        ,[" ", "E", "I", "G", "H", "T", " ", "N", "I", "N", "E"]  // 5
-        ,["T", "W", "E", "L", "V", "E", "S", "E", "V", "E", "N"]  // 6
-        ,["T", "E", "N", "F", "I", "V", "E", "F", "O", "U", "R"]  // 7
-        ,["S", "I", "X", "T", "H", "R", "E", "E", "T", "W", "O"]  // 8
-        ,["O", "N", "E", " ", "O", "'", "C", "L", "O", "C", "K"]] // 9
+        // 0    1    2    3    4    5     6    7    8    9   10
+        [["I", "T", "B", "I", "S", "D" , "H", "A", "L", "F", "M"]  // 0
+        ,["T", "W", "E", "N", "T", "Y" , "X", "F", "I", "V", "E"]  // 1
+        ,["T", "I", "M", "E", "Q", "U" , "A", "R", "T", "E", "R"]  // 2
+        ,["T", "E", "N", "Z", "T", "O" , "U", "R", "I", "S", "E"]  // 3
+        ,["P", "A", "S", "T", "O", "E" , "L", "E", "V", "E", "N"]  // 4
+        ,["H", "E", "I", "G", "H", "T" , "A", "N", "I", "N", "E"]  // 5
+        ,["T", "W", "E", "L", "V", "E" , "S", "E", "V", "E", "N"]  // 6
+        ,["T", "E", "N", "F", "I", "V" , "E", "F", "O", "U", "R"]  // 7
+        ,["S", "I", "X", "T", "H", "R" , "E", "E", "T", "W", "O"]  // 8
+        ,["O", "N", "E", "A", "T", "O'", "C", "L", "O", "C", "K"]] // 9
     written_hours_array:
         ["TWELVE", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN",
         "ELEVEN"]
     written_minutes_array:
-        ["O'CLOCK", "FIVE PAST", "TEN PAST", "QUARTER PAST", "TWENTY PAST", "TWENTY-FIVE PAST", "HALF PAST",
-        "TWENTY-FIVE TO", "TWENTY TO", "QUARTER TO", "TEN TO", "FIVE TO"]
+        ["O'CLOCK", "FIVE PAST", "TEN PAST", "QUARTER PAST", "TWENTY PAST", "TWENTY FIVE PAST", "HALF PAST",
+        "TWENTY FIVE TO", "TWENTY TO", "QUARTER TO", "TEN TO", "FIVE TO"]
 }
