@@ -116,7 +116,7 @@ Window {
         repeat: true
         running: true
         triggeredOnStart: true
-        onTriggered: time = new Date().toLocaleTimeString(Qt.locale("en_US"), "hh:mm:a")
+        onTriggered: time = new Date().toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
     }
     Column {
         id: table
