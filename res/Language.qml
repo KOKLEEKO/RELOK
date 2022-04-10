@@ -9,7 +9,10 @@ QtObject {
 
 
     Component.onCompleted: {
-        Helpers.createUndefinedMethod(this, "written_time","hours_array_index", "minutes_array_index")
+        Helpers.createUndefinedMethod(this,
+                                      "written_time",
+                                      "hours_array_index",
+                                      "minutes_array_index")
         Helpers.createUndefinedMethod(this, "special_message","enable")
         for (var hours of hours_array) {
             let method_name = "hours_" + hours
