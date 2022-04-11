@@ -73,9 +73,10 @@ Window {
     readonly property color background_color: "black"
     readonly property color on_color: "red"
     readonly property color off_color: "grey"
-    readonly property real dot_size: 10
+    readonly property real tableWidth: Math.min(height, width)*9/10
+    readonly property real cellWidth: tableWidth/columns
+    readonly property real dot_size: cellWidth/4
     property bool enable_special_message: true
-    property bool isDebug: false
 
     property string time
     property bool was_AM
@@ -108,44 +109,42 @@ Window {
 
     width: 640
     height: 480
+    minimumWidth: 180
+    minimumHeight: minimumWidth
     visible: true
     color: background_color
     Component.onCompleted: { timeChanged.connect(updateTable); detectAndUseDeviceLanguage() }
 
-    Loader {
-        active: true
-        source: language_url
-        onLoaded: language = item
-    }
-
+    Loader { source: language_url; onLoaded: language = item }
     Timer {
-        property int fake_minutes: 0
-        property int reference: Date.now()
+        property bool isDebug: false
+        property int fake_counter: 0
+        property bool jumpToMinute: false
+        property bool jumpTo5Minutes: false
+        property bool jumpToHour: false
+        readonly property int minuteToMs:60000
+        readonly property int reference: Date.now()
         interval: 1000
         repeat: true
         running: true
         triggeredOnStart: true
         onTriggered: {
             if (isDebug) {
-                time = new Date(reference + fake_minutes*60000)
+                time = new Date(reference +
+                                (jumpToMinute + jumpTo5Minutes*5 + jumpToHour*60)*
+                                fake_counter*minuteToMs)
                 .toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
-                fake_minutes++;
+                fake_counter++;
             } else {
                 time = new Date().toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
             }
         }
     }
+
     Column {
-        id: table
-        readonly property real horizontalMargin: root.width/4
-        readonly property real verticalMargin: root.height/4
-        anchors {
-            fill: parent
-            leftMargin: horizontalMargin
-            rightMargin: horizontalMargin
-            topMargin: verticalMargin
-            bottomMargin: verticalMargin
-        }
+        anchors.centerIn: parent
+        width: tableWidth
+        height: width
         Repeater {
             model: language.table
             Row {
@@ -157,24 +156,33 @@ Window {
                         readonly property int rowIndex: repeater.rowIndex
                         readonly property int columnIndex: index
                         readonly property bool isEnabled: onoff_table[rowIndex][columnIndex]
-                        width: table.width/columns
-                        height: spacer.height
+                        width: cellWidth
+                        height: width
                         text: modelData
                         color: isEnabled ? on_color : off_color
                         style: isEnabled ? Text.Outline : Text.Normal
                         styleColor: Qt.lighter(color, 4/3)
+                        horizontalAlignment : Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        fontSizeMode: Text.Fit
+                        minimumPointSize: 8
+                        font {
+                            pointSize: 72
+                            kerning: false
+                            preferShaping: false
+                        }
                     }
                 }
             }
         }
-        Item {id: spacer; height: table.height/(rows+2); width: 1 }
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: dot_size
+            spacing: cellWidth - dot_size
+            topPadding: spacing/2
             Repeater {
                 model: 4
                 Rectangle {
-                    readonly property bool isEnabled: index+1 <= onoff_dots
+                    readonly property bool isEnabled: (index+1 <= onoff_dots)
                     color: isEnabled ? on_color : off_color
                     width: dot_size
                     height: width
