@@ -232,7 +232,7 @@ Language {
         var written_time = "IL EST "
         if (hours_array_index === 0) {
             const split_written_hour = written_hours_array[0].split('|')
-            written_time += isAM ? split_written_hour[0] : split_written_hour[1]
+            written_time += split_written_hour[isAM ? 0 : 1]
         } else {
             written_time += written_hours_array[hours_array_index]
             written_time += (hours_array_index > 1) ? " HEURES" : " HEURE"
