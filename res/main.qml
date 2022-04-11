@@ -122,8 +122,9 @@ Window {
         property bool jumpToMinute: false
         property bool jumpTo5Minutes: false
         property bool jumpToHour: false
+        readonly property int dayToMs: 86400000
         readonly property int minuteToMs:60000
-        readonly property int reference: Date.now()
+        readonly property int reference: new Date().setTime(Math.random()*dayToMs)
         interval: 1000
         repeat: true
         running: true
