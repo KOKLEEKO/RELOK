@@ -75,6 +75,7 @@ Window {
     readonly property color off_color: "grey"
     readonly property real dot_size: 10
     property bool enable_special_message: true
+    property bool isDebug: false
 
     property string time
     property bool was_AM
@@ -118,11 +119,21 @@ Window {
     }
 
     Timer {
+        property int fake_minutes: 0
+        property int reference: Date.now()
         interval: 1000
         repeat: true
         running: true
         triggeredOnStart: true
-        onTriggered: time = new Date().toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
+        onTriggered: {
+            if (isDebug) {
+                time = new Date(reference + fake_minutes*60000)
+                .toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
+                fake_minutes++;
+            } else {
+                time = new Date().toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
+            }
+        }
     }
     Column {
         id: table
