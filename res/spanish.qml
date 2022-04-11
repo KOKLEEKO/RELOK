@@ -227,8 +227,8 @@ Language {
     }
 
     function written_time(hours_array_index, minutes_array_index, isAM) {
-        var written_time = hours_array_index === 1 ? "ES LA" : "SON LAS"
-        written_time += ' ' + written_hours_array[hours_array_index]
+        var written_time = hours_array_index === 1 ? "ES LA " : "SON LAS "
+        written_time += written_hours_array[hours_array_index]
         written_time += ' ' + written_minutes_array[minutes_array_index]
         return written_time
     }
@@ -245,7 +245,6 @@ Language {
         ,["W", "V", "E", "I", "N", "T", "E", "D", "I", "E", "Z"]  // 7
         ,["V", "E", "I", "N", "T", "I", "C", "I", "N", "C", "O"]  // 8
         ,["M", "E", "D", "I", "A", "C", "U", "A", "R", "T", "O"]] // 9
-
     written_hours_array:
         ["DOCE", "UNA", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE", "DIEZ",
         "ONCE"]
