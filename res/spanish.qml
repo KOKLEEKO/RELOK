@@ -71,6 +71,7 @@ Language {
         tmp_onoff_table[6][3] = enable
     }
     function hours_01(enable, isAM) { //"ES LA UNA"
+        es_la(enable)
         tmp_onoff_table[0][8] = enable
         tmp_onoff_table[0][9] = enable
         tmp_onoff_table[0][10] = enable
