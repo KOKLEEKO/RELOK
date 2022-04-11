@@ -29,7 +29,9 @@ Window {
         var hours_value = split_time[0]
         const minutes_value = split_time[1]
         const is_AM = (split_time[2] === "am")
-        const is_special = enable_special_message && (hours_value === minutes_value)
+        const is_special = enable_special_message &&
+                         (hours_value[0] === hours_value[1]) &&
+                         (hours_value === minutes_value)
         if (minutes_value >= 35)
             hours_value++
         hours_array_index = hours_value % 12
