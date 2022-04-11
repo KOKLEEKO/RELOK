@@ -40,6 +40,8 @@ Window {
         console.debug(time,
                       language.written_time(hours_array_index, minutes_array_index, is_AM),
                       tmp_onoff_dots)
+        if (was_special)
+            language.special_message(false)
         if (is_special)
             language.special_message(true)
         if (previous_hours_array_index !== hours_array_index) {
@@ -59,8 +61,6 @@ Window {
                 previous_minutes_array_index = minutes_array_index
             }
         }
-        if (was_special)
-            language.special_message(false)
         was_special = is_special
 
         //update table and dots at the same time
