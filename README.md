@@ -25,7 +25,7 @@ This feature can be deactivated
 <details>
   <summary> ➕ See more </summary>
   
-  - #### 🕞 05:00 AM|PM
+  - #### 🕠 05:00 AM|PM
     <img width="752" alt="🇺🇸 (05:00 AM|PM)" src="https://user-images.githubusercontent.com/15193153/162683884-e6ef8f53-1cc0-4fee-9585-46a46eda7172.png">
 
   - #### 🕥 10:30 AM|PM
