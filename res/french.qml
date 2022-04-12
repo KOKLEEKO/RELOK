@@ -210,7 +210,7 @@ Language {
         cinq_minutes(enable)
     }
 
-    function special_message(enable) { //"IL EST L'HEURE DE SE DÉPASSER"
+    function special_message(enable) {
         il_est(enable)
         tmp_onoff_table[5][4] = enable
         heure(enable)
