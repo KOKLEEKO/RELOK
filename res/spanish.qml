@@ -201,7 +201,7 @@ Language {
         cinco_minutos(enable)
     }
 
-    function special_message(enable) { // "ES EL MOMENTO DE SUPERARSE"
+    function special_message(enable) {
         tmp_onoff_table[0][0] = enable
         tmp_onoff_table[0][1] = enable
         tmp_onoff_table[0][4] = enable
