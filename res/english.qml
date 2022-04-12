@@ -192,7 +192,7 @@ Language {
         to(enable)
     }
 
-    function special_message(enable) { //"IT IS TIME TO RISE"
+    function special_message(enable) {
         it_is(enable)
         tmp_onoff_table[2][0] = enable
         tmp_onoff_table[2][1] = enable
