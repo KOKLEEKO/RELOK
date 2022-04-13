@@ -32,7 +32,10 @@ This feature can be deactivated
     <img width="752" alt="🇺🇸 (10:30 AM|30)" src="https://user-images.githubusercontent.com/15193153/162683695-aa76f62f-000c-49bd-ab2b-5a17c84e76f3.png">
 </details>
 
-#### 🎲 Can you find the message that has been hidden in this grid ([without looking at the code](https://github.com/johanremilien/WordClock/blob/main/res/english.qml#L195-L207))? 
+#### 🎲 Can you find the message that has been hidden in this grid ([without looking at the code](https://github.com/johanremilien/WordClock/blob/main/res/english.qml#L195-L207))?
+
+<img width="752" alt="🇺🇸 table)" src="https://user-images.githubusercontent.com/15193153/163260654-393641a8-34b2-4403-9e9b-f3b54cf4b120.png">
+
 <details>
   <summary> 👀  The secret message is hidden here </summary>
   <img width="752" alt="🇺🇸 (00:00 AM)" src="https://user-images.githubusercontent.com/15193153/162680132-23fceb49-6dfc-4b97-ac28-293961389ddd.png">
@@ -70,6 +73,9 @@ This feature can be deactivated
 </details>
 
 ### 🎲 ¿Puedes descubrir el mensaje que se ha escondido en esta cuadrícula ([sin mirar el código](https://github.com/johanremilien/WordClock/blob/main/res/spanish.qml#L204-L227))?
+
+<img width="752" alt="🇪🇸 table" src="https://user-images.githubusercontent.com/15193153/163260838-c7b38c36-2d22-48e4-a5ce-4eb0e519e956.png">
+
 <details>
   <summary> 👀 El mensaje secreto se esconde aquí</summary>
   <img width="752" alt="🇪🇸 (11:11 AM)" src="https://user-images.githubusercontent.com/15193153/162683183-0a80e0f6-6a26-4ab9-b85f-46c48e60fe63.png">
@@ -105,7 +111,10 @@ This feature can be deactivated
     <img width="752" alt="🇫🇷 (06:30 AM|PM)" src="https://user-images.githubusercontent.com/15193153/162686163-3bb3ab78-cd70-4932-9197-e7cbe8ff6e19.png">
 </details>
 
-#### 🎲 Sauras-tu trouver le message qui a été dissimulé dans cette grille ([sans regarder le code](https://github.com/johanremilien/WordClock/blob/main/res/french.qml#L213-L229))? 
+#### 🎲 Sauras-tu trouver le message qui a été dissimulé dans cette grille ([sans regarder le code](https://github.com/johanremilien/WordClock/blob/main/res/french.qml#L213-L229))?
+
+<img width="752" alt="🇫🇷 table" src="https://user-images.githubusercontent.com/15193153/163260247-e7f2dca6-11ad-47d4-bc24-37ce72438524.png">
+
 <details>
   <summary> 👀 Le message secret est caché ici</summary>
   <img width="752" alt="🇫🇷 (22:22 PM)" src="https://user-images.githubusercontent.com/15193153/162674357-3b56e001-e1fd-46c8-b443-fc59f1672671.png">
