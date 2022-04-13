@@ -81,7 +81,7 @@ Window {
     property string time
     property bool was_AM
     property bool was_special: false
-    property int onoff_dots: 4
+    property int onoff_dots: 0
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
     readonly property int hours_array_step: 1
