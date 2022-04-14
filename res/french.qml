@@ -18,15 +18,15 @@ Language {
         tmp_onoff_table[5][10] = enable
     }
     function et(enable) {
-        tmp_onoff_table[6][0] = enable
         tmp_onoff_table[6][1] = enable
+        tmp_onoff_table[6][2] = enable
     }
     function moins(enable) {
-        tmp_onoff_table[6][2] = enable
         tmp_onoff_table[6][3] = enable
         tmp_onoff_table[6][4] = enable
         tmp_onoff_table[6][5] = enable
         tmp_onoff_table[6][6] = enable
+        tmp_onoff_table[6][7] = enable
     }
     function cinq_minutes(enable) {
         tmp_onoff_table[8][6] = enable
@@ -180,12 +180,13 @@ Language {
     function minutes_25(enable) { //"VINGT-CINQ"
         vingtcinq_minutes(enable)
     }
-    function minutes_30(enable) { //"ET DEMI"
+    function minutes_30(enable) { //"ET DEMIE"
         et(enable)
-        tmp_onoff_table[6][7] = enable
-        tmp_onoff_table[6][8] = enable
-        tmp_onoff_table[6][9] = enable
-        tmp_onoff_table[6][10] = enable
+        tmp_onoff_table[7][6] = enable
+        tmp_onoff_table[7][7] = enable
+        tmp_onoff_table[7][8] = enable
+        tmp_onoff_table[7][9] = enable
+        tmp_onoff_table[7][10] = enable
     }
     function minutes_35(enable) { //"MOINS VINGT-CINQ"
         moins(enable)
@@ -214,18 +215,16 @@ Language {
         il_est(enable)
         tmp_onoff_table[5][4] = enable
         heure(enable)
+        tmp_onoff_table[6][0] = enable
+        tmp_onoff_table[6][1] = enable
         tmp_onoff_table[6][7] = enable
         tmp_onoff_table[6][8] = enable
         tmp_onoff_table[7][0] = enable
         tmp_onoff_table[7][1] = enable
+        tmp_onoff_table[7][2] = enable
         tmp_onoff_table[7][3] = enable
         tmp_onoff_table[7][4] = enable
         tmp_onoff_table[7][5] = enable
-        tmp_onoff_table[7][6] = enable
-        tmp_onoff_table[7][7] = enable
-        tmp_onoff_table[7][8] = enable
-        tmp_onoff_table[7][9] = enable
-        tmp_onoff_table[7][10] = enable
     }
 
     function written_time(hours_array_index, minutes_array_index, isAM){
@@ -249,14 +248,14 @@ Language {
         ,["S", "I", "X", "H", "U" , "I", "T", "N", "E", "U", "F"]  // 3
         ,["M", "I", "D", "I", "X" , "M", "I", "N", "U", "I", "T"]  // 4
         ,["O", "N", "Z", "E", "L'", "H", "E", "U", "R", "E", "S"]  // 5
-        ,["E", "T", "M", "O", "I" , "N", "S", "D", "E", "M", "I"]  // 6
-        ,["S", "E", "S", "D", "É" , "P", "A", "S", "S", "E", "R"]  // 7
+        ,["D", "E", "T", "M", "O" , "I", "N", "S", "E", "N", "S"]  // 6
+        ,["B", "O", "U", "G", "E" , "R", "D", "E", "M", "I", "E"]  // 7
         ,["V", "I", "N", "G", "T" , "K", "C", "I", "N", "Q", "W"]  // 8
         ,["L", "E", "S", "Q", "U" , "A", "R", "T", "D", "I", "X"]] // 9
     written_hours_array:
         ["MINUIT|MIDI", "UNE", "DEUX", "TROIS", "QUATRE", "CINQ", "SIX", "SEPT", "HUIT", "NEUF",
         "DIX", "ONZE"]
     written_minutes_array:
-        ["", "CINQ", "DIX", "ET QUART", "VINGT", "VINGT-CINQ", "ET DEMI",
+        ["", "CINQ", "DIX", "ET QUART", "VINGT", "VINGT-CINQ", "ET DEMIE",
         "MOINS VINGT-CINQ", "MOINS VINGT", "MOINS LE QUART", "MOINS DIX", "MOINS CINQ"]
 }
