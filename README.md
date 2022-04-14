@@ -100,24 +100,26 @@ This feature can be deactivated
 ## 🥐 French version:
 ### 📸 Exemples
 - #### ⌚️ 08:42 AM|PM
-  <img width="752" alt="🇫🇷 (08:42 AM)" src="https://user-images.githubusercontent.com/15193153/162669723-5b28ea1c-6c02-4f5a-8fe9-bfdc4bde592a.png">
+  <img width="752" alt="🇫🇷 (08:42 AM)" src="https://user-images.githubusercontent.com/15193153/163483966-d83d27f3-1095-4bb0-8810-c887f6c9d289.png">
 
 <details>
   <summary> ➕ En voir plus </summary>
 
   - #### 🕛 12:00 AM
-    <img width="752" alt="🇫🇷 (12:00 AM)" src="https://user-images.githubusercontent.com/15193153/162686332-272cde3a-589e-4a77-af3c-6df6ce101076.png">
+    <img width="752" alt="🇫🇷 (12:00 AM)" src="https://user-images.githubusercontent.com/15193153/163484018-2a64b60a-a314-4130-b3f0-d1e9205e9afb.png">
+
   - #### 🕡 06:30 AM|PM
-    <img width="752" alt="🇫🇷 (06:30 AM|PM)" src="https://user-images.githubusercontent.com/15193153/162686163-3bb3ab78-cd70-4932-9197-e7cbe8ff6e19.png">
+    <img width="752" alt="🇫🇷 (06:30 AM|PM)" src="https://user-images.githubusercontent.com/15193153/163484065-17a64142-21cb-438a-8cbe-d8365b8c3e1f.png">
+
 </details>
 
-#### 🎲 Sauras-tu trouver le message qui a été dissimulé dans cette grille ([sans regarder le code](https://github.com/johanremilien/WordClock/blob/main/res/french.qml#L213-L229))?
+#### 🎲 Sauras-tu trouver le message qui a été dissimulé dans cette grille ([sans regarder le code](https://github.com/johanremilien/WordClock/blob/main/res/french.qml#L214-L228))?
 
-<img width="752" alt="🇫🇷 table" src="https://user-images.githubusercontent.com/15193153/163260247-e7f2dca6-11ad-47d4-bc24-37ce72438524.png">
+<img width="752" alt="🇫🇷 table" src="https://user-images.githubusercontent.com/15193153/163484163-f8fae234-479c-4cd4-aaad-af98bf4c8ec3.png">
 
 <details>
   <summary> 👀 Le message secret est caché ici</summary>
-  <img width="752" alt="🇫🇷 (22:22 PM)" src="https://user-images.githubusercontent.com/15193153/162674357-3b56e001-e1fd-46c8-b443-fc59f1672671.png">
+  <img width="752" alt="🇫🇷 (22:22 PM)" src="https://user-images.githubusercontent.com/15193153/163484447-e8b58713-d808-41c0-8295-16144ef89f68.png">
 
   #### Tu l'avais trouvé ? 🧠 
   <details>
@@ -140,5 +142,3 @@ This feature can be deactivated
 - 🍕 Italian
 - 🥨 German
 - ⚽ Portuguese
-
-

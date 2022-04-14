@@ -28,12 +28,14 @@ Window {
         const split_time = time.split(':')
         var hours_value = split_time[0]
         const minutes_value = split_time[1]
-        const is_AM = (split_time[2] === "am")
+        var is_AM = (split_time[2] === "am")
         const is_special = enable_special_message &&
                          (hours_value[0] === hours_value[1]) &&
                          (hours_value === minutes_value)
-        if (minutes_value >= 35)
-            hours_value++
+        if (minutes_value >= 35) {
+            if (++hours_value >= 24)
+                is_AM ^= true
+        }
         hours_array_index = hours_value % 12
         minutes_array_index = Math.floor(minutes_value/5)
         const tmp_onoff_dots = minutes_value % 5
