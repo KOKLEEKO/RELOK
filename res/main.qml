@@ -115,7 +115,11 @@ Window {
     minimumHeight: minimumWidth
     visible: true
     color: background_color
-    Component.onCompleted: { timeChanged.connect(updateTable); detectAndUseDeviceLanguage() }
+    Component.onCompleted: {
+        timeChanged.connect(updateTable)
+        detectAndUseDeviceLanguage()
+        DeviceAccess.request()
+    }
 
     Loader { source: language_url; onLoaded: language = item }
     Timer {
