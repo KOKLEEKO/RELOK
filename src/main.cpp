@@ -3,7 +3,7 @@
 #include <QQmlContext>
 #include <memory>
 
-#include "iDevice.h"
+#include "DeviceAccess.h"
 
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -12,10 +12,8 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   QQmlApplicationEngine engine;
-#ifdef Q_OS_IOS
-  auto device = std::make_unique<iDevice>();
-  engine.rootContext()->setContextProperty("DeviceAccess", device.get());
-#endif
+  auto deviceAccess = std::make_unique<DeviceAccess>();
+  engine.rootContext()->setContextProperty("DeviceAccess", deviceAccess.get());
   const QUrl url(QStringLiteral("qrc:/main.qml"));
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &app,

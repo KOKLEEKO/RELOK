@@ -9,7 +9,6 @@ CONFIG += \
     sdk_no_version_check
 
 SOURCES += \
-           src/iDevice.cpp \
            src/main.cpp
 
 RESOURCES += res/qml.qrc
@@ -30,10 +29,13 @@ DISTFILES += \
              .github/PULL_REQUEST_TEMPLATE \
 
 ios {
-    OBJECTIVE_SOURCES += src/iDevice.mm
+    OBJECTIVE_SOURCES += src/DeviceAccess.mm
     QMAKE_INFO_PLIST = ios/Info.plist
+} else {
+SOURCES += \
+  src/DeviceAccess.cpp
 }
 
 HEADERS += \
-  src/iDevice.h
+  src/DeviceAccess.h
 

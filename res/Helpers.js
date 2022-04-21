@@ -17,8 +17,12 @@ function unimplementedMethodWarning (name) {
     console.warn(`[${name}] not implemented`)
 }
 
-function inRange (min, value, max) {
+function inRange (value, min, max) {
     return (min <= value && value <= max)
+}
+
+function clamp(value, min, max) {
+    return Math.max(min, Math.min(value, max))
 }
 
 /*
@@ -38,10 +42,17 @@ function missingLetters(table) {
             } else {
                 const index = missingLetters.indexOf(letter);
                 if (index !== -1) {
-                  missingLetters.splice(index, 1)
+                    missingLetters.splice(index, 1)
                 }
             }
         }
     }
     console.log(missingLetters, availableSpot)
+}
+
+function toggle(object, propertyName, first, second) {
+    if (object.hasOwnProperty(propertyName))
+        object[propertyName] = (object[propertyName] === first ? second : first)
+    else
+        console.error(`${object} doesn't contain a property named "${propertyName}"`)
 }

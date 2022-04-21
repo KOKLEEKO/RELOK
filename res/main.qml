@@ -114,11 +114,12 @@ Window {
     minimumWidth: 180
     minimumHeight: minimumWidth
     visible: true
+    visibility: Window.AutomaticVisibility
     color: background_color
     Component.onCompleted: {
         timeChanged.connect(updateTable)
         detectAndUseDeviceLanguage()
-        DeviceAccess.request()
+        DeviceAccess.requestGuidedAccessSession(true)
     }
 
     Loader { source: language_url; onLoaded: language = item }
@@ -148,10 +149,34 @@ Window {
         }
     }
 
+    Connections {
+        target: DeviceAccess
+        function onOrientationChanged() { orientationChangedSequence.start() }
+    }
+    MouseArea {
+        property point pressedPoint
+        anchors.fill: parent
+        onPressed: pressedPoint = Qt.point(mouseX, mouseY)
+        onReleased:{
+            if (mouseX === pressedPoint.x && mouseY === pressedPoint.y)
+                Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
+        }
+        onPositionChanged: {
+            DeviceAccess.setBrigthnessDelta(2*(pressedPoint.y - mouseY)/root.height)
+        }
+    }
+
     Column {
-        anchors.centerIn: parent
+        id: column
+        anchors { centerIn: parent
+        }
         width: tableWidth
         height: width
+        SequentialAnimation {
+            id: orientationChangedSequence
+            OpacityAnimator { target: column; duration: 500;  from: 1; to: 0 }
+            OpacityAnimator { target: column; duration: 500; from: 0; to: 1 }
+        }
         Repeater {
             model: language.table
             Row {
