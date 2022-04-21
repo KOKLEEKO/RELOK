@@ -3,6 +3,7 @@ QML Word Clock (POC)
 
 [![codefactor](https://www.codefactor.io/repository/github/johanremilien/WordClock/badge)](https://www.codefactor.io/repository/github/johanremilien/WordClock)
 ![ViewCount](https://views.whatilearened.today/views/github/johanremilien/WordClock.svg)
+[![BCH compliance](https://bettercodehub.com/edge/badge/johanremilien/WordClock?branch=main)](https://bettercodehub.com/results/johanremilien/WordClock)
 
 Supported languages: 🇺🇸  🇪🇸  🇫🇷
 
