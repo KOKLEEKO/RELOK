@@ -8,3 +8,5 @@ void DeviceAccess::requestGuidedAccessSession(bool enable) { Q_UNUSED(enable) }
 void DeviceAccess::setBrigthnessDelta(float brigthnessDelta) {
   Q_UNUSED(brigthnessDelta)
 }
+
+void DeviceAccess::requestAutoLock(bool isAutoLock) { Q_UNUSED(isAutoLock) }

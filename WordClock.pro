@@ -29,11 +29,15 @@ DISTFILES += \
              .github/PULL_REQUEST_TEMPLATE \
 
 ios {
+    OTHER_FILES += ios/Launch.storyboard
     OBJECTIVE_SOURCES += src/DeviceAccess.mm
     QMAKE_INFO_PLIST = ios/Info.plist
+    QMAKE_ASSET_CATALOGS += ios/Assets.xcassets
+    app_launch_screen.files = ios/Launch.storyboard
+    QMAKE_BUNDLE_DATA += app_launch_screen
 } else {
-SOURCES += \
-  src/DeviceAccess.cpp
+  SOURCES += \
+    src/DeviceAccess.cpp
 }
 
 HEADERS += \

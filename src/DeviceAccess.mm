@@ -63,7 +63,11 @@ DeviceAccess::DeviceAccess(QObject* parent)
 
 void DeviceAccess::requestGuidedAccessSession(bool enable) {
   UIAccessibilityRequestGuidedAccessSession(enable, ^(BOOL didSucceed) {
-    qCDebug(lc) << "W Request guided access:" << didSucceed;
+    qCDebug(lc) << "Request guided access " << (didSucceed ? "succeed" : "failed");
+    if (didSucceed) {
+      m_isGuidedAccessSession = enable;
+      isGuidedAccessSessionChanged();
+    }
   });
 }
 
@@ -71,5 +75,9 @@ void DeviceAccess::setBrigthnessDelta(float brigthnessDelta) {
   float brightnessLevel = m_brigthnessLevel + brigthnessDelta;
   brightnessLevel = std::clamp<float>(brightnessLevel, 0, 1);
   qCDebug(lc) << "W brightnessLevel:" << brightnessLevel;
-  UIScreen.mainScreen.brightness = brightnessLevel;
+    [UIScreen mainScreen].brightness = brightnessLevel;
+}
+
+void DeviceAccess::requestAutoLock(bool isAutoLock) {
+    [UIApplication sharedApplication].idleTimerDisabled = !isAutoLock;
 }
