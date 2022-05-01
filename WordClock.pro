@@ -1,3 +1,10 @@
+#**************************************************************************************************
+#**   Copyright (c) Kokleeko S.L. and contributors. All rights reserved.
+#**   Licensed under the MIT license. See LICENSE file in the project root for
+#**   details.
+#**   Author: https://github.com/johanremilien
+#**************************************************************************************************
+
 QT += quick core
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -9,6 +16,7 @@ CONFIG += \
     sdk_no_version_check
 
 SOURCES += \
+           StateMachine.cpp \
            src/main.cpp
 
 RESOURCES += res/qml.qrc
@@ -42,5 +50,6 @@ ios {
 }
 
 HEADERS += \
+  StateMachine.h \
   src/DeviceAccess.h
 
