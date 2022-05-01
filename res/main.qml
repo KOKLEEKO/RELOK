@@ -106,7 +106,7 @@ Window {
                                                                               minutes_array_step)
     readonly property int columns: 11
     readonly property int rows: 10
-    property var onoff_table: Helpers.createTable(rows, columns, false)
+    property var onoff_table: Helpers.createWelcomeTable(rows, columns, false)
     property var tmp_onoff_table: Helpers.createTable(rows, columns, false)
 
     width: 640
@@ -120,6 +120,13 @@ Window {
 
     Loader { source: language_url; onLoaded: language = item }
     Timer {
+        interval: 1000
+        running: true
+        repeat: false
+        onTriggered: timer.start()
+    }
+    Timer {
+        id: timer
         property bool isDebug: false
         property int fake_counter: 0
         property bool jumpToMinute: false
@@ -130,7 +137,7 @@ Window {
         readonly property int reference: new Date().setTime(Math.random()*dayToMs)
         interval: 1000
         repeat: true
-        running: true
+        running: false
         triggeredOnStart: true
         onTriggered: {
             if (isDebug) {
@@ -169,8 +176,8 @@ Window {
         height: width
         SequentialAnimation {
             id: orientationChangedSequence
-            OpacityAnimator { target: column; duration: 150;  from: 1; to: 0 }
-            PauseAnimation { duration: 350 }
+            PropertyAction { target: column; property:"opacity"; value: 0 }
+            PauseAnimation { duration: 500 }
             OpacityAnimator { target: column; duration: 500; from: 0; to: 1 }
         }
         Repeater {
