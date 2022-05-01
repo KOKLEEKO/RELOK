@@ -7,6 +7,8 @@
 
 Q_LOGGING_CATEGORY(lc, "Device")
 
+using namespace kokleeko::device;
+
 @interface QIOSViewController
 @end
 
@@ -24,15 +26,7 @@ Q_LOGGING_CATEGORY(lc, "Device")
 }
 
 - (void)viewDidLoad {
-    if (@available(iOS 13.0, *)) {
-        UIView *statusBar = [[UIView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.windowScene.statusBarManager.statusBarFrame] ;
-        statusBar.backgroundColor = [UIColor whiteColor];
-        [[UIApplication sharedApplication].keyWindow addSubview:statusBar];
-    } else {
-        // Fallback on earlier versions
-    }
-    
-  UIDevice* device = [UIDevice currentDevice];
+  UIDevice *device = [UIDevice currentDevice];
   [device setBatteryMonitoringEnabled:YES];
   [[NSNotificationCenter defaultCenter]
       addObserver:self
@@ -42,18 +36,18 @@ Q_LOGGING_CATEGORY(lc, "Device")
   [[NSNotificationCenter defaultCenter]
       addObserver:self
          selector:@selector(receiveBatteryLevelDidChangeNotification:)
-             name: UIDeviceBatteryLevelDidChangeNotification
+             name:UIDeviceBatteryLevelDidChangeNotification
            object:device];
 }
 
-- (void)receiveBatteryStateDidChangeNotification:(NSNotification*)notification {
+- (void)receiveBatteryStateDidChangeNotification:(NSNotification *)notification {
   auto batteryState = [[notification object] batteryState];
   bool isPlugged =
       (batteryState == UIDeviceBatteryStateCharging || batteryState == UIDeviceBatteryStateFull);
   DeviceAccess::instance().updateIsPlugged(isPlugged);
 }
 
-- (void)receiveBatteryLevelDidChangeNotification:(NSNotification*)notification {
+- (void)receiveBatteryLevelDidChangeNotification:(NSNotification *)notification {
   auto batteryLevel = [[notification object] batteryLevel];
   DeviceAccess::instance().updateBatteryLevel(batteryLevel * 100);
 }
@@ -77,13 +71,13 @@ void DeviceAccess::setBrigthnessDelta(float brigthnessDelta) {
 }
 
 void DeviceAccess::disableAutoLock(bool disable) {
-    qCDebug(lc) << "W autoLock" << !disable;
+  qCDebug(lc) << "W autoLock" << !disable;
   [UIApplication sharedApplication].idleTimerDisabled = disable;
 }
 
 void DeviceAccess::toggleStatusBarVisibility() {
   m_isStatusBarHidden ^= true;
-    qCDebug(lc) << "W statusBarVisibility" << m_isStatusBarHidden;
+  qCDebug(lc) << "W statusBarVisibility" << m_isStatusBarHidden;
   [[[[UIApplication sharedApplication] keyWindow] rootViewController]
       setNeedsStatusBarAppearanceUpdate];
 }

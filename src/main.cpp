@@ -12,6 +12,8 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   QQmlApplicationEngine engine;
+
+  using namespace kokleeko::device;
   engine.rootContext()->setContextProperty("DeviceAccess",
                                            &DeviceAccess::instance());
   const QUrl url(QStringLiteral("qrc:/main.qml"));

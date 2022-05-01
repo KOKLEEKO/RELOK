@@ -1,5 +1,7 @@
 #include "DeviceAccess.h"
 
+using namespace kokleeko::device;
+
 void DeviceAccess::enableGuidedAccessSession(bool enable) { Q_UNUSED(enable) }
 
 void DeviceAccess::setBrigthnessDelta(float brigthnessDelta) {

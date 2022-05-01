@@ -6,6 +6,8 @@
 
 Q_DECLARE_LOGGING_CATEGORY(lc)
 
+namespace kokleeko::device {
+
 class DeviceAccess : public QObject {
   Q_OBJECT
 
@@ -63,3 +65,4 @@ class DeviceAccess : public QObject {
   bool m_isAutoLock = false;
   bool m_isStatusBarHidden = false;
 };
+}  // namespace kokleeko::device
