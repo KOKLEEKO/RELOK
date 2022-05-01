@@ -1,7 +1,5 @@
 #import <Foundation/NSNotification.h>
-#import <UIKit/UIAccessibility.h>
-#import <UIKit/UIDevice.h>
-#import <UIKit/UIScreen.h>
+#import <UIKit/UIKit.h>
 
 #import <algorithm>
 
@@ -9,59 +7,59 @@
 
 Q_LOGGING_CATEGORY(lc, "Device")
 
-@interface DeviceAccessInterface : NSObject {
-  DeviceAccess* m_DeviceAccess;
-}
+@interface QIOSViewController
 @end
 
-@implementation DeviceAccessInterface
-- (id)initWithObject:(DeviceAccess*)DeviceAccess {
-  self = [super init];
-  if (self) {
-    m_DeviceAccess = DeviceAccess;
-    UIDevice* device = [UIDevice currentDevice];
-    [device setBatteryMonitoringEnabled:YES];
-    [[NSNotificationCenter defaultCenter]
-        addObserver:self
-           selector:@selector(receiveBatteryStateDidChangeNotification:)
-               name:UIDeviceBatteryStateDidChangeNotification
-             object:device];
-    [[NSNotificationCenter defaultCenter]
-        addObserver:self
-           selector:@selector(receiveBatteryLevelDidChangeNotification:)
-               name:UIDeviceBatteryLevelDidChangeNotification
-             object:device];
-    [device beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter]
-        addObserver:self
-           selector:@selector(receiveOrientationDidChangeNotification:)
-               name:UIDeviceOrientationDidChangeNotification
-             object:device];
-  }
-  return self;
+@interface QIOSViewController (ViewController)
+@end
+
+@implementation QIOSViewController (ViewController)
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return DeviceAccess::instance().isStatusBarHidden() ? UIStatusBarStyleLightContent
+                                                      : UIStatusBarStyleDefault;
+}
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+  emit DeviceAccess::instance().orientationChanged();
+}
+
+- (void)viewDidLoad {
+    if (@available(iOS 13.0, *)) {
+        UIView *statusBar = [[UIView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.windowScene.statusBarManager.statusBarFrame] ;
+        statusBar.backgroundColor = [UIColor whiteColor];
+        [[UIApplication sharedApplication].keyWindow addSubview:statusBar];
+    } else {
+        // Fallback on earlier versions
+    }
+    
+  UIDevice* device = [UIDevice currentDevice];
+  [device setBatteryMonitoringEnabled:YES];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(receiveBatteryStateDidChangeNotification:)
+             name:UIDeviceBatteryStateDidChangeNotification
+           object:device];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(receiveBatteryLevelDidChangeNotification:)
+             name: UIDeviceBatteryLevelDidChangeNotification
+           object:device];
 }
 
 - (void)receiveBatteryStateDidChangeNotification:(NSNotification*)notification {
   auto batteryState = [[notification object] batteryState];
   bool isPlugged =
       (batteryState == UIDeviceBatteryStateCharging || batteryState == UIDeviceBatteryStateFull);
-  m_DeviceAccess->updateIsPlugged(isPlugged);
+  DeviceAccess::instance().updateIsPlugged(isPlugged);
 }
 
 - (void)receiveBatteryLevelDidChangeNotification:(NSNotification*)notification {
   auto batteryLevel = [[notification object] batteryLevel];
-  m_DeviceAccess->updateBatteryLevel(batteryLevel * 100);
-}
-
-- (void)receiveOrientationDidChangeNotification:(NSNotification*)notification {
-  emit m_DeviceAccess->orientationChanged();
+  DeviceAccess::instance().updateBatteryLevel(batteryLevel * 100);
 }
 @end
 
-DeviceAccess::DeviceAccess(QObject* parent)
-    : QObject(parent), m_interface([[DeviceAccessInterface alloc] initWithObject:this]) {}
-
-void DeviceAccess::requestGuidedAccessSession(bool enable) {
+void DeviceAccess::enableGuidedAccessSession(bool enable) {
   UIAccessibilityRequestGuidedAccessSession(enable, ^(BOOL didSucceed) {
     qCDebug(lc) << "Request guided access " << (didSucceed ? "succeed" : "failed");
     if (didSucceed) {
@@ -72,12 +70,20 @@ void DeviceAccess::requestGuidedAccessSession(bool enable) {
 }
 
 void DeviceAccess::setBrigthnessDelta(float brigthnessDelta) {
-  float brightnessLevel = m_brigthnessLevel + brigthnessDelta;
+  float brightnessLevel = [[UIScreen mainScreen] brightness] + brigthnessDelta;
   brightnessLevel = std::clamp<float>(brightnessLevel, 0, 1);
   qCDebug(lc) << "W brightnessLevel:" << brightnessLevel;
-    [UIScreen mainScreen].brightness = brightnessLevel;
+  [UIScreen mainScreen].brightness = brightnessLevel;
 }
 
-void DeviceAccess::requestAutoLock(bool isAutoLock) {
-    [UIApplication sharedApplication].idleTimerDisabled = !isAutoLock;
+void DeviceAccess::disableAutoLock(bool disable) {
+    qCDebug(lc) << "W autoLock" << !disable;
+  [UIApplication sharedApplication].idleTimerDisabled = disable;
+}
+
+void DeviceAccess::toggleStatusBarVisibility() {
+  m_isStatusBarHidden ^= true;
+    qCDebug(lc) << "W statusBarVisibility" << m_isStatusBarHidden;
+  [[[[UIApplication sharedApplication] keyWindow] rootViewController]
+      setNeedsStatusBarAppearanceUpdate];
 }

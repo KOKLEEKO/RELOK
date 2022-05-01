@@ -1,4 +1,4 @@
-QT += quick
+QT += quick core
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -31,6 +31,7 @@ DISTFILES += \
 ios {
     OTHER_FILES += ios/Launch.storyboard
     OBJECTIVE_SOURCES += src/DeviceAccess.mm
+
     QMAKE_INFO_PLIST = ios/Info.plist
     QMAKE_ASSET_CATALOGS += ios/Assets.xcassets
     app_launch_screen.files = ios/Launch.storyboard

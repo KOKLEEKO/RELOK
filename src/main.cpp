@@ -12,8 +12,8 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   QQmlApplicationEngine engine;
-  auto deviceAccess = std::make_unique<DeviceAccess>();
-  engine.rootContext()->setContextProperty("DeviceAccess", deviceAccess.get());
+  engine.rootContext()->setContextProperty("DeviceAccess",
+                                           &DeviceAccess::instance());
   const QUrl url(QStringLiteral("qrc:/main.qml"));
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &app,

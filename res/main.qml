@@ -116,11 +116,7 @@ Window {
     visible: true
     visibility: Window.AutomaticVisibility
     color: background_color
-    Component.onCompleted: {
-        timeChanged.connect(updateTable)
-        detectAndUseDeviceLanguage()
-        DeviceAccess.requestGuidedAccessSession(true)
-    }
+    Component.onCompleted: { timeChanged.connect(updateTable); detectAndUseDeviceLanguage() }
 
     Loader { source: language_url; onLoaded: language = item }
     Timer {
@@ -159,7 +155,7 @@ Window {
         onPressed: pressedPoint = Qt.point(mouseX, mouseY)
         onReleased:{
             if (mouseX === pressedPoint.x && mouseY === pressedPoint.y)
-                Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
+                DeviceAccess.toggleStatusBarVisibility()
         }
         onPositionChanged: {
             DeviceAccess.setBrigthnessDelta(2*(pressedPoint.y - mouseY)/root.height)
@@ -168,13 +164,13 @@ Window {
 
     Column {
         id: column
-        anchors { centerIn: parent
-        }
+        anchors.centerIn: parent
         width: tableWidth
         height: width
         SequentialAnimation {
             id: orientationChangedSequence
-            OpacityAnimator { target: column; duration: 500;  from: 1; to: 0 }
+            OpacityAnimator { target: column; duration: 150;  from: 1; to: 0 }
+            PauseAnimation { duration: 350 }
             OpacityAnimator { target: column; duration: 500; from: 0; to: 1 }
         }
         Repeater {
