@@ -1,9 +1,8 @@
-#**************************************************************************************************
-#**   Copyright (c) Kokleeko S.L. and contributors. All rights reserved.
-#**   Licensed under the MIT license. See LICENSE file in the project root for
-#**   details.
-#**   Author: https://github.com/johanremilien
-#**************************************************************************************************
+###################################################################################################
+##  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors. All rights reserved.
+##  Licensed under the MIT license. See LICENSE file in the project root for details.
+##  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
+###################################################################################################
 
 QT += quick core
 
@@ -16,7 +15,6 @@ CONFIG += \
     sdk_no_version_check
 
 SOURCES += \
-           StateMachine.cpp \
            src/main.cpp
 
 RESOURCES += res/qml.qrc
@@ -33,8 +31,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+             LICENSE \
              README.md \
              .github/PULL_REQUEST_TEMPLATE \
+             src/README.md
 
 ios {
     OTHER_FILES += ios/Launch.storyboard
@@ -50,6 +50,5 @@ ios {
 }
 
 HEADERS += \
-  StateMachine.h \
   src/DeviceAccess.h
 

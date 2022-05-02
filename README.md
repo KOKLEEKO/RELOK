@@ -1,11 +1,8 @@
-<!--
-***************************************************************************************************
-**   Copyright (c) Kokleeko S.L. and contributors. All rights reserved.
-**   Licensed under the MIT license. See LICENSE file in the project root for
-**   details.
-**   Author: https://github.com/johanremilien
-***************************************************************************************************
--->
+<details><summary>Licensed under the MIT license</summary><p>
+
+Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All rights reserved.
+<br>Licensed under the MIT license. See [LICENSE](../blob/master/LICENSE) file in the project root for details.
+</p></details>
 
 # WordClock
 QML Word Clock (POC)

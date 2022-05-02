@@ -1,10 +1,10 @@
 /**************************************************************************************************
-**   Copyright (c) Kokleeko S.L. and contributors. All rights reserved.
-**   Licensed under the MIT license. See LICENSE file in the project root for
-**   details.
-**   Author: https://github.com/johanremilien
+**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
+**  All rights reserved.
+**  Licensed under the MIT license. See LICENSE file in the project root for
+**  details.
+**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-
 import QtQml 2.15
 import QtQuick 2.15
 import QtQuick.Window 2.15
@@ -30,7 +30,6 @@ Window {
             }
         }
     }
-
     function updateTable() {
         const split_time = time.split(':')
         var hours_value = split_time[0]
@@ -77,16 +76,20 @@ Window {
         onoff_dots = tmp_onoff_dots
     }
 
+    // User-facing Settings
     property url language_url
-    property Language language
-    readonly property color background_color: "black"
-    readonly property color on_color: "red"
-    readonly property color off_color: "grey"
-    readonly property real tableWidth: Math.min(height, width)*9/10
+    property color background_color: "black"
+    property color on_color: "red"
+    property color off_color: "grey"
+    property bool enable_special_message: true
+    property bool enable_stay_awake: false
+    property int minimum_battery_level: 50
+
+    // Internal Settings
+    readonly property real tableWidth: Math.min(height, width)*.9
     readonly property real cellWidth: tableWidth/columns
     readonly property real dot_size: cellWidth/4
-    property bool enable_special_message: true
-
+    property Language language
     property string time
     property bool was_AM
     property bool was_special: false
@@ -126,14 +129,10 @@ Window {
     Component.onCompleted: { timeChanged.connect(updateTable); detectAndUseDeviceLanguage() }
 
     Loader { source: language_url; onLoaded: language = item }
-    Timer {
-        interval: 1000
-        running: true
-        repeat: false
-        onTriggered: timer.start()
-    }
+    Timer { interval: 1000; running: true; repeat: false; onTriggered: timer.start() }
     Timer {
         id: timer
+
         property bool isDebug: false
         property int fake_counter: 0
         property bool jumpToMinute: false
@@ -141,14 +140,18 @@ Window {
         property bool jumpToHour: false
         readonly property int dayToMs: 86400000
         readonly property int minuteToMs:60000
-        readonly property int reference: new Date().setTime(Math.random()*dayToMs)
+        property int timeReference
+
         interval: 1000
         repeat: true
         running: false
         triggeredOnStart: true
         onTriggered: {
             if (isDebug) {
-                time = new Date(reference +
+                if (!timeReference) {
+                    timeReference = new Date().setTime(Math.random()*dayToMs)
+                }
+                time = new Date(timeReference +
                                 (jumpToMinute + jumpTo5Minutes*5 + jumpToHour*60)*
                                 fake_counter*minuteToMs)
                 .toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
@@ -161,14 +164,20 @@ Window {
 
     Connections {
         target: DeviceAccess
+
         function onOrientationChanged() { orientationChangedSequence.start() }
+        function onToggleFullScreen() {
+            Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
+        }
     }
     MouseArea {
+
         property point pressedPoint
+
         anchors.fill: parent
         onPressed: pressedPoint = Qt.point(mouseX, mouseY)
         onReleased:{
-            if (mouseX === pressedPoint.x && mouseY === pressedPoint.y)
+            if (Math.abs(mouseX - pressedPoint.x) < 1 && Math.abs(mouseY - pressedPoint.y) < 1)
                 DeviceAccess.toggleStatusBarVisibility()
         }
         onPositionChanged: {
@@ -178,11 +187,13 @@ Window {
 
     Column {
         id: column
+
         anchors.centerIn: parent
         width: tableWidth
         height: width
         SequentialAnimation {
             id: orientationChangedSequence
+
             PropertyAction { target: column; property:"opacity"; value: 0 }
             PauseAnimation { duration: 500 }
             OpacityAnimator { target: column; duration: 500; from: 0; to: 1 }
@@ -192,12 +203,16 @@ Window {
             Row {
                 Repeater {
                     id: repeater
+
                     property int rowIndex: index
+
                     model: language.table[index]
                     Text {
+
                         readonly property int rowIndex: repeater.rowIndex
                         readonly property int columnIndex: index
                         readonly property bool isEnabled: onoff_table[rowIndex][columnIndex]
+
                         width: cellWidth
                         height: width
                         text: modelData
@@ -224,7 +239,9 @@ Window {
             Repeater {
                 model: 4
                 Rectangle {
+
                     readonly property bool isEnabled: (index+1 <= onoff_dots)
+
                     color: isEnabled ? on_color : off_color
                     width: dot_size
                     height: width

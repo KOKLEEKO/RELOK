@@ -1,10 +1,10 @@
 /**************************************************************************************************
-**   Copyright (c) Kokleeko S.L. and contributors. All rights reserved.
-**   Licensed under the MIT license. See LICENSE file in the project root for
-**   details.
-**   Author: https://github.com/johanremilien
+**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
+**  All rights reserved.
+**  Licensed under the MIT license. See LICENSE file in the project root for
+**  details.
+**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-
 #pragma once
 
 #include <QLoggingCategory>
@@ -19,9 +19,11 @@ class DeviceAccess : public QObject {
   Q_OBJECT
 
   Q_PROPERTY(float batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
+  Q_PROPERTY(bool isPlugged READ isPlugged NOTIFY isPluggedChanged)
+
   Q_PROPERTY(bool isGuidedAccessSession READ isGuidedAccessSession NOTIFY
                  isGuidedAccessSessionChanged)
-  Q_PROPERTY(bool isPlugged READ isPlugged NOTIFY isPluggedChanged)
+
   Q_PROPERTY(bool isAutoLock READ isAutoLock NOTIFY isAutoLockChanged)
 
  public:
@@ -59,6 +61,7 @@ class DeviceAccess : public QObject {
   void isGuidedAccessSessionChanged();
   void orientationChanged();
   void isAutoLockChanged();
+  void toggleFullScreen();
 
  private:
   DeviceAccess() = default;

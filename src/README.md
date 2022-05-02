@@ -1,3 +1,9 @@
+<details><summary>Licensed under the MIT license</summary><p>
+
+Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All rights reserved.
+<br>Licensed under the MIT license. See [LICENSE](../blob/master/LICENSE) file in the project root for details.
+</p></details>
+
 # Device Management
 ## iOS/iPadOS
 ### Battery saving strategy
@@ -29,7 +35,6 @@ flowchart TD
     isSufficientBatteryLevel --> |false| enableAutoLockChecked
 ```
 <details><summary>✍️ Edit this chart</summary>
-<p>
 
 ```mermaid-example
 flowchart TD
@@ -62,5 +67,4 @@ flowchart TD
 
 [battery-saving-stratey-flowchart]: https://mermaid.live/edit#pako:eNqVVM1ygjAQfpVMZhzbGXkBDu1YtSdv9lZ6WJJFMoakDUHroO_e8GOLCGnLgWE238-y-0FJmeZIQ5pIfWApGEtelpGaTMgSmQQDVmgVKeKuGKxFc1zjHuUiBbVF_ppAmEAgVKw_3Z1odUERWcEIa3BvVwobC7bIf5fIa1xPwxWP8wPscKUglsjHZaYVNIAKOyXYoHtiIt_05EqRDxIfzxeGMzRbobZl49g2G8RaWndKOO4Fw8qnRv3wNkWSCCZQ2afOIHsqNjWIwUfh9oAmr_Su55l_i1yEm_7mhdVrzXaLFNmufQtwtUC64s1LXHPuuqPThW2PuwL3DY-L_P9mPdKNW3ves6sj-OwyOZo9EgQPAwscT5qXMBIrL-e2XsNP1hR46iTFj05A5g4-uEfPij3kflK7XQ2v0LdeD3vYqO1pLPH-7-Gvvfr5vpnSGc3QZCC4--uVlVpEbYoZRjR0jxwTKKSNaKTODlq8c7C44sJqQ8Nad0arpG6OitGwavQCWgrYGsha1PkLhUDnlw "Battery Saving Strategy Chart" 
 
-</p>
 </details>
