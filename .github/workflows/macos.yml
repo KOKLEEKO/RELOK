@@ -1,0 +1,28 @@
+name: macOS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Qt
+      uses: johanremilien/install-qt-action@v2
+
+    - name: qmake
+      run: qmake
+
+    - name: make
+      run: make
+
+    - name: make check
+      run: make check
