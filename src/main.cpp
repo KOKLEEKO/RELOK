@@ -1,13 +1,31 @@
+/**************************************************************************************************
+**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
+**  All rights reserved.
+**  Licensed under the MIT license. See LICENSE file in the project root for
+**  details.
+**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
+**************************************************************************************************/
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <memory>
+
+#include "DeviceAccess.h"
 
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
   QGuiApplication app(argc, argv);
+  app.setOrganizationName("Kokleeko S.L.");
+  app.setOrganizationDomain("kokleeko.io");
+  app.setApplicationName("WordClock");
 
   QQmlApplicationEngine engine;
+
+  using namespace kokleeko::device;
+  engine.rootContext()->setContextProperty("DeviceAccess",
+                                           &DeviceAccess::instance());
   const QUrl url(QStringLiteral("qrc:/main.qml"));
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &app,

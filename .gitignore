@@ -53,3 +53,9 @@ compile_commands.json
 
 # Local files
 .DS_Store
+
+# Build directories
+*/build
+
+# Logs
+*.log
