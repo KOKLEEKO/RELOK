@@ -7,6 +7,12 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 # WordClock
 QML Word Clock (POC)
 
+[![Android](https://github.com/johanremilien/WordClock/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/johanremilien/WordClock/actions/workflows/android.yml)
+[![iOS](https://github.com/johanremilien/WordClock/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/johanremilien/WordClock/actions/workflows/ios.yml)
+[![macOS](https://github.com/johanremilien/WordClock/actions/workflows/macos.yml/badge.svg?branch=main)](https://github.com/johanremilien/WordClock/actions/workflows/macos.yml)
+[![Ubuntu](https://github.com/johanremilien/WordClock/actions/workflows/ubuntu.yml/badge.svg?branch=main)](https://github.com/johanremilien/WordClock/actions/workflows/ubuntu.yml)
+[![Windows](https://github.com/johanremilien/WordClock/actions/workflows/windows.yml/badge.svg?branch=main)](https://github.com/johanremilien/WordClock/actions/workflows/windows.yml)
+
 [![codefactor](https://www.codefactor.io/repository/github/johanremilien/WordClock/badge)](https://www.codefactor.io/repository/github/johanremilien/WordClock)
 ![ViewCount](https://views.whatilearened.today/views/github/johanremilien/WordClock.svg)
 [![BCH compliance](https://bettercodehub.com/edge/badge/johanremilien/WordClock?branch=main)](https://bettercodehub.com/results/johanremilien/WordClock)
