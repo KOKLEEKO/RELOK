@@ -7,6 +7,8 @@
 **************************************************************************************************/
 import QtQml 2.15
 import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 
 import "Helpers.js" as Helpers
@@ -78,12 +80,15 @@ Window {
 
     // User-facing Settings
     property url language_url
+
+    property bool enable_special_message: true
+    property bool enable_stay_awake: false
+    property bool enable_guided_access: false
+    property int minimum_battery_level: 50
+
     property color background_color: "black"
     property color on_color: "red"
     property color off_color: "grey"
-    property bool enable_special_message: true
-    property bool enable_stay_awake: false
-    property int minimum_battery_level: 50
 
     // Internal Settings
     readonly property real tableWidth: Math.min(height, width)*.9
@@ -128,6 +133,7 @@ Window {
     color: background_color
     Component.onCompleted: { timeChanged.connect(updateTable); detectAndUseDeviceLanguage() }
 
+    flags: Qt.Window | Qt.WindowStaysOnTopHint
     Loader { source: language_url; onLoaded: language = item }
     Timer { interval: 1000; running: true; repeat: false; onTriggered: timer.start() }
     Timer {
@@ -173,15 +179,189 @@ Window {
     MouseArea {
 
         property point pressedPoint
+        property bool isPressAndHold: false
 
         anchors.fill: parent
-        onPressed: pressedPoint = Qt.point(mouseX, mouseY)
-        onReleased:{
-            if (Math.abs(mouseX - pressedPoint.x) < 1 && Math.abs(mouseY - pressedPoint.y) < 1)
-                DeviceAccess.toggleStatusBarVisibility()
+        onPressed: {
+            isPressAndHold = false
+            pressedPoint = Qt.point(mouseX, mouseY)
+        }
+        onPressAndHold: {
+            isPressAndHold = true
+            settingPanel.open()
         }
         onPositionChanged: {
-            DeviceAccess.setBrigthnessDelta(2*(pressedPoint.y - mouseY)/root.height)
+            if (Math.abs(pressedPoint.y - mouseY) >= 1)
+                DeviceAccess.setBrigthnessDelta(2*(pressedPoint.y - mouseY)/root.height)
+        }
+        onReleased:{
+            if (!isPressAndHold && Math.abs(pressedPoint.x - mouseX) < 1 && Math.abs(pressedPoint.y - mouseY) < 1)
+                DeviceAccess.toggleStatusBarVisibility()
+        }
+    }
+
+    Drawer {
+        id: settingPanel
+        y: (parent.height - height) / 2
+        width: root.width*.95
+        height: root.height*.99
+        edge: Qt.RightEdge
+        background: Item {
+            clip: true
+            opacity: 0.8
+            Rectangle {
+                anchors { fill: parent; rightMargin: -radius }
+                radius: Math.min(parent.height, parent.width)*.02
+                color: "#232323"
+            }
+        }
+        //use a menu instead here, and set title bar for desktop
+        ColumnLayout {
+            id: menu
+            anchors { fill: parent; margins: 20 }
+            spacing: 0
+            Label {
+                Layout.alignment: Qt.AlignTop
+                Layout.fillWidth: true
+                horizontalAlignment: Label.AlignHCenter
+                text: qsTr("fa:fa-square-sliders %1").arg("My preferences")
+                font { bold: true; pointSize: 26 }
+                color: "white"
+                elide: Label.ElideRight
+            }
+            Label {
+                Layout.fillWidth: true
+                horizontalAlignment: Label.AlignLeft
+                font { bold: true; pointSize: 22 }
+                elide: Label.ElideRight
+                color: "white"
+                text: qsTr("fa:fa-earth-africa %1").arg("Battery Saving")
+            }
+            RowLayout {
+                Label {
+                    font { bold: true; pointSize: 16 }
+                    color: "white"
+                    text: qsTr("Stay awake")
+                    elide: Label.ElideRight
+                    Layout.fillWidth: true
+                }
+                Switch { onCheckedChanged: DeviceAccess.disableAutoLock(checked) }
+            }
+            RowLayout {
+                Label {
+                    font { bold: true; pointSize: 16 }
+                    color: "white"
+                    text: String("%1 (%2 %)").arg(
+                              qsTr("Minimum Battery Level")).arg(slider.value.toString())
+                    elide: Label.ElideLeft
+                    Layout.fillWidth: true
+                }
+                Slider { id: slider; from: 20; to: 50; stepSize: 5 }
+            }
+            Label {
+                Layout.fillWidth: true
+                horizontalAlignment: Label.AlignLeft
+                font { bold: true; pointSize: 22 }
+                elide: Label.ElideRight
+                color: "white"
+                text: qsTr("fa:fa-shield-dog %1").arg(qsTr("Security"))
+            }
+            RowLayout {
+                Label {
+                    font { bold: true; pointSize: 16 }
+                    color: "white"
+                    text: qsTr("Enable Guided Access")
+                    elide: Label.ElideRight
+                    Layout.fillWidth: true
+                }
+                Switch { onCheckedChanged: DeviceAccess.enableGuidedAccessSession(checked) }
+            }
+            Label {
+                Layout.fillWidth: true
+                horizontalAlignment: Label.AlignLeft
+                font { bold: true; pointSize: 22 }
+                elide: Label.ElideRight
+                color: "white"
+                text: String("fa:fa-palette %1").arg(qsTr("Appearance"))
+            }
+            RowLayout {
+                Label {
+                    font { bold: true; pointSize: 16 }
+                    color: "white"
+                    text: qsTr("Background Color")
+                }
+                TextField {
+                    text: root.background_color
+                    onEditingFinished: root.background_color = text
+                }
+            }
+            RowLayout {
+                Label {
+                    font { bold: true; pointSize: 16 }
+                    color: "white"
+                    text: qsTr("Enabled Letter Color")
+                }
+                TextField {
+                    text: root.on_color
+                    onEditingFinished: root.on_color = text
+                }
+            }
+            RowLayout {
+                Label {
+                    font { bold: true; pointSize: 16 }
+                    color: "white"
+                    text: qsTr("Deactivated Letter Color")
+                }
+                TextField {
+                    text: root.off_color
+                    onEditingFinished: root.off_color = text
+                }
+            }
+            RowLayout {
+                Label {
+                    font { bold: true; pointSize: 16 }
+                    color: "white"
+                    text: qsTr("Letter Font")
+                }
+            }
+            RowLayout {
+                Label {
+                    font { bold: true; pointSize: 16 }
+                    color: "white"
+                    text: qsTr("Enable Special Message")
+                    Layout.fillWidth: true
+                    elide: Label.ElideRight
+                }
+                    Switch { onCheckedChanged: root.enable_special_message = checked }
+            }
+            Label {
+                Layout.fillWidth: true
+                horizontalAlignment: Label.AlignLeft
+                font { bold: true; pointSize: 22 }
+                elide: Label.ElideRight
+                color: "white"
+                text: String("fa:fa-stars %1").arg(qsTr("About"))
+            }
+            RowLayout {
+                // - Free: without advertisement
+                // - Open source: code available on github under MIT license
+                // - Bug tracking: in indor to improve the Application
+                // - Suggestion Box: new languages, features
+                // - Review the app: let other know about this app (share it)
+                // - Twitter: Share your experience here.
+                // - Credits: Developed with Love by Johan and published by Denver.
+            }
+            Label {
+                Layout.alignment: Qt.AlignHCenter
+                text: qsTr("fa:fa-coffee-beans %1").arg("Tip me")
+                font { bold: true; pointSize: 20 }
+                color: "white"
+                elide: Label.ElideRight
+                MouseArea {
+                    anchors.fill: parent;
+                    onClicked: Qt.openUrlExternally("https://ko-fi.com/johanremilien")
+                }
+            }
         }
     }
 

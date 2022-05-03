@@ -17,6 +17,9 @@ int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
   QGuiApplication app(argc, argv);
+  app.setOrganizationName("Kokleeko S.L.");
+  app.setOrganizationDomain("kokleeko.io");
+  app.setApplicationName("WordClock");
 
   QQmlApplicationEngine engine;
 
