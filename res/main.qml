@@ -188,7 +188,7 @@ Window {
         }
         onPressAndHold: {
             isPressAndHold = true
-            settingPanel.open()
+            //settingPanel.open()
         }
         onPositionChanged: {
             if (Math.abs(pressedPoint.y - mouseY) >= 1)
@@ -199,7 +199,7 @@ Window {
                 DeviceAccess.toggleStatusBarVisibility()
         }
     }
-
+/*
     Drawer {
         id: settingPanel
         y: (parent.height - height) / 2
@@ -229,127 +229,141 @@ Window {
                 color: "white"
                 elide: Label.ElideRight
             }
-            Label {
+            ScrollView {
+                Layout.fillHeight: true
                 Layout.fillWidth: true
-                horizontalAlignment: Label.AlignLeft
-                font { bold: true; pointSize: 22 }
-                elide: Label.ElideRight
-                color: "white"
-                text: qsTr("fa:fa-earth-africa %1").arg("Battery Saving")
-            }
-            RowLayout {
-                Label {
-                    font { bold: true; pointSize: 16 }
-                    color: "white"
-                    text: qsTr("Stay awake")
-                    elide: Label.ElideRight
-                    Layout.fillWidth: true
+                clip: true
+                ColumnLayout {
+                    anchors.fill: parent
+                    spacing: 0
+                    Label {
+                        Layout.fillWidth: true
+                        horizontalAlignment: Label.AlignLeft
+                        font { bold: true; pointSize: 22 }
+                        elide: Label.ElideRight
+                        color: "white"
+                        text: qsTr("fa:fa-earth-africa %1").arg("Battery Saving")
+                    }
+                    RowLayout {
+                        Label {
+                            font { bold: true; pointSize: 16 }
+                            color: "white"
+                            text: qsTr("Stay awake")
+                            elide: Label.ElideRight
+                            Layout.fillWidth: true
+                        }
+                        Switch { onCheckedChanged: DeviceAccess.disableAutoLock(checked) }
+                    }
+                    RowLayout {
+                        Label {
+                            font { bold: true; pointSize: 16 }
+                            color: "white"
+                            text: String("%1 (%2 %)").arg(
+                                      qsTr("Minimum Battery Level")).arg(slider.value.toString())
+                            elide: Label.ElideLeft
+                            Layout.fillWidth: true
+                        }
+                        Slider { id: slider; from: 20; to: 50; stepSize: 5 }
+                    }
+                    Label {
+                        Layout.fillWidth: true
+                        horizontalAlignment: Label.AlignLeft
+                        font { bold: true; pointSize: 22 }
+                        elide: Label.ElideRight
+                        color: "white"
+                        text: qsTr("fa:fa-shield-dog %1").arg(qsTr("Security"))
+                    }
+                    RowLayout {
+                        Label {
+                            font { bold: true; pointSize: 16 }
+                            color: "white"
+                            text: qsTr("Enable Guided Access")
+                            elide: Label.ElideRight
+                            Layout.fillWidth: true
+                        }
+                        Switch { onCheckedChanged: DeviceAccess.enableGuidedAccessSession(checked) }
+                    }
+                    Label {
+                        Layout.fillWidth: true
+                        horizontalAlignment: Label.AlignLeft
+                        font { bold: true; pointSize: 22 }
+                        elide: Label.ElideRight
+                        color: "white"
+                        text: String("fa:fa-palette %1").arg(qsTr("Appearance"))
+                    }
+                    RowLayout {
+                        Label {
+                            font { bold: true; pointSize: 16 }
+                            color: "white"
+                            Layout.fillWidth: true
+                            text: qsTr("Background Color")
+                        }
+                        TextField {
+                            text: root.background_color
+                            onEditingFinished: root.background_color = text
+                        }
+                    }
+                    RowLayout {
+                        Label {
+                            font { bold: true; pointSize: 16 }
+                            color: "white"
+                            Layout.fillWidth: true
+                            text: qsTr("Enabled Letter Color")
+                        }
+                        TextField {
+                            text: root.on_color
+                            onEditingFinished: root.on_color = text
+                        }
+                    }
+                    RowLayout {
+                        Label {
+                            font { bold: true; pointSize: 16 }
+                            color: "white"
+                            Layout.fillWidth: true
+                            text: qsTr("Deactivated Letter Color")
+                        }
+                        TextField {
+                            text: root.off_color
+                            onEditingFinished: root.off_color = text
+                        }
+                    }
+                    RowLayout {
+                        Label {
+                            font { bold: true; pointSize: 16 }
+                            color: "white"
+                            Layout.fillWidth: true
+                            text: qsTr("Letter Font")
+                        }
+                        ComboBox { model: 20 }
+                    }
+                    RowLayout {
+                        Label {
+                            font { bold: true; pointSize: 16 }
+                            color: "white"
+                            text: qsTr("Enable Special Message")
+                            Layout.fillWidth: true
+                            elide: Label.ElideRight
+                        }
+                        Switch { onCheckedChanged: root.enable_special_message = checked }
+                    }
+                    Label {
+                        Layout.fillWidth: true
+                        horizontalAlignment: Label.AlignLeft
+                        font { bold: true; pointSize: 22 }
+                        elide: Label.ElideRight
+                        color: "white"
+                        text: String("fa:fa-stars %1").arg(qsTr("About"))
+                    }
+                    RowLayout {
+                        // - Free: without advertisement
+                        // - Open source: code available on github under MIT license
+                        // - Bug tracking: in indor to improve the Application
+                        // - Suggestion Box: new languages, features
+                        // - Review the app: let other know about this app (share it)
+                        // - Twitter: Share your experience here.
+                        // - Credits: Developed with Love by Johan and published by Denver.
+                    }
                 }
-                Switch { onCheckedChanged: DeviceAccess.disableAutoLock(checked) }
-            }
-            RowLayout {
-                Label {
-                    font { bold: true; pointSize: 16 }
-                    color: "white"
-                    text: String("%1 (%2 %)").arg(
-                              qsTr("Minimum Battery Level")).arg(slider.value.toString())
-                    elide: Label.ElideLeft
-                    Layout.fillWidth: true
-                }
-                Slider { id: slider; from: 20; to: 50; stepSize: 5 }
-            }
-            Label {
-                Layout.fillWidth: true
-                horizontalAlignment: Label.AlignLeft
-                font { bold: true; pointSize: 22 }
-                elide: Label.ElideRight
-                color: "white"
-                text: qsTr("fa:fa-shield-dog %1").arg(qsTr("Security"))
-            }
-            RowLayout {
-                Label {
-                    font { bold: true; pointSize: 16 }
-                    color: "white"
-                    text: qsTr("Enable Guided Access")
-                    elide: Label.ElideRight
-                    Layout.fillWidth: true
-                }
-                Switch { onCheckedChanged: DeviceAccess.enableGuidedAccessSession(checked) }
-            }
-            Label {
-                Layout.fillWidth: true
-                horizontalAlignment: Label.AlignLeft
-                font { bold: true; pointSize: 22 }
-                elide: Label.ElideRight
-                color: "white"
-                text: String("fa:fa-palette %1").arg(qsTr("Appearance"))
-            }
-            RowLayout {
-                Label {
-                    font { bold: true; pointSize: 16 }
-                    color: "white"
-                    text: qsTr("Background Color")
-                }
-                TextField {
-                    text: root.background_color
-                    onEditingFinished: root.background_color = text
-                }
-            }
-            RowLayout {
-                Label {
-                    font { bold: true; pointSize: 16 }
-                    color: "white"
-                    text: qsTr("Enabled Letter Color")
-                }
-                TextField {
-                    text: root.on_color
-                    onEditingFinished: root.on_color = text
-                }
-            }
-            RowLayout {
-                Label {
-                    font { bold: true; pointSize: 16 }
-                    color: "white"
-                    text: qsTr("Deactivated Letter Color")
-                }
-                TextField {
-                    text: root.off_color
-                    onEditingFinished: root.off_color = text
-                }
-            }
-            RowLayout {
-                Label {
-                    font { bold: true; pointSize: 16 }
-                    color: "white"
-                    text: qsTr("Letter Font")
-                }
-            }
-            RowLayout {
-                Label {
-                    font { bold: true; pointSize: 16 }
-                    color: "white"
-                    text: qsTr("Enable Special Message")
-                    Layout.fillWidth: true
-                    elide: Label.ElideRight
-                }
-                    Switch { onCheckedChanged: root.enable_special_message = checked }
-            }
-            Label {
-                Layout.fillWidth: true
-                horizontalAlignment: Label.AlignLeft
-                font { bold: true; pointSize: 22 }
-                elide: Label.ElideRight
-                color: "white"
-                text: String("fa:fa-stars %1").arg(qsTr("About"))
-            }
-            RowLayout {
-                // - Free: without advertisement
-                // - Open source: code available on github under MIT license
-                // - Bug tracking: in indor to improve the Application
-                // - Suggestion Box: new languages, features
-                // - Review the app: let other know about this app (share it)
-                // - Twitter: Share your experience here.
-                // - Credits: Developed with Love by Johan and published by Denver.
             }
             Label {
                 Layout.alignment: Qt.AlignHCenter
@@ -364,6 +378,7 @@ Window {
             }
         }
     }
+    */
 
     Column {
         id: column
