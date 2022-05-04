@@ -7,6 +7,7 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 # WordClock
 QML Word Clock (POC)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5e4066e2b77e4292a0be320ae5c0623b)](https://app.codacy.com/gh/kokleeko/WordClock?utm_source=github.com&utm_medium=referral&utm_content=kokleeko/WordClock&utm_campaign=Badge_Grade_Settings)
 [![Android](https://github.com/kokleeko/WordClock/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/android.yml)
 [![iOS](https://github.com/kokleeko/WordClock/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/ios.yml)
 [![macOS](https://github.com/kokleeko/WordClock/actions/workflows/macos.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/macos.yml)
