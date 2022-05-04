@@ -14,8 +14,10 @@ QML Word Clock (POC)
 [![Windows](https://github.com/kokleeko/WordClock/actions/workflows/windows.yml/badge.svg?branch=main)](https://github.com/johanrkokleekoemilien/WordClock/actions/workflows/windows.yml)
 
 [![codefactor](https://www.codefactor.io/repository/github/kokleeko/WordClock/badge)](https://www.codefactor.io/repository/github/kokleeko/WordClock)
-![ViewCount](https://views.whatilearened.today/views/github/kokleeko/WordClock.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/52b97f63c7374ead9f582e8631cef76a)](https://www.codacy.com/gh/kokleeko/WordClock/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kokleeko/WordClock&amp;utm_campaign=Badge_Grade)
 [![BCH compliance](https://bettercodehub.com/edge/badge/kokleeko/WordClock?branch=main)](https://bettercodehub.com/results/kokleeko/WordClock)
+
+![ViewCount](https://views.whatilearened.today/views/github/kokleeko/WordClock.svg)
 
 Supported languages: 🇺🇸  🇪🇸  🇫🇷
 
