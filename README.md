@@ -5,7 +5,7 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 </p></details>
 
 # WordClock
-QML Word Clock (POC)
+[![Qt](https://img.shields.io/badge/Qt-5.15%20LTS-green)](https://doc.qt.io/qt-5)
 
 [![Android](https://github.com/kokleeko/WordClock/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/android.yml)
 [![iOS](https://github.com/kokleeko/WordClock/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/ios.yml)
