@@ -1,7 +1,7 @@
 <details><summary>Licensed under the MIT license</summary><p>
 
 Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All rights reserved.
-<br>Licensed under the MIT license. See [LICENSE](../main/LICENSE) file in the project root for details.
+<br>Licensed under the MIT license. See [LICENSE](LICENSE) file in the project root for details.
 </p></details>
 
 # WordClock
@@ -47,7 +47,7 @@ This feature can be deactivated
     <img width="752" alt="🇺🇸 (10:30 AM|30)" src="https://user-images.githubusercontent.com/15193153/162683695-aa76f62f-000c-49bd-ab2b-5a17c84e76f3.png">
 </details>
 
-#### 🎲 Can you find the message that has been hidden in this grid ([without looking at the code](https://github.com/kokleeko/WordClock/blob/main/res/english.qml#L195-L207))?
+#### 🎲 Can you find the message that has been hidden in this grid ([without looking at the code](res/english.qml#L202-L214))?
 
 <img width="752" alt="🇺🇸 table)" src="https://user-images.githubusercontent.com/15193153/163260654-393641a8-34b2-4403-9e9b-f3b54cf4b120.png">
 
@@ -87,7 +87,7 @@ This feature can be deactivated
 
 </details>
 
-### 🎲 ¿Puedes descubrir el mensaje que se ha escondido en esta cuadrícula ([sin mirar el código](https://github.com/johanremilien/WordClock/blob/main/res/spanish.qml#L204-L227))?
+### 🎲 ¿Puedes descubrir el mensaje que se ha escondido en esta cuadrícula ([sin mirar el código](res/spanish.qml#L211-L234))?
 
 <img width="752" alt="🇪🇸 table" src="https://user-images.githubusercontent.com/15193153/163260838-c7b38c36-2d22-48e4-a5ce-4eb0e519e956.png">
 
@@ -128,7 +128,7 @@ This feature can be deactivated
 
 </details>
 
-#### 🎲 Sauras-tu trouver le message qui a été dissimulé dans cette grille ([sans regarder le code](https://github.com/kokleeko/WordClock/blob/main/res/french.qml#L214-L228))?
+#### 🎲 Sauras-tu trouver le message qui a été dissimulé dans cette grille ([sans regarder le code](res/french.qml#L221-L235))?
 
 <img width="752" alt="🇫🇷 table" src="https://user-images.githubusercontent.com/15193153/163484163-f8fae234-479c-4cd4-aaad-af98bf4c8ec3.png">
 
