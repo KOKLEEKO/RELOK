@@ -20,6 +20,8 @@ using namespace kokleeko::device;
 @end
 
 @interface QIOSViewController (ViewController)
+- (UIStatusBarStyle)preferredStatusBarStyle;
+- (void)viewDidLoad;
 @end
 
 @implementation QIOSViewController (ViewController)

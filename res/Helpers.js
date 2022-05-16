@@ -7,6 +7,8 @@
 **************************************************************************************************/
 .pragma library
 
+var isMobile = true//isEqual(Qt.platform.os, "android", "ios")
+
 function createStringArrayWithPadding (min, size, step, targetLength = 2, padString = '0') {
     return new Array(size).fill()
     .map((element, index) => (index*step + min).toString().padStart(targetLength, padString))
@@ -101,7 +103,7 @@ function createWelcomeTable() {
 }
 
 function createUndefinedMethod(object, name, ...args) {
-    Object.defineProperty(object, name, {value: (args) => unimplementedMethodWarning(name) });
+    Object.defineProperty(object, name, { value: (args) => unimplementedMethodWarning(name) });
 }
 
 function unimplementedMethodWarning (name) {
@@ -146,4 +148,27 @@ function toggle(object, propertyName, first, second) {
         object[propertyName] = (object[propertyName] === first ? second : first)
     else
         console.error(`${object} doesn't contain a property named "${propertyName}"`)
+}
+
+function isEqual(value, ...args) {
+    for (var arg of args) {
+        if (value === arg)
+            return true
+    }
+    return false
+}
+
+function isEqual(value, ...args) {
+    for (var arg of args) {
+        if (value === arg) {
+            return true
+        }
+    }
+    return false
+}
+
+function applyColorFactor(color, factor) {
+    return ( -1 < factor && factor < 1) ? color
+                                        : (factor > 1) ? Qt.darker(color, factor)
+                                                       : Qt.lighter(color, Math.abs(factor))
 }
