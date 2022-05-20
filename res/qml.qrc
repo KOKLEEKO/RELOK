@@ -16,8 +16,7 @@
         <file>languages/spanish.qml</file>
         <file>SettingsMenu.qml</file>
         <file>WebAccess.qml</file>
-        <file>controls/qmldir</file>
         <file>WordClock.qml</file>
-        <file>controls/MaterialColors.qml</file>
+        <file>controls/ColorHexField.qml</file>
     </qresource>
 </RCC>

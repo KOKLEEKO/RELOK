@@ -12,13 +12,27 @@ import "../Helpers.js" as Helpers
 
 Picker {
     id: control
-    from: -2.3
-    to: 4.9
-    value: 1
-    stepSize: .1
+    function getColor(hue, position) {
+        switch (factorType) {
+        case Picker.Factors.Saturation:
+            return Qt.hsla(hue, position, lightness, 1)
+        case Picker.Factors.Lightness:
+            return Qt.hsla(hue, saturation, position, 1)
+        default:
+            return Qt.hsla(hue, saturation, lightness, 1)
+        }
+    }
+
+    required property int factorType
     Component.onCompleted: {
-        baseColorChanged.connect(valueChanged)
-        valueChanged.connect(() => selectedColor = Helpers.applyColorFactor(baseColor, value))
+        hueChanged.connect(valueChanged)
+        if (factorType === Picker.Factors.Saturation) {
+            lightnessChanged.connect(valueChanged)
+        } else if (factorType === Picker.Factors.Lightness) {
+            saturationChanged.connect(valueChanged)
+        }
+
+        valueChanged.connect(() => selectedColor = getColor(hue, value))
         valueChanged()
     }
     background: Rectangle {
@@ -31,11 +45,11 @@ Picker {
         radius: implicitWidth/2
         gradient: Gradient {
             orientation: Gradient.Horizontal
-            GradientStop { position: 0;   color: Helpers.applyColorFactor(baseColor,from) }
-            GradientStop { position: 0.25;color: Helpers.applyColorFactor(baseColor,(3*from+to)/4) }
-            GradientStop { position: 0.5; color: Helpers.applyColorFactor(baseColor,(from+to)/2) }
-            GradientStop { position: 0.75;color: Helpers.applyColorFactor(baseColor,(from+3*to)/4) }
-            GradientStop { position: 1;   color: Helpers.applyColorFactor(baseColor,to) }
+            GradientStop { position: 0;     color: getColor(hue, 0) }
+            GradientStop { position: 0.25;  color: getColor(hue, .25) }
+            GradientStop { position: 0.5;   color: getColor(hue, .5) }
+            GradientStop { position: 0.75;  color: getColor(hue, .75) }
+            GradientStop { position: 1;     color: getColor(hue, 1) }
         }
         border.color: visualFocus ? palette.highlight : enabled ? palette.mid : palette.midlight
     }

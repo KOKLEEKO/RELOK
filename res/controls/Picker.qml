@@ -10,8 +10,14 @@ import QtQuick.Controls 2.15
 
 Slider {
     id: control
-    property color baseColor
+    property real hue
+    property real saturation
+    property real lightness
     property color selectedColor
+    enum Factors { Saturation, Lightness }
+    function reset() {}
+    from: 0
+    to: 1
     handle: Rectangle {
         x: control.leftPadding + control.visualPosition * (control.availableWidth - width)
         y: control.topPadding + control.availableHeight / 2 - height / 2

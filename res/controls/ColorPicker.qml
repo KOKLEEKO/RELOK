@@ -13,19 +13,14 @@ import "../Helpers.js" as Helpers
 
 Picker {
     id: control
-    property ListModel colors: MaterialColors { }
-    readonly property int steps: colors.count
+    readonly property int steps: 15
     property var stops: []
-    property real factor: 1
-    from: 0
-    to: steps-1
-    value: 0
-    stepSize: 1
     Component.onCompleted: {
-        factorChanged.connect(valueChanged)
+        saturationChanged.connect(valueChanged)
+        lightnessChanged.connect(valueChanged)
         valueChanged.connect(() => {
-                                 baseColor = colors.get(value).color;
-                                 selectedColor = Helpers.applyColorFactor(baseColor, factor)
+                                 hue = value
+                                 selectedColor = Qt.hsla(hue, saturation, lightness, 1)
                              })
         valueChanged()
     }
@@ -41,8 +36,8 @@ Picker {
         gradient: Gradient { orientation: Gradient.Horizontal; stops: control.stops }
     }
     Instantiator {
-        model: control.colors
+        model: steps
         delegate: GradientStop { position: index/(control.steps-1) }
-        onObjectAdded: { object.color = model.get(index).color; control.stops.push(object) }
+        onObjectAdded: { object.color = Qt.hsla(object.position,1,.5,1); control.stops.push(object) }
     }
 }

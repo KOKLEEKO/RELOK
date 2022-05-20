@@ -12,7 +12,6 @@ import QtQuick.Layouts 1.15
 import "controls" as Controls
 import "Helpers.js" as Helpers
 
-
 Controls.Menu {
     function openUrl(url) {
         if (Helpers.isMobile)
@@ -71,7 +70,7 @@ If enabled the screen device will stay active, when the application is running.\
                 from: 0
                 to: 1
                 value:DeviceAccess.brightness
-                onMoved: DeviceAccess.setBrightness(value)
+                onMoved: DeviceAccess.brightnessRequested = value
             }
         }
     }
@@ -92,18 +91,43 @@ Activating the 'Guided Access' feature will result in your device being locked w
     }
     Controls.MenuSection {
         text: String("fa:fa-palette %1").arg(qsTr("Appearance"))
-        // COLOR SETTING WILL APPEAR IN NEXT RELEASE
-        /*
         Controls.MenuItem {
             id: backgroundColorPicker
             property color selectedColor: extraControls[0].selectedColor
             text: qsTr("Background Color")
             extras: [
-                Controls.ColorPicker { factor:parent.children[1].value; value: 0 },
-                Controls.ColorFactorPicker {  baseColor: parent.children[0].baseColor; value: 4.9 }
+                Controls.ColorPicker {},
+                Controls.ColorFactorPicker {
+                    hue: parent.children[0].hue
+                    lightness: parent.children[0].lightness
+                    factorType: Controls.Picker.Factors.Saturation
+                    Component.onCompleted: {
+                        onMoved.connect(() => parent.children[0].saturation = value)
+                        moved()
+                    }
+                },
+                Controls.ColorFactorPicker {
+                    hue: parent.children[0].hue
+                    saturation: parent.children[0].saturation
+                    factorType: Controls.Picker.Factors.Lightness
+                    Component.onCompleted: {
+                        onMoved.connect(() => parent.children[0].lightness = value)
+                        moved()
+                    }
+                },
+                Controls.ColorHexField {
+                    huePicker: parent.children[0]
+                    saturationPicker: parent.children[1]
+                    lightnessPicker: parent.children[2]
+                }
             ]
             Component.onCompleted: {
-                selectedColorChanged.connect(() => wordClock.background_color = selectedColor)
+                selectedColorChanged.
+                connect(() => {
+                            wordClock.background_color = selectedColor
+                            DeviceAccess.setSettingsValue("Appearance/backgroundColor",
+                                                          selectedColor.toString().toUpperCase())
+                        })
             }
         }
         Controls.MenuItem {
@@ -111,11 +135,38 @@ Activating the 'Guided Access' feature will result in your device being locked w
             property color selectedColor: extraControls[0].selectedColor
             text: qsTr("Activated Letter Color")
             extras: [
-                Controls.ColorPicker { factor:parent.children[1].value; value: 1 },
-                Controls.ColorFactorPicker {  baseColor: parent.children[0].baseColor; value: 1 }
+                Controls.ColorPicker {},
+                Controls.ColorFactorPicker {
+                    hue: parent.children[0].hue
+                    lightness: parent.children[0].lightness
+                    factorType: Controls.Picker.Factors.Saturation
+                    Component.onCompleted: {
+                        onMoved.connect(() => parent.children[0].saturation = value)
+                        moved()
+                    }
+                },
+                Controls.ColorFactorPicker {
+                    hue: parent.children[0].hue
+                    saturation: parent.children[0].saturation
+                    factorType: Controls.Picker.Factors.Lightness
+                    Component.onCompleted: {
+                        onMoved.connect(() => parent.children[0].lightness = value)
+                        moved()
+                    }
+                },
+                Controls.ColorHexField {
+                    huePicker: parent.children[0]
+                    saturationPicker: parent.children[1]
+                    lightnessPicker: parent.children[2]
+                }
             ]
             Component.onCompleted: {
-                selectedColorChanged.connect(() => wordClock.on_color = selectedColor)
+                selectedColorChanged.
+                connect(() => {
+                            wordClock.on_color = selectedColor
+                            DeviceAccess.setSettingsValue("Appearance/activatedLetterColor",
+                                                          selectedColor.toString().toUpperCase())
+                        })
             }
         }
         Controls.MenuItem {
@@ -123,27 +174,50 @@ Activating the 'Guided Access' feature will result in your device being locked w
             property color selectedColor: extraControls[0].selectedColor
             text: qsTr("Deactivated Letter Color")
             extras: [
-                Controls.ColorPicker { factor:parent.children[1].value; value: 17 },
-                Controls.ColorFactorPicker {  baseColor: parent.children[0].baseColor; value: 1 }
+                Controls.ColorPicker {},
+                Controls.ColorFactorPicker {
+                    hue: parent.children[0].hue
+                    lightness: parent.children[0].lightness
+                    factorType: Controls.Picker.Factors.Saturation
+                    Component.onCompleted: {
+                        onMoved.connect(() => parent.children[0].saturation = value)
+                        moved()
+                    }
+                },
+                Controls.ColorFactorPicker {
+                    hue: parent.children[0].hue
+                    saturation: parent.children[0].saturation
+                    factorType: Controls.Picker.Factors.Lightness
+                    Component.onCompleted: {
+                        onMoved.connect(() => parent.children[0].lightness = value)
+                        moved()
+                    }
+                },
+                Controls.ColorHexField {
+                    huePicker: parent.children[0]
+                    saturationPicker: parent.children[1]
+                    lightnessPicker: parent.children[2]
+                }
             ]
             Component.onCompleted: {
-                selectedColorChanged.connect(() => wordClock.off_color = selectedColor)
+                selectedColorChanged.
+                connect(() => {
+                            wordClock.off_color = selectedColor
+                            DeviceAccess.setSettingsValue("Appearance/deactivatedLetterColor",
+                                                          selectedColor.toString().toUpperCase())
+                        })
             }
         }
         Controls.MenuItem {
             text: qsTr("Reset colors")
             Button {
                 onClicked: {
-                    backgroundColorPicker.extraControls[0].value = 0
-                    backgroundColorPicker.extraControls[1].value = 4.9
-                    activatedLetterColorPicker.extraControls[0].value = 1
-                    activatedLetterColorPicker.extraControls[1].value = 1
-                    deactivatedLetterColorPicker.extraControls[0].value = 17
-                    deactivatedLetterColorPicker.extraControls[1].value = 1
+                    backgroundColorPicker.extraControls[3].setColor("#000000")
+                    activatedLetterColorPicker.extraControls[3].setColor("#FF0000")
+                    deactivatedLetterColorPicker.extraControls[3].setColor("#808080")
                 }
             }
         }
-        */
         Controls.MenuItem {
             text: qsTr("Clock Language")
             extras: [
@@ -168,6 +242,14 @@ Activating the 'Guided Access' feature will result in your device being locked w
                                                   wordClock.enable_special_message = checked)
                 }
             }
+        }
+        Component.onCompleted: {
+            let bc  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
+            let alc = DeviceAccess.settingsValue("Appearance/activatedLetterColor", "#FF0000")
+            let dlc = DeviceAccess.settingsValue("Appearance/deactivatedLetterColor", "#808080")
+            backgroundColorPicker.extraControls[3].setColor(bc)
+            activatedLetterColorPicker.extraControls[3].setColor(alc)
+            deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
         }
     }
     Controls.MenuSection {

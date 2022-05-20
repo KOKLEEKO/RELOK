@@ -76,10 +76,12 @@ ApplicationWindow {
     Drawer {
         id: settingPanel
         property real inLineImplicitWidth
+       property real minSizeRatio: Math.min(parent.width, parent.height)*.05
         y: (parent.height - height) / 2
-        width: Math.min(parent.width*.95, inLineImplicitWidth)
-        height: parent.height*.99
+        width: Math.min(parent.width-minSizeRatio, inLineImplicitWidth)
+        height: parent.height-2*minSizeRatio
         edge: Qt.RightEdge
+        dim: false
         background: Item {
             clip: true
             opacity: 0.8
