@@ -4,21 +4,18 @@ import "languages"
 import "Helpers.js" as Helpers
 
 Rectangle {
-    function detectAndUseDeviceLanguage() {
-        if (language_url == "") {
-            switch (Qt.locale().name.substring(0,2)) {
-            case "es":
-                language_url = "qrc:/languages/spanish.qml"
-                break
-            case "fr":
-                language_url = "qrc:/languages/french.qml"
-                break
-            default:
-            case "en":
-                language_url = "qrc:/languages/english.qml"
-                break
-            }
+    function selectLanguage(language){
+        if (language !== "") {
+            language_url = "qrc:/languages/%1.qml".arg(language)
+            selectedLanguage = language
+            if (DeviceAccess.settingsValue("Appearance/language") !== language)
+                DeviceAccess.setSettingsValue("Appearance/language", language)
         }
+    }
+    function detectAndUseDeviceLanguage() {
+        let iso = Qt.locale().name.substring(0,2)
+        let language = languages[iso].toLowerCase()
+        selectLanguage(language)
     }
     function updateTable() {
         const split_time = time.split(':')
@@ -65,7 +62,8 @@ Rectangle {
         onoff_table = tmp_onoff_table
         onoff_dots = tmp_onoff_dots
     }
-
+    property var languages: {"en": "English", "fr": "French", "es": "Spanish"}
+    property string selectedLanguage
     // User-facing Settings
     property url language_url
 
@@ -115,16 +113,19 @@ Rectangle {
     color: background_color
     anchors.fill: parent
     Component.onCompleted: {
+        selectLanguage(DeviceAccess.settingsValue("Appearance/language", ""))
         language_urlChanged.connect(() => {
                                         if (time) {
                                             previous_hours_array_index= -1
                                             previous_minutes_array_index= -1
                                             tmp_onoff_table = Helpers.createTable(rows, columns, false)
-                                            updateTable()
+                                            timeChanged()
                                         }
                                     })
         timeChanged.connect(updateTable)
-        detectAndUseDeviceLanguage() }
+        if (language_url == "")
+            detectAndUseDeviceLanguage()
+    }
     Connections {
         target: DeviceAccess
         function onOrientationChanged() { orientationChangedSequence.start() }

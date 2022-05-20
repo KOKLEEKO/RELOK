@@ -13,9 +13,15 @@ Q_LOGGING_CATEGORY(lc, "Device")
 
 void DeviceAccess::enableGuidedAccessSession(bool enable) { Q_UNUSED(enable) }
 
-void DeviceAccess::setBrigthnessDelta(float brigthnessDelta) {
-  qDebug(lc) << "W brigthnessDelta:" << brigthnessDelta;
+void DeviceAccess::setBrigthnessDelta(float brightnessDelta) {
+  qDebug(lc) << "W brightnessDelta:" << brightnessDelta;
 }
+
+void DeviceAccess::setBrightness(float brightness) {
+  qDebug(lc) << "W brightness:" << brightness;
+}
+
+void DeviceAccess::batterySaving() {}
 
 void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "W disableAutoLock:" << disable;

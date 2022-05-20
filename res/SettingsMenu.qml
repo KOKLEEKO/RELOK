@@ -44,10 +44,13 @@ If enabled the screen device will stay active, when the application is running.\
 \nThink about activating 'Guided Access' if you might loose attention on your device\
 ")
             }
-            Switch { onCheckedChanged: DeviceAccess.disableAutoLock(checked) }
+            Switch {
+                checked: DeviceAccess.isAutoLockRequested
+                onToggled: DeviceAccess.isAutoLockRequested = checked
+            }
         }
         Controls.MenuItem {
-            text: String("%1 (%2%)").arg(qsTr("Minimum Battery Level")).arg(control.value.toString())
+            text: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(control.value.toString())
             detailsComponent: Controls.Details {
                 text: qsTr("\
 'Stay Awake' feature will be automatically disabed when the battery level will reach this value,\
@@ -58,7 +61,17 @@ If enabled the screen device will stay active, when the application is running.\
                 from: 20
                 to: 50
                 stepSize: 5
-                onValueChanged: DeviceAccess.minimumBatteryLevel = value
+                value: DeviceAccess.minimumBatteryLevel
+                onMoved: DeviceAccess.minimumBatteryLevel = value
+            }
+        }
+        Controls.MenuItem {
+            text: "%1 (%2%)".arg(qsTr("Brightness Level")).arg(DeviceAccess.brightness*100)
+            Slider {
+                from: 0
+                to: 1
+                value:DeviceAccess.brightness
+                onMoved: DeviceAccess.setBrightness(value)
             }
         }
     }
@@ -68,14 +81,19 @@ If enabled the screen device will stay active, when the application is running.\
             text: qsTr("Guided Access")
             detailsComponent: Controls.Details {
                 text: qsTr("\
-Enabling the Guided Access will lock your device, while the screen device will stay active\
-")
+Activating the 'Guided Access' feature will result in your device being locked when the application\
+ is in 'Stay Awake' mode")
             }
-            Switch { onCheckedChanged: DeviceAccess.enableGuidedAccessSession(checked) }
+            Switch {
+                checked: DeviceAccess.isGuidedAccessRequested
+                onToggled: DeviceAccess.isGuidedAccessRequested = checked
+            }
         }
     }
     Controls.MenuSection {
         text: String("fa:fa-palette %1").arg(qsTr("Appearance"))
+        // COLOR SETTING WILL APPEAR IN NEXT RELEASE
+        /*
         Controls.MenuItem {
             id: backgroundColorPicker
             property color selectedColor: extraControls[0].selectedColor
@@ -122,26 +140,34 @@ Enabling the Guided Access will lock your device, while the screen device will s
                     activatedLetterColorPicker.extraControls[1].value = 1
                     deactivatedLetterColorPicker.extraControls[0].value = 17
                     deactivatedLetterColorPicker.extraControls[1].value = 1
-                    wordClock.background_color = "black"
-                    wordClock.on_color = "red"
-                    wordClock.off_color = "grey"
                 }
             }
         }
+        */
         Controls.MenuItem {
-            text: qsTr("Enable Special Message")
-            Switch { onCheckedChanged: wordClock.enable_special_message = checked }
+            text: qsTr("Clock Language")
+            extras: [
+                Repeater {
+                    model: Object.values(wordClock.languages)
+                    Button {
+                        readonly property string language: modelData.toLowerCase()
+                        text: qsTr(modelData)
+                        highlighted: wordClock.selectedLanguage === language
+                        onClicked: wordClock.selectLanguage(language)
+                    }
+                },
+                Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
+            ]
         }
         Controls.MenuItem {
-            text: qsTr("Language")
-            detailsComponent: Controls.Details {
-                text: qsTr("Select clock language")
+            text: qsTr("Enable Special Message")
+            Switch {
+                checked: DeviceAccess.settingsValue("Appearance/specialMessage", true)
+                onToggled: {
+                    DeviceAccess.setSettingsValue("Appearance/specialMessage",
+                                                  wordClock.enable_special_message = checked)
+                }
             }
-            extras: [
-                Button { text: qsTr("English"); onClicked: wordClock.language_url = "qrc:/languages/english.qml"},
-                Button { text: qsTr("French"); onClicked: wordClock.language_url = "qrc:/languages/french.qml" },
-                Button { text: qsTr("Spanish"); onClicked:  wordClock.language_url = "qrc:/languages/spanish.qml" }
-            ]
         }
     }
     Controls.MenuSection {
@@ -149,7 +175,7 @@ Enabling the Guided Access will lock your device, while the screen device will s
         Controls.MenuItem {
             text: qsTr("Totally Free")
             detailsComponent: Controls.Details {
-                text: qsTr("Yes, it's totally free, without ads! So you can fully enjoy this app")
+                text: qsTr("Yes, it's totally free, without ads! So you can fully enjoy this app.")
             }
         }
         Controls.MenuItem {
@@ -166,11 +192,14 @@ Enabling the Guided Access will lock your device, while the screen device will s
             text: qsTr("Bug tracking")
             detailsComponent: Controls.Details {
                 text: qsTr("\
-We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as you\
- encounter them. But you can disable this feature to enter submarine mode.\
+We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
+you encounter them. But you can disable this feature to enter submarine mode.\
 ")
             }
-            Switch { }
+            Switch  {
+                checked: DeviceAccess.isBugTracking
+                onToggled: DeviceAccess.isBugTracking = checked
+            }
         }
         Controls.MenuItem {
             text: qsTr("Review")
@@ -178,19 +207,19 @@ We anonymously track the appearance of bugs in Firebase in order to correct them
                 text: qsTr("Rate us")
             }
             Row {
-                id: starsRow
                 spacing: 5
-                property int mark: 0
+                property int rating: DeviceAccess.settingsValue("About/rating", 0)
                 Repeater {
                     model: 5
                     Rectangle {
                         width: 20
                         height: width
-                        color: index <= starsRow.mark ? "gold" : "transparent"
+                        color: index <= parent.rating ? "gold" : "transparent"
                         border.color: "black"
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: starsRow.mark = index
+                            onClicked: DeviceAccess.setSettingsValue("About/rating",
+                                                                     parent.parent.rating = index)
                         }
                     }
                 }
