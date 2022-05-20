@@ -95,6 +95,8 @@ Activating the 'Guided Access' feature will result in your device being locked w
             id: backgroundColorPicker
             property color selectedColor: extraControls[0].selectedColor
             text: qsTr("Background Color")
+            detailsComponent: Controls.Details { text: qsTr("\
+The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecimal format ") }
             extras: [
                 Controls.ColorPicker {},
                 Controls.ColorFactorPicker {
@@ -235,6 +237,11 @@ Activating the 'Guided Access' feature will result in your device being locked w
         }
         Controls.MenuItem {
             text: qsTr("Enable Special Message")
+            detailsComponent: Controls.Details { text: qsTr("\
+Each grid contains a special message that will be displayed instead of the time for a minute at the\
+ following times 12:00 AM (00:00), 11:11 AM (11:11) and 10:22 PM (22:22). The minute indicator at\
+ the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between\
+ these different states.") }
             Switch {
                 checked: DeviceAccess.settingsValue("Appearance/specialMessage", true)
                 onToggled: {
