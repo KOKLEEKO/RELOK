@@ -20,6 +20,8 @@ using namespace kokleeko::device;
 @end
 
 @interface QIOSViewController (ViewController)
+- (UIStatusBarStyle)preferredStatusBarStyle;
+- (void)viewDidLoad;
 @end
 
 @implementation QIOSViewController (ViewController)
@@ -45,6 +47,11 @@ using namespace kokleeko::device;
          selector:@selector(receiveBatteryLevelDidChangeNotification:)
              name:UIDeviceBatteryLevelDidChangeNotification
            object:device];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(receiveBrightnessDidChangeNotification:)
+             name:UIScreenBrightnessDidChangeNotification
+           object:device];
 }
 
 - (void)receiveBatteryStateDidChangeNotification:(NSNotification *)notification {
@@ -56,7 +63,11 @@ using namespace kokleeko::device;
 
 - (void)receiveBatteryLevelDidChangeNotification:(NSNotification *)notification {
   auto batteryLevel = [[notification object] batteryLevel];
-  DeviceAccess::instance().updateBatteryLevel(batteryLevel * 100);
+  DeviceAccess::instance().updateBatteryLevel(batteryLevel);
+}
+- (void)receiveBrightnessDidChangeNotification:(NSNotification *)notification {
+  auto brightness = [[notification object] brightness];
+  DeviceAccess::instance().updateBrightness(brightness);
 }
 @end
 
@@ -64,17 +75,21 @@ void DeviceAccess::enableGuidedAccessSession(bool enable) {
   UIAccessibilityRequestGuidedAccessSession(enable, ^(BOOL didSucceed) {
     qCDebug(lc) << "Request guided access " << (didSucceed ? "succeed" : "failed");
     if (didSucceed) {
-      m_isGuidedAccessSession = enable;
-      isGuidedAccessSessionChanged();
+      m_isGuidedAccessEnabled = enable;
+      isGuidedAccessEnabledChanged();
     }
   });
 }
 
-void DeviceAccess::setBrigthnessDelta(float brigthnessDelta) {
-  float brightnessLevel = [[UIScreen mainScreen] brightness] + brigthnessDelta;
-  brightnessLevel = std::clamp<float>(brightnessLevel, 0, 1);
-  qCDebug(lc) << "W brightnessLevel:" << brightnessLevel;
-  [UIScreen mainScreen].brightness = brightnessLevel;
+void DeviceAccess::setBrigthnessDelta(float brightnessDelta) {
+  float brightness = [[UIScreen mainScreen] brightness] + brightnessDelta;
+  brightness = std::clamp<float>(brightness, 0, 1);
+  setBrightness(brightness);
+}
+void DeviceAccess::setBrightness(float brightness) {
+  qCDebug(lc) << "W brightness:" << brightness;
+  m_settings.setValue("BatterySaving/battery", [UIScreen mainScreen].brightness = brightness);
+  brightnessRequestedChanged();
 }
 
 void DeviceAccess::disableAutoLock(bool disable) {
@@ -88,3 +103,5 @@ void DeviceAccess::toggleStatusBarVisibility() {
   [[[[UIApplication sharedApplication] keyWindow] rootViewController]
       setNeedsStatusBarAppearanceUpdate];
 }
+
+void DeviceAccess::batterySaving() {}
