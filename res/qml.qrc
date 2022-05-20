@@ -1,15 +1,22 @@
-<!--***********************************************************************************************
-**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors. All rights reserved.
-**  Licensed under the MIT license. See LICENSE file in the project root for details.
-**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
-************************************************************************************************-->
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>spanish.qml</file>
-        <file>Language.qml</file>
         <file>Helpers.js</file>
-        <file>english.qml</file>
-        <file>french.qml</file>
+        <file>controls/ColorFactorPicker.qml</file>
+        <file>controls/ColorPicker.qml</file>
+        <file>controls/Details.qml</file>
+        <file>controls/Menu.qml</file>
+        <file>controls/MenuItem.qml</file>
+        <file>controls/MenuSection.qml</file>
+        <file>controls/Picker.qml</file>
+        <file>controls/Title.qml</file>
+        <file>languages/english.qml</file>
+        <file>languages/french.qml</file>
+        <file>languages/Language.qml</file>
+        <file>languages/spanish.qml</file>
+        <file>SettingsMenu.qml</file>
+        <file>WebAccess.qml</file>
+        <file>WordClock.qml</file>
+        <file>controls/ColorHexField.qml</file>
     </qresource>
 </RCC>
