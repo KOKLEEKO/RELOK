@@ -65,6 +65,7 @@ using namespace kokleeko::device;
   auto batteryLevel = [[notification object] batteryLevel];
   DeviceAccess::instance().updateBatteryLevel(batteryLevel);
 }
+
 - (void)receiveBrightnessDidChangeNotification:(NSNotification *)notification {
   auto brightness = [[notification object] brightness];
   DeviceAccess::instance().updateBrightness(brightness);
@@ -95,6 +96,8 @@ void DeviceAccess::setBrightness(float brightness) {
 void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "W autoLock" << !disable;
   [UIApplication sharedApplication].idleTimerDisabled = disable;
+  m_isAutoLockDisabled = [UIApplication sharedApplication].isIdleTimerDisabled;
+  qCDebug(lc) << "R autoLock" << m_isAutoLockDisabled;
 }
 
 void DeviceAccess::toggleStatusBarVisibility() {
@@ -104,4 +107,12 @@ void DeviceAccess::toggleStatusBarVisibility() {
       setNeedsStatusBarAppearanceUpdate];
 }
 
-void DeviceAccess::batterySaving() {}
+void DeviceAccess::batterySaving() {
+  if (!m_isAutoLockRequested && (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel)) {
+    if (!m_isAutoLockDisabled) {
+      disableAutoLock(true);
+    }
+  } else if (m_isAutoLockDisabled) {
+    disableAutoLock(false);
+  }
+}
