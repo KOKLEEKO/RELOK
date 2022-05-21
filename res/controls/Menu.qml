@@ -30,10 +30,11 @@ ColumnLayout {
         Layout.fillWidth: true
         ScrollBar.vertical.policy: ScrollBar.AsNeeded
         clip: true
-        ColumnLayout {
-            id: menuSections
+        Item {
             width: scrollView.availableWidth
             height: scrollView.availableHeight
+            implicitHeight: menuSections.implicitHeight
+            ColumnLayout { id: menuSections; anchors.fill: parent }
         }
     }
     Loader { sourceComponent: footer; Layout.fillWidth: true }
