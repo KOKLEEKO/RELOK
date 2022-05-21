@@ -25,7 +25,7 @@ TextField {
     required property Picker lightnessPicker
     implicitWidth: 200
     text: huePicker.selectedColor.toString().toUpperCase()
-    font.pointSize: Title.Headings.P1
+    font.pointSize: headings.p1
     horizontalAlignment: TextField.AlignHCenter
     color: acceptableInput ? palette.text : "red"
     validator: RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }

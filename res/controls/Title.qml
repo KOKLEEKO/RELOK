@@ -10,7 +10,6 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Label {
-    enum Headings { H0= 40, H1 = 32, H2 = 26, H3 = 22, H4=20, P1=13, P2 = 11 }
     property alias mouseArea: mouseArea
     required property int heading
     Layout.fillWidth: true

@@ -10,8 +10,8 @@ import QtQuick.Layouts 1.15
 
 Text {
     Layout.fillWidth: true
-    color: palette.text
+    color: palette.windowText
     maximumLineCount: Number.POSITIVE_INFINITY
     wrapMode: Text.WordWrap
-    font.pointSize:  Title.Headings.P2
+    font.pointSize:  headings.p1
 }

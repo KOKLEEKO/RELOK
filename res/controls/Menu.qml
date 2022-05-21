@@ -19,7 +19,7 @@ ColumnLayout {
     Title {
         id: title
         horizontalAlignment: Title.AlignHCenter
-        heading: Title.Headings.H1
+        heading: headings.h1
         Layout.alignment: Qt.AlignTop
         mouseArea.enabled: true
         mouseArea.onClicked: collapsed ? collapsed.isCollapsed = true : { }
