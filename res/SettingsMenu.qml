@@ -23,7 +23,7 @@ Controls.Menu {
     anchors { fill: parent; margins: 20}
     text: qsTr("fa:fa-square-sliders %1").arg("My preferences")
     footer: Controls.MenuSection {
-        title.heading: Controls.Title.Headings.H3
+        title.heading: headings.h3
         title.horizontalAlignment: Label.AlignHCenter
         title.text: qsTr("fa:fa-coffee-beans %1").arg("Tip me")
         Layout.alignment: Qt.AlignBottom

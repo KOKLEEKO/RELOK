@@ -15,6 +15,7 @@ import "Helpers.js" as Helpers
 ApplicationWindow {
     id: root
     property WebView webView
+    property alias headings: headings
     width: 640
     height: 480
     minimumWidth: 180
@@ -22,6 +23,19 @@ ApplicationWindow {
     visible: true
     visibility: Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
+
+    Component.onCompleted: {console.log("pixelDensity", Screen.pixelDensity)}
+
+    QtObject {
+        id: headings
+        readonly property real h0: 40*Screen.devicePixelRatio
+        readonly property real h1: 32*Screen.devicePixelRatio
+        readonly property real h2: 26*Screen.devicePixelRatio
+        readonly property real h3: 22*Screen.devicePixelRatio
+        readonly property real h4: 20*Screen.devicePixelRatio
+        readonly property real p1: 13*Screen.devicePixelRatio
+        readonly property real p2: 11*Screen.devicePixelRatio
+    }
 
     SystemPalette { id: systemPalette }
     palette {
@@ -76,10 +90,11 @@ ApplicationWindow {
     Drawer {
         id: settingPanel
         property real inLineImplicitWidth
-       property real minSizeRatio: Math.min(parent.width, parent.height)*.05
         y: (parent.height - height) / 2
-        width: Math.min(parent.width-minSizeRatio, inLineImplicitWidth)
-        height: parent.height-2*minSizeRatio
+        width: Screen.primaryOrientation === Qt.LandscapeOrientation ?
+                   Math.max(parent.width*.5,300) : parent.width*.95
+        height: parent.height
+        closePolicy: Drawer.CloseOnEscape | Drawer.CloseOnPressOutside
         edge: Qt.RightEdge
         dim: false
         background: Item {
@@ -88,7 +103,7 @@ ApplicationWindow {
             Rectangle {
                 anchors { fill: parent; rightMargin: -radius }
                 radius: Math.min(parent.height, parent.width)*.02
-                color:  palette.window
+                color: palette.window
             }
         }
         SettingsMenu { }

@@ -3,7 +3,6 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtWebView 1.15
 
-import "controls" as Controls
 import "Helpers.js" as Helpers
 
 Drawer {
@@ -78,7 +77,7 @@ Drawer {
                 Label {
                     anchors { fill: parent; margins: parent.width/4 }
                     text: webView.errorString
-                    font.pointSize: Controls.Title.Headings.H1
+                    font.pointSize: headings.h1
                     horizontalAlignment: Label.AlignHCenter
                     verticalAlignment: Label.AlignVCenter
                     wrapMode: Label.WordWrap
