@@ -44,8 +44,8 @@ If enabled the screen device will stay active, when the application is running.\
 ")
             }
             Switch {
-                checked: DeviceAccess.isAutoLockRequested
-                onToggled: DeviceAccess.isAutoLockRequested = checked
+                checked: DeviceAccess.isAutoLockDisabled
+                onToggled: DeviceAccess.isAutoLockRequested = !checked
             }
         }
         Controls.MenuItem {

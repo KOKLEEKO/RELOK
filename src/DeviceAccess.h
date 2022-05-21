@@ -30,8 +30,8 @@ class DeviceAccess : public QObject {
                  setMinimumBatteryLevel NOTIFY minimumBatteryLevelChanged)
   Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE
                  requestAutoLock NOTIFY isAutoLockRequestedChanged)
-  Q_PROPERTY(bool isAutoLockEnabled READ isAutoLockEnabled NOTIFY
-                 isAutoLockEnabledChanged)
+  Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY
+                 isAutoLockDisabledChanged)
   // Security
   Q_PROPERTY(bool isGuidedAccessRequested READ isGuidedAccessRequested WRITE
                  requestGuidedAccess NOTIFY isGuidedAccessRequestedChanged)
@@ -51,8 +51,8 @@ class DeviceAccess : public QObject {
   // Battery Saving
   int minimumBatteryLevel() const { return m_minimumBatteryLevel; }
   bool isPlugged() const { return m_isPlugged; }
-  bool isAutoLockRequested() const { return m_isAutoLockEnabledRequested; }
-  bool isAutoLockEnabled() const { return m_isAutoLockEnabled; }
+  bool isAutoLockRequested() const { return m_isAutoLockRequested; }
+  bool isAutoLockDisabled() const { return m_isAutoLockDisabled; }
   float brightnessRequested() const { return m_brightnessRequested; }
   float brightness() const { return m_brightness; }
   void updateIsPlugged(bool isPlugged) {
@@ -103,9 +103,9 @@ class DeviceAccess : public QObject {
   void toggleStatusBarVisibility();
   // BatterySaving
   void requestAutoLock(bool isAutoLockRequested) {
-    if (m_isAutoLockEnabledRequested == isAutoLockRequested) return;
+    if (m_isAutoLockRequested == isAutoLockRequested) return;
     m_settings.setValue("BatterySaving/isAutoLockRequested",
-                        m_isAutoLockEnabledRequested = isAutoLockRequested);
+                        m_isAutoLockRequested = isAutoLockRequested);
 
     emit isAutoLockRequestedChanged();
   }
@@ -136,7 +136,7 @@ class DeviceAccess : public QObject {
   void minimumBatteryLevelChanged();
   void isPluggedChanged();
   void isAutoLockRequestedChanged();
-  void isAutoLockEnabledChanged();
+  void isAutoLockDisabledChanged();
   void brightnessRequestedChanged();
   void brightnessChanged();
   // Security
@@ -151,6 +151,7 @@ class DeviceAccess : public QObject {
             &DeviceAccess::batterySaving);
     connect(this, &DeviceAccess::isAutoLockRequestedChanged,
             &DeviceAccess::batterySaving);
+    batterySaving();
     qCDebug(lc) << m_settings.fileName();
   };
   ~DeviceAccess() = default;
@@ -167,9 +168,9 @@ class DeviceAccess : public QObject {
       m_settings.value("BatterySaving/minimumBatteryLevel", 50).toInt();
   bool m_isPlugged = false;
 
-  bool m_isAutoLockEnabledRequested =
-      m_settings.value("BatterySaving/isAutoLockRequested", false).toBool();
-  bool m_isAutoLockEnabled = false;
+  bool m_isAutoLockRequested =
+      m_settings.value("BatterySaving/isAutoLockRequested", true).toBool();
+  bool m_isAutoLockDisabled = false;
   bool m_isGuidedAccessRequested =
       m_settings.value("BatterySaving/isGuidedAccessRequested", true).toBool();
   bool m_isGuidedAccessEnabled = false;
