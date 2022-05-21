@@ -28,7 +28,7 @@ GridLayout {
     Title {
         id: label
         horizontalAlignment: Title.AlignLeft
-        heading: Title.Headings.H3
+        heading: headings.h3
     }
     Component {
         id: extrasGrid
@@ -62,7 +62,7 @@ GridLayout {
         onLoaded: details = item
     }
     Component.onCompleted: {
-        inLineImplicitWidth += Math.max(label.implicitWidth, label.Layout.minimumWidth) +
+        inLineImplicitWidth = Math.max(label.implicitWidth, label.Layout.minimumWidth) +
                 ( control ? control.implicitWidth : extraGrid ? extraGrid.implicitWidth : 0 )
     }
 }

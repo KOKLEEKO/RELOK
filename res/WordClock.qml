@@ -189,7 +189,7 @@ Rectangle {
                         text: modelData
                         color: isEnabled ? on_color : off_color
                         style: isEnabled ? Text.Outline : Text.Sunken
-                        styleColor: isEnabled ? Qt.lighter(on_color, 1.5)
+                        styleColor: isEnabled ? Qt.lighter(on_color, 1.1)
                                               : Qt.darker(background_color, 1.5)
                         horizontalAlignment : Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter

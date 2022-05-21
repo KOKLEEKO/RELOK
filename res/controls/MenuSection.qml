@@ -20,7 +20,7 @@ ColumnLayout {
     Title {
         id: title
         horizontalAlignment: Title.AlignLeft
-        heading: Title.Headings.H2
+        heading: headings.h2
         mouseArea.enabled: isCollapsable
         mouseArea.onClicked: {
             if (isCollapsed) {
