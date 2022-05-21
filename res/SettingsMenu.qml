@@ -20,7 +20,7 @@ Controls.Menu {
             Qt.openUrlExternally(url)
     }
 
-    anchors { fill: parent; margins: 20}
+    anchors { fill: parent; margins: 20 }
     text: qsTr("fa:fa-square-sliders %1").arg("My preferences")
     footer: Controls.MenuSection {
         title.heading: headings.h3
