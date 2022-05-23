@@ -9,7 +9,7 @@ import QtQml.Models 2.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import "../Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as Helpers
 
 Picker {
     id: control

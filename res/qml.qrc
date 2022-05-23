@@ -1,22 +1,21 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>Helpers.js</file>
-        <file>controls/ColorFactorPicker.qml</file>
-        <file>controls/ColorPicker.qml</file>
-        <file>controls/Details.qml</file>
-        <file>controls/Menu.qml</file>
-        <file>controls/MenuItem.qml</file>
-        <file>controls/MenuSection.qml</file>
-        <file>controls/Picker.qml</file>
-        <file>controls/Title.qml</file>
-        <file>languages/english.qml</file>
-        <file>languages/french.qml</file>
-        <file>languages/Language.qml</file>
-        <file>languages/spanish.qml</file>
-        <file>SettingsMenu.qml</file>
-        <file>WebAccess.qml</file>
-        <file>WordClock.qml</file>
-        <file>controls/ColorHexField.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/controls/ColorFactorPicker.qml</file>
+        <file>qml/controls/ColorPicker.qml</file>
+        <file>qml/controls/Details.qml</file>
+        <file>qml/controls/Menu.qml</file>
+        <file>qml/controls/MenuItem.qml</file>
+        <file>qml/controls/MenuSection.qml</file>
+        <file>qml/controls/Picker.qml</file>
+        <file>qml/controls/Title.qml</file>
+        <file>qml/languages/english.qml</file>
+        <file>qml/languages/french.qml</file>
+        <file>qml/languages/Language.qml</file>
+        <file>qml/languages/spanish.qml</file>
+        <file>qml/SettingsMenu.qml</file>
+        <file>qml/WebAccess.qml</file>
+        <file>qml/WordClock.qml</file>
+        <file>qml/controls/ColorHexField.qml</file>
     </qresource>
 </RCC>
