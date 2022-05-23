@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/arrow-left-solid.svg</file>
+        <file>assets/at-solid.svg</file>
+        <file>assets/share-from-square-solid.svg</file>
+        <file>assets/star-regular.svg</file>
+        <file>assets/star-solid.svg</file>
+        <file>assets/globe-solid.svg</file>
+        <file>assets/github-brands.svg</file>
+        <file>assets/instagram-brands.svg</file>
+        <file>assets/linkedin-brands.svg</file>
+        <file>assets/twitter-brands.svg</file>
+        <file>assets/youtube-brands.svg</file>
+        <file>assets/app-store-ios-brands.svg</file>
+        <file>assets/google-play-brands.svg</file>
+        <file>assets/mug-saucer-solid.svg</file>
+        <file>assets/paypal-brands.svg</file>
+        <file>assets/arrow-rotate-right-solid.svg</file>
+        <file>assets/circle-xmark-solid.svg</file>
+    </qresource>
+</RCC>

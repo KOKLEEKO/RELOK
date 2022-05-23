@@ -21,20 +21,32 @@ Controls.Menu {
     }
 
     anchors { fill: parent; margins: 20 }
-    text: qsTr("fa:fa-square-sliders %1").arg("My preferences")
+    text: qsTr("My preferences")
     footer: Controls.MenuSection {
         title.heading: headings.h3
         title.horizontalAlignment: Label.AlignHCenter
-        title.text: qsTr("fa:fa-coffee-beans %1").arg("Tip me")
+        title.text: qsTr("Tip me")
         Layout.alignment: Qt.AlignBottom
         menuItems.flow: GridLayout.LeftToRight
 
-        Button { text: "Store"; onClicked:  openUrl("https://store")}
-        Button { text: "PayPal"; onClicked: openUrl("https://paypal.me/jrxxviij")}
-        Button { text: "Ko-fi"; onClicked:  openUrl("https://ko-fi.com/johanremilien")}
+        Controls.IconButton {
+            name: "mug-saucer-solid"
+            tooltip: "Ko-fi"
+            onClicked:  openUrl("https://ko-fi.com/johanremilien")
+        }
+        Controls.IconButton {
+            name: "paypal-brands"
+            tooltip: "PayPal"
+            onClicked: openUrl("https://paypal.me/jrxxviij")
+        }
+        Controls.IconButton {
+            visible: Helpers.isMobile
+            name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
+            tooltip: Helpers.isIos ? "App Store" : "Google Play"
+        }
     }
     Controls.MenuSection {
-        text: qsTr("fa:fa-earth-africa %1").arg("Battery Saving")
+        text: qsTr("Battery Saving")
         Controls.MenuItem {
             text: qsTr("Stay Awake")
             detailsComponent: Controls.Details {
@@ -75,7 +87,7 @@ If enabled the screen device will stay active, when the application is running.\
         }
     }
     Controls.MenuSection {
-        text: qsTr("fa:fa-shield-dog %1").arg(qsTr("Security"))
+        text: qsTr("Security")
         Controls.MenuItem {
             text: qsTr("Guided Access")
             detailsComponent: Controls.Details {
@@ -90,7 +102,7 @@ Activating the 'Guided Access' feature will result in your device being locked w
         }
     }
     Controls.MenuSection {
-        text: String("fa:fa-palette %1").arg(qsTr("Appearance"))
+        text: qsTr("Appearance")
         Controls.MenuItem {
             id: backgroundColorPicker
             property color selectedColor: extraControls[0].selectedColor
@@ -213,6 +225,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
         Controls.MenuItem {
             text: qsTr("Reset colors")
             Button {
+                text: qsTr("Reset")
                 onClicked: {
                     backgroundColorPicker.extraControls[3].setColor("#000000")
                     activatedLetterColorPicker.extraControls[3].setColor("#FF0000")
@@ -260,7 +273,7 @@ Each grid contains a special message that will be displayed instead of the time 
         }
     }
     Controls.MenuSection {
-        text: String("fa:fa-stars %1").arg(qsTr("About"))
+        text: qsTr("About")
         Controls.MenuItem {
             text: qsTr("Totally Free")
             detailsComponent: Controls.Details {
@@ -272,8 +285,9 @@ Each grid contains a special message that will be displayed instead of the time 
             detailsComponent: Controls.Details {
                 text: qsTr("The source code is available on GitHub under the MIT license, see it")
             }
-            Button {
-                text: "GitHub"
+            Controls.IconButton {
+                name: "github-brands"
+                tooltip: "GitHub"
                 onClicked: openUrl("https://github.com/kokleeko/WordClock")
             }
         }
@@ -292,54 +306,57 @@ you encounter them. But you can disable this feature to enter submarine mode.\
         }
         Controls.MenuItem {
             text: qsTr("Review")
-            detailsComponent: Controls.Details {
-                text: qsTr("Rate us")
-            }
+            detailsComponent: Controls.Details { text: qsTr("Rate us by clicking on the stars") }
             Row {
                 spacing: 5
                 property int rating: DeviceAccess.settingsValue("About/rating", 0)
                 Repeater {
                     model: 5
-                    Rectangle {
-                        width: 20
-                        height: width
-                        color: index <= parent.rating ? "gold" : "transparent"
-                        border.color: "black"
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: DeviceAccess.setSettingsValue("About/rating",
-                                                                     parent.parent.rating = index)
-                        }
+                    Button {
+                        property bool isSelected: index <= parent.rating
+                        icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "solid" : "regular")
+                        background: null
+                        onClicked: DeviceAccess.setSettingsValue("About/rating",
+                                                                 parent.rating = index)
                     }
                 }
             }
-            // display 5 stars when user press the last one open app-review otherwise the user
-            // and ask for improvement.
         }
         Controls.MenuItem {
             text: qsTr("Contact")
             detailsComponent: Controls.Details {
-                text: qsTr("We would be very pleased to hear about your experience with this application")
+                text: qsTr("\
+We would be very pleased to hear about your experience with this application")
             }
             extras: [
-                Button {
-                    text: "Kokleeko"
+                Controls.IconButton {
+                    name: "globe-solid"
+                    tooltip: qsTr("Website")
                     onClicked: openUrl("https://kokleeko.io")
                 },
-                Button {
-                    text: "Twitter"
+                Controls.IconButton {
+                    name: "twitter-brands"
+                    tooltip: "Twitter"
                     onClicked: openUrl("https://twitter.com/kokleeko_io")
                 },
-                Button {
-                    text: "Instagram"
+                Controls.IconButton {
+                    name: "instagram-brands"
+                    tooltip: "Instagram"
                     onClicked: openUrl("https://instagram.com/kokleeko.io")
                 },
-                Button {
-                    text: "Youtube"
+                Controls.IconButton {
+                    name: "youtube-brands"
+                    tooltip: "YouTube"
                     onClicked: openUrl("https://youtube.com/channel/UCJ0QPsxjk_mxdIQtEZsIA6w")
                 },
-                Button {
-                    text: qsTr("Email")
+                Controls.IconButton {
+                    name: "linkedin-brands"
+                    tooltip: "LinkedIn"
+                    onClicked: openUrl("https://www.linkedin.com/in/johanremilien")
+                },
+                Controls.IconButton {
+                    name: "at-solid"
+                    tooltip: qsTr("Email")
                     onClicked: Qt.openUrlExternally("mailto:contact@kokleeko.io")
                 }
             ]
@@ -347,7 +364,7 @@ you encounter them. But you can disable this feature to enter submarine mode.\
         Controls.MenuItem {
             text: qsTr("Credits")
             detailsComponent: Controls.Details {
-                text: qsTr("Developed with Love by Johan and published by Denver.")
+                text: qsTr("Developed with ❤️ by Johan and published by Denver.")
             }
         }
         Item { implicitHeight: 25 }

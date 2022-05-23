@@ -4,7 +4,7 @@
 ##  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 ###################################################################################################
 
-QT += quick core webview
+QT += quick core webview svg
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -18,6 +18,7 @@ SOURCES += \
            src/main.cpp
 
 RESOURCES += res/qml.qrc \
+  res/assets.qrc \
   res/js.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

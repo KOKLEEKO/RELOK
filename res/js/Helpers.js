@@ -8,6 +8,7 @@
 .pragma library
 
 var isMobile = true//isEqual(Qt.platform.os, "android", "ios")
+var isIos = true//Qt.platform.os == "ios"
 function createStringArrayWithPadding (min, size, step, targetLength = 2, padString = '0') {
     return new Array(size).fill()
     .map((element, index) => (index*step + min).toString().padStart(targetLength, padString))
