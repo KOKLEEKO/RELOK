@@ -190,7 +190,7 @@ Rectangle {
                         color: isEnabled ? on_color : off_color
                         style: isEnabled ? Text.Outline : Text.Sunken
                         styleColor: isEnabled ? Qt.lighter(on_color, 1.1)
-                                              : Qt.darker(background_color, 1.5)
+                                              : Qt.darker(off_color, 1.1)
                         horizontalAlignment : Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.Fit
