@@ -366,6 +366,16 @@ We would be very pleased to hear about your experience with this application")
             detailsComponent: Controls.Details {
                 text: qsTr("Developed with ❤️ by Johan and published by Denver.")
             }
+            extras: [
+                Button {
+                    text: qsTr("Built with Qt")
+                    onClicked: openUrl("https://www.qt.io")
+                },
+                Button {
+                    text: qsTr("Icons from FontAwesome")
+                    onClicked: openUrl("https://fontawesome.com")
+                }
+            ]
         }
         Item { implicitHeight: 25 }
     }
