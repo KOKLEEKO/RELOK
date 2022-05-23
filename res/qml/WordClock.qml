@@ -1,12 +1,12 @@
 import QtQuick 2.15
 
-import "languages"
-import "Helpers.js" as Helpers
+import "qrc:/qml/languages"
+import "qrc:/js/Helpers.js" as Helpers
 
 Rectangle {
     function selectLanguage(language){
         if (language !== "") {
-            language_url = "qrc:/languages/%1.qml".arg(language)
+            language_url = "qrc:/qml/languages/%1.qml".arg(language)
             selectedLanguage = language
             if (DeviceAccess.settingsValue("Appearance/language") !== language)
                 DeviceAccess.setSettingsValue("Appearance/language", language)
