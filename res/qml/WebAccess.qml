@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtWebView 1.15
 
-import "Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as Helpers
 
 Drawer {
     id: popup

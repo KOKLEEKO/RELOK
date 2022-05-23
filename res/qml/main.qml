@@ -10,7 +10,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtWebView 1.15
 
-import "Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as Helpers
 
 ApplicationWindow {
     id: root

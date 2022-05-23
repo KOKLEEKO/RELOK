@@ -6,7 +6,7 @@
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 import QtQuick 2.15
-import "../Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as Helpers
 
 QtObject {
 

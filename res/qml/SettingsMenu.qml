@@ -9,8 +9,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-import "controls" as Controls
-import "Helpers.js" as Helpers
+import "qrc:/qml/controls" as Controls
+import "qrc:/js/Helpers.js" as Helpers
 
 Controls.Menu {
     function openUrl(url) {
