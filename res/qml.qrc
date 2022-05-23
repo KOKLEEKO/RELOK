@@ -17,5 +17,6 @@
         <file>qml/WebAccess.qml</file>
         <file>qml/WordClock.qml</file>
         <file>qml/controls/ColorHexField.qml</file>
+        <file>qml/controls/IconButton.qml</file>
     </qresource>
 </RCC>
