@@ -19,10 +19,19 @@ Drawer {
             Layout.fillWidth: true
             RowLayout {
                 anchors.fill: parent
-                ToolButton { text: "✖️"; onClicked: popup.close() }
+                ToolButton {
+                    icon.source: "qrc:/assets/circle-xmark-solid.svg"
+                    onClicked: popup.close()
+                }
                 ToolSeparator { }
-                ToolButton { text: "⬅"; onClicked: webView.openUrl(webView.baseUrl, true) }
-                ToolButton { text: "🔄"; onClicked: webView.reload() }
+                ToolButton {
+                    icon.source: "qrc:/assets/arrow-left-solid.svg"
+                    onClicked: webView.openUrl(webView.baseUrl, true)
+                }
+                ToolButton {
+                    icon.source: "qrc:/assets/arrow-rotate-right-solid.svg"
+                    onClicked: webView.reload()
+                }
                 Label {
                     text: webView.title
                     elide: Label.ElideRight
@@ -31,7 +40,10 @@ Drawer {
                     Layout.fillWidth: true
                     font.bold: true
                 }
-                ToolButton { text: qsTr("🌐"); onClicked: Qt.openUrlExternally(webView.baseUrl) }
+                ToolButton {
+                    icon.source: "qrc:/assets/share-from-square-solid.svg"
+                    onClicked: Qt.openUrlExternally(webView.baseUrl)
+                }
             }
         }
         Item {
@@ -68,6 +80,11 @@ Drawer {
                         break;
                     }
                 }
+            }
+            BusyIndicator {
+                anchors.centerIn: parent
+                visible: webView.status === WebView.LoadStartedStatus
+                running: visible
             }
             Rectangle {
                 id: errorPage
