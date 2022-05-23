@@ -19,11 +19,11 @@ GridLayout {
     property var details: null
     property var extraGrid: null
     property var extraControls: extraGrid ? extraGrid.children : null
-    property var inLineImplicitWidth: 0
+    property var in_line_implicit_width: 0
     rowSpacing: 0
     Layout.rightMargin: 25
     columnSpacing: 0
-    flow:  (inLineImplicitWidth > scrollView.availableWidth) ? GridLayout.TopToBottom
+    flow:  (in_line_implicit_width > scrollView.availableWidth) ? GridLayout.TopToBottom
                                                              : GridLayout.LeftToRight
     Title {
         id: label
@@ -62,7 +62,7 @@ GridLayout {
         onLoaded: details = item
     }
     Component.onCompleted: {
-        inLineImplicitWidth = Math.max(label.implicitWidth, label.Layout.minimumWidth) +
+        in_line_implicit_width = Math.max(label.implicitWidth, label.Layout.minimumWidth) +
                 ( control ? control.implicitWidth : extraGrid ? extraGrid.implicitWidth : 0 )
     }
 }

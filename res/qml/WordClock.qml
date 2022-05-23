@@ -7,7 +7,7 @@ Rectangle {
     function selectLanguage(language){
         if (language !== "") {
             language_url = "qrc:/qml/languages/%1.qml".arg(language)
-            selectedLanguage = language
+            selected_language = language
             if (DeviceAccess.settingsValue("Appearance/language") !== language)
                 DeviceAccess.setSettingsValue("Appearance/language", language)
         }
@@ -62,24 +62,25 @@ Rectangle {
         onoff_table = tmp_onoff_table
         onoff_dots = tmp_onoff_dots
     }
-    property var languages: {"en": "English", "fr": "French", "es": "Spanish"}
-    property string selectedLanguage
+
+    signal applyColors()
+
     // User-facing Settings
-    property url language_url
-
+    property string selected_language
     property bool enable_special_message: true
-    property bool enable_stay_awake: false
-    property bool enable_guided_access: false
-    property int minimum_battery_level: 50
-
     property color background_color: "black"
+    property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
 
     // Internal Settings
-    readonly property real tableWidth: Math.min(height, width)*.9
-    readonly property real cellWidth: tableWidth/columns
-    readonly property real dot_size: cellWidth/4
+    property bool is_color_animation_enabled: true
+    readonly property int color_animation_easing: Easing.Linear
+    property var languages: {"en": "English", "fr": "French", "es": "Spanish"}
+    property url language_url
+    readonly property real table_width: Math.min(height, width)*.9
+    readonly property real cell_width: table_width/columns
+    readonly property real dot_size: cell_width/4
     property Language language
     property string time
     property bool was_AM
@@ -110,18 +111,31 @@ Rectangle {
     property var onoff_table: Helpers.createWelcomeTable()
     property var tmp_onoff_table: Helpers.createTable(rows, columns, false)
 
+    Behavior on background_color {
+        enabled: is_color_animation_enabled
+        ColorAnimation { duration: 1000; easing.type: color_animation_easing }
+    }
+    Behavior on on_color {
+        enabled: is_color_animation_enabled
+        ColorAnimation {  duration: 1000; easing.type: color_animation_easing }
+    }
+    Behavior on off_color {
+        enabled: is_color_animation_enabled
+        ColorAnimation { duration: 1000; easing.type: color_animation_easing }
+    }
+
     color: background_color
     anchors.fill: parent
     Component.onCompleted: {
         selectLanguage(DeviceAccess.settingsValue("Appearance/language", ""))
-        language_urlChanged.connect(() => {
-                                        if (time) {
-                                            previous_hours_array_index= -1
-                                            previous_minutes_array_index= -1
-                                            tmp_onoff_table = Helpers.createTable(rows, columns, false)
-                                            timeChanged()
-                                        }
-                                    })
+        language_urlChanged.connect(
+                    () => { if (time) {
+                            previous_hours_array_index= -1
+                            previous_minutes_array_index= -1
+                            tmp_onoff_table = Helpers.createTable(rows, columns, false)
+                            timeChanged()
+                        }
+                    })
         timeChanged.connect(updateTable)
         if (language_url == "")
             detectAndUseDeviceLanguage()
@@ -131,29 +145,43 @@ Rectangle {
         function onOrientationChanged() { orientationChangedSequence.start() }
     }
     Loader { source: language_url; onLoaded: language = item }
-    Timer { interval: 1000; running: true; repeat: false; onTriggered: timer.start() }
+    Timer {
+        property bool color_transition_finished: false
+        interval: 1000
+        running: true
+        repeat: true
+        onTriggered:
+            if (color_transition_finished) {
+                stop()
+                is_color_animation_enabled = false
+            } else {
+                timer.start()
+                applyColors()
+                color_transition_finished = true
+            }
+    }
     Timer {
         id: timer
-        property bool isDebug: false
+        property bool is_debug: false
         property int fake_counter: 0
-        property bool jumpToMinute: false
-        property bool jumpTo5Minutes: false
-        property bool jumpToHour: false
-        readonly property int dayToMs: 86400000
-        readonly property int minuteToMs:60000
-        property int timeReference
+        property bool jump_by_minute: false
+        property bool jump_by_5_minutes: false
+        property bool jump_by_hour: false
+        readonly property int day_to_ms: 86400000
+        readonly property int minute_to_ms:60000
+        property int time_reference
         interval: 1000
         repeat: true
         running: false
         triggeredOnStart: true
         onTriggered: {
-            if (isDebug) {
-                if (!timeReference) {
-                    timeReference = new Date().setTime(Math.random()*dayToMs)
+            if (is_debug) {
+                if (!time_reference) {
+                    time_reference = new Date().setTime(Math.random()*day_to_ms)
                 }
-                time = new Date(timeReference +
-                                (jumpToMinute + jumpTo5Minutes*5 + jumpToHour*60)*
-                                fake_counter*minuteToMs)
+                time = new Date(time_reference +
+                                (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
+                                fake_counter*minute_to_ms)
                 .toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
                 fake_counter++;
             } else {
@@ -165,7 +193,7 @@ Rectangle {
     Column {
         id: column
         anchors.centerIn: parent
-        width: tableWidth
+        width: table_width
         height: width
         SequentialAnimation {
             id: orientationChangedSequence
@@ -178,19 +206,19 @@ Rectangle {
             Row {
                 Repeater {
                     id: repeater
-                    property int rowIndex: index
+                    property int row_index: index
                     model: language.table[index]
                     Text {
-                        readonly property int rowIndex: repeater.rowIndex
-                        readonly property int columnIndex: index
-                        readonly property bool isEnabled: onoff_table[rowIndex][columnIndex]
-                        width: cellWidth
+                        readonly property int row_index: repeater.row_index
+                        readonly property int column_index: index
+                        readonly property bool is_enabled: onoff_table[row_index][column_index]
+                        width: cell_width
                         height: width
                         text: modelData
-                        color: isEnabled ? on_color : off_color
-                        style: isEnabled ? Text.Outline : Text.Sunken
-                        styleColor: isEnabled ? Qt.lighter(on_color, 1.1)
-                                              : Qt.darker(off_color, 1.1)
+                        color: is_enabled ? on_color : off_color
+                        style: is_enabled ? Text.Outline : Text.Sunken
+                        styleColor: is_enabled ? Qt.lighter(on_color, 1.1)
+                                               : Qt.darker(background_color, 1.1)
                         horizontalAlignment : Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.Fit
@@ -202,13 +230,13 @@ Rectangle {
         }
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: cellWidth - dot_size
+            spacing: cell_width - dot_size
             topPadding: spacing/2
             Repeater {
                 model: 4
                 Rectangle {
-                    readonly property bool isEnabled: (index+1 <= onoff_dots)
-                    color: isEnabled ? on_color : off_color
+                    readonly property bool is_enabled: (index+1 <= onoff_dots)
+                    color: is_enabled ? on_color : off_color
                     width: dot_size
                     height: width
                     radius: width/2

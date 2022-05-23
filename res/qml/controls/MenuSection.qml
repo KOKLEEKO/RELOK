@@ -15,29 +15,29 @@ ColumnLayout {
     property alias menuItems: menuItems
     default property alias contentItem: menuItems.children
     property url icon
-    property bool isCollapsed: isCollapsable
-    property bool isCollapsable: true
+    property bool is_collapsed: is_collapsable
+    property bool is_collapsable: true
     Title {
         id: title
         horizontalAlignment: Title.AlignLeft
         heading: headings.h2
-        mouseArea.enabled: isCollapsable
+        mouseArea.enabled: is_collapsable
         mouseArea.onClicked: {
-            if (isCollapsed) {
-                collapsed ? collapsed.isCollapsed = true : { }
+            if (is_collapsed) {
+                collapsed ? collapsed.is_collapsed = true : { }
                 collapsed = title.parent
             }
-            isCollapsed ^= true
+            is_collapsed ^= true
         }
     }
     GridLayout {
         id: menuItems
         flow: GridLayout.TopToBottom
         clip: true
-        opacity: isCollapsed? .0 : 1.
+        opacity: is_collapsed? .0 : 1.
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
-        Layout.maximumHeight: isCollapsed ? 0 : implicitHeight
+        Layout.maximumHeight: is_collapsed ? 0 : implicitHeight
         layer.enabled: true
         Behavior on Layout.maximumHeight { NumberAnimation { duration: 300 } }
         Behavior on opacity { NumberAnimation { duration: 200 } }
