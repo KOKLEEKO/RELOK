@@ -102,10 +102,19 @@ Activating the 'Guided Access' feature will result in your device being locked w
         }
     }
     Controls.MenuSection {
+        function applyColors() {
+            let bc  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
+            let alc = DeviceAccess.settingsValue("Appearance/activatedLetterColor", "#FF0000")
+            let dlc = DeviceAccess.settingsValue("Appearance/deactivatedLetterColor", "#808080")
+            backgroundColorPicker.extraControls[3].setColor(bc)
+            activatedLetterColorPicker.extraControls[3].setColor(alc)
+            deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
+        }
         text: qsTr("Appearance")
+        Component.onCompleted: wordClock.applyColors.connect(applyColors)
         Controls.MenuItem {
             id: backgroundColorPicker
-            property color selectedColor: extraControls[0].selectedColor
+            property color selected_color: extraControls[0].selected_color
             text: qsTr("Background Color")
             detailsComponent: Controls.Details { text: qsTr("\
 The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecimal format ") }
@@ -114,7 +123,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
-                    factorType: Controls.Picker.Factors.Saturation
+                    factor_type: Controls.Picker.Factors.Saturation
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].saturation = value)
                         moved()
@@ -123,7 +132,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
-                    factorType: Controls.Picker.Factors.Lightness
+                    factor_type: Controls.Picker.Factors.Lightness
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].lightness = value)
                         moved()
@@ -136,24 +145,24 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 }
             ]
             Component.onCompleted: {
-                selectedColorChanged.
+                selected_colorChanged.
                 connect(() => {
-                            wordClock.background_color = selectedColor
+                            wordClock.background_color = selected_color
                             DeviceAccess.setSettingsValue("Appearance/backgroundColor",
-                                                          selectedColor.toString().toUpperCase())
+                                                          selected_color.toString().toUpperCase())
                         })
             }
         }
         Controls.MenuItem {
             id: activatedLetterColorPicker
-            property color selectedColor: extraControls[0].selectedColor
+            property color selected_color: extraControls[0].selected_color
             text: qsTr("Activated Letter Color")
             extras: [
                 Controls.ColorPicker {},
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
-                    factorType: Controls.Picker.Factors.Saturation
+                    factor_type: Controls.Picker.Factors.Saturation
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].saturation = value)
                         moved()
@@ -162,7 +171,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
-                    factorType: Controls.Picker.Factors.Lightness
+                    factor_type: Controls.Picker.Factors.Lightness
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].lightness = value)
                         moved()
@@ -175,24 +184,24 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 }
             ]
             Component.onCompleted: {
-                selectedColorChanged.
+                selected_colorChanged.
                 connect(() => {
-                            wordClock.on_color = selectedColor
+                            wordClock.on_color = selected_color
                             DeviceAccess.setSettingsValue("Appearance/activatedLetterColor",
-                                                          selectedColor.toString().toUpperCase())
+                                                          selected_color.toString().toUpperCase())
                         })
             }
         }
         Controls.MenuItem {
             id: deactivatedLetterColorPicker
-            property color selectedColor: extraControls[0].selectedColor
+            property color selected_color: extraControls[0].selected_color
             text: qsTr("Deactivated Letter Color")
             extras: [
                 Controls.ColorPicker {},
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
-                    factorType: Controls.Picker.Factors.Saturation
+                    factor_type: Controls.Picker.Factors.Saturation
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].saturation = value)
                         moved()
@@ -201,7 +210,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
-                    factorType: Controls.Picker.Factors.Lightness
+                    factor_type: Controls.Picker.Factors.Lightness
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].lightness = value)
                         moved()
@@ -214,11 +223,11 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 }
             ]
             Component.onCompleted: {
-                selectedColorChanged.
+                selected_colorChanged.
                 connect(() => {
-                            wordClock.off_color = selectedColor
+                            wordClock.off_color = selected_color
                             DeviceAccess.setSettingsValue("Appearance/deactivatedLetterColor",
-                                                          selectedColor.toString().toUpperCase())
+                                                          selected_color.toString().toUpperCase())
                         })
             }
         }
@@ -241,7 +250,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                     Button {
                         readonly property string language: modelData.toLowerCase()
                         text: qsTr(modelData)
-                        highlighted: wordClock.selectedLanguage === language
+                        highlighted: wordClock.selected_language === language
                         onClicked: wordClock.selectLanguage(language)
                     }
                 },
@@ -262,14 +271,6 @@ Each grid contains a special message that will be displayed instead of the time 
                                                   wordClock.enable_special_message = checked)
                 }
             }
-        }
-        Component.onCompleted: {
-            let bc  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
-            let alc = DeviceAccess.settingsValue("Appearance/activatedLetterColor", "#FF0000")
-            let dlc = DeviceAccess.settingsValue("Appearance/deactivatedLetterColor", "#808080")
-            backgroundColorPicker.extraControls[3].setColor(bc)
-            activatedLetterColorPicker.extraControls[3].setColor(alc)
-            deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
         }
     }
     Controls.MenuSection {

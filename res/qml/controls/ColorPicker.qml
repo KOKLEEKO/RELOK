@@ -20,7 +20,7 @@ Picker {
         lightnessChanged.connect(valueChanged)
         valueChanged.connect(() => {
                                  hue = value
-                                 selectedColor = Qt.hsla(hue, saturation, lightness, 1)
+                                 selected_color = Qt.hsla(hue, saturation, lightness, 1)
                              })
         valueChanged()
     }

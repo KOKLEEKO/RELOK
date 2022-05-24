@@ -22,7 +22,7 @@ ColumnLayout {
         heading: headings.h1
         Layout.alignment: Qt.AlignTop
         mouseArea.enabled: true
-        mouseArea.onClicked: collapsed ? collapsed.isCollapsed = true : { }
+        mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
     }
     ScrollView {
         id: scrollView
