@@ -46,6 +46,7 @@ class DeviceAccess : public QObject {
 
   // About
   bool isBugTracking() const { return m_isBugTracking; }
+  Q_INVOKABLE void requestReview();
   // Appearance
   bool isStatusBarHidden() const { return m_isStatusBarHidden; }
   // Battery Saving
@@ -151,13 +152,16 @@ class DeviceAccess : public QObject {
             &DeviceAccess::batterySaving);
     connect(this, &DeviceAccess::isAutoLockRequestedChanged,
             &DeviceAccess::batterySaving);
+    connect(this, &DeviceAccess::isGuidedAccessRequested,
+            &DeviceAccess::security);
     batterySaving();
     qCDebug(lc) << m_settings.fileName();
-  };
+  }
   ~DeviceAccess() = default;
   DeviceAccess(const DeviceAccess&) = delete;
   DeviceAccess& operator=(const DeviceAccess&) = delete;
   void batterySaving();
+  void security();
 
   QSettings m_settings = QSettings("wordclock.ini", QSettings::IniFormat);
   float m_batteryLevel = 0;

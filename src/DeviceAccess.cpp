@@ -23,6 +23,10 @@ void DeviceAccess::setBrightness(float brightness) {
 
 void DeviceAccess::batterySaving() {}
 
+void DeviceAccess::security() {}
+
+void DeviceAccess::requestReview() {}
+
 void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "W disableAutoLock:" << disable;
 }

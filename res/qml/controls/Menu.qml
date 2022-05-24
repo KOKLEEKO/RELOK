@@ -28,7 +28,7 @@ ColumnLayout {
         id: scrollView
         Layout.fillHeight: true
         Layout.fillWidth: true
-        ScrollBar.vertical.policy: ScrollBar.AsNeeded
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
         clip: true
         Item {
             width: scrollView.availableWidth

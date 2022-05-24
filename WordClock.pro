@@ -39,6 +39,7 @@ DISTFILES += \
              src/README.md
 
 ios {
+    LIBS += -framework StoreKit
     OTHER_FILES += ios/Launch.storyboard
     OBJECTIVE_SOURCES += src/DeviceAccess.mm
 
