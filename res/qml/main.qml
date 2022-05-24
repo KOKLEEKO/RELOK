@@ -91,7 +91,7 @@ ApplicationWindow {
         id: settingPanel
         property real in_line_implicit_width
         y: (parent.height - height) / 2
-        width: Math.max(parent.width*.5, 300)
+        width: Math.max(parent.width*.65, 300)
         height: parent.height
         closePolicy: Drawer.CloseOnEscape | Drawer.CloseOnPressOutside
         edge: Qt.RightEdge
