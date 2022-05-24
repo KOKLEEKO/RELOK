@@ -6,6 +6,7 @@
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 #import <Foundation/NSNotification.h>
+#import <StoreKit/StoreKit.h>
 #import <UIKit/UIKit.h>
 
 #import <algorithm>
@@ -98,6 +99,11 @@ void DeviceAccess::disableAutoLock(bool disable) {
   [UIApplication sharedApplication].idleTimerDisabled = disable;
   m_isAutoLockDisabled = [UIApplication sharedApplication].isIdleTimerDisabled;
   qCDebug(lc) << "R autoLock" << m_isAutoLockDisabled;
+  if (m_isAutoLockDisabled) {
+    if (m_isGuidedAccessRequested && !m_isGuidedAccessEnabled) enableGuidedAccessSession(true);
+  } else if (m_isGuidedAccessEnabled) {
+    enableGuidedAccessSession(false);
+  }
 }
 
 void DeviceAccess::toggleStatusBarVisibility() {
@@ -114,5 +120,18 @@ void DeviceAccess::batterySaving() {
     }
   } else if (m_isAutoLockDisabled) {
     disableAutoLock(false);
+  }
+}
+
+void DeviceAccess::security() {
+  if (m_isAutoLockDisabled) enableGuidedAccessSession(m_isGuidedAccessRequested);
+}
+
+void DeviceAccess::requestReview() {
+  if (@available(iOS 14.0, *)) {
+    auto windowScene = [[[UIApplication sharedApplication] keyWindow] windowScene];
+    [SKStoreReviewController requestReviewInScene:windowScene];
+  } else if (@available(iOS 10.3, *)) {
+    [SKStoreReviewController requestReview];
   }
 }

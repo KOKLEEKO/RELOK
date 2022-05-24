@@ -39,11 +39,11 @@ Controls.Menu {
             tooltip: "PayPal"
             onClicked: openUrl("https://paypal.me/jrxxviij")
         }
-        Controls.IconButton {
-            visible: Helpers.isMobile
-            name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
-            tooltip: Helpers.isIos ? "App Store" : "Google Play"
-        }
+        //TODO: This will required some work, this feature might be postponed to the next release
+        //        Controls.IconButton {
+        //            name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
+        //            tooltip: Helpers.isIos ? "App Store" : "Google Play"
+        //        }
     }
     Controls.MenuSection {
         text: qsTr("Battery Saving")
@@ -317,8 +317,14 @@ you encounter them. But you can disable this feature to enter submarine mode.\
                         property bool isSelected: index <= parent.rating
                         icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "solid" : "regular")
                         background: null
-                        onClicked: DeviceAccess.setSettingsValue("About/rating",
-                                                                 parent.rating = index)
+                        onClicked: {
+                            DeviceAccess.setSettingsValue("About/rating",
+                                                          parent.rating = index)
+                            if (index >= 3)
+                                DeviceAccess.requestReview()
+                            else
+                                Qt.openUrlExternally("mailto:contact@kokleeko.io")
+                        }
                     }
                 }
             }
@@ -365,7 +371,7 @@ We would be very pleased to hear about your experience with this application")
         Controls.MenuItem {
             text: qsTr("Credits")
             detailsComponent: Controls.Details {
-                text: qsTr("Developed with ❤️ by Johan and published by Denver.")
+                text: qsTr("Developed with love by Johan and published by Denver.")
             }
             extras: [
                 Button {
