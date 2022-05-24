@@ -13,7 +13,7 @@ Slider {
     property real hue
     property real saturation
     property real lightness
-    property color selectedColor
+    property color selected_color
     enum Factors { Saturation, Lightness }
     function reset() {}
     from: 0
@@ -29,7 +29,7 @@ Slider {
         Rectangle {
             width: parent.width*.6
             height: width
-            color: control.selectedColor
+            color: control.selected_color
             radius: width/2
             anchors.centerIn: parent
             border.color: parent.border.color

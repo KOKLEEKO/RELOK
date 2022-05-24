@@ -66,33 +66,32 @@ ApplicationWindow {
         }
     }
     MouseArea {
-        property point pressedPoint
-        property bool isPressAndHold: false
+        property point pressed_point
+        property bool is_press_and_hold: false
         anchors.fill: parent
         onPressed: {
-            isPressAndHold = false
-            pressedPoint = Qt.point(mouseX, mouseY)
+            is_press_and_hold = false
+            pressed_point = Qt.point(mouseX, mouseY)
         }
         onPressAndHold: {
-            isPressAndHold = true
+            is_press_and_hold = true
             settingPanel.open()
         }
         onPositionChanged: {
-            if (Math.abs(pressedPoint.y - mouseY) >= 1)
-                DeviceAccess.setBrigthnessDelta(2*(pressedPoint.y - mouseY)/root.height)
+            if (Math.abs(pressed_point.y - mouseY) >= 1)
+                DeviceAccess.setBrigthnessDelta(2*(pressed_point.y - mouseY)/root.height)
         }
         onReleased:{
-            if (!isPressAndHold && Math.abs(pressedPoint.x - mouseX) < 1 && Math.abs(pressedPoint.y - mouseY) < 1)
+            if (!is_press_and_hold && Math.abs(pressed_point.x - mouseX) < 1 && Math.abs(pressed_point.y - mouseY) < 1)
                 DeviceAccess.toggleStatusBarVisibility()
         }
     }
     WordClock { id: wordClock }
     Drawer {
         id: settingPanel
-        property real inLineImplicitWidth
+        property real in_line_implicit_width
         y: (parent.height - height) / 2
-        width: Screen.primaryOrientation === Qt.LandscapeOrientation ?
-                   Math.max(parent.width*.5,300) : parent.width*.95
+        width: Math.max(parent.width*.5, 300)
         height: parent.height
         closePolicy: Drawer.CloseOnEscape | Drawer.CloseOnPressOutside
         edge: Qt.RightEdge
@@ -107,7 +106,7 @@ ApplicationWindow {
             }
         }
         SettingsMenu { }
-        Component.onCompleted: inLineImplicitWidth = implicitWidth
+        Component.onCompleted: in_line_implicit_width = implicitWidth
     }
     Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
 }

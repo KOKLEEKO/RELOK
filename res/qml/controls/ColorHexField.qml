@@ -24,10 +24,11 @@ TextField {
     required property Picker saturationPicker
     required property Picker lightnessPicker
     implicitWidth: 200
-    text: huePicker.selectedColor.toString().toUpperCase()
+    text: huePicker.selected_color.toString().toUpperCase()
     font.pointSize: headings.p1
     horizontalAlignment: TextField.AlignHCenter
     color: acceptableInput ? palette.text : "red"
     validator: RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }
+    inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
     Component.onCompleted: editingFinished.connect(()=>setColor(text))
 }

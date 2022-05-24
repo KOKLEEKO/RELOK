@@ -26,7 +26,7 @@ Drawer {
                 ToolSeparator { }
                 ToolButton {
                     icon.source: "qrc:/assets/arrow-left-solid.svg"
-                    onClicked: webView.openUrl(webView.baseUrl, true)
+                    onClicked: webView.openUrl(webView.base_url, true)
                 }
                 ToolButton {
                     icon.source: "qrc:/assets/arrow-rotate-right-solid.svg"
@@ -42,7 +42,7 @@ Drawer {
                 }
                 ToolButton {
                     icon.source: "qrc:/assets/share-from-square-solid.svg"
-                    onClicked: Qt.openUrlExternally(webView.baseUrl)
+                    onClicked: Qt.openUrlExternally(webView.base_url)
                 }
             }
         }
@@ -52,17 +52,17 @@ Drawer {
             WebView {
                 id: webView
                 function openUrl(url, fromBack = false) {
-                    if (url !== baseUrl)
+                    if (url !== base_url)
                         webView.url = url
                     if (!fromBack) {
                         popup.open()
-                        baseUrl = url
+                        base_url = url
                     }
                 }
                 property string title
-                property string baseUrl
+                property string base_url
                 property int status
-                property string errorString
+                property string error_string
                 visible: status === WebView.LoadSucceededStatus
                 anchors.fill: parent
                 onLoadingChanged: {
@@ -76,7 +76,7 @@ Drawer {
                         break;
                     case WebView.LoadFailedStatus:
                         webView.title = qsTr("Houston, we have a problem")
-                        webView.errorString = loadRequest.errorString
+                        webView.error_string = loadRequest.errorString
                         break;
                     }
                 }
@@ -93,7 +93,7 @@ Drawer {
                 color: palette.button
                 Label {
                     anchors { fill: parent; margins: parent.width/4 }
-                    text: webView.errorString
+                    text: webView.error_string
                     font.pointSize: headings.h1
                     horizontalAlignment: Label.AlignHCenter
                     verticalAlignment: Label.AlignVCenter
