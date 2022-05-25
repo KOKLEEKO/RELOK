@@ -77,7 +77,7 @@ If enabled the screen device will stay active, when the application is running.\
             }
         }
         Controls.MenuItem {
-            text: "%1 (%2%)".arg(qsTr("Brightness Level")).arg(DeviceAccess.brightness*100)
+            text: "%1 (%2%)".arg(qsTr("Brightness Level")).arg(Math.round(DeviceAccess.brightness*100))
             Slider {
                 from: 0
                 to: 1
