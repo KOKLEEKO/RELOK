@@ -1,0 +1,1065 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		D0A722CA37235F8AE90A6BF3 /* Qt Preprocess */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "WordClock" */;
+			buildPhases = (
+				5E618435888B9D49F8540165 /* Qt Qmake */,
+				7EF0942E79C014DCEC8976BC /* Qt Preprocessors */,
+			);
+			dependencies = (
+			);
+			name = "Qt Preprocess";
+			productName = "Qt Preprocess";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		025EB34741370CFE4A1564EC /* Qt5Core in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = FCF26B6A89AA40B172BBA660 /* Qt5Core */; };
+		07784895DA26CFB5B47B46A8 /* Qt5ClipboardSupport in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 9FB6BA7B21C9CD539D55849F /* Qt5ClipboardSupport */; };
+		0ABFAC86B6EC4827D2F88768 /* qicns in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 84EDB2905C3F3E99D7C92562 /* qicns */; };
+		0C9DE1549BDD353561749F59 /* qmldbg_debugger in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = B6C190B928821CEF870488A2 /* qmldbg_debugger */; };
+		0CE02722F00CAD43741297B5 /* CoreGraphics.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 6AE3EC31EE5BB1FCEE84137C /* CoreGraphics.framework */; };
+		12D5A13AA08370DA42D3F31F /* qtharfbuzz in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = EB71D39116223B04823318EE /* qtharfbuzz */; };
+		1399F747E86FB685EAA609B5 /* qrc_js.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 4667B15BC0A7CE9771145FA1 /* qrc_js.cpp */; settings = {ATTRIBUTES = (); }; };
+		15364689D2AB5A30E87A689F /* Security.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 205259EEEE2BADA5E64741E3 /* Security.framework */; };
+		183F65B429C3D7742DCEA11C /* qtlibpng in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = B4C27C38DACD7C9D8D008349 /* qtlibpng */; };
+		185B4A37CC2CB58797DFDC99 /* Qt5FontDatabaseSupport in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = BCF6E9A118E76CC8C7FEC219 /* Qt5FontDatabaseSupport */; };
+		1AD2F0A8079A09FE80F9A2F5 /* qrc_assets.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = D5D6B11F3488219287CFAC27 /* qrc_assets.cpp */; settings = {ATTRIBUTES = (); }; };
+		1F69509C338D1FEC573B6BB4 /* qmldbg_nativedebugger in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = CAC0CE816B877582514FD310 /* qmldbg_nativedebugger */; };
+		212F9CA23EB702F3BFD73EE1 /* qsvgicon in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 1AF69CC0436F61E7AB402B15 /* qsvgicon */; };
+		2281E74E4DD04D6D2176EDFF /* qtquicktemplates2plugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 8A56BB282EE4F2D104ED08D2 /* qtquicktemplates2plugin */; };
+		24AFA13835ABD1D189FE3223 /* qtpcre2 in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = FBC79D11EA269C515210DBA8 /* qtpcre2 */; };
+		25654D3F936EC250C6BF068B /* LaunchScreen.storyboard in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = 841692B9D57B0689C0006996 /* LaunchScreen.storyboard */; };
+		29098551EC52F7A4B9B61F03 /* Qt5QmlWorkerScript in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = E956718CDE8E15807F98E553 /* Qt5QmlWorkerScript */; };
+		2A9CF574221F95DEB0DCD8E5 /* qtquickcontrols2plugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4759F708684CEADA5D006906 /* qtquickcontrols2plugin */; };
+		2B02D9DC58A01E45248DDBCE /* CoreText.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 7D7B02101166B76FD2D4F8B4 /* CoreText.framework */; };
+		2D53A9871C410C21D12C2AFA /* qgif in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 96A5FE1FD3F8CEA17BB77DDC /* qgif */; };
+		311D8B73E5377C64FDED1395 /* qmldbg_server in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 25F4EA6A485F1F5F88BD0760 /* qmldbg_server */; };
+		37943543D2F5E8180CB36120 /* qmldbg_native in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = EB4C6EDDE7FD3BA38A915B86 /* qmldbg_native */; };
+		388FF1C0A897E4C0F91CA9A2 /* qtwebview_darwin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = CAA48DD0181667DAE0F0A2E0 /* qtwebview_darwin */; };
+		3CBA9EB22FD9B6B5E7A94BF9 /* qtgraphicaleffectsplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = B7DDB2ECE0DD6B4433575693 /* qtgraphicaleffectsplugin */; };
+		3F77373F300C59C8A5E18B43 /* qmldbg_profiler in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 53EFC60F4A03E7EB6182687F /* qmldbg_profiler */; };
+		460234343B80C9E47C277B83 /* moc_DeviceAccess.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = BD0917589015C1AE290BB246 /* moc_DeviceAccess.cpp */; settings = {ATTRIBUTES = (); }; };
+		4913E7702367525DCC8D8530 /* qmacjp2 in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = C939D655C36F51956514DFEC /* qmacjp2 */; };
+		497E0363246D14C7A5A6040F /* workerscriptplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 58A75371765038778B0EE25C /* workerscriptplugin */; };
+		4DAE89EF04606A3DC637100D /* qico in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = ACC005D083BA20C79622B2F4 /* qico */; };
+		4EB68D0C8182BCE33529C421 /* AudioToolbox.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 3C44131FDCFEF4396B9EA2BA /* AudioToolbox.framework */; };
+		5025868E59FD74C620B30CF2 /* qtgraphicaleffectsprivate in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 8F0D59EEC3DC67A824FFADC7 /* qtgraphicaleffectsprivate */; };
+		513434987E48C4E683FFD2D1 /* qmldbg_inspector in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = DA0D3A85257A63DEEC9C3636 /* qmldbg_inspector */; };
+		529BC9BB15020AF666A2A9B8 /* Qt5Network in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 59609BB1A18EB03BBAA0749B /* Qt5Network */; };
+		5331E4E80C4878A4DC15AE4E /* qmldbg_tcp in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = A578189919530500B5504152 /* qmldbg_tcp */; };
+		56CF48A6A9D31150895DEFB9 /* Assets.xcassets in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = B83F754777F78FD9ED9F903B /* Assets.xcassets */; };
+		5F057BC3942DC2230C3B2972 /* Qt5WebView in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = DE6268C099079512404D4581 /* Qt5WebView */; };
+		61EEC397DC8556BF8C4E36A7 /* ImageIO.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 3A8EF9C62A8D4790CBB89CEA /* ImageIO.framework */; };
+		626CD15C9985E1D5ACE88927 /* DeviceAccess_ios.mm in Compile Sources */ = {isa = PBXBuildFile; fileRef = 0E7B72B1B486933BF551D7C7 /* DeviceAccess_ios.mm */; settings = {ATTRIBUTES = (); }; };
+		63BDD4AAD9F0F094BAA7B6BF /* qtquickcontrols2materialstyleplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = F3B39E7B63769B586A4D256A /* qtquickcontrols2materialstyleplugin */; };
+		64C9E7746B0A6E122B42D0B9 /* wordclock_qml_plugin_import.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 7C7B28E54056F94D75D57B14 /* wordclock_qml_plugin_import.cpp */; settings = {ATTRIBUTES = (); }; };
+		77B5E5FC559B3A1CAC0F3D3A /* qmldbg_quickprofiler in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 36C5A4F43BAFADE9A6F8C522 /* qmldbg_quickprofiler */; };
+		7B7656864E140274682FE6E6 /* qtquick2plugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 3FF38199C16D2DE07ACEAA8B /* qtquick2plugin */; };
+		7F1DAC8BC46FA4274B2A511D /* qgenericbearer in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 0DC7D18967B02FF9518F2F73 /* qgenericbearer */; };
+		7F740E62BE08394B7C3D81C7 /* qtquickcontrols2universalstyleplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 532381C03D371778764A71F3 /* qtquickcontrols2universalstyleplugin */; };
+		8156E5B420D9250EC332D8F9 /* qjpeg in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = E22B84C5F42D0CCDF4F094A1 /* qjpeg */; };
+		835E4AD88E81FF656C27FE9A /* qquicklayoutsplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = F65B23CE526833129A07EFE6 /* qquicklayoutsplugin */; };
+		8761BF8A3149CDC7D484265A /* Qt5QuickTemplates2 in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 74EEC7C01164B7607B0B791D /* Qt5QuickTemplates2 */; };
+		887379477DA320539AE007B8 /* qmacheif in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 5081A0A5BC2CEE5F6D34C625 /* qmacheif */; };
+		906D4B242F504925A3CF2DBB /* GSS.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = C714C1AF3FA78E2DABBC17E8 /* GSS.framework */; };
+		92AB8A641D520E9F5CE1DF09 /* Qt5GraphicsSupport in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 65F8C05C94AB48BF092234D5 /* Qt5GraphicsSupport */; };
+		949C2B32310B11B7C72F1A26 /* qsvg in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 230F872DA99C23B63BA275EC /* qsvg */; };
+		94C475AAECAC91DA8C0025D5 /* Qt5Svg in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = F54C91E779F96C8D932AB78B /* Qt5Svg */; };
+		9527FA782673754CB02470C3 /* qtga in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 3B5E05F48CF5B0024846D0A1 /* qtga */; };
+		95985212A0ECBD8712229F0B /* qmldbg_preview in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = BD2279F33923720F70AD65B8 /* qmldbg_preview */; };
+		974A0752177255857814B258 /* qwebp in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 0A03B8059DC2618969A27CE9 /* qwebp */; };
+		980F5F9523425A50AEB72D64 /* Qt5QmlModels in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4048BF091915B9FACD0555D4 /* Qt5QmlModels */; };
+		9A8028E91FAE6B6F5514FB70 /* qtfreetype in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 1CEC8E9740E4F7FD2694A8E1 /* qtfreetype */; };
+		9CB0AD1530110C79A80E6615 /* qtquickcontrols2fusionstyleplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 7177EB597C147703BB042AC4 /* qtquickcontrols2fusionstyleplugin */; };
+		9E91B8B8BB14E649A1950111 /* Qt5Quick in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 89F53E7BB534D23E776ECEFC /* Qt5Quick */; };
+		A4514998414B71B47C130F51 /* qmldbg_messages in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 125D701F2B528DBB50D5F48F /* qmldbg_messages */; };
+		AAA53D28D23457E474E807CF /* qmldbg_local in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 3C326D9D984B5A846EF69AB6 /* qmldbg_local */; };
+		AB0E36C6D017C9D10160E372 /* qmlplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 496F9022D84289D6010D5C5E /* qmlplugin */; };
+		AB276E1BE82DF16F48B26104 /* qios in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 1CD93CCE6189860E6229A812 /* qios */; };
+		AE2549CC588F6ABC0A52E139 /* Default-568h@2x.png in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = 90831EEF882725F7D538728E /* Default-568h@2x.png */; };
+		B3FE8FAC746D3D5BB24FA398 /* Metal.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 1B2543FCC48E9436F21C4F63 /* Metal.framework */; };
+		B460F624007324313696BE86 /* QuartzCore.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 7EC00404ACD5AB0E97726B0E /* QuartzCore.framework */; };
+		C2D24A014CEB4806A9A85B94 /* Qt5Qml in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 6CCEE0884F7F81C93E199DD6 /* Qt5Qml */; };
+		C5BEB04E6C22C6617F670470 /* modelsplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = CFE257B0964A439C02D1E20F /* modelsplugin */; };
+		C99357D37319BCCE04920C97 /* qtiff in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 25405B11701F4B17A4659E19 /* qtiff */; };
+		C9A8A58DAEB0C74D7678E435 /* Launch.storyboard in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = 8DC021DB361F491191266B01 /* Launch.storyboard */; };
+		D4639595C3BCF2A39D88DF6E /* SystemConfiguration.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = FF5BDAB0076F3391B219EA52 /* SystemConfiguration.framework */; };
+		D532C1DB8CA33804AF4AA64A /* Qt5Widgets in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 65DC63888A5D3466BD9A6365 /* Qt5Widgets */; };
+		DE62E12FAD898ECF6C6575E6 /* qtquickcontrols2imaginestyleplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 83384EA7F6E3E6D4842010FF /* qtquickcontrols2imaginestyleplugin */; };
+		DFEABB2B04DFEBD916E6AE88 /* Qt5PacketProtocol in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = A0D61E780D11F44E36FCCC6B /* Qt5PacketProtocol */; };
+		E41AB93343799BED802718A0 /* wordclock_plugin_import.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = CCE5D23CAD8C9233C1DB9333 /* wordclock_plugin_import.cpp */; settings = {ATTRIBUTES = (); }; };
+		E6CF40F497847FB096E778B7 /* windowplugin in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 6BB01EAA005EB3373F2D7E7C /* windowplugin */; };
+		EABA2038CA2EDD1BF8CE446F /* Qt5Gui in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 9A3C1C9A3F1857A12F7D38E5 /* Qt5Gui */; };
+		EBD2746E3D270B26960C457D /* qrc_qml.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 9F5C4CF9C810433F2277E8C9 /* qrc_qml.cpp */; settings = {ATTRIBUTES = (); }; };
+		EEFFEAA8F168A59B30EADD79 /* main.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 6A5319A64A507FD52DF2381A /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		F26454630C80841CBDCFE1CA /* Foundation.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = FCC237CA5AD60B9BA4447615 /* Foundation.framework */; };
+		F2E0BCD8F4A4408514A419EB /* WebKit.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 42E66417D486B145AB4BA295 /* WebKit.framework */; };
+		F8B465CE34D8DF87AAE95913 /* CoreFoundation.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4D765E1B1EA6C757220C63E7 /* CoreFoundation.framework */; };
+		F905CD2D71EB21A557C0ED5C /* StoreKit.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 320A02C23A1742E10A9F61DE /* StoreKit.framework */; };
+		FE75C486532801CD1D6B4233 /* Qt5QuickControls2 in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 6386285284C1A5CFBF13BF54 /* Qt5QuickControls2 */; };
+		FF3BB81CCE32EE7B3C1EED5D /* qwbmp in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 614033E5C706ACBF25017C8C /* qwbmp */; };
+		FFC10CDB39ADFD26A572B3EC /* declarative_webview in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 1A4527DB0965ED5ADF0171E6 /* declarative_webview */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		044F177428445BBA00C763E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DB9C3763D02B1415CD9D565 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0A722CA37235F8AE90A6BF3;
+			remoteInfo = "Qt Preprocess";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		99542592E9780B9225F24AA8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		04839ADA7B66CE54A694A8ED /* WordClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A03B8059DC2618969A27CE9 /* qwebp */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qwebp; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqwebp$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		0DC7D18967B02FF9518F2F73 /* qgenericbearer */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qgenericbearer; path = "/Users/johan/Qt/5.15.1/ios/plugins/bearer/libqgenericbearer$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		0E7B72B1B486933BF551D7C7 /* DeviceAccess_ios.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = DeviceAccess_ios.mm; path = /Users/johan/Workspace/WordClock/src/DeviceAccess_ios.mm; sourceTree = "<absolute>"; };
+		125D701F2B528DBB50D5F48F /* qmldbg_messages */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_messages; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_messages$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		197FF4AFEA3419D260905587 /* WordClock.pro */ = {isa = PBXFileReference; lastKnownFileType = text; name = WordClock.pro; path = /Users/johan/Workspace/WordClock/WordClock.pro; sourceTree = "<absolute>"; };
+		1A4527DB0965ED5ADF0171E6 /* declarative_webview */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = declarative_webview; path = "/Users/johan/Qt/5.15.1/ios/qml/QtWebView/libdeclarative_webview$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		1AF69CC0436F61E7AB402B15 /* qsvgicon */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qsvgicon; path = "/Users/johan/Qt/5.15.1/ios/plugins/iconengines/libqsvgicon$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		1B2543FCC48E9436F21C4F63 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = /System/Library/Frameworks/Metal.framework; sourceTree = "<absolute>"; };
+		1CD93CCE6189860E6229A812 /* qios */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qios; path = "/Users/johan/Qt/5.15.1/ios/plugins/platforms/libqios$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		1CEC8E9740E4F7FD2694A8E1 /* qtfreetype */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtfreetype; path = "/Users/johan/Qt/5.15.1/ios/lib/libqtfreetype$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		205259EEEE2BADA5E64741E3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		230F872DA99C23B63BA275EC /* qsvg */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qsvg; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqsvg$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		25405B11701F4B17A4659E19 /* qtiff */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtiff; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqtiff$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		25F4EA6A485F1F5F88BD0760 /* qmldbg_server */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_server; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_server$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		2DE9426FC014FB0044020E50 /* js.qrc */ = {isa = PBXFileReference; lastKnownFileType = text; name = js.qrc; path = /Users/johan/Workspace/WordClock/res/js.qrc; sourceTree = "<absolute>"; };
+		320A02C23A1742E10A9F61DE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = /System/Library/Frameworks/StoreKit.framework; sourceTree = "<absolute>"; };
+		36C5A4F43BAFADE9A6F8C522 /* qmldbg_quickprofiler */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_quickprofiler; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_quickprofiler$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		3A8EF9C62A8D4790CBB89CEA /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = /System/Library/Frameworks/ImageIO.framework; sourceTree = "<absolute>"; };
+		3B5E05F48CF5B0024846D0A1 /* qtga */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtga; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqtga$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		3C326D9D984B5A846EF69AB6 /* qmldbg_local */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_local; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_local$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		3C44131FDCFEF4396B9EA2BA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		3FF38199C16D2DE07ACEAA8B /* qtquick2plugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquick2plugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick.2/libqtquick2plugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		4048BF091915B9FACD0555D4 /* Qt5QmlModels */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5QmlModels; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5QmlModels$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		42B980EB0E4BD1AA42AECB3A /* DeviceAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DeviceAccess.h; path = /Users/johan/Workspace/WordClock/src/DeviceAccess.h; sourceTree = "<absolute>"; };
+		42E66417D486B145AB4BA295 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		4667B15BC0A7CE9771145FA1 /* qrc_js.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = qrc_js.cpp; path = /Users/johan/Workspace/WordClock/ios/build/qrc_js.cpp; sourceTree = "<absolute>"; };
+		4759F708684CEADA5D006906 /* qtquickcontrols2plugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquickcontrols2plugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/libqtquickcontrols2plugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		496F9022D84289D6010D5C5E /* qmlplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmlplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQml/libqmlplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		4D765E1B1EA6C757220C63E7 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		5081A0A5BC2CEE5F6D34C625 /* qmacheif */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmacheif; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqmacheif$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		532381C03D371778764A71F3 /* qtquickcontrols2universalstyleplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquickcontrols2universalstyleplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Universal/libqtquickcontrols2universalstyleplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		53EFC60F4A03E7EB6182687F /* qmldbg_profiler */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_profiler; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_profiler$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		58A75371765038778B0EE25C /* workerscriptplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = workerscriptplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQml/WorkerScript.2/libworkerscriptplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		59609BB1A18EB03BBAA0749B /* Qt5Network */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Network; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5Network$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		614033E5C706ACBF25017C8C /* qwbmp */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qwbmp; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqwbmp$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		6386285284C1A5CFBF13BF54 /* Qt5QuickControls2 */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5QuickControls2; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5QuickControls2$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		65DC63888A5D3466BD9A6365 /* Qt5Widgets */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Widgets; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5Widgets$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		65F8C05C94AB48BF092234D5 /* Qt5GraphicsSupport */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5GraphicsSupport; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5GraphicsSupport$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		6A5319A64A507FD52DF2381A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = /Users/johan/Workspace/WordClock/src/main.cpp; sourceTree = "<absolute>"; };
+		6AE3EC31EE5BB1FCEE84137C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = /System/Library/Frameworks/CoreGraphics.framework; sourceTree = "<absolute>"; };
+		6BB01EAA005EB3373F2D7E7C /* windowplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = windowplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Window.2/libwindowplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		6CCEE0884F7F81C93E199DD6 /* Qt5Qml */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Qml; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5Qml$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		7177EB597C147703BB042AC4 /* qtquickcontrols2fusionstyleplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquickcontrols2fusionstyleplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Fusion/libqtquickcontrols2fusionstyleplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		74EEC7C01164B7607B0B791D /* Qt5QuickTemplates2 */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5QuickTemplates2; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5QuickTemplates2$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		7C7B28E54056F94D75D57B14 /* wordclock_qml_plugin_import.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = wordclock_qml_plugin_import.cpp; path = /Users/johan/Workspace/WordClock/ios/build/wordclock_qml_plugin_import.cpp; sourceTree = "<absolute>"; };
+		7D7B02101166B76FD2D4F8B4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = /System/Library/Frameworks/CoreText.framework; sourceTree = "<absolute>"; };
+		7EC00404ACD5AB0E97726B0E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		81992FFD19F9DE2DA0AB886F /* qml.qrc */ = {isa = PBXFileReference; lastKnownFileType = text; name = qml.qrc; path = /Users/johan/Workspace/WordClock/res/qml.qrc; sourceTree = "<absolute>"; };
+		83384EA7F6E3E6D4842010FF /* qtquickcontrols2imaginestyleplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquickcontrols2imaginestyleplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Imagine/libqtquickcontrols2imaginestyleplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		841692B9D57B0689C0006996 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = /Users/johan/Workspace/WordClock/ios/build/WordClock.xcodeproj/LaunchScreen.storyboard; sourceTree = "<absolute>"; };
+		84EDB2905C3F3E99D7C92562 /* qicns */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qicns; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqicns$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		89F53E7BB534D23E776ECEFC /* Qt5Quick */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Quick; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5Quick$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		8A56BB282EE4F2D104ED08D2 /* qtquicktemplates2plugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquicktemplates2plugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Templates.2/libqtquicktemplates2plugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		8DC021DB361F491191266B01 /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Launch.storyboard; path = /Users/johan/Workspace/WordClock/ios/Launch.storyboard; sourceTree = "<absolute>"; };
+		8F0D59EEC3DC67A824FFADC7 /* qtgraphicaleffectsprivate */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtgraphicaleffectsprivate; path = "/Users/johan/Qt/5.15.1/ios/qml/QtGraphicalEffects/private/libqtgraphicaleffectsprivate$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		90831EEF882725F7D538728E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "/Users/johan/Workspace/WordClock/ios/build/WordClock.xcodeproj/Default-568h@2x.png"; sourceTree = "<absolute>"; };
+		96A5FE1FD3F8CEA17BB77DDC /* qgif */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qgif; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqgif$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		9A3C1C9A3F1857A12F7D38E5 /* Qt5Gui */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Gui; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5Gui$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		9F5C4CF9C810433F2277E8C9 /* qrc_qml.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = qrc_qml.cpp; path = /Users/johan/Workspace/WordClock/ios/build/qrc_qml.cpp; sourceTree = "<absolute>"; };
+		9FB6BA7B21C9CD539D55849F /* Qt5ClipboardSupport */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5ClipboardSupport; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5ClipboardSupport$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		A0D61E780D11F44E36FCCC6B /* Qt5PacketProtocol */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5PacketProtocol; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5PacketProtocol$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		A578189919530500B5504152 /* qmldbg_tcp */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_tcp; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_tcp$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		ACC005D083BA20C79622B2F4 /* qico */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qico; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqico$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		B0CD8EDFD18DDFF66E17DAAC /* WordClock.pro */ = {isa = PBXFileReference; lastKnownFileType = text; name = WordClock.pro; path = /Users/johan/Workspace/WordClock/ios/build/WordClock.pro; sourceTree = "<absolute>"; };
+		B296511D3AC15B3FFCBE4AE9 /* .qmake.stash */ = {isa = PBXFileReference; lastKnownFileType = text; name = .qmake.stash; path = /Users/johan/Workspace/WordClock/ios/build/.qmake.stash; sourceTree = "<absolute>"; };
+		B4C27C38DACD7C9D8D008349 /* qtlibpng */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtlibpng; path = "/Users/johan/Qt/5.15.1/ios/lib/libqtlibpng$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		B6C190B928821CEF870488A2 /* qmldbg_debugger */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_debugger; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_debugger$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		B7DDB2ECE0DD6B4433575693 /* qtgraphicaleffectsplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtgraphicaleffectsplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtGraphicalEffects/libqtgraphicaleffectsplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		B83F754777F78FD9ED9F903B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = /Users/johan/Workspace/WordClock/apple/Assets.xcassets; sourceTree = "<absolute>"; };
+		BCF6E9A118E76CC8C7FEC219 /* Qt5FontDatabaseSupport */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5FontDatabaseSupport; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5FontDatabaseSupport$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		BD0917589015C1AE290BB246 /* moc_DeviceAccess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_DeviceAccess.cpp; path = /Users/johan/Workspace/WordClock/ios/build/moc_DeviceAccess.cpp; sourceTree = "<absolute>"; };
+		BD2279F33923720F70AD65B8 /* qmldbg_preview */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_preview; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_preview$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		C714C1AF3FA78E2DABBC17E8 /* GSS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GSS.framework; path = /System/Library/Frameworks/GSS.framework; sourceTree = "<absolute>"; };
+		C939D655C36F51956514DFEC /* qmacjp2 */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmacjp2; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqmacjp2$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		CAA48DD0181667DAE0F0A2E0 /* qtwebview_darwin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtwebview_darwin; path = "/Users/johan/Qt/5.15.1/ios/plugins/webview/libqtwebview_darwin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		CAC0CE816B877582514FD310 /* qmldbg_nativedebugger */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_nativedebugger; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_nativedebugger$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		CCE5D23CAD8C9233C1DB9333 /* wordclock_plugin_import.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = wordclock_plugin_import.cpp; path = /Users/johan/Workspace/WordClock/ios/build/wordclock_plugin_import.cpp; sourceTree = "<absolute>"; };
+		CFE257B0964A439C02D1E20F /* modelsplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = modelsplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQml/Models.2/libmodelsplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		D3577EBD906F46BA4578F320 /* assets.qrc */ = {isa = PBXFileReference; lastKnownFileType = text; name = assets.qrc; path = /Users/johan/Workspace/WordClock/res/assets.qrc; sourceTree = "<absolute>"; };
+		D5D6B11F3488219287CFAC27 /* qrc_assets.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = qrc_assets.cpp; path = /Users/johan/Workspace/WordClock/ios/build/qrc_assets.cpp; sourceTree = "<absolute>"; };
+		DA0D3A85257A63DEEC9C3636 /* qmldbg_inspector */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_inspector; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_inspector$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		DE6268C099079512404D4581 /* Qt5WebView */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5WebView; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5WebView$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		E22B84C5F42D0CCDF4F094A1 /* qjpeg */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qjpeg; path = "/Users/johan/Qt/5.15.1/ios/plugins/imageformats/libqjpeg$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		E956718CDE8E15807F98E553 /* Qt5QmlWorkerScript */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5QmlWorkerScript; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5QmlWorkerScript$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		EB4C6EDDE7FD3BA38A915B86 /* qmldbg_native */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qmldbg_native; path = "/Users/johan/Qt/5.15.1/ios/plugins/qmltooling/libqmldbg_native$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		EB71D39116223B04823318EE /* qtharfbuzz */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtharfbuzz; path = "/Users/johan/Qt/5.15.1/ios/lib/libqtharfbuzz$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		F3B39E7B63769B586A4D256A /* qtquickcontrols2materialstyleplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtquickcontrols2materialstyleplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Material/libqtquickcontrols2materialstyleplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		F54C91E779F96C8D932AB78B /* Qt5Svg */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Svg; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5Svg$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		F65B23CE526833129A07EFE6 /* qquicklayoutsplugin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qquicklayoutsplugin; path = "/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Layouts/libqquicklayoutsplugin$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		FBC79D11EA269C515210DBA8 /* qtpcre2 */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = qtpcre2; path = "/Users/johan/Qt/5.15.1/ios/lib/libqtpcre2$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		FCC237CA5AD60B9BA4447615 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		FCF26B6A89AA40B172BBA660 /* Qt5Core */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = Qt5Core; path = "/Users/johan/Qt/5.15.1/ios/lib/libQt5Core$(QT_LIBRARY_SUFFIX).a"; sourceTree = "<absolute>"; };
+		FF5BDAB0076F3391B219EA52 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1C883685E82D5676953459A /* Link Binary With Libraries */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F905CD2D71EB21A557C0ED5C /* StoreKit.framework in Link Binary With Libraries */,
+				AB276E1BE82DF16F48B26104 /* qios in Link Binary With Libraries */,
+				388FF1C0A897E4C0F91CA9A2 /* qtwebview_darwin in Link Binary With Libraries */,
+				F2E0BCD8F4A4408514A419EB /* WebKit.framework in Link Binary With Libraries */,
+				B460F624007324313696BE86 /* QuartzCore.framework in Link Binary With Libraries */,
+				4EB68D0C8182BCE33529C421 /* AudioToolbox.framework in Link Binary With Libraries */,
+				185B4A37CC2CB58797DFDC99 /* Qt5FontDatabaseSupport in Link Binary With Libraries */,
+				9A8028E91FAE6B6F5514FB70 /* qtfreetype in Link Binary With Libraries */,
+				92AB8A641D520E9F5CE1DF09 /* Qt5GraphicsSupport in Link Binary With Libraries */,
+				07784895DA26CFB5B47B46A8 /* Qt5ClipboardSupport in Link Binary With Libraries */,
+				212F9CA23EB702F3BFD73EE1 /* qsvgicon in Link Binary With Libraries */,
+				2D53A9871C410C21D12C2AFA /* qgif in Link Binary With Libraries */,
+				0ABFAC86B6EC4827D2F88768 /* qicns in Link Binary With Libraries */,
+				4DAE89EF04606A3DC637100D /* qico in Link Binary With Libraries */,
+				8156E5B420D9250EC332D8F9 /* qjpeg in Link Binary With Libraries */,
+				887379477DA320539AE007B8 /* qmacheif in Link Binary With Libraries */,
+				4913E7702367525DCC8D8530 /* qmacjp2 in Link Binary With Libraries */,
+				61EEC397DC8556BF8C4E36A7 /* ImageIO.framework in Link Binary With Libraries */,
+				949C2B32310B11B7C72F1A26 /* qsvg in Link Binary With Libraries */,
+				9527FA782673754CB02470C3 /* qtga in Link Binary With Libraries */,
+				C99357D37319BCCE04920C97 /* qtiff in Link Binary With Libraries */,
+				FF3BB81CCE32EE7B3C1EED5D /* qwbmp in Link Binary With Libraries */,
+				974A0752177255857814B258 /* qwebp in Link Binary With Libraries */,
+				0C9DE1549BDD353561749F59 /* qmldbg_debugger in Link Binary With Libraries */,
+				513434987E48C4E683FFD2D1 /* qmldbg_inspector in Link Binary With Libraries */,
+				AAA53D28D23457E474E807CF /* qmldbg_local in Link Binary With Libraries */,
+				A4514998414B71B47C130F51 /* qmldbg_messages in Link Binary With Libraries */,
+				37943543D2F5E8180CB36120 /* qmldbg_native in Link Binary With Libraries */,
+				1F69509C338D1FEC573B6BB4 /* qmldbg_nativedebugger in Link Binary With Libraries */,
+				95985212A0ECBD8712229F0B /* qmldbg_preview in Link Binary With Libraries */,
+				3F77373F300C59C8A5E18B43 /* qmldbg_profiler in Link Binary With Libraries */,
+				77B5E5FC559B3A1CAC0F3D3A /* qmldbg_quickprofiler in Link Binary With Libraries */,
+				311D8B73E5377C64FDED1395 /* qmldbg_server in Link Binary With Libraries */,
+				DFEABB2B04DFEBD916E6AE88 /* Qt5PacketProtocol in Link Binary With Libraries */,
+				5331E4E80C4878A4DC15AE4E /* qmldbg_tcp in Link Binary With Libraries */,
+				7F1DAC8BC46FA4274B2A511D /* qgenericbearer in Link Binary With Libraries */,
+				94C475AAECAC91DA8C0025D5 /* Qt5Svg in Link Binary With Libraries */,
+				D532C1DB8CA33804AF4AA64A /* Qt5Widgets in Link Binary With Libraries */,
+				FFC10CDB39ADFD26A572B3EC /* declarative_webview in Link Binary With Libraries */,
+				5F057BC3942DC2230C3B2972 /* Qt5WebView in Link Binary With Libraries */,
+				AB0E36C6D017C9D10160E372 /* qmlplugin in Link Binary With Libraries */,
+				C5BEB04E6C22C6617F670470 /* modelsplugin in Link Binary With Libraries */,
+				497E0363246D14C7A5A6040F /* workerscriptplugin in Link Binary With Libraries */,
+				835E4AD88E81FF656C27FE9A /* qquicklayoutsplugin in Link Binary With Libraries */,
+				7B7656864E140274682FE6E6 /* qtquick2plugin in Link Binary With Libraries */,
+				29098551EC52F7A4B9B61F03 /* Qt5QmlWorkerScript in Link Binary With Libraries */,
+				2281E74E4DD04D6D2176EDFF /* qtquicktemplates2plugin in Link Binary With Libraries */,
+				2A9CF574221F95DEB0DCD8E5 /* qtquickcontrols2plugin in Link Binary With Libraries */,
+				9CB0AD1530110C79A80E6615 /* qtquickcontrols2fusionstyleplugin in Link Binary With Libraries */,
+				7F740E62BE08394B7C3D81C7 /* qtquickcontrols2universalstyleplugin in Link Binary With Libraries */,
+				63BDD4AAD9F0F094BAA7B6BF /* qtquickcontrols2materialstyleplugin in Link Binary With Libraries */,
+				5025868E59FD74C620B30CF2 /* qtgraphicaleffectsprivate in Link Binary With Libraries */,
+				E6CF40F497847FB096E778B7 /* windowplugin in Link Binary With Libraries */,
+				3CBA9EB22FD9B6B5E7A94BF9 /* qtgraphicaleffectsplugin in Link Binary With Libraries */,
+				DE62E12FAD898ECF6C6575E6 /* qtquickcontrols2imaginestyleplugin in Link Binary With Libraries */,
+				FE75C486532801CD1D6B4233 /* Qt5QuickControls2 in Link Binary With Libraries */,
+				8761BF8A3149CDC7D484265A /* Qt5QuickTemplates2 in Link Binary With Libraries */,
+				9E91B8B8BB14E649A1950111 /* Qt5Quick in Link Binary With Libraries */,
+				EABA2038CA2EDD1BF8CE446F /* Qt5Gui in Link Binary With Libraries */,
+				B3FE8FAC746D3D5BB24FA398 /* Metal.framework in Link Binary With Libraries */,
+				183F65B429C3D7742DCEA11C /* qtlibpng in Link Binary With Libraries */,
+				12D5A13AA08370DA42D3F31F /* qtharfbuzz in Link Binary With Libraries */,
+				2B02D9DC58A01E45248DDBCE /* CoreText.framework in Link Binary With Libraries */,
+				0CE02722F00CAD43741297B5 /* CoreGraphics.framework in Link Binary With Libraries */,
+				980F5F9523425A50AEB72D64 /* Qt5QmlModels in Link Binary With Libraries */,
+				C2D24A014CEB4806A9A85B94 /* Qt5Qml in Link Binary With Libraries */,
+				529BC9BB15020AF666A2A9B8 /* Qt5Network in Link Binary With Libraries */,
+				15364689D2AB5A30E87A689F /* Security.framework in Link Binary With Libraries */,
+				D4639595C3BCF2A39D88DF6E /* SystemConfiguration.framework in Link Binary With Libraries */,
+				906D4B242F504925A3CF2DBB /* GSS.framework in Link Binary With Libraries */,
+				025EB34741370CFE4A1564EC /* Qt5Core in Link Binary With Libraries */,
+				F8B465CE34D8DF87AAE95913 /* CoreFoundation.framework in Link Binary With Libraries */,
+				F26454630C80841CBDCFE1CA /* Foundation.framework in Link Binary With Libraries */,
+				24AFA13835ABD1D189FE3223 /* qtpcre2 in Link Binary With Libraries */,
+			);
+			name = "Link Binary With Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		212B753391DDAD9516E2DD31 /* build */ = {
+			isa = PBXGroup;
+			children = (
+				CCE5D23CAD8C9233C1DB9333 /* wordclock_plugin_import.cpp */,
+				7C7B28E54056F94D75D57B14 /* wordclock_qml_plugin_import.cpp */,
+				D5D6B11F3488219287CFAC27 /* qrc_assets.cpp */,
+				4667B15BC0A7CE9771145FA1 /* qrc_js.cpp */,
+				9F5C4CF9C810433F2277E8C9 /* qrc_qml.cpp */,
+				BD0917589015C1AE290BB246 /* moc_DeviceAccess.cpp */,
+			);
+			name = build;
+			sourceTree = "<group>";
+		};
+		25B08E2869634E9BCBA333A2 /* Generated Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7A0728F2264B4A71AB258359 /* ios */,
+			);
+			name = "Generated Sources";
+			sourceTree = "<group>";
+		};
+		26639E99C111EE141D742D0D /* build */ = {
+			isa = PBXGroup;
+			children = (
+				B0CD8EDFD18DDFF66E17DAAC /* WordClock.pro */,
+				B296511D3AC15B3FFCBE4AE9 /* .qmake.stash */,
+			);
+			name = build;
+			sourceTree = "<group>";
+		};
+		2EB56BE3C2D93CDAB0C52E67 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				921315FAA7F261D737F4F4C7 /* src */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		593DF2FDF2AE5CA3E19C0414 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				D3577EBD906F46BA4578F320 /* assets.qrc */,
+				2DE9426FC014FB0044020E50 /* js.qrc */,
+				81992FFD19F9DE2DA0AB886F /* qml.qrc */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
+		6E06E24A6F13D9566FB61FF9 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				26639E99C111EE141D742D0D /* build */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
+		74B182DB50CB5611B5C1C297 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6E06E24A6F13D9566FB61FF9 /* ios */,
+				197FF4AFEA3419D260905587 /* WordClock.pro */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7A0728F2264B4A71AB258359 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				212B753391DDAD9516E2DD31 /* build */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
+		858FCAB0EB1F29CF8B07677C /* Bundle Data */ = {
+			isa = PBXGroup;
+			children = (
+				8DC021DB361F491191266B01 /* Launch.storyboard */,
+				90831EEF882725F7D538728E /* Default-568h@2x.png */,
+				841692B9D57B0689C0006996 /* LaunchScreen.storyboard */,
+				B83F754777F78FD9ED9F903B /* Assets.xcassets */,
+			);
+			name = "Bundle Data";
+			sourceTree = "<group>";
+		};
+		87DF60DE337FB58864343E39 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				593DF2FDF2AE5CA3E19C0414 /* res */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		921315FAA7F261D737F4F4C7 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6A5319A64A507FD52DF2381A /* main.cpp */,
+				0E7B72B1B486933BF551D7C7 /* DeviceAccess_ios.mm */,
+				42B980EB0E4BD1AA42AECB3A /* DeviceAccess.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		AF39DD055C3EF8226FBE929D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				320A02C23A1742E10A9F61DE /* StoreKit.framework */,
+				1CD93CCE6189860E6229A812 /* qios */,
+				CAA48DD0181667DAE0F0A2E0 /* qtwebview_darwin */,
+				42E66417D486B145AB4BA295 /* WebKit.framework */,
+				7EC00404ACD5AB0E97726B0E /* QuartzCore.framework */,
+				3C44131FDCFEF4396B9EA2BA /* AudioToolbox.framework */,
+				BCF6E9A118E76CC8C7FEC219 /* Qt5FontDatabaseSupport */,
+				1CEC8E9740E4F7FD2694A8E1 /* qtfreetype */,
+				65F8C05C94AB48BF092234D5 /* Qt5GraphicsSupport */,
+				9FB6BA7B21C9CD539D55849F /* Qt5ClipboardSupport */,
+				1AF69CC0436F61E7AB402B15 /* qsvgicon */,
+				96A5FE1FD3F8CEA17BB77DDC /* qgif */,
+				84EDB2905C3F3E99D7C92562 /* qicns */,
+				ACC005D083BA20C79622B2F4 /* qico */,
+				E22B84C5F42D0CCDF4F094A1 /* qjpeg */,
+				5081A0A5BC2CEE5F6D34C625 /* qmacheif */,
+				C939D655C36F51956514DFEC /* qmacjp2 */,
+				3A8EF9C62A8D4790CBB89CEA /* ImageIO.framework */,
+				230F872DA99C23B63BA275EC /* qsvg */,
+				3B5E05F48CF5B0024846D0A1 /* qtga */,
+				25405B11701F4B17A4659E19 /* qtiff */,
+				614033E5C706ACBF25017C8C /* qwbmp */,
+				0A03B8059DC2618969A27CE9 /* qwebp */,
+				B6C190B928821CEF870488A2 /* qmldbg_debugger */,
+				DA0D3A85257A63DEEC9C3636 /* qmldbg_inspector */,
+				3C326D9D984B5A846EF69AB6 /* qmldbg_local */,
+				125D701F2B528DBB50D5F48F /* qmldbg_messages */,
+				EB4C6EDDE7FD3BA38A915B86 /* qmldbg_native */,
+				CAC0CE816B877582514FD310 /* qmldbg_nativedebugger */,
+				BD2279F33923720F70AD65B8 /* qmldbg_preview */,
+				53EFC60F4A03E7EB6182687F /* qmldbg_profiler */,
+				36C5A4F43BAFADE9A6F8C522 /* qmldbg_quickprofiler */,
+				25F4EA6A485F1F5F88BD0760 /* qmldbg_server */,
+				A0D61E780D11F44E36FCCC6B /* Qt5PacketProtocol */,
+				A578189919530500B5504152 /* qmldbg_tcp */,
+				0DC7D18967B02FF9518F2F73 /* qgenericbearer */,
+				F54C91E779F96C8D932AB78B /* Qt5Svg */,
+				65DC63888A5D3466BD9A6365 /* Qt5Widgets */,
+				1A4527DB0965ED5ADF0171E6 /* declarative_webview */,
+				DE6268C099079512404D4581 /* Qt5WebView */,
+				496F9022D84289D6010D5C5E /* qmlplugin */,
+				CFE257B0964A439C02D1E20F /* modelsplugin */,
+				58A75371765038778B0EE25C /* workerscriptplugin */,
+				F65B23CE526833129A07EFE6 /* qquicklayoutsplugin */,
+				3FF38199C16D2DE07ACEAA8B /* qtquick2plugin */,
+				E956718CDE8E15807F98E553 /* Qt5QmlWorkerScript */,
+				8A56BB282EE4F2D104ED08D2 /* qtquicktemplates2plugin */,
+				4759F708684CEADA5D006906 /* qtquickcontrols2plugin */,
+				7177EB597C147703BB042AC4 /* qtquickcontrols2fusionstyleplugin */,
+				532381C03D371778764A71F3 /* qtquickcontrols2universalstyleplugin */,
+				F3B39E7B63769B586A4D256A /* qtquickcontrols2materialstyleplugin */,
+				8F0D59EEC3DC67A824FFADC7 /* qtgraphicaleffectsprivate */,
+				6BB01EAA005EB3373F2D7E7C /* windowplugin */,
+				B7DDB2ECE0DD6B4433575693 /* qtgraphicaleffectsplugin */,
+				83384EA7F6E3E6D4842010FF /* qtquickcontrols2imaginestyleplugin */,
+				6386285284C1A5CFBF13BF54 /* Qt5QuickControls2 */,
+				74EEC7C01164B7607B0B791D /* Qt5QuickTemplates2 */,
+				89F53E7BB534D23E776ECEFC /* Qt5Quick */,
+				9A3C1C9A3F1857A12F7D38E5 /* Qt5Gui */,
+				1B2543FCC48E9436F21C4F63 /* Metal.framework */,
+				B4C27C38DACD7C9D8D008349 /* qtlibpng */,
+				EB71D39116223B04823318EE /* qtharfbuzz */,
+				7D7B02101166B76FD2D4F8B4 /* CoreText.framework */,
+				6AE3EC31EE5BB1FCEE84137C /* CoreGraphics.framework */,
+				4048BF091915B9FACD0555D4 /* Qt5QmlModels */,
+				6CCEE0884F7F81C93E199DD6 /* Qt5Qml */,
+				59609BB1A18EB03BBAA0749B /* Qt5Network */,
+				205259EEEE2BADA5E64741E3 /* Security.framework */,
+				FF5BDAB0076F3391B219EA52 /* SystemConfiguration.framework */,
+				C714C1AF3FA78E2DABBC17E8 /* GSS.framework */,
+				FCF26B6A89AA40B172BBA660 /* Qt5Core */,
+				4D765E1B1EA6C757220C63E7 /* CoreFoundation.framework */,
+				FCC237CA5AD60B9BA4447615 /* Foundation.framework */,
+				FBC79D11EA269C515210DBA8 /* qtpcre2 */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E8C543AB96796ECAA2E65C57 /* WordClock */ = {
+			isa = PBXGroup;
+			children = (
+				2EB56BE3C2D93CDAB0C52E67 /* Sources */,
+				25B08E2869634E9BCBA333A2 /* Generated Sources */,
+				87DF60DE337FB58864343E39 /* Resources */,
+				74B182DB50CB5611B5C1C297 /* Supporting Files */,
+				AF39DD055C3EF8226FBE929D /* Frameworks */,
+				858FCAB0EB1F29CF8B07677C /* Bundle Data */,
+				FE0A091FDBFB3E9C31B7A1BD /* Products */,
+			);
+			name = WordClock;
+			sourceTree = "<group>";
+		};
+		FE0A091FDBFB3E9C31B7A1BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04839ADA7B66CE54A694A8ED /* WordClock.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6731185CAF1CC2BC17C01C24 /* WordClock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "WordClock" */;
+			buildPhases = (
+				F7E50F631C51CD5B5DC0BC43 /* Compile Sources */,
+				D1C883685E82D5676953459A /* Link Binary With Libraries */,
+				776D5E25B18ED6FE9A43064F /* Qt Postlink */,
+				30414803F31797EB689AE508 /* Copy Bundle Resources */,
+				99542592E9780B9225F24AA8 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D50C53EE734EA79FFC5F560A /* PBXTargetDependency */,
+			);
+			name = WordClock;
+			productName = WordClock;
+			productReference = 04839ADA7B66CE54A694A8ED /* WordClock.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6DB9C3763D02B1415CD9D565 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					6731185CAF1CC2BC17C01C24 = {
+						DevelopmentTeam = AWQPTB5PMG;
+					};
+					D0A722CA37235F8AE90A6BF3 = {
+						DevelopmentTeam = AWQPTB5PMG;
+					};
+				};
+			};
+			buildConfigurationList = DAC4C1AA5EDEA1C85E9CA5E6 /* Build configuration list for PBXProject "WordClock" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E8C543AB96796ECAA2E65C57 /* WordClock */;
+			productRefGroup = FE0A091FDBFB3E9C31B7A1BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6731185CAF1CC2BC17C01C24 /* WordClock */,
+				D0A722CA37235F8AE90A6BF3 /* Qt Preprocess */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30414803F31797EB689AE508 /* Copy Bundle Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9A8A58DAEB0C74D7678E435 /* Launch.storyboard in Copy Bundle Resources */,
+				AE2549CC588F6ABC0A52E139 /* Default-568h@2x.png in Copy Bundle Resources */,
+				25654D3F936EC250C6BF068B /* LaunchScreen.storyboard in Copy Bundle Resources */,
+				56CF48A6A9D31150895DEFB9 /* Assets.xcassets in Copy Bundle Resources */,
+			);
+			name = "Copy Bundle Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5E618435888B9D49F8540165 /* Qt Qmake */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Qt Qmake";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/johan/Workspace/WordClock/ios/build -f WordClock.xcodeproj/qt_makeqmake.mak";
+			showEnvVarsInLog = 0;
+		};
+		776D5E25B18ED6FE9A43064F /* Qt Postlink */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Qt Postlink";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -r /Users/johan/Workspace/WordClock/ios/fastlane /Users/johan/Workspace/WordClock/ios/build\n\t";
+			showEnvVarsInLog = 0;
+		};
+		7EF0942E79C014DCEC8976BC /* Qt Preprocessors */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Qt Preprocessors";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/johan/Workspace/WordClock/ios/build -f WordClock.xcodeproj/qt_preprocess.mak";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F7E50F631C51CD5B5DC0BC43 /* Compile Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEFFEAA8F168A59B30EADD79 /* main.cpp in Compile Sources */,
+				626CD15C9985E1D5ACE88927 /* DeviceAccess_ios.mm in Compile Sources */,
+				E41AB93343799BED802718A0 /* wordclock_plugin_import.cpp in Compile Sources */,
+				64C9E7746B0A6E122B42D0B9 /* wordclock_qml_plugin_import.cpp in Compile Sources */,
+				1AD2F0A8079A09FE80F9A2F5 /* qrc_assets.cpp in Compile Sources */,
+				1399F747E86FB685EAA609B5 /* qrc_js.cpp in Compile Sources */,
+				EBD2746E3D270B26960C457D /* qrc_qml.cpp in Compile Sources */,
+				460234343B80C9E47C277B83 /* moc_DeviceAccess.cpp in Compile Sources */,
+			);
+			name = "Compile Sources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D50C53EE734EA79FFC5F560A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0A722CA37235F8AE90A6BF3 /* Qt Preprocess */;
+			targetProxy = 044F177428445BBA00C763E0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		339EE1B2CC4FC24589A0EA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				"ARCHS[sdk=iphoneos*]" = arm64;
+				"ARCHS[sdk=iphonesimulator*]" = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CC = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = AWQPTB5PMG;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0.0;
+				ENABLE_BITCODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../../WordClock,
+					.,
+					../../../../Qt/5.15.1/ios/mkspecs/common/uikit,
+					../../../../Qt/5.15.1/ios/include,
+					../../../../Qt/5.15.1/ios/include/QtQuick,
+					../../../../Qt/5.15.1/ios/include/QtWebView,
+					../../../../Qt/5.15.1/ios/include/QtSvg,
+					../../../../Qt/5.15.1/ios/include/QtWidgets,
+					../../../../Qt/5.15.1/ios/include/QtGui,
+					../../../../Qt/5.15.1/ios/include/QtQmlModels,
+					../../../../Qt/5.15.1/ios/include/QtQml,
+					../../../../Qt/5.15.1/ios/include/QtNetwork,
+					../../../../Qt/5.15.1/ios/include/QtCore,
+					.,
+					"../../../../Qt/5.15.1/ios/mkspecs/macx-ios-clang",
+				);
+				INFOPLIST_FILE = ../Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				LIBRARY_SEARCH_PATHS = (
+					/System/Library/Frameworks/,
+					/Users/johan/Qt/5.15.1/ios/plugins/platforms,
+					/Users/johan/Qt/5.15.1/ios/plugins/webview,
+					/Users/johan/Qt/5.15.1/ios/lib,
+					/Users/johan/Qt/5.15.1/ios/plugins/iconengines,
+					/Users/johan/Qt/5.15.1/ios/plugins/imageformats,
+					/Users/johan/Qt/5.15.1/ios/plugins/qmltooling,
+					/Users/johan/Qt/5.15.1/ios/plugins/bearer,
+					/Users/johan/Qt/5.15.1/ios/qml/QtWebView,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQml,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQml/Models.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQml/WorkerScript.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Layouts,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Templates.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Fusion,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Universal,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Material,
+					/Users/johan/Qt/5.15.1/ios/qml/QtGraphicalEffects/private,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Window.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtGraphicalEffects,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Imagine,
+				);
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-g",
+					"-fobjc-nonfragile-abi",
+					"-fobjc-legacy-dispatch",
+					"-Wall",
+					"-Wextra",
+					"-fPIC",
+					"-DQT_COMPILER_SUPPORTS_SSE2",
+					"-DQT_QUICK_LIB",
+					"-DQT_WEBVIEW_LIB",
+					"-DQT_SVG_LIB",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_QMLMODELS_LIB",
+					"-DQT_QML_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-stdlib=libc++",
+					"-g",
+					"-std=gnu++1z",
+					"-fobjc-nonfragile-abi",
+					"-fobjc-legacy-dispatch",
+					"-Wall",
+					"-Wextra",
+					"-fPIC",
+					"-DQT_COMPILER_SUPPORTS_SSE2",
+					"-DQT_QUICK_LIB",
+					"-DQT_WEBVIEW_LIB",
+					"-DQT_SVG_LIB",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_QMLMODELS_LIB",
+					"-DQT_QML_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_LDFLAGS = (
+					"-stdlib=libc++",
+					"-Wl,-e,_qt_main_wrapper",
+					"-Wl,-rpath,@executable_path/Frameworks",
+					"-L/Users/johan/Qt/5.15.1/ios/plugins/platforms",
+					"-framework",
+					AssetsLibrary,
+					"-framework",
+					MobileCoreServices,
+					"-lm",
+					"-framework",
+					UIKit,
+					"-lz",
+					"-framework",
+					OpenGLES,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.kokleeko.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = WordClock;
+				QMAKE_FULL_VERSION = 1.0.0;
+				"QMAKE_MAC_SDK_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk;
+				"QMAKE_MAC_SDK_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator14.4.sdk;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform;
+				QMAKE_PKGINFO_TYPEINFO = "????";
+				QMAKE_SHORT_VERSION = 1.0;
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = iphoneos;
+				SYMROOT = "$(PROJECT_DIR)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3AA6C32AC930069E80220CF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				"ARCHS[sdk=iphoneos*]" = arm64;
+				"ARCHS[sdk=iphonesimulator*]" = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CC = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AWQPTB5PMG;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0.0;
+				ENABLE_BITCODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../../../WordClock,
+					.,
+					../../../../Qt/5.15.1/ios/mkspecs/common/uikit,
+					../../../../Qt/5.15.1/ios/include,
+					../../../../Qt/5.15.1/ios/include/QtQuick,
+					../../../../Qt/5.15.1/ios/include/QtWebView,
+					../../../../Qt/5.15.1/ios/include/QtSvg,
+					../../../../Qt/5.15.1/ios/include/QtWidgets,
+					../../../../Qt/5.15.1/ios/include/QtGui,
+					../../../../Qt/5.15.1/ios/include/QtQmlModels,
+					../../../../Qt/5.15.1/ios/include/QtQml,
+					../../../../Qt/5.15.1/ios/include/QtNetwork,
+					../../../../Qt/5.15.1/ios/include/QtCore,
+					.,
+					"../../../../Qt/5.15.1/ios/mkspecs/macx-ios-clang",
+				);
+				INFOPLIST_FILE = ../Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				LIBRARY_SEARCH_PATHS = (
+					/System/Library/Frameworks/,
+					/Users/johan/Qt/5.15.1/ios/plugins/platforms,
+					/Users/johan/Qt/5.15.1/ios/plugins/webview,
+					/Users/johan/Qt/5.15.1/ios/lib,
+					/Users/johan/Qt/5.15.1/ios/plugins/iconengines,
+					/Users/johan/Qt/5.15.1/ios/plugins/imageformats,
+					/Users/johan/Qt/5.15.1/ios/plugins/qmltooling,
+					/Users/johan/Qt/5.15.1/ios/plugins/bearer,
+					/Users/johan/Qt/5.15.1/ios/qml/QtWebView,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQml,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQml/Models.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQml/WorkerScript.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Layouts,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Templates.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Fusion,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Universal,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Material,
+					/Users/johan/Qt/5.15.1/ios/qml/QtGraphicalEffects/private,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Window.2,
+					/Users/johan/Qt/5.15.1/ios/qml/QtGraphicalEffects,
+					/Users/johan/Qt/5.15.1/ios/qml/QtQuick/Controls.2/Imagine,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-g",
+					"-fobjc-nonfragile-abi",
+					"-fobjc-legacy-dispatch",
+					"-Wall",
+					"-Wextra",
+					"-fPIC",
+					"-DQT_COMPILER_SUPPORTS_SSE2",
+					"-DQT_QUICK_LIB",
+					"-DQT_WEBVIEW_LIB",
+					"-DQT_SVG_LIB",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_QMLMODELS_LIB",
+					"-DQT_QML_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-stdlib=libc++",
+					"-g",
+					"-std=gnu++1z",
+					"-fobjc-nonfragile-abi",
+					"-fobjc-legacy-dispatch",
+					"-Wall",
+					"-Wextra",
+					"-fPIC",
+					"-DQT_COMPILER_SUPPORTS_SSE2",
+					"-DQT_QUICK_LIB",
+					"-DQT_WEBVIEW_LIB",
+					"-DQT_SVG_LIB",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_QMLMODELS_LIB",
+					"-DQT_QML_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_LDFLAGS = (
+					"-stdlib=libc++",
+					"-Wl,-e,_qt_main_wrapper",
+					"-Wl,-rpath,@executable_path/Frameworks",
+					"-L/Users/johan/Qt/5.15.1/ios/plugins/platforms",
+					"-framework",
+					AssetsLibrary,
+					"-framework",
+					MobileCoreServices,
+					"-lm",
+					"-framework",
+					UIKit,
+					"-lz",
+					"-framework",
+					OpenGLES,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.kokleeko.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = WordClock;
+				QMAKE_FULL_VERSION = 1.0.0;
+				"QMAKE_MAC_SDK_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk;
+				"QMAKE_MAC_SDK_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator14.4.sdk;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform;
+				QMAKE_PKGINFO_TYPEINFO = "????";
+				QMAKE_SHORT_VERSION = 1.0;
+				QT_LIBRARY_SUFFIX = _debug;
+				SDKROOT = iphoneos;
+				SYMROOT = "$(PROJECT_DIR)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6666AA5E688052234F6758D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				"ARCHS[sdk=iphoneos*]" = arm64;
+				"ARCHS[sdk=iphonesimulator*]" = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = AWQPTB5PMG;
+				ENABLE_BITCODE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.kokleeko.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = WordClock;
+				QMAKE_FULL_VERSION = 1.0.0;
+				"QMAKE_MAC_SDK_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk;
+				"QMAKE_MAC_SDK_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator14.4.sdk;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform;
+				QMAKE_PKGINFO_TYPEINFO = "????";
+				QMAKE_SHORT_VERSION = 1.0;
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		77418F46922677BB04ED38DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				"ARCHS[sdk=iphoneos*]" = arm64;
+				"ARCHS[sdk=iphonesimulator*]" = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AWQPTB5PMG;
+				ENABLE_BITCODE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.kokleeko.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = WordClock;
+				QMAKE_FULL_VERSION = 1.0.0;
+				"QMAKE_MAC_SDK_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk;
+				"QMAKE_MAC_SDK_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator14.4.sdk;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphoneos*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform;
+				"QMAKE_MAC_SDK_PLATFORM_PATH[sdk=iphonesimulator*]" = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform;
+				QMAKE_PKGINFO_TYPEINFO = "????";
+				QMAKE_SHORT_VERSION = 1.0;
+				QT_LIBRARY_SUFFIX = _debug;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "WordClock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77418F46922677BB04ED38DD /* Debug */,
+				6666AA5E688052234F6758D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DAC4C1AA5EDEA1C85E9CA5E6 /* Build configuration list for PBXProject "WordClock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AA6C32AC930069E80220CF1 /* Debug */,
+				339EE1B2CC4FC24589A0EA95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6DB9C3763D02B1415CD9D565 /* Project object */;
+}

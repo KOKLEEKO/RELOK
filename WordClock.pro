@@ -38,21 +38,24 @@ DISTFILES += \
              LICENSE \
              README.md \
              .github/PULL_REQUEST_TEMPLATE \
-             src/README.md
+             .github/workflows/* \
+             src/README.md \
+             fastlane/
 
 macx | ios {
     QMAKE_ASSET_CATALOGS += apple/Assets.xcassets
     LIBS += -framework StoreKit
     macx {
-       QMAKE_INFO_PLIST = macos/Info.plist
+       QMAKE_INFO_PLIST = apple/macx/Info.plist
        OBJECTIVE_SOURCES += src/DeviceAccess_macos.mm
     }
     ios {
-        OTHER_FILES += ios/Launch.storyboard
+        OTHER_FILES += apple/ios/Launch.storyboard
         OBJECTIVE_SOURCES += src/DeviceAccess_ios.mm
-        QMAKE_INFO_PLIST = ios/Info.plist
-        app_launch_screen.files = ios/Launch.storyboard
+        QMAKE_INFO_PLIST = apple/ios/Info.plist
+        app_launch_screen.files = apple/ios/Launch.storyboard
         QMAKE_BUNDLE_DATA += app_launch_screen
+        QMAKE_POST_LINK += $$quote(cp -r $$PWD/fastlane $$OUT_PWD$$escape_expand(\n\t))
     }
 } else {
   SOURCES += src/DeviceAccess.cpp
