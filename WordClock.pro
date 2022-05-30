@@ -4,6 +4,7 @@
 ##  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 ###################################################################################################
 
+TEMPLATE = app
 QT += quick core webview svg
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -11,15 +12,16 @@ QT += quick core webview svg
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += \
-    c++17 \
+    c++1z \
     sdk_no_version_check
 
-SOURCES += \
-           src/main.cpp
+QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
 
-RESOURCES += res/qml.qrc \
-  res/assets.qrc \
-  res/js.qrc
+HEADERS += src/DeviceAccess.h
+
+SOURCES += src/main.cpp
+
+RESOURCES += $$files(res/*.qrc)
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -36,22 +38,32 @@ DISTFILES += \
              LICENSE \
              README.md \
              .github/PULL_REQUEST_TEMPLATE \
-             src/README.md
+             .github/workflows/* \
+             src/README.md \
+             fastlane/* \
+             Gemfile
 
-ios {
+macx | ios {
+    Q_ENABLE_BITCODE.name = ENABLE_BITCODE
+    Q_ENABLE_BITCODE.value = NO
+    QMAKE_MAC_XCODE_SETTINGS += Q_ENABLE_BITCODE
+    Q_ALWAYS_SEARCH_USER_PATHS = ALWAYS_SEARCH_USER_PATHS
+    Q_ALWAYS_SEARCH_USER_PATHS = NO
+    QMAKE_MAC_XCODE_SETTINGS += Q_ALWAYS_SEARCH_USER_PATHS
+    QMAKE_ASSET_CATALOGS += apple/Assets.xcassets
     LIBS += -framework StoreKit
-    OTHER_FILES += ios/Launch.storyboard
-    OBJECTIVE_SOURCES += src/DeviceAccess.mm
-
-    QMAKE_INFO_PLIST = ios/Info.plist
-    QMAKE_ASSET_CATALOGS += ios/Assets.xcassets
-    app_launch_screen.files = ios/Launch.storyboard
-    QMAKE_BUNDLE_DATA += app_launch_screen
+    macx {
+       QMAKE_INFO_PLIST = apple/macx/Info.plist
+       OBJECTIVE_SOURCES += src/DeviceAccess_macx.mm
+    }
+    ios {
+        OTHER_FILES += apple/ios/Launch.storyboard
+        OBJECTIVE_SOURCES += src/DeviceAccess_ios.mm
+        QMAKE_INFO_PLIST = apple/ios/Info.plist
+        app_launch_screen.files = apple/ios/Launch.storyboard
+        QMAKE_BUNDLE_DATA += app_launch_screen
+    }
 } else {
-  SOURCES += \
-    src/DeviceAccess.cpp
+  SOURCES += src/DeviceAccess.cpp
 }
-
-HEADERS += \
-  src/DeviceAccess.h
 

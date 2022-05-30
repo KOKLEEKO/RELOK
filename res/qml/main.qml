@@ -28,13 +28,12 @@ ApplicationWindow {
 
     QtObject {
         id: headings
-        readonly property real h0: 40*Screen.devicePixelRatio
-        readonly property real h1: 32*Screen.devicePixelRatio
-        readonly property real h2: 26*Screen.devicePixelRatio
-        readonly property real h3: 22*Screen.devicePixelRatio
-        readonly property real h4: 20*Screen.devicePixelRatio
-        readonly property real p1: 13*Screen.devicePixelRatio
-        readonly property real p2: 11*Screen.devicePixelRatio
+        readonly property real h0: 40
+        readonly property real h2: 26
+        readonly property real h3: 22
+        readonly property real h4: 20
+        readonly property real p1: 13
+        readonly property real p2: 11
     }
 
     SystemPalette { id: systemPalette }
@@ -79,7 +78,7 @@ ApplicationWindow {
         }
         onPositionChanged: {
             if (Math.abs(pressed_point.y - mouseY) >= 1)
-                DeviceAccess.setBrigthnessDelta(2*(pressed_point.y - mouseY)/root.height)
+                DeviceAccess.setBrigthnessDelta((pressed_point.y - mouseY)/root.height)
         }
         onReleased:{
             if (!is_press_and_hold && Math.abs(pressed_point.x - mouseX) < 1 && Math.abs(pressed_point.y - mouseY) < 1)

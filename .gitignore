@@ -55,7 +55,10 @@ compile_commands.json
 .DS_Store
 
 # Build directories
-*/build
+*build*
 
 # Logs
 *.log
+
+# Git
+*.orig

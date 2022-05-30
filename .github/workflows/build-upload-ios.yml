@@ -1,0 +1,66 @@
+name: iOS-upload
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Qt
+        uses: johanremilien/install-qt-action@v2
+        with:
+          target: ios
+
+      - name: Apply Qt patch
+        run: |
+          cd ${{ env.Qt5_DIR }}
+          # wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)
+          wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
+          # unzip patch
+          unzip patch.zip; rm patch.zip
+          # apply patch
+          git apply a5273d4.diff; rm a5273d4.diff
+          cd -
+
+      - name: qmake
+        run: qmake
+
+      - name: make
+        run: make
+
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
+
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
+          p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
+
+      - name: Build & upload iOS binary
+        run: bundle exec fastlane ios build_upload_testflight
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
+
+      - name: Upload app-store ipa and dsyms to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-store ipa & dsyms
+          path: |
+            ${{ github.workspace }}/wordclock.ipa
+            ${{ github.workspace }}/*.app.dSYM.zip
