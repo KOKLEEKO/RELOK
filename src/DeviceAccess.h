@@ -100,8 +100,6 @@ class DeviceAccess : public QObject {
     m_settings.setValue("About/isBugTracking", m_isBugTracking = isBugTracking);
     emit isBugTrackingChanged();
   }
-  // Appearance
-  void toggleStatusBarVisibility();
   // BatterySaving
   void requestAutoLock(bool isAutoLockRequested) {
     if (m_isAutoLockRequested == isAutoLockRequested) return;
@@ -116,7 +114,6 @@ class DeviceAccess : public QObject {
                         m_minimumBatteryLevel = minimumBatteryLevel);
     emit minimumBatteryLevelChanged();
   }
-  void setBrigthnessDelta(float brightnessDelta);
   void setBrightness(float brightness);
   // Security
   void requestGuidedAccess(bool isGuidedAccessRequested) {
@@ -131,7 +128,6 @@ class DeviceAccess : public QObject {
   void isBugTrackingChanged();
   // Appearance
   void orientationChanged();
-  void toggleFullScreen();
   // BatterySaving
   void batteryLevelChanged();
   void minimumBatteryLevelChanged();

@@ -9,8 +9,6 @@
 #import <StoreKit/StoreKit.h>
 #import <UIKit/UIKit.h>
 
-#import <algorithm>
-
 #import "DeviceAccess.h"
 
 Q_LOGGING_CATEGORY(lc, "Device")
@@ -83,11 +81,6 @@ void DeviceAccess::enableGuidedAccessSession(bool enable) {
   });
 }
 
-void DeviceAccess::setBrigthnessDelta(float brightnessDelta) {
-  float brightness = [[UIScreen mainScreen] brightness] + brightnessDelta;
-  brightness = std::clamp<float>(brightness, 0, 1);
-  setBrightness(brightness);
-}
 void DeviceAccess::setBrightness(float brightness) {
   qCDebug(lc) << "W brightness:" << brightness;
   m_settings.setValue("BatterySaving/battery", [UIScreen mainScreen].brightness = brightness);
@@ -104,13 +97,6 @@ void DeviceAccess::disableAutoLock(bool disable) {
   } else if (m_isGuidedAccessEnabled) {
     enableGuidedAccessSession(false);
   }
-}
-
-void DeviceAccess::toggleStatusBarVisibility() {
-  m_isStatusBarHidden ^= true;
-  qCDebug(lc) << "W statusBarVisibility" << m_isStatusBarHidden;
-  [[[[UIApplication sharedApplication] keyWindow] rootViewController]
-      setNeedsStatusBarAppearanceUpdate];
 }
 
 void DeviceAccess::batterySaving() {

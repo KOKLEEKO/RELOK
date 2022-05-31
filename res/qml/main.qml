@@ -21,7 +21,7 @@ ApplicationWindow {
     minimumWidth: 180
     minimumHeight: minimumWidth
     visible: true
-    visibility: Window.AutomaticVisibility
+    visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
 
     Component.onCompleted: {console.log("pixelDensity", Screen.pixelDensity)}
@@ -29,6 +29,7 @@ ApplicationWindow {
     QtObject {
         id: headings
         readonly property real h0: 40
+        readonly property real h1: 32
         readonly property real h2: 26
         readonly property real h3: 22
         readonly property real h4: 20
@@ -58,32 +59,14 @@ ApplicationWindow {
         windowText: systemPalette.windowText
     }
 
-    Connections {
-        target: DeviceAccess
-        function onToggleFullScreen() {
+    MouseArea {
+        function toggleFullScreen() {
+            if (!Helpers.isMobile)
             Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
         }
-    }
-    MouseArea {
-        property point pressed_point
-        property bool is_press_and_hold: false
         anchors.fill: parent
-        onPressed: {
-            is_press_and_hold = false
-            pressed_point = Qt.point(mouseX, mouseY)
-        }
-        onPressAndHold: {
-            is_press_and_hold = true
-            settingPanel.open()
-        }
-        onPositionChanged: {
-            if (Math.abs(pressed_point.y - mouseY) >= 1)
-                DeviceAccess.setBrigthnessDelta((pressed_point.y - mouseY)/root.height)
-        }
-        onReleased:{
-            if (!is_press_and_hold && Math.abs(pressed_point.x - mouseX) < 1 && Math.abs(pressed_point.y - mouseY) < 1)
-                DeviceAccess.toggleStatusBarVisibility()
-        }
+        onPressed: toggleFullScreen
+        onPressAndHold: settingPanel.open()
     }
     WordClock { id: wordClock }
     Drawer {
