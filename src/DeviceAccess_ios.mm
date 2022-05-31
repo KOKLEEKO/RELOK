@@ -84,7 +84,7 @@ void DeviceAccess::setBrightness(float brightness) {
 
 void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "W autoLock" << !disable;
-  [[UIApplication sharedApplication] setIdleTimerDisabled: disable ? YES : NO];
+  [[UIApplication sharedApplication] setIdleTimerDisabled:disable];
   m_isAutoLockDisabled = [UIApplication sharedApplication].isIdleTimerDisabled;
   qCDebug(lc) << "R autoLock" << m_isAutoLockDisabled;
   if (m_isAutoLockDisabled) {
@@ -95,12 +95,11 @@ void DeviceAccess::disableAutoLock(bool disable) {
 }
 
 void DeviceAccess::batterySaving() {
-  if (!m_isAutoLockRequested && (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel)) {
-    if (!m_isAutoLockDisabled) {
-      disableAutoLock(true);
-    }
-  } else if (m_isAutoLockDisabled) {
-    disableAutoLock(false);
+  qCDebug(lc) << __func__;
+  if (m_isAutoLockRequested) {
+    disableAutoLock(NO);
+  } else if (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel) {
+    disableAutoLock(YES);
   }
 }
 
@@ -118,6 +117,6 @@ void DeviceAccess::requestReview() {
 }
 
 void DeviceAccess::updateNotchHeight() {
-    m_notchHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
-    qCDebug(lc) << "notch height:" << m_notchHeight;
+  m_notchHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
+  qCDebug(lc) << "notch height:" << m_notchHeight;
 }
