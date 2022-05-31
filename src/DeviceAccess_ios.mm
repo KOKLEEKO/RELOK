@@ -19,15 +19,10 @@ using namespace kokleeko::device;
 @end
 
 @interface QIOSViewController (ViewController)
-- (UIStatusBarStyle)preferredStatusBarStyle;
 - (void)viewDidLoad;
 @end
 
 @implementation QIOSViewController (ViewController)
-- (UIStatusBarStyle)preferredStatusBarStyle {
-  return DeviceAccess::instance().isStatusBarHidden() ? UIStatusBarStyleLightContent
-                                                      : UIStatusBarStyleDefault;
-}
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
   emit DeviceAccess::instance().orientationChanged();
@@ -89,7 +84,7 @@ void DeviceAccess::setBrightness(float brightness) {
 
 void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "W autoLock" << !disable;
-  [UIApplication sharedApplication].idleTimerDisabled = disable;
+  [[UIApplication sharedApplication] setIdleTimerDisabled: disable ? YES : NO];
   m_isAutoLockDisabled = [UIApplication sharedApplication].isIdleTimerDisabled;
   qCDebug(lc) << "R autoLock" << m_isAutoLockDisabled;
   if (m_isAutoLockDisabled) {
@@ -120,4 +115,9 @@ void DeviceAccess::requestReview() {
   } else if (@available(iOS 10.3, *)) {
     [SKStoreReviewController requestReview];
   }
+}
+
+void DeviceAccess::updateNotchHeight() {
+    m_notchHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
+    qCDebug(lc) << "notch height:" << m_notchHeight;
 }

@@ -100,6 +100,7 @@
        scheme: "WordClock",
        output_name: output_name,
        configuration: "Release",
+       destination: "platform:iOS, name:Any iOS Device",
        export_options: {
          method: export_method,
          provisioningProfiles: {

@@ -56,4 +56,11 @@ void DeviceAccess::batterySaving() {
 
 void DeviceAccess::security() {}
 
-void DeviceAccess::requestReview() { [SKStoreReviewController requestReview]; }
+void DeviceAccess::requestReview() {
+  if (@available(macOS 10.14, *)) {
+    [SKStoreReviewController requestReview];
+  } else {
+    // Fallback on earlier versions
+  }
+}
+void DeviceAccess::updateNotchHeight() {}

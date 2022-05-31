@@ -37,6 +37,7 @@ class DeviceAccess : public QObject {
                  requestGuidedAccess NOTIFY isGuidedAccessRequestedChanged)
   Q_PROPERTY(bool isGuidedAccessEnabled READ isGuidedAccessEnabled NOTIFY
                  isGuidedAccessEnabledChanged)
+  Q_PROPERTY(float notchHeight READ notchHeight CONSTANT)
 
  public:
   static DeviceAccess& instance() {
@@ -48,7 +49,7 @@ class DeviceAccess : public QObject {
   bool isBugTracking() const { return m_isBugTracking; }
   Q_INVOKABLE void requestReview();
   // Appearance
-  bool isStatusBarHidden() const { return m_isStatusBarHidden; }
+  float notchHeight() const { return m_notchHeight; }
   // Battery Saving
   int minimumBatteryLevel() const { return m_minimumBatteryLevel; }
   bool isPlugged() const { return m_isPlugged; }
@@ -151,6 +152,7 @@ class DeviceAccess : public QObject {
     connect(this, &DeviceAccess::isGuidedAccessRequested,
             &DeviceAccess::security);
     batterySaving();
+    updateNotchHeight();
     qCDebug(lc) << m_settings.fileName();
   }
   ~DeviceAccess() = default;
@@ -158,10 +160,12 @@ class DeviceAccess : public QObject {
   DeviceAccess& operator=(const DeviceAccess&) = delete;
   void batterySaving();
   void security();
+  void updateNotchHeight();
 
-  QSettings m_settings = QSettings("wordclock.ini", QSettings::IniFormat);
+  QSettings m_settings = QSettings();
   float m_batteryLevel = 0;
   float m_brightness = -1;
+  float m_notchHeight = 0;
   float m_brightnessRequested =
       m_settings.value("BatterySaving/brightnessRequested", .5).toFloat();
   int m_minimumBatteryLevel =
@@ -174,7 +178,6 @@ class DeviceAccess : public QObject {
   bool m_isGuidedAccessRequested =
       m_settings.value("BatterySaving/isGuidedAccessRequested", true).toBool();
   bool m_isGuidedAccessEnabled = false;
-  bool m_isStatusBarHidden = false;
   bool m_isBugTracking = m_settings.value("About/isBugTracking", true).toBool();
 };
 }  // namespace kokleeko::device

@@ -26,3 +26,5 @@ void DeviceAccess::requestReview() {}
 void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "W disableAutoLock:" << disable;
 }
+
+void DeviceAccess::updateNotchHeight() {}

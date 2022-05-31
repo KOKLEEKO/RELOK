@@ -23,7 +23,10 @@ ApplicationWindow {
     visible: true
     visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
-
+    Screen.orientationUpdateMask: Qt.LandscapeOrientation |
+                                  Qt.PortraitOrientation |
+                                  Qt.InvertedLandscapeOrientation |
+                                  Qt.InvertedPortraitOrientation
     Component.onCompleted: {console.log("pixelDensity", Screen.pixelDensity)}
 
     QtObject {
@@ -62,7 +65,7 @@ ApplicationWindow {
     MouseArea {
         function toggleFullScreen() {
             if (!Helpers.isMobile)
-            Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
+                Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
         }
         anchors.fill: parent
         onPressed: toggleFullScreen
@@ -72,12 +75,20 @@ ApplicationWindow {
     Drawer {
         id: settingPanel
         property real in_line_implicit_width
+
         y: (parent.height - height) / 2
-        width: Math.max(parent.width*.65, 300)
+        width: Helpers.isEqual(Screen.primaryOrientation,
+                               Qt.LandscapeOrientation,
+                               Qt.InvertedLandscapeOrientation) ? Math.max(parent.width*.65, 300)
+                                                                : parent.width
         height: parent.height
         closePolicy: Drawer.CloseOnEscape | Drawer.CloseOnPressOutside
         edge: Qt.RightEdge
         dim: false
+        topPadding: Screen.primaryOrientation === Qt.PortraitOrientation ?
+                        DeviceAccess.notchHeight : 0
+        bottomPadding: Screen.primaryOrientation === Qt.InvertedPortraitOrientation ?
+                           DeviceAccess.notchHeight : 0
         background: Item {
             clip: true
             opacity: 0.8

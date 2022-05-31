@@ -11,5 +11,4 @@ $Qt_DIR_IOS/bin/qmake -d $PROJECT_DIR/$PROJECT_NAME.pro >> $PROJECT_DIR/qmake.lo
 SCHEMES=$(xcodebuild -list -json | tr -d "\n")
 DEFAULT_SCHEME=$(echo $SCHEMES | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
 
-xcodebuild -scheme $DEFAULT_SCHEME -project $PROJECT_NAME.xcodeproj -configuration Release -destination 'generic/platform=iOS'
 open $PROJECT_NAME.xcodeproj
