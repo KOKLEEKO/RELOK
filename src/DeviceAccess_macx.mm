@@ -13,13 +13,11 @@
 
 #import "DeviceAccess.h"
 
-Q_LOGGING_CATEGORY(lc, "Device")
+Q_LOGGING_CATEGORY(lc, "Device-macx")
 
 using namespace kokleeko::device;
 
-void DeviceAccess::enableGuidedAccessSession(bool enable) { Q_UNUSED(enable) }
-
-void DeviceAccess::setBrightness(float brightness) {
+void DeviceAccess::setBrightnessRequested(float brightness) {
   io_iterator_t iterator;
   kern_return_t result = IOServiceGetMatchingServices(
       kIOMasterPortDefault, IOServiceMatching("IODisplayConnect"), &iterator);

@@ -22,22 +22,18 @@ class DeviceAccess : public QObject {
   // About
   Q_PROPERTY(bool isBugTracking READ isBugTracking WRITE setIsBugTracking NOTIFY
                  isBugTrackingChanged)
+  // Appearance
+  Q_PROPERTY(float notchHeight READ notchHeight CONSTANT)
   // BatterySaving
   Q_PROPERTY(float brightness READ brightness NOTIFY brightnessChanged)
-  Q_PROPERTY(float brightnessRequested READ brightnessRequested WRITE
-                 setBrightness NOTIFY brightnessRequestedChanged)
+  Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER
+                 m_brightnessRequested)
   Q_PROPERTY(int minimumBatteryLevel READ minimumBatteryLevel WRITE
                  setMinimumBatteryLevel NOTIFY minimumBatteryLevelChanged)
   Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE
                  requestAutoLock NOTIFY isAutoLockRequestedChanged)
   Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY
                  isAutoLockDisabledChanged)
-  // Security
-  Q_PROPERTY(bool isGuidedAccessRequested READ isGuidedAccessRequested WRITE
-                 requestGuidedAccess NOTIFY isGuidedAccessRequestedChanged)
-  Q_PROPERTY(bool isGuidedAccessEnabled READ isGuidedAccessEnabled NOTIFY
-                 isGuidedAccessEnabledChanged)
-  Q_PROPERTY(float notchHeight READ notchHeight CONSTANT)
 
  public:
   static DeviceAccess& instance() {
@@ -51,11 +47,11 @@ class DeviceAccess : public QObject {
   // Appearance
   float notchHeight() const { return m_notchHeight; }
   // Battery Saving
+  void batterySaving();
   int minimumBatteryLevel() const { return m_minimumBatteryLevel; }
   bool isPlugged() const { return m_isPlugged; }
   bool isAutoLockRequested() const { return m_isAutoLockRequested; }
   bool isAutoLockDisabled() const { return m_isAutoLockDisabled; }
-  float brightnessRequested() const { return m_brightnessRequested; }
   float brightness() const { return m_brightness; }
   void updateIsPlugged(bool isPlugged) {
     if (m_isPlugged == isPlugged) return;
@@ -64,20 +60,16 @@ class DeviceAccess : public QObject {
     emit isPluggedChanged();
   }
   void updateBatteryLevel(float batteryLevel) {
-    m_batteryLevel = batteryLevel;
+    m_batteryLevel = qRound(batteryLevel * 100);
     qCDebug(lc) << "R batteryLevel:" << m_batteryLevel;
     emit batteryLevelChanged();
   }
   void updateBrightness(float brightness) {
-    m_brightness = brightness;
+    m_brightness = qRound(brightness * 100);
     qCDebug(lc) << "R brightness:" << m_brightness;
     emit brightnessChanged();
   }
   void disableAutoLock(bool disable);
-  // Security
-  bool isGuidedAccessRequested() const { return m_isGuidedAccessRequested; }
-  bool isGuidedAccessEnabled() const { return m_isGuidedAccessEnabled; }
-  void enableGuidedAccessSession(bool enable);
   // Settings
   Q_INVOKABLE void setSettingsValue(const QString& key, const QVariant& value) {
     m_settings.setValue(key, value);
@@ -115,14 +107,7 @@ class DeviceAccess : public QObject {
                         m_minimumBatteryLevel = minimumBatteryLevel);
     emit minimumBatteryLevelChanged();
   }
-  void setBrightness(float brightness);
-  // Security
-  void requestGuidedAccess(bool isGuidedAccessRequested) {
-    if (m_isGuidedAccessRequested == isGuidedAccessRequested) return;
-    m_settings.setValue("BatterySaving/isGuidedAccessRequested",
-                        m_isGuidedAccessRequested = isGuidedAccessRequested);
-    emit isGuidedAccessRequestedChanged();
-  }
+  void setBrightnessRequested(float brightness);
 
  signals:
   // About
@@ -135,11 +120,7 @@ class DeviceAccess : public QObject {
   void isPluggedChanged();
   void isAutoLockRequestedChanged();
   void isAutoLockDisabledChanged();
-  void brightnessRequestedChanged();
   void brightnessChanged();
-  // Security
-  void isGuidedAccessEnabledChanged();
-  void isGuidedAccessRequestedChanged();
 
  private:
   DeviceAccess(QObject* parent = nullptr) : QObject(parent) {
@@ -149,35 +130,27 @@ class DeviceAccess : public QObject {
             &DeviceAccess::batterySaving);
     connect(this, &DeviceAccess::isAutoLockRequestedChanged,
             &DeviceAccess::batterySaving);
-    connect(this, &DeviceAccess::isGuidedAccessRequested,
-            &DeviceAccess::security);
-    batterySaving();
     updateNotchHeight();
+    isAutoLockRequestedChanged();
     qCDebug(lc) << m_settings.fileName();
   }
   ~DeviceAccess() = default;
   DeviceAccess(const DeviceAccess&) = delete;
   DeviceAccess& operator=(const DeviceAccess&) = delete;
-  void batterySaving();
   void security();
   void updateNotchHeight();
 
   QSettings m_settings = QSettings();
-  float m_batteryLevel = 0;
-  float m_brightness = -1;
-  float m_notchHeight = 0;
-  float m_brightnessRequested =
-      m_settings.value("BatterySaving/brightnessRequested", .5).toFloat();
+  float m_batteryLevel = .0;
+  float m_brightness = .0;
+  float m_notchHeight = .0;
+  float m_brightnessRequested = .0;
   int m_minimumBatteryLevel =
       m_settings.value("BatterySaving/minimumBatteryLevel", 50).toInt();
   bool m_isPlugged = false;
-
   bool m_isAutoLockRequested =
       m_settings.value("BatterySaving/isAutoLockRequested", true).toBool();
   bool m_isAutoLockDisabled = false;
-  bool m_isGuidedAccessRequested =
-      m_settings.value("BatterySaving/isGuidedAccessRequested", true).toBool();
-  bool m_isGuidedAccessEnabled = false;
   bool m_isBugTracking = m_settings.value("About/isBugTracking", true).toBool();
 };
 }  // namespace kokleeko::device

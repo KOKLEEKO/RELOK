@@ -56,7 +56,7 @@ If enabled the screen device will stay active, when the application is running.\
 ")
             }
             Switch {
-                checked: DeviceAccess.isAutoLockDisabled
+                checked: DeviceAccess.isAutoLockRequested
                 onToggled: DeviceAccess.isAutoLockRequested = !checked
             }
         }
@@ -64,7 +64,7 @@ If enabled the screen device will stay active, when the application is running.\
             text: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(control.value.toString())
             detailsComponent: Controls.Details {
                 text: qsTr("\
-'Stay Awake' feature will be automatically disabed when the battery level will reach this value,\
+'Stay Awake' feature will be automatically disabled when the battery level will reach this value,\
  unless the device is charging.\
 ")
             }
@@ -77,27 +77,12 @@ If enabled the screen device will stay active, when the application is running.\
             }
         }
         Controls.MenuItem {
-            text: "%1 (%2%)".arg(qsTr("Brightness Level")).arg(Math.round(DeviceAccess.brightness*100))
+            text: "%1 (%2%)".arg(qsTr("Brightness Level")).arg(DeviceAccess.brightness)
             Slider {
                 from: 0
-                to: 1
-                value:DeviceAccess.brightness
-                onMoved: DeviceAccess.brightnessRequested = value
-            }
-        }
-    }
-    Controls.MenuSection {
-        text: qsTr("Security")
-        Controls.MenuItem {
-            text: qsTr("Guided Access")
-            detailsComponent: Controls.Details {
-                text: qsTr("\
-Activating the 'Guided Access' feature will result in your device being locked when the application\
- is in 'Stay Awake' mode")
-            }
-            Switch {
-                checked: DeviceAccess.isGuidedAccessRequested
-                onToggled: DeviceAccess.isGuidedAccessRequested = checked
+                to: 100
+                value: DeviceAccess.brightness
+                onMoved: DeviceAccess.brightnessRequested = value/100
             }
         }
     }
@@ -292,19 +277,19 @@ Each grid contains a special message that will be displayed instead of the time 
                 onClicked: openUrl("https://github.com/kokleeko/WordClock")
             }
         }
-        Controls.MenuItem {
-            text: qsTr("Bug tracking")
-            detailsComponent: Controls.Details {
-                text: qsTr("\
-We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
-you encounter them. But you can disable this feature to enter submarine mode.\
-")
-            }
-            Switch  {
-                checked: DeviceAccess.isBugTracking
-                onToggled: DeviceAccess.isBugTracking = checked
-            }
-        }
+//        Controls.MenuItem {
+//            text: qsTr("Bug tracking")
+//            detailsComponent: Controls.Details {
+//                text: qsTr("\
+//We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
+//you encounter them. But you can disable this feature to enter submarine mode.\
+//")
+//            }
+//            Switch  {
+//                checked: DeviceAccess.isBugTracking
+//                onToggled: DeviceAccess.isBugTracking = checked
+//            }
+//        }
         Controls.MenuItem {
             text: qsTr("Review")
             detailsComponent: Controls.Details { text: qsTr("Rate us by clicking on the stars") }

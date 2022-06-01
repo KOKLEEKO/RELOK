@@ -140,10 +140,6 @@ Rectangle {
         if (language_url == "")
             detectAndUseDeviceLanguage()
     }
-    Connections {
-        target: DeviceAccess
-        function onOrientationChanged() { orientationChangedSequence.start() }
-    }
     Loader { source: language_url; onLoaded: language = item }
     Timer {
         property bool color_transition_finished: false
@@ -195,12 +191,6 @@ Rectangle {
         anchors.centerIn: parent
         width: table_width
         height: width
-        SequentialAnimation {
-            id: orientationChangedSequence
-            PropertyAction { target: column; property:"opacity"; value: 0 }
-            PauseAnimation { duration: 500 }
-            OpacityAnimator { target: column; duration: 500; from: 0; to: 1 }
-        }
         Repeater {
             model: language.table
             Row {

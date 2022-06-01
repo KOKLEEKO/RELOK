@@ -11,12 +11,6 @@ using namespace kokleeko::device;
 
 Q_LOGGING_CATEGORY(lc, "Device")
 
-void DeviceAccess::enableGuidedAccessSession(bool enable) { Q_UNUSED(enable) }
-
-void DeviceAccess::setBrightness(float brightness) {
-  qDebug(lc) << "W brightness:" << brightness;
-}
-
 void DeviceAccess::batterySaving() {}
 
 void DeviceAccess::security() {}

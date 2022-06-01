@@ -23,6 +23,7 @@ ApplicationWindow {
     visible: true
     visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
+    color: wordClock.background_color
     Screen.orientationUpdateMask: Qt.LandscapeOrientation |
                                   Qt.PortraitOrientation |
                                   Qt.InvertedLandscapeOrientation |
@@ -62,6 +63,31 @@ ApplicationWindow {
         windowText: systemPalette.windowText
     }
 
+    Connections {
+        target: DeviceAccess
+        function onOrientationChanged() { orientationChangedSequence.start() }
+    }
+    SequentialAnimation {
+        id: orientationChangedSequence
+        property bool isMenuOpened
+        PropertyAction { targets: [wordClock, settingPanel]; property:"opacity"; value: 0 }
+        ScriptAction {
+            script: {
+                orientationChangedSequence.isMenuOpened = settingPanel.opened
+                console.log("close settingsMenu")
+                settingPanel.close()
+            }
+        }
+        PauseAnimation { duration: 500 }
+        PropertyAnimation {
+            targets: [wordClock, settingPanel]
+            property: "opacity"
+            duration: 500
+            from: 0
+            to: 1
+        }
+        ScriptAction { script: { if (orientationChangedSequence.isMenuOpened) settingPanel.open() }}
+    }
     MouseArea {
         function toggleFullScreen() {
             if (!Helpers.isMobile)
@@ -75,9 +101,9 @@ ApplicationWindow {
     Drawer {
         id: settingPanel
         property real in_line_implicit_width
-
+        dragMargin: parent.width/5
         y: (parent.height - height) / 2
-        width: Helpers.isEqual(Screen.primaryOrientation,
+        width: Helpers.isEqual(Screen.orientation,
                                Qt.LandscapeOrientation,
                                Qt.InvertedLandscapeOrientation) ? Math.max(parent.width*.65, 300)
                                                                 : parent.width
@@ -85,9 +111,9 @@ ApplicationWindow {
         closePolicy: Drawer.CloseOnEscape | Drawer.CloseOnPressOutside
         edge: Qt.RightEdge
         dim: false
-        topPadding: Screen.primaryOrientation === Qt.PortraitOrientation ?
+        topPadding: Screen.orientation === Qt.PortraitOrientation ?
                         DeviceAccess.notchHeight : 0
-        bottomPadding: Screen.primaryOrientation === Qt.InvertedPortraitOrientation ?
+        bottomPadding: Screen.orientation === Qt.InvertedPortraitOrientation ?
                            DeviceAccess.notchHeight : 0
         background: Item {
             clip: true

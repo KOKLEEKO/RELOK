@@ -11,7 +11,7 @@
 
 #import "DeviceAccess.h"
 
-Q_LOGGING_CATEGORY(lc, "Device")
+Q_LOGGING_CATEGORY(lc, "Device-ios")
 
 using namespace kokleeko::device;
 
@@ -30,7 +30,11 @@ using namespace kokleeko::device;
 
 - (void)viewDidLoad {
   UIDevice *device = [UIDevice currentDevice];
+  UIScreen *screen = [UIScreen mainScreen];
   [device setBatteryMonitoringEnabled:YES];
+  [self updateBatteryLevel:(float)[device batteryLevel]];
+  [self updateIsPlugged:(UIDeviceBatteryState)[device batteryState]];
+  [self updateBrightness:(float)[screen brightness]];
   [[NSNotificationCenter defaultCenter]
       addObserver:self
          selector:@selector(receiveBatteryStateDidChangeNotification:)
@@ -45,66 +49,60 @@ using namespace kokleeko::device;
       addObserver:self
          selector:@selector(receiveBrightnessDidChangeNotification:)
              name:UIScreenBrightnessDidChangeNotification
-           object:device];
+           object:screen];
 }
 
-- (void)receiveBatteryStateDidChangeNotification:(NSNotification *)notification {
-  auto batteryState = [[notification object] batteryState];
+- (void)updateBatteryLevel:(float)batteryLevel {
+  DeviceAccess::instance().updateBatteryLevel(batteryLevel);
+}
+- (void)updateIsPlugged:(UIDeviceBatteryState)batteryState {
   bool isPlugged =
       (batteryState == UIDeviceBatteryStateCharging || batteryState == UIDeviceBatteryStateFull);
   DeviceAccess::instance().updateIsPlugged(isPlugged);
 }
+- (void)updateBrightness:(float)brightness {
+  DeviceAccess::instance().updateBrightness(brightness);
+}
+- (void)receiveBatteryStateDidChangeNotification:(NSNotification *)notification {
+  auto batteryState = [[notification object] batteryState];
+  [self updateIsPlugged:(UIDeviceBatteryState)batteryState];
+}
 
 - (void)receiveBatteryLevelDidChangeNotification:(NSNotification *)notification {
   auto batteryLevel = [[notification object] batteryLevel];
-  DeviceAccess::instance().updateBatteryLevel(batteryLevel);
+  [self updateBatteryLevel:(float)batteryLevel];
 }
 
 - (void)receiveBrightnessDidChangeNotification:(NSNotification *)notification {
   auto brightness = [[notification object] brightness];
-  DeviceAccess::instance().updateBrightness(brightness);
+  qCDebug(lc) << "brightness" << brightness;
+  [self updateBrightness:(float)brightness];
 }
 @end
 
-void DeviceAccess::enableGuidedAccessSession(bool enable) {
-  UIAccessibilityRequestGuidedAccessSession(enable, ^(BOOL didSucceed) {
-    qCDebug(lc) << "Request guided access " << (didSucceed ? "succeed" : "failed");
-    if (didSucceed) {
-      m_isGuidedAccessEnabled = enable;
-      isGuidedAccessEnabledChanged();
-    }
-  });
-}
-
-void DeviceAccess::setBrightness(float brightness) {
+void DeviceAccess::setBrightnessRequested(float brightness) {
   qCDebug(lc) << "W brightness:" << brightness;
   m_settings.setValue("BatterySaving/battery", [UIScreen mainScreen].brightness = brightness);
-  brightnessRequestedChanged();
+  updateBrightness([UIScreen mainScreen].brightness);
 }
 
 void DeviceAccess::disableAutoLock(bool disable) {
-  qCDebug(lc) << "W autoLock" << !disable;
+  qCDebug(lc) << "W disabledAutoLock" << disable;
   [[UIApplication sharedApplication] setIdleTimerDisabled:disable];
   m_isAutoLockDisabled = [UIApplication sharedApplication].isIdleTimerDisabled;
-  qCDebug(lc) << "R autoLock" << m_isAutoLockDisabled;
-  if (m_isAutoLockDisabled) {
-    if (m_isGuidedAccessRequested && !m_isGuidedAccessEnabled) enableGuidedAccessSession(true);
-  } else if (m_isGuidedAccessEnabled) {
-    enableGuidedAccessSession(false);
-  }
+  qCDebug(lc) << "R autoLockDisabled" << m_isAutoLockDisabled;
 }
 
 void DeviceAccess::batterySaving() {
-  qCDebug(lc) << __func__;
+  qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged << m_batteryLevel
+              << m_minimumBatteryLevel;
   if (m_isAutoLockRequested) {
+    qCDebug(lc) << "disableAutoLock" << NO;
     disableAutoLock(NO);
   } else if (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel) {
+    qCDebug(lc) << "disableAutoLock" << YES;
     disableAutoLock(YES);
   }
-}
-
-void DeviceAccess::security() {
-  if (m_isAutoLockDisabled) enableGuidedAccessSession(m_isGuidedAccessRequested);
 }
 
 void DeviceAccess::requestReview() {
