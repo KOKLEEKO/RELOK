@@ -56,7 +56,7 @@ If enabled the screen device will stay active, when the application is running.\
 ")
             }
             Switch {
-                checked: DeviceAccess.isAutoLockRequested
+                checked: !DeviceAccess.isAutoLockRequested
                 onToggled: DeviceAccess.isAutoLockRequested = !checked
             }
         }
@@ -87,6 +87,40 @@ If enabled the screen device will stay active, when the application is running.\
         }
     }
     Controls.MenuSection {
+        text: qsTr("Appearance")
+        Controls.MenuItem {
+            text: qsTr("Clock Language")
+            extras: [
+                Repeater {
+                    model: Object.values(wordClock.languages)
+                    Button {
+                        readonly property string language: modelData.toLowerCase()
+                        text: qsTr(modelData)
+                        highlighted: wordClock.selected_language === language
+                        onClicked: wordClock.selectLanguage(language)
+                    }
+                },
+                Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
+            ]
+        }
+        Controls.MenuItem {
+            text: qsTr("Enable Special Message")
+            detailsComponent: Controls.Details { text: qsTr("\
+Each grid contains a special message that will be displayed instead of the time for a minute at the\
+ following times 12:00 AM (00:00), 11:11 AM (11:11) and 10:22 PM (22:22). The minute indicator at\
+ the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between\
+ these different states.") }
+            Switch {
+                checked: DeviceAccess.settingsValue("Appearance/specialMessage", true)
+                onToggled: {
+                    DeviceAccess.setSettingsValue("Appearance/specialMessage",
+                                                  wordClock.enable_special_message = checked)
+                }
+            }
+        }
+    }
+    Controls.MenuSection {
+        text: qsTr("Advanced")
         function applyColors() {
             let bc  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
             let alc = DeviceAccess.settingsValue("Appearance/activatedLetterColor", "#FF0000")
@@ -95,7 +129,6 @@ If enabled the screen device will stay active, when the application is running.\
             activatedLetterColorPicker.extraControls[3].setColor(alc)
             deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
         }
-        text: qsTr("Appearance")
         Component.onCompleted: wordClock.applyColors.connect(applyColors)
         Controls.MenuItem {
             id: backgroundColorPicker
@@ -228,36 +261,14 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             }
         }
         Controls.MenuItem {
-            text: qsTr("Clock Language")
-            extras: [
-                Repeater {
-                    model: Object.values(wordClock.languages)
-                    Button {
-                        readonly property string language: modelData.toLowerCase()
-                        text: qsTr(modelData)
-                        highlighted: wordClock.selected_language === language
-                        onClicked: wordClock.selectLanguage(language)
-                    }
-                },
-                Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
-            ]
-        }
-        Controls.MenuItem {
-            text: qsTr("Enable Special Message")
-            detailsComponent: Controls.Details { text: qsTr("\
-Each grid contains a special message that will be displayed instead of the time for a minute at the\
- following times 12:00 AM (00:00), 11:11 AM (11:11) and 10:22 PM (22:22). The minute indicator at\
- the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between\
- these different states.") }
-            Switch {
-                checked: DeviceAccess.settingsValue("Appearance/specialMessage", true)
-                onToggled: {
-                    DeviceAccess.setSettingsValue("Appearance/specialMessage",
-                                                  wordClock.enable_special_message = checked)
-                }
+            text: qsTr("Tutorial")
+            Button {
+                text: qsTr("Show at startup")
+                onClicked: DeviceAccess.setSettingsValue("Tutorial/showPopup", true)
             }
         }
     }
+
     Controls.MenuSection {
         text: qsTr("About")
         Controls.MenuItem {
@@ -277,30 +288,32 @@ Each grid contains a special message that will be displayed instead of the time 
                 onClicked: openUrl("https://github.com/kokleeko/WordClock")
             }
         }
-//        Controls.MenuItem {
-//            text: qsTr("Bug tracking")
-//            detailsComponent: Controls.Details {
-//                text: qsTr("\
-//We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
-//you encounter them. But you can disable this feature to enter submarine mode.\
-//")
-//            }
-//            Switch  {
-//                checked: DeviceAccess.isBugTracking
-//                onToggled: DeviceAccess.isBugTracking = checked
-//            }
-//        }
+        //        Controls.MenuItem {
+        //            text: qsTr("Bug tracking")
+        //            detailsComponent: Controls.Details {
+        //                text: qsTr("\
+        //We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
+        //you encounter them. But you can disable this feature to enter submarine mode.\
+        //")
+        //            }
+        //            Switch  {
+        //                checked: DeviceAccess.isBugTracking
+        //                onToggled: DeviceAccess.isBugTracking = checked
+        //            }
+        //        }
         Controls.MenuItem {
             text: qsTr("Review")
             detailsComponent: Controls.Details { text: qsTr("Rate us by clicking on the stars") }
             Row {
                 spacing: 5
                 property int rating: DeviceAccess.settingsValue("About/rating", 0)
+
                 Repeater {
                     model: 5
                     Button {
                         property bool isSelected: index <= parent.rating
                         icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "solid" : "regular")
+                        display: Button.IconOnly
                         background: null
                         onClicked: {
                             DeviceAccess.setSettingsValue("About/rating",
@@ -308,7 +321,7 @@ Each grid contains a special message that will be displayed instead of the time 
                             if (index >= 3)
                                 DeviceAccess.requestReview()
                             else
-                                Qt.openUrlExternally("mailto:contact@kokleeko.io")
+                                badReviewPopup.open()
                         }
                     }
                 }

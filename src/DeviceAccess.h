@@ -131,7 +131,6 @@ class DeviceAccess : public QObject {
     connect(this, &DeviceAccess::isAutoLockRequestedChanged,
             &DeviceAccess::batterySaving);
     updateNotchHeight();
-    isAutoLockRequestedChanged();
     qCDebug(lc) << m_settings.fileName();
   }
   ~DeviceAccess() = default;

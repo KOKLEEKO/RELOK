@@ -9,6 +9,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import "qrc:/qml/controls" as Controls
+
 ColumnLayout {
     property alias text: title.text
     default property alias contentItem: menuSections.children
@@ -16,13 +18,20 @@ ColumnLayout {
     property var collapsed: null
     property alias scrollView: scrollView
     property Component footer: null
-    Title {
+    RowLayout {
+        Controls.IconButton {
+            name: "circle-xmark-solid"
+            onClicked: settingPanel.close()
+        }
+
+        Title {
         id: title
         horizontalAlignment: Title.AlignHCenter
         heading: headings.h1
         Layout.alignment: Qt.AlignTop
         mouseArea.enabled: true
         mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
+    }
     }
     ScrollView {
         id: scrollView

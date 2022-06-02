@@ -9,6 +9,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtWebView 1.15
+import QtQuick.Layouts 1.15
 
 import "qrc:/js/Helpers.js" as Helpers
 
@@ -16,6 +17,7 @@ ApplicationWindow {
     id: root
     property WebView webView
     property alias headings: headings
+    property alias badReviewPopup: badReviewPopup
     width: 640
     height: 480
     minimumWidth: 180
@@ -23,12 +25,12 @@ ApplicationWindow {
     visible: true
     visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
-    color: wordClock.background_color
+    color: "black"
     Screen.orientationUpdateMask: Qt.LandscapeOrientation |
                                   Qt.PortraitOrientation |
                                   Qt.InvertedLandscapeOrientation |
                                   Qt.InvertedPortraitOrientation
-    Component.onCompleted: {console.log("pixelDensity", Screen.pixelDensity)}
+    Component.onCompleted: { console.log("pixelDensity", Screen.pixelDensity) }
 
     QtObject {
         id: headings
@@ -94,8 +96,8 @@ ApplicationWindow {
                 Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
         }
         anchors.fill: parent
-        onPressed: toggleFullScreen
-        onPressAndHold: settingPanel.open()
+        onPressAndHold: toggleFullScreen()
+        onClicked: settingPanel.open()
     }
     WordClock { id: wordClock }
     Drawer {
@@ -126,6 +128,53 @@ ApplicationWindow {
         }
         SettingsMenu { }
         Component.onCompleted: in_line_implicit_width = implicitWidth
+    }
+    Dialog {
+        id: howtoPopup
+        anchors.centerIn: parent
+        title: qsTr("Welcome to WordClock++")
+        width: Math.max(root.width/2, header.implicitWidth)
+        clip: true
+        z:1
+        ColumnLayout {
+            width: parent.width
+            Text {
+                wrapMode: Text.WordWrap
+                Layout.fillWidth: true
+                text: qsTr("\
+Thank you for downloading this application, we wish you a pleasant use.
+
+Please touch the screen to open the settings menu.")
+            }
+            CheckBox { id: hidePopupCheckbox; text: qsTr("Don't show this again") }
+
+        }
+        Connections {  target: settingPanel; function onOpened() { howtoPopup.close() } }
+        onClosed: DeviceAccess.setSettingsValue("Tutorial/showPopup", !hidePopupCheckbox.checked)
+
+        standardButtons: Dialog.Close
+        closePolicy: Dialog.NoAutoClose
+        Component.onCompleted: DeviceAccess.settingsValue("Tutorial/showPopup", true) ? open() : {}
+    }
+    Dialog {
+        id: badReviewPopup
+        anchors.centerIn: parent
+        title: qsTr("Thanks for your review")
+        width: Math.max(root.width/2, header.implicitWidth)
+        clip: true
+        Text {
+            wrapMode: Text.WordWrap
+            width: parent.width
+            text: qsTr("\
+We are sorry to learn that you are not satisfied with this application.
+
+But thanks to you, we will be able to improve it even more.
+
+Send us your suggestions and we will take it into account.")
+        }
+        onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
+                                         .arg(qsTr("Suggestions for WordClock++")))
+        standardButtons: Dialog.Close | Dialog.Ok
     }
     Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
 }
