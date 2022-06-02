@@ -119,7 +119,7 @@ ApplicationWindow {
                            DeviceAccess.notchHeight : 0
         background: Item {
             clip: true
-            opacity: 0.8
+            opacity: .95
             Rectangle {
                 anchors { fill: parent; rightMargin: -radius }
                 radius: Math.min(parent.height, parent.width)*.02

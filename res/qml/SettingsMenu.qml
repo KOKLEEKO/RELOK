@@ -313,6 +313,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                     Button {
                         property bool isSelected: index <= parent.rating
                         icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "solid" : "regular")
+                        icon.color: systemPalette.windowText
                         display: Button.IconOnly
                         background: null
                         onClicked: {
