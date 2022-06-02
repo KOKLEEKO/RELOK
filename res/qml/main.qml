@@ -25,7 +25,7 @@ ApplicationWindow {
     visible: true
     visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
-    color: "black"
+    color: wordClock.background_color
     Screen.orientationUpdateMask: Qt.LandscapeOrientation |
                                   Qt.PortraitOrientation |
                                   Qt.InvertedLandscapeOrientation |
