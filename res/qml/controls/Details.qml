@@ -5,13 +5,13 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-Text {
+Label {
     Layout.fillWidth: true
     color: palette.windowText
     maximumLineCount: Number.POSITIVE_INFINITY
-    wrapMode: Text.WordWrap
+    wrapMode: Label.WordWrap
     font.pointSize:  headings.p1
 }

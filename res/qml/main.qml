@@ -138,7 +138,7 @@ ApplicationWindow {
         z:1
         ColumnLayout {
             width: parent.width
-            Text {
+            Label {
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
                 text: qsTr("\
@@ -162,7 +162,7 @@ Please touch the screen to open the settings menu.")
         title: qsTr("Thanks for your review")
         width: Math.max(root.width/2, header.implicitWidth)
         clip: true
-        Text {
+        Label {
             wrapMode: Text.WordWrap
             width: parent.width
             text: qsTr("\
