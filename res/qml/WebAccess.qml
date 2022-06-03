@@ -52,7 +52,7 @@ Drawer {
             WebView {
                 id: webView
                 function openUrl(url, fromBack = false) {
-                    if (url !== base_url)
+                    if (url !== base_url || (fromBack && url !== webView.url.toString()))
                         webView.url = url
                     if (!fromBack) {
                         popup.open()

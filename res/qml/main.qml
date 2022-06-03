@@ -147,11 +147,9 @@ Thank you for downloading this application, we wish you a pleasant use.
 Please touch the screen to open the settings menu.")
             }
             CheckBox { id: hidePopupCheckbox; text: qsTr("Don't show this again") }
-
         }
         Connections {  target: settingPanel; function onOpened() { howtoPopup.close() } }
         onClosed: DeviceAccess.setSettingsValue("Tutorial/showPopup", !hidePopupCheckbox.checked)
-
         standardButtons: Dialog.Close
         closePolicy: Dialog.NoAutoClose
         Component.onCompleted: DeviceAccess.settingsValue("Tutorial/showPopup", true) ? open() : {}
