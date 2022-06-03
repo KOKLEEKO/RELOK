@@ -26,7 +26,7 @@ Rectangle {
                          (hours_value[0] === hours_value[1]) &&
                          (hours_value === minutes_value)
         if (minutes_value >= 35) {
-            if (++hours_value >= 24)
+            if (++hours_value % 12 == 0)
                 is_AM ^= true
         }
         hours_array_index = hours_value % 12
@@ -37,9 +37,7 @@ Rectangle {
                       tmp_onoff_dots)
         if (was_special)
             language.special_message(false)
-        if (is_special)
-            language.special_message(true)
-        if (previous_hours_array_index !== hours_array_index) {
+        if (previous_hours_array_index !== hours_array_index || is_special || was_special) {
             if (previous_hours_array_index !== -1)
                 language["hours_" + hours_array[previous_hours_array_index]](false, was_AM)
             was_AM = is_AM
@@ -48,7 +46,7 @@ Rectangle {
                 previous_hours_array_index = hours_array_index
             }
         }
-        if (previous_minutes_array_index !== minutes_array_index) {
+        if (previous_minutes_array_index !== minutes_array_index || is_special || was_special) {
             if (previous_minutes_array_index !== -1)
                 language["minutes_" + minutes_array[previous_minutes_array_index]](false)
             if (!is_special) {
@@ -56,6 +54,8 @@ Rectangle {
                 previous_minutes_array_index = minutes_array_index
             }
         }
+        if (is_special)
+            language.special_message(true)
         was_special = is_special
 
         //update table and dots at the same time
@@ -158,24 +158,29 @@ Rectangle {
     }
     Timer {
         id: timer
+        //public
         property bool is_debug: false
         property int fake_counter: 0
         property bool jump_by_minute: false
         property bool jump_by_5_minutes: false
         property bool jump_by_hour: false
-        readonly property int day_to_ms: 86400000
+        readonly property string time_reference: "00:00:00"
+        //private
+        readonly property int hour_to_ms: 3600000
         readonly property int minute_to_ms:60000
-        property int time_reference
+        readonly property int s_to_ms: 1000
+        readonly property var time_reference_list: time_reference.split(':')
+        readonly property int time_reference_ms: -3600000 + // January 1, 1970, 00:00:00
+                                        parseInt(time_reference_list[0])*hour_to_ms +
+                                        parseInt(time_reference_list[1])*minute_to_ms +
+                                        parseInt(time_reference_list[2])*s_to_ms
         interval: 1000
         repeat: true
         running: false
         triggeredOnStart: true
         onTriggered: {
             if (is_debug) {
-                if (!time_reference) {
-                    time_reference = new Date().setTime(Math.random()*day_to_ms)
-                }
-                time = new Date(time_reference +
+                time = new Date(time_reference_ms +
                                 (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
                                 fake_counter*minute_to_ms)
                 .toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
