@@ -65,8 +65,9 @@ If enabled the screen device will stay active, when the application is running.\
             detailsComponent: Controls.Details {
                 text: qsTr("\
 'Stay Awake' feature will be automatically disabled when the battery level will reach this value,\
- unless the device is charging.\
-")
+ unless the device is charging.") + (Helpers.isMobile ? "\n(%1: %2%)"
+                                                        .arg(qsTr("current battery level"))
+                                                        .arg(DeviceAccess.batteryLevel) : "")
             }
             Slider {
                 from: 20

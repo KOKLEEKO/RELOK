@@ -30,6 +30,7 @@ class DeviceAccess : public QObject {
                  m_brightnessRequested)
   Q_PROPERTY(int minimumBatteryLevel READ minimumBatteryLevel WRITE
                  setMinimumBatteryLevel NOTIFY minimumBatteryLevelChanged)
+  Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
   Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE
                  requestAutoLock NOTIFY isAutoLockRequestedChanged)
   Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY
@@ -64,6 +65,7 @@ class DeviceAccess : public QObject {
     qCDebug(lc) << "R batteryLevel:" << m_batteryLevel;
     emit batteryLevelChanged();
   }
+  int batteryLevel() const { return m_batteryLevel; }
   void updateBrightness(float brightness) {
     m_brightness = qRound(brightness * 100);
     qCDebug(lc) << "R brightness:" << m_brightness;
@@ -140,12 +142,13 @@ class DeviceAccess : public QObject {
   void updateNotchHeight();
 
   QSettings m_settings = QSettings();
-  float m_batteryLevel = .0;
+
   float m_brightness = .0;
   float m_notchHeight = .0;
   float m_brightnessRequested = .0;
   int m_minimumBatteryLevel =
       m_settings.value("BatterySaving/minimumBatteryLevel", 50).toInt();
+  int m_batteryLevel = 0;
   bool m_isPlugged = false;
   bool m_isAutoLockRequested =
       m_settings.value("BatterySaving/isAutoLockRequested", true).toBool();
