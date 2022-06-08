@@ -45,7 +45,9 @@ Controls.Menu {
         //            tooltip: Helpers.isIos ? "App Store" : "Google Play"
         //        }
     }
+
     Controls.MenuSection {
+        visible: !Helpers.isWebAssembly
         text: qsTr("Battery Saving")
         Controls.MenuItem {
             text: qsTr("Stay Awake")
@@ -87,6 +89,7 @@ If enabled the screen device will stay active, when the application is running.\
             }
         }
     }
+
     Controls.MenuSection {
         text: qsTr("Appearance")
         Controls.MenuItem {
@@ -263,6 +266,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
         }
         Controls.MenuItem {
             text: qsTr("Tutorial")
+            visible: !Helpers.isWebAssembly
             Button {
                 text: qsTr("Show at startup")
                 onClicked: DeviceAccess.setSettingsValue("Tutorial/showPopup", true)
@@ -338,8 +342,15 @@ We would be very pleased to hear about your experience with this application")
             extras: [
                 Controls.IconButton {
                     name: "globe-solid"
-                    tooltip: qsTr("Website")
-                    onClicked: openUrl("https://kokleeko.io")
+                    visible: !Helpers.isWebAssembly
+                    tooltip: qsTr("Web App")
+                    onClicked: openUrl("https://wordclock.kokleeko.io")
+                },
+                Controls.IconButton {
+                    name: "app-store-ios-brands"
+                    visible: !Helpers.isIos
+                    tooltip: qsTr("App Store")
+                    onClicked: openUrl("https://testflight.apple.com/join/02s6IwG2")
                 },
                 Controls.IconButton {
                     name: "twitter-brands"

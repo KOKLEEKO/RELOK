@@ -141,38 +141,42 @@ ApplicationWindow {
             Label {
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
-                text: qsTr("\
-Thank you for downloading this application, we wish you a pleasant use.
+                text: "\
+%1.
 
-Please touch the screen to open the settings menu.")
+%2.".arg(qsTr("Thank you for downloading this application, we wish you a pleasant use"))
+                .arg(qsTr("Please touch the screen to open the settings menu"))
             }
-            CheckBox { id: hidePopupCheckbox; text: qsTr("Don't show this again") }
+                CheckBox { id: hidePopupCheckbox; text: qsTr("Don't show this again") }
+            }
+            Connections { target: settingPanel; function onOpened() { howtoPopup.close() } }
+            onClosed: DeviceAccess.setSettingsValue("Tutorial/showPopup", !hidePopupCheckbox.checked)
+            standardButtons: Dialog.Close
+            closePolicy: Dialog.NoAutoClose
+            Component.onCompleted: {
+                if (!Helpers.isWebAssembly && DeviceAccess.settingsValue("Tutorial/showPopup", true))
+                    open()
+            }
         }
-        Connections {  target: settingPanel; function onOpened() { howtoPopup.close() } }
-        onClosed: DeviceAccess.setSettingsValue("Tutorial/showPopup", !hidePopupCheckbox.checked)
-        standardButtons: Dialog.Close
-        closePolicy: Dialog.NoAutoClose
-        Component.onCompleted: DeviceAccess.settingsValue("Tutorial/showPopup", true) ? open() : {}
-    }
-    Dialog {
-        id: badReviewPopup
-        anchors.centerIn: parent
-        title: qsTr("Thanks for your review")
-        width: Math.max(root.width/2, header.implicitWidth)
-        clip: true
-        Label {
-            wrapMode: Text.WordWrap
-            width: parent.width
-            text: qsTr("\
+        Dialog {
+            id: badReviewPopup
+            anchors.centerIn: parent
+            title: qsTr("Thanks for your review")
+            width: Math.max(root.width/2, header.implicitWidth)
+            clip: true
+            Label {
+                wrapMode: Text.WordWrap
+                width: parent.width
+                text: qsTr("\
 We are sorry to learn that you are not satisfied with this application.
 
 But thanks to you, we will be able to improve it even more.
 
 Send us your suggestions and we will take it into account.")
+            }
+            onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
+                                             .arg(qsTr("Suggestions for WordClock++")))
+            standardButtons: Dialog.Close | Dialog.Ok
         }
-        onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                         .arg(qsTr("Suggestions for WordClock++")))
-        standardButtons: Dialog.Close | Dialog.Ok
+        Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
     }
-    Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
-}

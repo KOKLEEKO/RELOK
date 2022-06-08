@@ -10,6 +10,7 @@
 var isMobile = isEqual(Qt.platform.os, "android", "ios")
 var isIos = Qt.platform.os === "ios"
 var isAndroid = Qt.platform.os === "android"
+var isWebAssembly = Qt.platform.os === "wasm"
 
 function createStringArrayWithPadding (min, size, step, targetLength = 2, padString = '0') {
     return new Array(size).fill()

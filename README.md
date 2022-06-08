@@ -21,7 +21,7 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 
 Supported languages: 🇺🇸  🇪🇸  🇫🇷
 
-iOS (bêta) version available on TestFlight: https://testflight.apple.com/join/02s6IwG2
+Bêta version is available on  [(iOS) TestFlight 📲](https://testflight.apple.com/join/02s6IwG2) and also as a [web application 🌐](https://wordclock.kokleeko.io)
 
 🗣 [WordClock](https://github.com/kokleeko/WordClock) will use the language defined in the preferences of your device
 (_if this language is not yet supported, English will be used by default_).

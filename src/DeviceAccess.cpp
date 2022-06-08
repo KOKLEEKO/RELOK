@@ -22,3 +22,7 @@ void DeviceAccess::disableAutoLock(bool disable) {
 }
 
 void DeviceAccess::updateNotchHeight() {}
+
+void DeviceAccess::setBrightnessRequested(float brightness) {
+  Q_UNUSED(brightness)
+}
