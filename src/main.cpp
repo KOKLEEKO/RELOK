@@ -34,7 +34,13 @@ int main(int argc, char *argv[]) {
         if (!obj && url == objUrl) QCoreApplication::exit(-1);
       },
       Qt::QueuedConnection);
-  engine.load(url);
-
+#ifdef Q_OS_WASM
+  QObject::connect(&DeviceAccess::instance(), &DeviceAccess::settingsReady,
+                   &app, [url, &engine]() {
+#endif
+                     engine.load(url);
+#ifdef Q_OS_WASM
+                   });
+#endif
   return app.exec();
 }

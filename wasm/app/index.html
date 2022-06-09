@@ -9,12 +9,13 @@
         and Qt device independent pixels. -->
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=0"/>
 
-    <title>WordClock</title>
+    <title>WordClock++ - Web Application</title>
+    <meta name="description" content="web application built with Qt that displays time as a word clock">
     <style>
       /* Make the html body cover the entire (visual) viewport with no scroll bars. */
-      html, body { padding: 0; margin: 0; overflow:hidden; height: 100vh }
+      html, body { padding: 0; margin: 0; color: white; background-color: black; overflow:hidden; height: 100vh }
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-      canvas { border: 0px none; background-color: white; height:100%; width:100%;  }
+      canvas { border: 0px none; color: white; background-color: black; height:100%; width:100%;  }
       /* The contenteditable property is set to true for the canvas in order to support
          clipboard events. Hide the resulting focus frame and set the cursor back to
          the default cursor. */
@@ -23,12 +24,11 @@
   </head>
   <body onload="init()">
     <figure style="overflow:visible;" id="qtspinner">
-      <center style="margin-top:1.5em; line-height:150%">
-        <img src="qtlogo.svg" width="320" height="200" style="display:block"></img>
-        <strong>Qt for WebAssembly: WordClock</strong>
-        <div id="qtstatus"></div>
+      <center style="position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); line-height:350%">
+        <img src="logo.svg" width=70% height=70% style="display:block"></img>
         <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
       </center>
+      <div id="qtstatus" style="position:absolute; bottom:0; left:50%; transform:translate(-50%, 0%)"></div>
     </figure>
     <canvas id="qtcanvas" oncontextmenu="event.preventDefault()" contenteditable="true"></canvas>
 

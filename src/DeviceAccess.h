@@ -10,6 +10,7 @@
 #include <QLoggingCategory>
 #include <QObject>
 #include <QSettings>
+#include <QTimerEvent>
 #include <memory>
 
 Q_DECLARE_LOGGING_CATEGORY(lc)
@@ -123,6 +124,7 @@ class DeviceAccess : public QObject {
   void isAutoLockRequestedChanged();
   void isAutoLockDisabledChanged();
   void brightnessChanged();
+  void settingsReady();
 
  private:
   DeviceAccess(QObject* parent = nullptr) : QObject(parent) {
@@ -134,12 +136,22 @@ class DeviceAccess : public QObject {
             &DeviceAccess::batterySaving);
     updateNotchHeight();
     qCDebug(lc) << m_settings.fileName();
+#ifdef Q_OS_WASM
+    startTimer(10);
+#endif
   }
   ~DeviceAccess() = default;
   DeviceAccess(const DeviceAccess&) = delete;
   DeviceAccess& operator=(const DeviceAccess&) = delete;
   void security();
   void updateNotchHeight();
+  void timerEvent(QTimerEvent* event) {
+    if (m_settings.status() != QSettings::AccessError) {
+      killTimer(event->timerId());
+      qCDebug(lc) << "settings ready";
+      emit settingsReady();
+    }
+  }
 
   QSettings m_settings = QSettings();
 

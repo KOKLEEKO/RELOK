@@ -18,6 +18,7 @@ ApplicationWindow {
     property WebView webView
     property alias headings: headings
     property alias badReviewPopup: badReviewPopup
+    readonly property bool isLandScape: width > height
     width: 640
     height: 480
     minimumWidth: 180
@@ -26,10 +27,6 @@ ApplicationWindow {
     visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
     color: wordClock.background_color
-    Screen.orientationUpdateMask: Qt.LandscapeOrientation |
-                                  Qt.PortraitOrientation |
-                                  Qt.InvertedLandscapeOrientation |
-                                  Qt.InvertedPortraitOrientation
     Component.onCompleted: { console.log("pixelDensity", Screen.pixelDensity) }
 
     QtObject {
@@ -76,7 +73,6 @@ ApplicationWindow {
         ScriptAction {
             script: {
                 orientationChangedSequence.isMenuOpened = settingPanel.opened
-                console.log("close settingsMenu")
                 settingPanel.close()
             }
         }
@@ -105,10 +101,7 @@ ApplicationWindow {
         property real in_line_implicit_width
         dragMargin: parent.width/5
         y: (parent.height - height) / 2
-        width: Helpers.isEqual(Screen.orientation,
-                               Qt.LandscapeOrientation,
-                               Qt.InvertedLandscapeOrientation) ? Math.max(parent.width*.65, 300)
-                                                                : parent.width
+        width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
         height: parent.height
         closePolicy: Drawer.CloseOnEscape | Drawer.CloseOnPressOutside
         edge: Qt.RightEdge
