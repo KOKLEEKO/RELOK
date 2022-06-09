@@ -10,15 +10,17 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 ColumnLayout {
-    property alias text: title.text
+    property string text
     property alias title: title
     property alias menuItems: menuItems
     default property alias contentItem: menuItems.children
     property url icon
     property bool is_collapsed: is_collapsable
     property bool is_collapsable: true
-    Title {
+    spacing: 20
+        Title {
         id: title
+        text: (is_collapsed ? "▶︎": "▼") + " " + parent.text
         horizontalAlignment: Title.AlignLeft
         heading: headings.h2
         mouseArea.enabled: is_collapsable
