@@ -343,8 +343,8 @@ We would be very pleased to hear about your experience with this application")
                 Controls.IconButton {
                     name: "globe-solid"
                     visible: !Helpers.isWebAssembly
-                    tooltip: qsTr("Web App")
-                    onClicked: openUrl("https://wordclock.kokleeko.io")
+                    tooltip: qsTr("Web Site")
+                    onClicked: openUrl("https://kokleeko.io")
                 },
                 Controls.IconButton {
                     name: "app-store-ios-brands"
