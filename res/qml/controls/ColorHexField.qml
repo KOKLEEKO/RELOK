@@ -30,5 +30,7 @@ TextField {
     color: acceptableInput ? palette.text : "red"
     validator: RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }
     inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
+    selectByMouse: true
+    selectedTextColor: "white"
     Component.onCompleted: editingFinished.connect(()=>setColor(text))
 }
