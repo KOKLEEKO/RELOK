@@ -99,7 +99,7 @@ ApplicationWindow {
     Drawer {
         id: settingPanel
         property real in_line_implicit_width
-        dragMargin: parent.width/5
+        dragMargin: -parent.width/5
         y: (parent.height - height) / 2
         width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
         height: parent.height
