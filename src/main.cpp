@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
   app.setOrganizationName("Kokleeko S.L.");
   app.setOrganizationDomain("kokleeko.io");
   app.setApplicationName("WordClock");
-
+  app.setApplicationVersion("1.0.0");
   QQmlApplicationEngine engine;
 
   using namespace kokleeko::device;

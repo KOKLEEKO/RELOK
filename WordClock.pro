@@ -62,7 +62,14 @@ macx | ios {
         QMAKE_INFO_PLIST = apple/ios/Info.plist
         app_launch_screen.files = apple/ios/Launch.storyboard
         QMAKE_BUNDLE_DATA += app_launch_screen
+        QMAKE_WATCHOS_DEPLOYMENT_TARGET    = 2.2
     }
+} else:android {
+    QT += androidextras
+    DISTFILES += \
+        android/AndroidManifest.xml \
+        android/*.gradle
+   SOURCES += src/DeviceAccess_android.cpp
 } else {
   SOURCES += src/DeviceAccess.cpp
 }
