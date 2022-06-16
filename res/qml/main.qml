@@ -125,7 +125,7 @@ ApplicationWindow {
     Dialog {
         id: howtoPopup
         anchors.centerIn: parent
-        title: qsTr("Welcome to WordClock++")
+        title: qsTr("Welcome to WordClock")
         width: Math.max(root.width/2, header.implicitWidth)
         clip: true
         z:1
@@ -168,7 +168,7 @@ But thanks to you, we will be able to improve it even more.
 Send us your suggestions and we will take it into account.")
             }
             onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                             .arg(qsTr("Suggestions for WordClock++")))
+                                             .arg(qsTr("Suggestions for WordClock")))
             standardButtons: Dialog.Close | Dialog.Ok
         }
         Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
