@@ -7,16 +7,11 @@
 TEMPLATE = app
 QT += quick core webview svg
 
-include(webos.pri)
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+#include(webos.pri)
 
 CONFIG += \
     c++1z \
     sdk_no_version_check
-
-QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
 
 HEADERS += src/DeviceAccess.h
 
@@ -45,6 +40,7 @@ DISTFILES += \
              Gemfile
 
 macx | ios {
+    QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
     Q_ENABLE_BITCODE.name = ENABLE_BITCODE
     Q_ENABLE_BITCODE.value = NO
     QMAKE_MAC_XCODE_SETTINGS += Q_ENABLE_BITCODE
@@ -63,13 +59,12 @@ macx | ios {
         QMAKE_INFO_PLIST = apple/ios/Info.plist
         app_launch_screen.files = apple/ios/Launch.storyboard
         QMAKE_BUNDLE_DATA += app_launch_screen
-        QMAKE_WATCHOS_DEPLOYMENT_TARGET    = 2.2
     }
 } else:android {
     QT += androidextras
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     DISTFILES += \
-        android/AndroidManifest.xml \
-        android/*.gradle
+        android/AndroidManifest.xml
    SOURCES += src/DeviceAccess_android.cpp
 } else {
   SOURCES += src/DeviceAccess.cpp

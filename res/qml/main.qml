@@ -27,6 +27,12 @@ ApplicationWindow {
     visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
     color: wordClock.background_color
+    onClosing: {
+        if (Helpers.isAndroid) {
+            close.accepted = false
+        }
+    }
+
     Component.onCompleted: { console.log("pixelDensity", Screen.pixelDensity) }
 
     QtObject {
@@ -91,9 +97,17 @@ ApplicationWindow {
             if (!Helpers.isMobile)
                 Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
         }
+        property point pressed
+        readonly property int threshold: 5
         anchors.fill: parent
         onPressAndHold: toggleFullScreen()
-        onClicked: settingPanel.open()
+        onPressed: pressed = Qt.point(mouse.x, mouse.y)
+        onClicked: {
+            if (Math.abs(mouse.x -pressed.x) < threshold &&
+                    Math.abs(mouse.y - pressed.y) < threshold) {
+                settingPanel.open()
+            }
+        }
     }
     WordClock { id: wordClock }
     Drawer {
@@ -130,7 +144,7 @@ ApplicationWindow {
         clip: true
         z:1
         ColumnLayout {
-            width: parent.width
+            Layout.fillWidth: true
             Label {
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
