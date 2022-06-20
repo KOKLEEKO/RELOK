@@ -26,5 +26,8 @@ void DeviceAccess::disableAutoLock(bool disable) {
 void DeviceAccess::updateNotchHeight() {}
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
-  Q_UNUSED(brightness)
+  QAndroidJniObject::callStaticMethod<void>(
+      "io/kokleeko/wordclock/DeviceAccess", "setBrightness",
+      "(Landroid/content/Context;I)V", QtAndroid::androidContext().object(),
+      qRound(brightness * 255));
 }

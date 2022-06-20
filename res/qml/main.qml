@@ -27,13 +27,8 @@ ApplicationWindow {
     visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
     flags: Qt.Window | Qt.WindowStaysOnTopHint
     color: wordClock.background_color
-    onClosing: {
-        if (Helpers.isAndroid) {
-            close.accepted = false
-        }
-    }
-
-    Component.onCompleted: { console.log("pixelDensity", Screen.pixelDensity) }
+    onClosing: close.accepted = !Helpers.isAndroid
+    Component.onCompleted: { console.info("pixelDensity", Screen.pixelDensity) }
 
     QtObject {
         id: headings

@@ -37,7 +37,6 @@ DISTFILES += \
              .github/workflows/* \
              src/README.md \
              fastlane/* \
-             Gemfile
 
 macx | ios {
     QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
@@ -49,6 +48,7 @@ macx | ios {
     QMAKE_MAC_XCODE_SETTINGS += Q_ALWAYS_SEARCH_USER_PATHS
     QMAKE_ASSET_CATALOGS += apple/Assets.xcassets
     LIBS += -framework StoreKit
+    DISTFILES += Gemfile
     macx {
        QMAKE_INFO_PLIST = apple/macx/Info.plist
        OBJECTIVE_SOURCES += src/DeviceAccess_macx.mm
@@ -64,6 +64,7 @@ macx | ios {
     QT += androidextras
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     DISTFILES += \
+        android/src/io/kokleeko/wordclock/DeviceAccess.java \
         android/AndroidManifest.xml
    SOURCES += src/DeviceAccess_android.cpp
 } else {
