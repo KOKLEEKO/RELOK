@@ -131,10 +131,9 @@ Each grid contains a special message that will be displayed instead of the time 
  these different states.") }
             Switch {
                 checked: DeviceAccess.settingsValue("Appearance/specialMessage", true)
-                onToggled: {
-                    DeviceAccess.setSettingsValue("Appearance/specialMessage",
-                                                  wordClock.enable_special_message = checked)
-                }
+                onToggled: DeviceAccess.setSettingsValue("Appearance/specialMessage",
+                                                         wordClock.enable_special_message = checked)
+
             }
         }
     }
