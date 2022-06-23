@@ -24,8 +24,7 @@ ApplicationWindow {
     minimumWidth: 180
     minimumHeight: minimumWidth
     visible: true
-    visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
-    flags: Qt.Window | Qt.WindowStaysOnTopHint
+    visibility: Window.AutomaticVisibility
     color: wordClock.background_color
     onClosing: close.accepted = !Helpers.isAndroid
     Component.onCompleted: { console.info("pixelDensity", Screen.pixelDensity) }

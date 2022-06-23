@@ -8,6 +8,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Window 2.15
 
 import "qrc:/qml/controls" as Controls
 import "qrc:/js/Helpers.js" as Helpers
@@ -92,6 +93,20 @@ If enabled the screen device will stay active, when the application is running.\
 
     Controls.MenuSection {
         text: qsTr("Appearance")
+        Controls.MenuItem {
+            text: qsTr("FullScreen")
+            Switch {
+                function updateVisibility() {
+                    if (checked)
+                        root.visibility = Window.FullScreen
+                    else
+                        root.visibility = Window.Windowed
+                }
+                checked: DeviceAccess.settingsValue("Appearance/fullScreen", false)
+                onToggled: DeviceAccess.setSettingsValue("Appearance/fullScreen", checked)
+                onCheckedChanged: updateVisibility()
+            }
+        }
         Controls.MenuItem {
             text: qsTr("Clock Language")
             extras: [
