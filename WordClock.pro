@@ -52,8 +52,7 @@ macx | ios {
     macx {
        QMAKE_INFO_PLIST = apple/macx/Info.plist
        OBJECTIVE_SOURCES += src/DeviceAccess_macx.mm
-    }
-    ios {
+    } else:ios {
         OTHER_FILES += apple/ios/Launch.storyboard
         OBJECTIVE_SOURCES += src/DeviceAccess_ios.mm
         QMAKE_INFO_PLIST = apple/ios/Info.plist
