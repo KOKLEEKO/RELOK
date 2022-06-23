@@ -26,7 +26,12 @@ ApplicationWindow {
     visible: true
     visibility: Window.AutomaticVisibility
     color: wordClock.background_color
-    onClosing: close.accepted = !Helpers.isAndroid
+    onClosing: {
+        if (Helpers.isAndroid) {
+            close.accepted = false
+            DeviceAccess.moveTaskToBack()
+        }
+    }
     Component.onCompleted: { console.info("pixelDensity", Screen.pixelDensity) }
 
     QtObject {

@@ -31,3 +31,8 @@ void DeviceAccess::setBrightnessRequested(float brightness) {
       "(Landroid/content/Context;I)V", QtAndroid::androidContext().object(),
       qRound(brightness * 255));
 }
+
+void DeviceAccess::moveTaskToBack() {
+  QtAndroid::androidActivity().callMethod<jboolean>("moveTaskToBack", "(Z)Z",
+                                                    true);
+}

@@ -43,6 +43,9 @@ class DeviceAccess : public QObject {
     return instance;
   }
 
+#ifdef Q_OS_ANDROID
+  Q_INVOKABLE void moveTaskToBack();
+#endif
   // About
   bool isBugTracking() const { return m_isBugTracking; }
   Q_INVOKABLE void requestReview();
