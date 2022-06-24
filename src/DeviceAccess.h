@@ -77,6 +77,7 @@ class DeviceAccess : public QObject {
     emit brightnessChanged();
   }
   void disableAutoLock(bool disable);
+  Q_INVOKABLE void security(bool value);
   // Settings
   Q_INVOKABLE void setSettingsValue(const QString& key, const QVariant& value) {
     m_settings.setValue(key, value);
@@ -152,7 +153,6 @@ class DeviceAccess : public QObject {
   ~DeviceAccess() = default;
   DeviceAccess(const DeviceAccess&) = delete;
   DeviceAccess& operator=(const DeviceAccess&) = delete;
-  void security();
   void updateNotchHeight();
   void timerEvent(QTimerEvent* event) {
     if (m_settings.status() != QSettings::AccessError) {

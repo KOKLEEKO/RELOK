@@ -52,7 +52,7 @@ void DeviceAccess::batterySaving() {
   }
 }
 
-void DeviceAccess::security() {}
+void DeviceAccess::security(bool /*value*/) {}
 
 void DeviceAccess::requestReview() {
   if (@available(macOS 10.14, *)) {

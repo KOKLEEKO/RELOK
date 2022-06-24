@@ -55,13 +55,18 @@ Controls.Menu {
             detailsComponent: Controls.Details {
                 text: qsTr("\
 If enabled the screen device will stay active, when the application is running.\
-\nThink about activating 'Guided Access' if you might loose attention on your device\
-")
+\nThink about activating '%1' if you might loose attention on your device.\
+").arg(Helpers.isAndroid ? qsTr("App pinning") : qsTr("Guided Access"))
             }
             Switch {
                 checked: !DeviceAccess.isAutoLockRequested
                 onToggled: DeviceAccess.isAutoLockRequested = !checked
             }
+        }
+        Controls.MenuItem {
+            text: qsTr("App pinning")
+            visible: Helpers.isAndroid
+            Switch { onToggled: DeviceAccess.security(checked) }
         }
         Controls.MenuItem {
             text: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(control.value.toString())

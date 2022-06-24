@@ -114,6 +114,8 @@ void DeviceAccess::requestReview() {
   }
 }
 
+void DeviceAccess::security(bool /*value*/) {}
+
 void DeviceAccess::updateNotchHeight() {
   if (@available(iOS 11.0, *)) {
     m_notchHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;

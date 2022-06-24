@@ -15,7 +15,12 @@ Q_LOGGING_CATEGORY(lc, "Device_android")
 
 void DeviceAccess::batterySaving() {}
 
-void DeviceAccess::security() {}
+void DeviceAccess::security(bool value) {
+  if (value)
+    QtAndroid::androidActivity().callMethod<void>("startLockTask", "()V");
+  else
+    QtAndroid::androidActivity().callMethod<void>("stopLockTask", "()V");
+}
 
 void DeviceAccess::requestReview() {}
 
@@ -35,6 +40,7 @@ void DeviceAccess::moveTaskToBack() {
   QtAndroid::androidActivity().callMethod<jboolean>("moveTaskToBack", "(Z)Z",
                                                     true);
 }
+
 static void updateBrightness(JNIEnv *, jobject, jint value) {
   DeviceAccess::instance().updateBrightness(value / 255.0);
 }

@@ -13,16 +13,12 @@ Q_LOGGING_CATEGORY(lc, "Device")
 
 void DeviceAccess::batterySaving() {}
 
-void DeviceAccess::security() {}
+void DeviceAccess::security(bool /*value*/) {}
 
 void DeviceAccess::requestReview() {}
 
-void DeviceAccess::disableAutoLock(bool disable) {
-  qCDebug(lc) << "W disableAutoLock:" << disable;
-}
+void DeviceAccess::disableAutoLock(bool /*disable*/) {}
 
 void DeviceAccess::updateNotchHeight() {}
 
-void DeviceAccess::setBrightnessRequested(float brightness) {
-  Q_UNUSED(brightness)
-}
+void DeviceAccess::setBrightnessRequested(float /*brightness*/) {}
