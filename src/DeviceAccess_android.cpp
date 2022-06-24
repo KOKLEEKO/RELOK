@@ -26,6 +26,26 @@ void DeviceAccess::requestReview() {}
 
 void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "W disableAutoLock:" << disable;
+  QtAndroid::runOnAndroidThread([disable] {
+    QAndroidJniObject activity = QtAndroid::androidActivity();
+    if (activity.isValid()) {
+      QAndroidJniObject window =
+          activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
+      if (window.isValid()) {
+        const int FLAG_KEEP_SCREEN_ON = QAndroidJniObject::getStaticField<jint>(
+            "android/view/WindowManager$LayoutParams", "FLAG_KEEP_SCREEN_ON");
+        if (disable) {
+          window.callMethod<void>("addFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
+        } else {
+          window.callMethod<void>("clearFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
+        }
+      }
+    }
+    QAndroidJniEnvironment env;
+    if (env->ExceptionCheck()) {
+      env->ExceptionClear();
+    }
+  });
 }
 
 void DeviceAccess::updateNotchHeight() {}

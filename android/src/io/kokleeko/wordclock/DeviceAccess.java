@@ -27,6 +27,7 @@ public class DeviceAccess {
   }
 
   private static native void updateBrightness(int value);
+
   public static void registerListeners(Context appContext)
   {
       context = appContext;
