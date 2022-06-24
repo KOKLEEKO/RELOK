@@ -87,6 +87,11 @@ If enabled the screen device will stay active, when the application is running.\
                 to: 100
                 value: DeviceAccess.brightness
                 onMoved: DeviceAccess.brightnessRequested = value/100
+                Component.onCompleted: {
+                    if (Helpers.isAndroid) {
+                        DeviceAccess.requestBrightnessUpdate();
+                    }
+                }
             }
         }
     }

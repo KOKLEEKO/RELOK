@@ -43,7 +43,6 @@ void DeviceAccess::registerListeners() {
   QAndroidJniObject::callStaticMethod<void>(
       "io/kokleeko/wordclock/DeviceAccess", "registerListeners",
       "(Landroid/content/Context;)V", QtAndroid::androidContext().object());
-
   JNINativeMethod methods[]{{"updateBrightness", "(I)V",
                              reinterpret_cast<void *>(::updateBrightness)}};
   QAndroidJniObject javaClass("io/kokleeko/wordclock/DeviceAccess");
@@ -52,4 +51,12 @@ void DeviceAccess::registerListeners() {
   env->RegisterNatives(objectClass, methods,
                        sizeof(methods) / sizeof(methods[0]));
   env->DeleteLocalRef(objectClass);
+  QAndroidJniObject::callStaticMethod<void>(
+      "io/kokleeko/wordclock/DeviceAccess", "registerListeners",
+      "(Landroid/content/Context;)V", QtAndroid::androidContext().object());
+}
+
+void DeviceAccess::requestBrightnessUpdate() {
+  QAndroidJniObject::callStaticMethod<void>(
+      "io/kokleeko/wordclock/DeviceAccess", "getBrightness", "()V");
 }

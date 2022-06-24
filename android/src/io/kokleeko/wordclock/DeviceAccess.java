@@ -15,24 +15,34 @@ public class DeviceAccess {
       @Override
       public void onChange(boolean selfChange)
       {
-          int brightnessLevel = Settings.System.getInt(
-                  context.getContentResolver(),Settings.System.SCREEN_BRIGHTNESS,0);
-          updateBrightness(brightnessLevel);
+           getBrightness();
       }
   };
+
+  public static void getBrightness()
+  {
+      int brightnessLevel = Settings.System.getInt(context.getContentResolver(),
+                                                   Settings.System.SCREEN_BRIGHTNESS,0);
+      updateBrightness(brightnessLevel);
+  }
 
   private static native void updateBrightness(int value);
   public static void registerListeners(Context appContext)
   {
-   context = appContext;
-   context.getContentResolver().registerContentObserver(
-            Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS),
-            false, contentObserver);
+      context = appContext;
+      context.getContentResolver().registerContentObserver(
+                                      Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS),
+                                      false,
+                                      contentObserver);
   }
 
   public static void setBrightness(int brightness)
   {
       if (Settings.System.canWrite(context)) {
+          Settings.System.putInt(
+              context.getContentResolver(),
+              Settings.System.SCREEN_BRIGHTNESS_MODE,
+              Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
           Settings.System.putInt(context.getContentResolver(),
                                  Settings.System.SCREEN_BRIGHTNESS,
                                  brightness);

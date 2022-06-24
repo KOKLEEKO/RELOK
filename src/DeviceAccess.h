@@ -45,6 +45,7 @@ class DeviceAccess : public QObject {
 
 #ifdef Q_OS_ANDROID
   Q_INVOKABLE void moveTaskToBack();
+  Q_INVOKABLE void requestBrightnessUpdate();
 #endif
   // About
   bool isBugTracking() const { return m_isBugTracking; }
