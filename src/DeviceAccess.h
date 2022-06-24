@@ -141,8 +141,13 @@ class DeviceAccess : public QObject {
     qCDebug(lc) << m_settings.fileName();
 #ifdef Q_OS_WASM
     startTimer(10);
+#elif defined(Q_OS_ANDROID)
+    registerListeners();
 #endif
   }
+#ifdef Q_OS_ANDROID
+  void registerListeners();
+#endif
   ~DeviceAccess() = default;
   DeviceAccess(const DeviceAccess&) = delete;
   DeviceAccess& operator=(const DeviceAccess&) = delete;
@@ -157,7 +162,6 @@ class DeviceAccess : public QObject {
   }
 
   QSettings m_settings = QSettings();
-
   float m_brightness = .0;
   float m_notchHeight = .0;
   float m_brightnessRequested = .0;
