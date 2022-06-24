@@ -36,7 +36,7 @@ DISTFILES += \
              .github/PULL_REQUEST_TEMPLATE \
              .github/workflows/* \
              src/README.md \
-             fastlane/* \
+             fastlane/*
 
 macx | ios {
     QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
