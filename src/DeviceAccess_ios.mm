@@ -75,7 +75,7 @@ using namespace kokleeko::device;
 
 - (void)receiveBrightnessDidChangeNotification:(NSNotification *)notification {
   auto brightness = [[notification object] brightness];
-  qCDebug(lc) << "brightness" << brightness;
+  qCDebug(lc) << "brightness:" << brightness;
   [self updateBrightness:(float)brightness];
 }
 @end
@@ -87,22 +87,19 @@ void DeviceAccess::setBrightnessRequested(float brightness) {
 }
 
 void DeviceAccess::disableAutoLock(bool disable) {
-  qCDebug(lc) << "W disabledAutoLock" << disable;
+  qCDebug(lc) << "W disabledAutoLock:" << disable;
   [[UIApplication sharedApplication] setIdleTimerDisabled:disable];
   m_isAutoLockDisabled = [UIApplication sharedApplication].isIdleTimerDisabled;
-  qCDebug(lc) << "R autoLockDisabled" << m_isAutoLockDisabled;
+  qCDebug(lc) << "R autoLockDisabled:" << m_isAutoLockDisabled;
 }
 
 void DeviceAccess::batterySaving() {
   qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged << m_batteryLevel
               << m_minimumBatteryLevel;
-  if (m_isAutoLockRequested) {
-    qCDebug(lc) << "disableAutoLock" << NO;
-    disableAutoLock(NO);
-  } else if (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel) {
-    qCDebug(lc) << "disableAutoLock" << YES;
-    disableAutoLock(YES);
-  }
+  if (m_isAutoLockRequested)
+    bool disable =
+        !m_isAutoLockRequested && (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
+  disableAutoLock(disable);
 }
 
 void DeviceAccess::requestReview() {
