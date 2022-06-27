@@ -13,13 +13,17 @@ using namespace kokleeko::device;
 
 Q_LOGGING_CATEGORY(lc, "Device_android")
 
-void DeviceAccess::batterySaving() {}
+void DeviceAccess::batterySaving() {
+  qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
+              << m_batteryLevel << m_minimumBatteryLevel;
+  bool disable = !m_isAutoLockRequested &&
+                 (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
+  disableAutoLock(disable);
+}
 
 void DeviceAccess::security(bool value) {
-  if (value)
-    QtAndroid::androidActivity().callMethod<void>("startLockTask", "()V");
-  else
-    QtAndroid::androidActivity().callMethod<void>("stopLockTask", "()V");
+  QtAndroid::androidActivity().callMethod<void>(
+      value ? "startLockTask" : "stopLockTask", "()V");
 }
 
 void DeviceAccess::requestReview() {}
@@ -34,17 +38,20 @@ void DeviceAccess::disableAutoLock(bool disable) {
       if (window.isValid()) {
         const int FLAG_KEEP_SCREEN_ON = QAndroidJniObject::getStaticField<jint>(
             "android/view/WindowManager$LayoutParams", "FLAG_KEEP_SCREEN_ON");
-        if (disable) {
-          window.callMethod<void>("addFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
-        } else {
-          window.callMethod<void>("clearFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
+        window.callMethod<void>(disable ? "addFlags" : "clearFlags", "(I)V",
+                                FLAG_KEEP_SCREEN_ON);
+        QAndroidJniObject layoutParams = window.callObjectMethod(
+            "getAttributes", "()Landroid/view/WindowManager$LayoutParams;");
+        qDebug() << layoutParams.isValid();
+        if (layoutParams.isValid()) {
+          const int flags = layoutParams.getField<jint>("flags");
+          qCDebug(lc) << "R autoLockDisabled:"
+                      << !!(flags & FLAG_KEEP_SCREEN_ON);
         }
       }
     }
     QAndroidJniEnvironment env;
-    if (env->ExceptionCheck()) {
-      env->ExceptionClear();
-    }
+    if (env->ExceptionCheck()) env->ExceptionClear();
   });
 }
 
@@ -64,22 +71,30 @@ void DeviceAccess::moveTaskToBack() {
 static void updateBrightness(JNIEnv *, jobject, jint value) {
   DeviceAccess::instance().updateBrightness(value / 255.0);
 }
+static void updateIsPlugged(JNIEnv *, jobject, jboolean value) {
+  DeviceAccess::instance().updateIsPlugged(value);
+}
+static void updateBatteryLevel(JNIEnv *, jobject, jfloat value) {
+  DeviceAccess::instance().updateBatteryLevel(value);
+}
 
 void DeviceAccess::registerListeners() {
   QAndroidJniObject::callStaticMethod<void>(
       "io/kokleeko/wordclock/DeviceAccess", "registerListeners",
       "(Landroid/content/Context;)V", QtAndroid::androidContext().object());
-  JNINativeMethod methods[]{{"updateBrightness", "(I)V",
-                             reinterpret_cast<void *>(::updateBrightness)}};
+  JNINativeMethod methods[]{
+      {"updateBrightness", "(I)V",
+       reinterpret_cast<void *>(::updateBrightness)},
+      {"updateIsPlugged", "(Z)V", reinterpret_cast<void *>(::updateIsPlugged)},
+      {"updateBatteryLevel", "(F)V",
+       reinterpret_cast<void *>(::updateBatteryLevel)},
+  };
   QAndroidJniObject javaClass("io/kokleeko/wordclock/DeviceAccess");
   QAndroidJniEnvironment env;
   jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
   env->RegisterNatives(objectClass, methods,
                        sizeof(methods) / sizeof(methods[0]));
   env->DeleteLocalRef(objectClass);
-  QAndroidJniObject::callStaticMethod<void>(
-      "io/kokleeko/wordclock/DeviceAccess", "registerListeners",
-      "(Landroid/content/Context;)V", QtAndroid::androidContext().object());
 }
 
 void DeviceAccess::requestBrightnessUpdate() {

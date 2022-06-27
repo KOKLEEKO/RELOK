@@ -1,16 +1,19 @@
 package io.kokleeko.wordclock;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.provider.Settings;
 
 public class DeviceAccess {
   public DeviceAccess() {}
 
   static Context context;
-  static ContentObserver contentObserver = new ContentObserver(null)
+  static ContentObserver brightnessContentObserver = new ContentObserver(null)
   {
       @Override
       public void onChange(boolean selfChange)
@@ -18,6 +21,24 @@ public class DeviceAccess {
            getBrightness();
       }
   };
+static BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent )
+        {
+          int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+          boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                               status == BatteryManager.BATTERY_STATUS_FULL;
+          updateIsPlugged(isCharging);
+          int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+          int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+          float batteryLevel = level / (float)scale;
+          updateBatteryLevel(batteryLevel);
+        }
+    };
+
+  private static native void updateIsPlugged(boolean isPlugged);
+
+  private static native void updateBatteryLevel(float batteryLevel);
 
   public static void getBrightness()
   {
@@ -34,7 +55,8 @@ public class DeviceAccess {
       context.getContentResolver().registerContentObserver(
                                       Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS),
                                       false,
-                                      contentObserver);
+                                      brightnessContentObserver);
+      context.registerReceiver(batteryReceiver,  new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
   }
 
   public static void setBrightness(int brightness)
