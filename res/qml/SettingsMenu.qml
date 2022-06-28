@@ -34,8 +34,8 @@ Controls.Menu {
     footer: Controls.MenuSection {
         title.heading: headings.h3
         title.horizontalAlignment: Label.AlignHCenter
-        title.text: "%1 %2 %3".arg(is_collapsed ? "👉" : "❤️")
-        .arg(qsTr("Tip me")).arg(is_collapsed ? "👈" : "❤️")
+        title.text: "%1 %2 %3".arg(is_collapsed ? "☞" : "❤️")
+        .arg(qsTr("Tip me")).arg(is_collapsed ? "☜" : "❤️")
         Layout.alignment: Qt.AlignBottom
         menuItems.flow: GridLayout.LeftToRight
 
