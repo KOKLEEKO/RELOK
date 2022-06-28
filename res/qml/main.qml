@@ -24,7 +24,7 @@ ApplicationWindow {
     minimumWidth: 180
     minimumHeight: minimumWidth
     visible: true
-    visibility: Window.AutomaticVisibility
+    visibility:Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
     color: wordClock.background_color
     onClosing: {
         if (Helpers.isAndroid) {

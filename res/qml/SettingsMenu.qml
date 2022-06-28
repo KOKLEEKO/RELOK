@@ -114,12 +114,17 @@ If enabled the screen device will stay active, when the application is running.\
         text: qsTr("Appearance")
         Controls.MenuItem {
             text: qsTr("FullScreen")
+            visible: !Helpers.isWebAssembly && !Helpers.isIos
             Switch {
                 function updateVisibility() {
-                    if (checked)
-                        root.visibility = Window.FullScreen
-                    else
-                        root.visibility = Window.Windowed
+                    if (Helpers.isIos) {
+                        DeviceAccess.fullScreen(checked)
+                    } else {
+                        if (checked)
+                            root.visibility = Window.FullScreen
+                        else
+                            root.visibility = Window.Windowed
+                    }
                 }
                 checked: DeviceAccess.settingsValue("Appearance/fullScreen", false)
                 onToggled: DeviceAccess.setSettingsValue("Appearance/fullScreen", checked)

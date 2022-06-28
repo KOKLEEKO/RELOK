@@ -19,13 +19,16 @@ using namespace kokleeko::device;
 @end
 
 @interface QIOSViewController (ViewController)
-- (void)viewDidLoad;
 @end
 
 @implementation QIOSViewController (ViewController)
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
   emit DeviceAccess::instance().orientationChanged();
+}
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return DeviceAccess::instance().isStatusBarHidden() ? UIStatusBarStyleLightContent
+                                                      : UIStatusBarStyleDefault;
 }
 
 - (void)viewDidLoad {
@@ -100,6 +103,12 @@ void DeviceAccess::requestReview() {
   } else if (@available(iOS 10.3, *)) {
     [SKStoreReviewController requestReview];
   }
+}
+
+void DeviceAccess::fullScreen(bool value) {
+  m_isStatusBarHidden = value;
+  [[[[UIApplication sharedApplication] keyWindow] rootViewController]
+      setNeedsStatusBarAppearanceUpdate];
 }
 
 void DeviceAccess::security(bool /*value*/) {}

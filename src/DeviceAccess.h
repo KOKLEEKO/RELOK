@@ -43,10 +43,14 @@ class DeviceAccess : public QObject {
     return instance;
   }
 
-#ifdef Q_OS_ANDROID
+#if defined(Q_OS_ANDROID)
   Q_INVOKABLE void moveTaskToBack();
   Q_INVOKABLE void requestBrightnessUpdate();
+#elif defined(Q_OS_IOS)
+  Q_INVOKABLE void fullScreen(bool value);
+  bool isStatusBarHidden() const { return m_isStatusBarHidden; }
 #endif
+
   // About
   bool isBugTracking() const { return m_isBugTracking; }
   Q_INVOKABLE void requestReview();
@@ -180,5 +184,8 @@ class DeviceAccess : public QObject {
       m_settings.value("BatterySaving/isAutoLockRequested", true).toBool();
   bool m_isAutoLockDisabled = false;
   bool m_isBugTracking = m_settings.value("About/isBugTracking", true).toBool();
+#ifdef Q_OS_IOS
+  bool m_isStatusBarHidden = false;
+#endif
 };
 }  // namespace kokleeko::device
