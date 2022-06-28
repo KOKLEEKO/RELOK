@@ -26,7 +26,10 @@ void DeviceAccess::security(bool value) {
       value ? "startLockTask" : "stopLockTask", "()V");
 }
 
-void DeviceAccess::requestReview() {}
+void DeviceAccess::requestReview() {
+  QAndroidJniObject::callStaticMethod<void>(
+      "io/kokleeko/wordclock/DeviceAccess", "requestReview", "()V");
+}
 
 void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "W disableAutoLock:" << disable;

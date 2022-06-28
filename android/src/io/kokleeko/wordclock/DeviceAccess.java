@@ -80,6 +80,8 @@ static BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
       intent.setData(Uri.parse("package:" + context.getPackageName()));
       context.startActivity(intent);
   }
+
+  public static void requestReview() {}
 }
 
 
