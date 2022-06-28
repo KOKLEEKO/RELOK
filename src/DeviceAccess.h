@@ -53,7 +53,13 @@ class DeviceAccess : public QObject {
   // Appearance
   float notchHeight() const { return m_notchHeight; }
   // Battery Saving
-  void batterySaving();
+  void batterySaving() {
+    qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
+                << m_batteryLevel << m_minimumBatteryLevel;
+    bool disable = !m_isAutoLockRequested &&
+                   (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
+    disableAutoLock(disable);
+  }
   int minimumBatteryLevel() const { return m_minimumBatteryLevel; }
   bool isPlugged() const { return m_isPlugged; }
   bool isAutoLockRequested() const { return m_isAutoLockRequested; }

@@ -93,15 +93,6 @@ void DeviceAccess::disableAutoLock(bool disable) {
   qCDebug(lc) << "R autoLockDisabled:" << m_isAutoLockDisabled;
 }
 
-void DeviceAccess::batterySaving() {
-  qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged << m_batteryLevel
-              << m_minimumBatteryLevel;
-  if (m_isAutoLockRequested)
-    bool disable =
-        !m_isAutoLockRequested && (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
-  disableAutoLock(disable);
-}
-
 void DeviceAccess::requestReview() {
   if (@available(iOS 14.0, *)) {
     auto windowScene = [[[UIApplication sharedApplication] keyWindow] windowScene];

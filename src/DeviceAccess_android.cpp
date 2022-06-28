@@ -13,14 +13,6 @@ using namespace kokleeko::device;
 
 Q_LOGGING_CATEGORY(lc, "Device_android")
 
-void DeviceAccess::batterySaving() {
-  qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
-              << m_batteryLevel << m_minimumBatteryLevel;
-  bool disable = !m_isAutoLockRequested &&
-                 (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
-  disableAutoLock(disable);
-}
-
 void DeviceAccess::security(bool value) {
   QtAndroid::androidActivity().callMethod<void>(
       value ? "startLockTask" : "stopLockTask", "()V");

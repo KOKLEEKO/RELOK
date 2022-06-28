@@ -11,8 +11,6 @@ using namespace kokleeko::device;
 
 Q_LOGGING_CATEGORY(lc, "Device")
 
-void DeviceAccess::batterySaving() {}
-
 void DeviceAccess::security(bool /*value*/) {}
 
 void DeviceAccess::requestReview() {}
