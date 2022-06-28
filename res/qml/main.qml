@@ -58,7 +58,7 @@ ApplicationWindow {
         link: systemPalette.link
         linkVisited: systemPalette.linkVisited
         mid: systemPalette.mid
-        midlight: systemPalette.light
+        midlight: "red"
         shadow: systemPalette.shadow
         text: systemPalette.text
         toolTipBase: systemPalette.toolTipBase
@@ -108,15 +108,16 @@ ApplicationWindow {
             }
         }
     }
-    WordClock { id: wordClock }
+    WordClock {
+        id: wordClock
+        height: parent.height
+        width: parent.width - (isLandScape ? settingPanel.position*settingPanel.width : 0)
+    }
     Drawer {
         id: settingPanel
-        property real in_line_implicit_width
-        dragMargin: -parent.width/5
         y: (parent.height - height) / 2
         width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
         height: parent.height
-        closePolicy: Drawer.CloseOnEscape | Drawer.CloseOnPressOutside
         edge: Qt.RightEdge
         dim: false
         topPadding: Screen.orientation === Qt.PortraitOrientation ?
@@ -125,15 +126,14 @@ ApplicationWindow {
                            DeviceAccess.notchHeight : 0
         background: Item {
             clip: true
-            opacity: .95
+            opacity: isLandScape ? 1 : .95
             Rectangle {
                 anchors { fill: parent; rightMargin: -radius }
-                radius: Math.min(parent.height, parent.width)*.02
+                radius: Math.min(parent.height, parent.width)*.011
                 color: palette.window
             }
         }
         SettingsMenu { }
-        Component.onCompleted: in_line_implicit_width = implicitWidth
     }
     Dialog {
         id: howtoPopup

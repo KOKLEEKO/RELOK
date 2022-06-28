@@ -20,7 +20,7 @@ ColumnLayout {
     spacing: 20
         Title {
         id: title
-        text: (is_collapsed ? "▶︎": "▼") + " " + parent.text
+        text: (is_collapsed ? "▷": "▽") + " " + parent.text
         horizontalAlignment: Title.AlignLeft
         heading: headings.h2
         mouseArea.enabled: is_collapsable

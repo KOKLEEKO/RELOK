@@ -19,9 +19,9 @@ Rectangle {
     }
     function updateTable() {
         const split_time = time.split(':')
-        var hours_value = split_time[0]
+        hours_value = split_time[0]
         const minutes_value = split_time[1]
-        var is_AM = (split_time[2] === "am")
+        is_AM = (split_time[2] === "am")
         const is_special = enable_special_message &&
                          (hours_value[0] === hours_value[1]) &&
                          (hours_value === minutes_value)
@@ -83,9 +83,11 @@ Rectangle {
     readonly property real dot_size: cell_width/4
     property Language language
     property string time
+    property bool is_AM
     property bool was_AM
     property bool was_special: false
     property int onoff_dots: 0
+    property string hours_value
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
     readonly property int hours_array_step: 1
@@ -125,7 +127,6 @@ Rectangle {
     }
 
     color: background_color
-    anchors.fill: parent
     Component.onCompleted: {
         selectLanguage(DeviceAccess.settingsValue("Appearance/language", ""))
         language_urlChanged.connect(
@@ -171,9 +172,9 @@ Rectangle {
         readonly property int s_to_ms: 1000
         readonly property var time_reference_list: time_reference.split(':')
         readonly property int time_reference_ms: -3600000 + // January 1, 1970, 00:00:00
-                                        parseInt(time_reference_list[0])*hour_to_ms +
-                                        parseInt(time_reference_list[1])*minute_to_ms +
-                                        parseInt(time_reference_list[2])*s_to_ms
+                                                 parseInt(time_reference_list[0])*hour_to_ms +
+                                                 parseInt(time_reference_list[1])*minute_to_ms +
+                                                 parseInt(time_reference_list[2])*s_to_ms
         interval: 1000
         repeat: true
         running: false
@@ -230,8 +231,7 @@ Rectangle {
             Repeater {
                 model: 4
                 Rectangle {
-                    readonly property bool is_enabled: (index+1 <= onoff_dots)
-                    color: is_enabled ? on_color : off_color
+                    color: (index+1 <= onoff_dots) ? on_color : off_color
                     width: dot_size
                     height: width
                     radius: width/2

@@ -19,19 +19,21 @@ ColumnLayout {
     property alias scrollView: scrollView
     property Component footer: null
     RowLayout {
-        Controls.IconButton {
-            name: "circle-xmark-solid"
+        Layout.rightMargin: 20
+        Title {
+            id: title
+            horizontalAlignment: Title.AlignHCenter
+            heading: headings.h1
+            Layout.alignment: Qt.AlignTop
+            mouseArea.enabled: true
+            mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
+        }
+        Button {
+            text: "✖"
+            font.pointSize: headings.h3
+            background: null
             onClicked: settingPanel.close()
         }
-
-        Title {
-        id: title
-        horizontalAlignment: Title.AlignHCenter
-        heading: headings.h1
-        Layout.alignment: Qt.AlignTop
-        mouseArea.enabled: true
-        mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
-    }
     }
     ScrollView {
         id: scrollView
@@ -39,6 +41,13 @@ ColumnLayout {
         Layout.fillWidth: true
         ScrollBar.vertical.policy: ScrollBar.AlwaysOn
         clip: true
+        palette {
+            // tribute to Qt (https://brand.qt.io/design)
+            midlight: "#cecfd5"
+            dark: "#41cd52"
+            button: "#cecfd5"
+        }
+
         Item {
             width: scrollView.availableWidth
             height: scrollView.availableHeight
