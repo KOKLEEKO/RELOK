@@ -43,13 +43,27 @@ class DeviceAccess : public QObject {
     return instance;
   }
 
+#if defined(Q_OS_ANDROID)
+  Q_INVOKABLE void moveTaskToBack();
+  Q_INVOKABLE void requestBrightnessUpdate();
+#elif defined(Q_OS_IOS)
+  Q_INVOKABLE void fullScreen(bool value);
+  bool isStatusBarHidden() const { return m_isStatusBarHidden; }
+#endif
+
   // About
   bool isBugTracking() const { return m_isBugTracking; }
   Q_INVOKABLE void requestReview();
   // Appearance
   float notchHeight() const { return m_notchHeight; }
   // Battery Saving
-  void batterySaving();
+  void batterySaving() {
+    qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
+                << m_batteryLevel << m_minimumBatteryLevel;
+    bool disable = !m_isAutoLockRequested &&
+                   (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
+    disableAutoLock(disable);
+  }
   int minimumBatteryLevel() const { return m_minimumBatteryLevel; }
   bool isPlugged() const { return m_isPlugged; }
   bool isAutoLockRequested() const { return m_isAutoLockRequested; }
@@ -73,6 +87,7 @@ class DeviceAccess : public QObject {
     emit brightnessChanged();
   }
   void disableAutoLock(bool disable);
+  Q_INVOKABLE void security(bool value);
   // Settings
   Q_INVOKABLE void setSettingsValue(const QString& key, const QVariant& value) {
     m_settings.setValue(key, value);
@@ -138,12 +153,16 @@ class DeviceAccess : public QObject {
     qCDebug(lc) << m_settings.fileName();
 #ifdef Q_OS_WASM
     startTimer(10);
+#elif defined(Q_OS_ANDROID)
+    registerListeners();
 #endif
   }
+#ifdef Q_OS_ANDROID
+  void registerListeners();
+#endif
   ~DeviceAccess() = default;
   DeviceAccess(const DeviceAccess&) = delete;
   DeviceAccess& operator=(const DeviceAccess&) = delete;
-  void security();
   void updateNotchHeight();
   void timerEvent(QTimerEvent* event) {
     if (m_settings.status() != QSettings::AccessError) {
@@ -154,7 +173,6 @@ class DeviceAccess : public QObject {
   }
 
   QSettings m_settings = QSettings();
-
   float m_brightness = .0;
   float m_notchHeight = .0;
   float m_brightnessRequested = .0;
@@ -166,5 +184,8 @@ class DeviceAccess : public QObject {
       m_settings.value("BatterySaving/isAutoLockRequested", true).toBool();
   bool m_isAutoLockDisabled = false;
   bool m_isBugTracking = m_settings.value("About/isBugTracking", true).toBool();
+#ifdef Q_OS_IOS
+  bool m_isStatusBarHidden = false;
+#endif
 };
 }  // namespace kokleeko::device

@@ -8,6 +8,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Window 2.15
 
 import "qrc:/qml/controls" as Controls
 import "qrc:/js/Helpers.js" as Helpers
@@ -20,12 +21,21 @@ Controls.Menu {
             Qt.openUrlExternally(url)
     }
 
+    function greetings() {
+        if (wordClock.is_AM)
+            return qsTr("Good morning")
+        else if (parseInt(wordClock.hours_value) < 18) // 6:00 PM
+            return qsTr("Good afternoon")
+        return qsTr("Good evening")
+    }
+
     anchors { fill: parent; margins: 20 }
-    text: qsTr("My preferences")
+    text: greetings()
     footer: Controls.MenuSection {
         title.heading: headings.h3
         title.horizontalAlignment: Label.AlignHCenter
-        title.text: qsTr("Tip me")
+        title.text: "%1 %2 %3".arg(is_collapsed ? "👉" : "❤️")
+        .arg(qsTr("Tip me")).arg(is_collapsed ? "👈" : "❤️")
         Layout.alignment: Qt.AlignBottom
         menuItems.flow: GridLayout.LeftToRight
 
@@ -54,13 +64,18 @@ Controls.Menu {
             detailsComponent: Controls.Details {
                 text: qsTr("\
 If enabled the screen device will stay active, when the application is running.\
-\nThink about activating 'Guided Access' if you might loose attention on your device\
-")
+\nThink about activating '%1' if you might loose attention on your device.\
+").arg(Helpers.isAndroid ? qsTr("App pinning") : qsTr("Guided Access"))
             }
             Switch {
                 checked: !DeviceAccess.isAutoLockRequested
                 onToggled: DeviceAccess.isAutoLockRequested = !checked
             }
+        }
+        Controls.MenuItem {
+            text: qsTr("App pinning")
+            visible: Helpers.isAndroid
+            Switch { onToggled: DeviceAccess.security(checked) }
         }
         Controls.MenuItem {
             text: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(control.value.toString())
@@ -86,12 +101,36 @@ If enabled the screen device will stay active, when the application is running.\
                 to: 100
                 value: DeviceAccess.brightness
                 onMoved: DeviceAccess.brightnessRequested = value/100
+                Component.onCompleted: {
+                    if (Helpers.isAndroid) {
+                        DeviceAccess.requestBrightnessUpdate();
+                    }
+                }
             }
         }
     }
 
     Controls.MenuSection {
         text: qsTr("Appearance")
+        Controls.MenuItem {
+            text: qsTr("FullScreen")
+            visible: !Helpers.isWebAssembly && !Helpers.isIos
+            Switch {
+                function updateVisibility() {
+                    if (Helpers.isIos) {
+                        DeviceAccess.fullScreen(checked)
+                    } else {
+                        if (checked)
+                            root.visibility = Window.FullScreen
+                        else
+                            root.visibility = Window.Windowed
+                    }
+                }
+                checked: DeviceAccess.settingsValue("Appearance/fullScreen", false)
+                onToggled: DeviceAccess.setSettingsValue("Appearance/fullScreen", checked)
+                onCheckedChanged: updateVisibility()
+            }
+        }
         Controls.MenuItem {
             text: qsTr("Clock Language")
             extras: [
@@ -104,7 +143,8 @@ If enabled the screen device will stay active, when the application is running.\
                         onClicked: wordClock.selectLanguage(language)
                     }
                 },
-                Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
+                Button {
+                    text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
             ]
         }
         Controls.MenuItem {
@@ -116,10 +156,8 @@ Each grid contains a special message that will be displayed instead of the time 
  these different states.") }
             Switch {
                 checked: DeviceAccess.settingsValue("Appearance/specialMessage", true)
-                onToggled: {
-                    DeviceAccess.setSettingsValue("Appearance/specialMessage",
-                                                  wordClock.enable_special_message = checked)
-                }
+                onToggled: DeviceAccess.setSettingsValue("Appearance/specialMessage",
+                                                         wordClock.enable_special_message = checked)
             }
         }
     }
@@ -277,12 +315,6 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
     Controls.MenuSection {
         text: qsTr("About")
         Controls.MenuItem {
-            text: qsTr("Totally Free")
-            detailsComponent: Controls.Details {
-                text: qsTr("Yes, it's totally free, without ads! So you can fully enjoy this app.")
-            }
-        }
-        Controls.MenuItem {
             text: qsTr("Open source")
             detailsComponent: Controls.Details {
                 text: qsTr("The source code is available on GitHub under the MIT license, see it")
@@ -382,7 +414,7 @@ We would be very pleased to hear about your experience with this application")
         Controls.MenuItem {
             text: qsTr("Credits")
             detailsComponent: Controls.Details {
-                text: qsTr("Developed with love by Johan and published by Denver.")
+                text: qsTr("Developed with love by Johan Remilien and published by Denver.")
             }
             extras: [
                 Button {

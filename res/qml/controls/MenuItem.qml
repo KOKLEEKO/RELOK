@@ -19,7 +19,7 @@ GridLayout {
     property var details: null
     property var extraGrid: null
     property var extraControls: extraGrid ? extraGrid.children : null
-    property var in_line_implicit_width: 0
+    property real in_line_implicit_width: 0
     rowSpacing: 0
     Layout.rightMargin: 25
     columnSpacing: 0

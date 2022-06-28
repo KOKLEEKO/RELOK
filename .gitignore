@@ -62,3 +62,8 @@ compile_commands.json
 
 # Git
 *.orig
+
+# Android
+*/local.properties
+*/.idea/
+*/.gradle/

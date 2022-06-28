@@ -24,10 +24,15 @@ ApplicationWindow {
     minimumWidth: 180
     minimumHeight: minimumWidth
     visible: true
-    visibility: Helpers.isMobile ? Window.FullScreen : Window.AutomaticVisibility
-    flags: Qt.Window | Qt.WindowStaysOnTopHint
+    visibility:Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
     color: wordClock.background_color
-    Component.onCompleted: { console.log("pixelDensity", Screen.pixelDensity) }
+    onClosing: {
+        if (Helpers.isAndroid) {
+            close.accepted = false
+            DeviceAccess.moveTaskToBack()
+        }
+    }
+    Component.onCompleted: { console.info("pixelDensity", Screen.pixelDensity) }
 
     QtObject {
         id: headings
@@ -53,7 +58,7 @@ ApplicationWindow {
         link: systemPalette.link
         linkVisited: systemPalette.linkVisited
         mid: systemPalette.mid
-        midlight: systemPalette.light
+        midlight: "red"
         shadow: systemPalette.shadow
         text: systemPalette.text
         toolTipBase: systemPalette.toolTipBase
@@ -91,19 +96,28 @@ ApplicationWindow {
             if (!Helpers.isMobile)
                 Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
         }
+        property point pressed
+        readonly property int threshold: 5
         anchors.fill: parent
         onPressAndHold: toggleFullScreen()
-        onClicked: settingPanel.open()
+        onPressed: pressed = Qt.point(mouse.x, mouse.y)
+        onClicked: {
+            if (Math.abs(mouse.x -pressed.x) < threshold &&
+                    Math.abs(mouse.y - pressed.y) < threshold) {
+                settingPanel.open()
+            }
+        }
     }
-    WordClock { id: wordClock }
+    WordClock {
+        id: wordClock
+        height: parent.height
+        width: parent.width - (isLandScape ? settingPanel.position*settingPanel.width : 0)
+    }
     Drawer {
         id: settingPanel
-        property real in_line_implicit_width
-        dragMargin: -parent.width/5
         y: (parent.height - height) / 2
         width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
         height: parent.height
-        closePolicy: Drawer.CloseOnEscape | Drawer.CloseOnPressOutside
         edge: Qt.RightEdge
         dim: false
         topPadding: Screen.orientation === Qt.PortraitOrientation ?
@@ -112,25 +126,24 @@ ApplicationWindow {
                            DeviceAccess.notchHeight : 0
         background: Item {
             clip: true
-            opacity: .95
+            opacity: isLandScape ? 1 : .95
             Rectangle {
                 anchors { fill: parent; rightMargin: -radius }
-                radius: Math.min(parent.height, parent.width)*.02
+                radius: Math.min(parent.height, parent.width)*.011
                 color: palette.window
             }
         }
         SettingsMenu { }
-        Component.onCompleted: in_line_implicit_width = implicitWidth
     }
     Dialog {
         id: howtoPopup
         anchors.centerIn: parent
-        title: qsTr("Welcome to WordClock++")
+        title: qsTr("Welcome to WordClock")
         width: Math.max(root.width/2, header.implicitWidth)
         clip: true
         z:1
         ColumnLayout {
-            width: parent.width
+            Layout.fillWidth: true
             Label {
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
@@ -168,7 +181,7 @@ But thanks to you, we will be able to improve it even more.
 Send us your suggestions and we will take it into account.")
             }
             onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                             .arg(qsTr("Suggestions for WordClock++")))
+                                             .arg(qsTr("Suggestions for WordClock")))
             standardButtons: Dialog.Close | Dialog.Ok
         }
         Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }

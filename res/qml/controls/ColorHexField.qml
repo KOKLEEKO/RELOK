@@ -32,5 +32,5 @@ TextField {
     inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
     selectByMouse: true
     selectedTextColor: "white"
-    Component.onCompleted: editingFinished.connect(()=>setColor(text))
+    Component.onCompleted: editingFinished.connect(()=>{ setColor(text); focus = false })
 }

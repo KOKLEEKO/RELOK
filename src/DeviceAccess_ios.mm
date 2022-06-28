@@ -19,13 +19,16 @@ using namespace kokleeko::device;
 @end
 
 @interface QIOSViewController (ViewController)
-- (void)viewDidLoad;
 @end
 
 @implementation QIOSViewController (ViewController)
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
   emit DeviceAccess::instance().orientationChanged();
+}
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return DeviceAccess::instance().isStatusBarHidden() ? UIStatusBarStyleLightContent
+                                                      : UIStatusBarStyleDefault;
 }
 
 - (void)viewDidLoad {
@@ -75,7 +78,7 @@ using namespace kokleeko::device;
 
 - (void)receiveBrightnessDidChangeNotification:(NSNotification *)notification {
   auto brightness = [[notification object] brightness];
-  qCDebug(lc) << "brightness" << brightness;
+  qCDebug(lc) << "brightness:" << brightness;
   [self updateBrightness:(float)brightness];
 }
 @end
@@ -87,22 +90,10 @@ void DeviceAccess::setBrightnessRequested(float brightness) {
 }
 
 void DeviceAccess::disableAutoLock(bool disable) {
-  qCDebug(lc) << "W disabledAutoLock" << disable;
+  qCDebug(lc) << "W disabledAutoLock:" << disable;
   [[UIApplication sharedApplication] setIdleTimerDisabled:disable];
   m_isAutoLockDisabled = [UIApplication sharedApplication].isIdleTimerDisabled;
-  qCDebug(lc) << "R autoLockDisabled" << m_isAutoLockDisabled;
-}
-
-void DeviceAccess::batterySaving() {
-  qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged << m_batteryLevel
-              << m_minimumBatteryLevel;
-  if (m_isAutoLockRequested) {
-    qCDebug(lc) << "disableAutoLock" << NO;
-    disableAutoLock(NO);
-  } else if (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel) {
-    qCDebug(lc) << "disableAutoLock" << YES;
-    disableAutoLock(YES);
-  }
+  qCDebug(lc) << "R autoLockDisabled:" << m_isAutoLockDisabled;
 }
 
 void DeviceAccess::requestReview() {
@@ -113,6 +104,14 @@ void DeviceAccess::requestReview() {
     [SKStoreReviewController requestReview];
   }
 }
+
+void DeviceAccess::fullScreen(bool value) {
+  m_isStatusBarHidden = value;
+  [[[[UIApplication sharedApplication] keyWindow] rootViewController]
+      setNeedsStatusBarAppearanceUpdate];
+}
+
+void DeviceAccess::security(bool /*value*/) {}
 
 void DeviceAccess::updateNotchHeight() {
   if (@available(iOS 11.0, *)) {
