@@ -13,45 +13,15 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### fetch_and_increment_build_number
+## Android
+
+### android deploy
 
 ```sh
-[bundle exec] fastlane fetch_and_increment_build_number
+[bundle exec] fastlane android deploy
 ```
 
-Bump build number based on most recent TestFlight build number
-
-### prepare_signing
-
-```sh
-[bundle exec] fastlane prepare_signing
-```
-
-Check certs and profiles
-
-### build_release
-
-```sh
-[bundle exec] fastlane build_release
-```
-
-Build the iOS app for release
-
-### upload_release
-
-```sh
-[bundle exec] fastlane upload_release
-```
-
-Upload to TestFlight / ASC
-
-### build_upload_testflight
-
-```sh
-[bundle exec] fastlane build_upload_testflight
-```
-
-Build and upload to TestFlight
+Deploy a new version to the Google Play
 
 ----
 
@@ -65,6 +35,46 @@ Build and upload to TestFlight
 ```
 
 Load ASC API Key information to use in subsequent lanes
+
+### ios fetch_and_increment_build_number
+
+```sh
+[bundle exec] fastlane ios fetch_and_increment_build_number
+```
+
+Bump build number based on most recent TestFlight build number
+
+### ios prepare_signing
+
+```sh
+[bundle exec] fastlane ios prepare_signing
+```
+
+Check certs and profiles
+
+### ios build_release
+
+```sh
+[bundle exec] fastlane ios build_release
+```
+
+Build the iOS app for release
+
+### ios upload_release
+
+```sh
+[bundle exec] fastlane ios upload_release
+```
+
+Upload to TestFlight / ASC
+
+### ios build_upload_testflight
+
+```sh
+[bundle exec] fastlane ios build_upload_testflight
+```
+
+Build and upload to TestFlight
 
 ----
 

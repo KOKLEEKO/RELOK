@@ -63,9 +63,16 @@ macx | ios {
     QT += androidextras
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     DISTFILES += \
-        android/src/io/kokleeko/wordclock/DeviceAccess.java \
-        android/AndroidManifest.xml
-   SOURCES += src/DeviceAccess_android.cpp
+        android/AndroidManifest.xml \
+        android/build.gradle \
+        android/gradle.properties \
+        android/gradle/wrapper/gradle-wrapper.jar \
+        android/gradle/wrapper/gradle-wrapper.properties \
+        android/gradlew \
+        android/gradlew.bat \
+        android/res/values/libs.xml \
+        android/src/io/kokleeko/wordclock/DeviceAccess.java
+    SOURCES += src/DeviceAccess_android.cpp
 } else {
   SOURCES += src/DeviceAccess.cpp
 }

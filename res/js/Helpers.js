@@ -155,14 +155,6 @@ function toggle(object, propertyName, first, second) {
 
 function isEqual(value, ...args) {
     for (var arg of args) {
-        if (value === arg)
-            return true
-    }
-    return false
-}
-
-function isEqual(value, ...args) {
-    for (var arg of args) {
         if (value === arg) {
             return true
         }
