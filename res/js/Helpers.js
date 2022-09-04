@@ -161,15 +161,6 @@ function isEqual(value, ...args) {
     return false
 }
 
-function isEqual(value, ...args) {
-    for (var arg of args) {
-        if (value === arg) {
-            return true
-        }
-    }
-    return false
-}
-
 //from https://css-tricks.com/converting-color-spaces-in-javascript/
 function hexToHSL(H) {
   // Convert hex to RGB first
