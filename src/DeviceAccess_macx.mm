@@ -18,47 +18,31 @@ Q_LOGGING_CATEGORY(lc, "Device-macx")
 using namespace kokleeko::device;
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
-  io_iterator_t iterator;
-  kern_return_t result = IOServiceGetMatchingServices(
-      kIOMasterPortDefault, IOServiceMatching("IODisplayConnect"), &iterator);
-  if (result == kIOReturnSuccess) {
-    io_object_t service;
-    float currentBrightness;
-    if ((service = IOIteratorNext(iterator))) {
-      IODisplaySetFloatParameter(service, kNilOptions, CFSTR(kIODisplayBrightnessKey), brightness);
-      IODisplayGetFloatParameter(service, kNilOptions, CFSTR(kIODisplayBrightnessKey),
-                                 &currentBrightness);
-      updateBrightness(currentBrightness);
-      IOObjectRelease(service);
+    io_iterator_t iterator;
+    kern_return_t result = IOServiceGetMatchingServices(
+                kIOMasterPortDefault, IOServiceMatching("IODisplayConnect"), &iterator);
+    if (result == kIOReturnSuccess) {
+        io_object_t service;
+        float currentBrightness;
+        if ((service = IOIteratorNext(iterator))) {
+            IODisplaySetFloatParameter(service, kNilOptions, CFSTR(kIODisplayBrightnessKey), brightness);
+            IODisplayGetFloatParameter(service, kNilOptions, CFSTR(kIODisplayBrightnessKey),
+                                       &currentBrightness);
+            updateBrightness(currentBrightness);
+            IOObjectRelease(service);
+        }
     }
-  }
 }
 
 void DeviceAccess::disableAutoLock(bool disable) { Q_UNUSED(disable) }
 
-void DeviceAccess::batterySaving() {
-  io_iterator_t iterator;
-  kern_return_t result = IOServiceGetMatchingServices(
-      kIOMasterPortDefault, IOServiceMatching("IODisplayConnect"), &iterator);
-  if (result == kIOReturnSuccess) {
-    io_object_t service;
-    float currentBrightness;
-    if ((service = IOIteratorNext(iterator))) {
-      IODisplayGetFloatParameter(service, kNilOptions, CFSTR(kIODisplayBrightnessKey),
-                                 &currentBrightness);
-      updateBrightness(currentBrightness);
-      IOObjectRelease(service);
-    }
-  }
-}
-
 void DeviceAccess::security(bool /*value*/) {}
 
 void DeviceAccess::requestReview() {
-  if (@available(macOS 10.14, *)) {
-    [SKStoreReviewController requestReview];
-  } else {
-    // Fallback on earlier versions
-  }
+    if (@available(macOS 10.14, *)) {
+        [SKStoreReviewController requestReview];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 void DeviceAccess::updateNotchHeight() {}
