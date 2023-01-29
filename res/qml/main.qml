@@ -139,14 +139,16 @@ ApplicationWindow {
         id: howtoPopup
         anchors.centerIn: parent
         title: qsTr("Welcome to WordClock")
-        width: Math.max(root.width/2, header.implicitWidth)
+        implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
         clip: true
-        z:1
         ColumnLayout {
-            Layout.fillWidth: true
+            anchors { fill: parent; margins: howtoPopup.margins }
             Label {
-                wrapMode: Text.WordWrap
+                Layout.fillHeight: true
                 Layout.fillWidth: true
+                fontSizeMode: Label.Fit
+                minimumPixelSize: 1
+                wrapMode: Text.WordWrap
                 text: "\
 %1.
 

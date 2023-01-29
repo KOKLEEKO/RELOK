@@ -18,7 +18,7 @@ ColumnLayout {
     property bool is_collapsed: is_collapsable
     property bool is_collapsable: true
     spacing: 20
-        Title {
+    Title {
         id: title
         text: (is_collapsed ? "▷": "▽") + " " + parent.text
         horizontalAlignment: Title.AlignLeft

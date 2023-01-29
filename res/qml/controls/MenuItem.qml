@@ -24,7 +24,7 @@ GridLayout {
     Layout.rightMargin: 25
     columnSpacing: 0
     flow:  (in_line_implicit_width > scrollView.availableWidth) ? GridLayout.TopToBottom
-                                                             : GridLayout.LeftToRight
+                                                                : GridLayout.LeftToRight
     Title {
         id: label
         horizontalAlignment: Title.AlignLeft
