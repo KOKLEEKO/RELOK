@@ -38,6 +38,8 @@ DISTFILES += \
              src/README.md \
              fastlane/*
 
+VERSION = 1.0.0
+
 macx | ios {
     QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
     Q_ENABLE_BITCODE.name = ENABLE_BITCODE
@@ -61,6 +63,7 @@ macx | ios {
     }
 } else:android {
     QT += androidextras
+    ANDROID_VERSION_NAME = $$VERSION
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     DISTFILES += \
         android/AndroidManifest.xml \

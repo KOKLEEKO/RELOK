@@ -38,8 +38,16 @@ jobs:
         with:
           target: android
 
+      - name: Define version code with offset
+        env:
+          RUN_NUMBER: ${{ github.run_number }}
+          INITIAL_VERSION_CODE: 73
+        run: |
+          VERSION_CODE=$((INITIAL_VERSION_CODE + RUN_NUMBER))
+          echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
+
       - name: qmake
-        run: qmake
+        run: qmake "ANDROID_VERSION_CODE=${{ env.version_code }}"
 
       - name: make
         run: make -j$(nproc) && make -j$(nproc) apk_install_target
@@ -67,20 +75,6 @@ jobs:
         with:
           name: APK
           path: android-build/build/outputs/apk/release/*.apk
-
-      - name: Define version code with offset
-        env:
-          RUN_NUMBER: ${{ github.run_number }}
-          INITIAL_VERSION_CODE: 73
-        run: |
-          VERSION_CODE=$((INITIAL_VERSION_CODE + RUN_NUMBER))
-          echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
-
-      - name: Update version code
-        uses: chkfung/android-version-actions@v1.2.1
-        with:
-          gradlePath: android-build/build.gradle
-          versionCode: ${{ env.version_code }}
 
       - name: Decode Service Account Key JSON File
         uses: timheuer/base64-to-file@v1.2
