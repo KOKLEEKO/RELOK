@@ -21,21 +21,10 @@
     platform :android do
       desc "Deploy a new version to the Google Play"
       lane :deploy do
-        gradle(
-          task: "bundle", # or "assemble" if you want to build an APK
-          build_type: "release",
-          print_command: false,
-          project_dir: 'android-build/',
-          properties: {
-            "android.injected.signing.store.file" => ENV["KEYSTORE_FILE"],
-            "android.injected.signing.store.password" => ENV["STORE_PASSWORD"],
-            "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
-            "android.injected.signing.key.password" => ENV["KEY_PASSWORD"]
-          }
-        )
         upload_to_play_store(
           json_key: ENV["ANDROID_JSON_KEY_FILE"],
           track: "internal",
+          aab: ENV["AAB_PATH"],
           release_status: "draft",
           skip_upload_apk: true,
           skip_upload_metadata: true,
