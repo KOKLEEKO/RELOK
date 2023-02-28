@@ -1,7 +1,7 @@
-name: Android
+name: Android-upload
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:
@@ -58,7 +58,7 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE_FILE }}
 
       - name: androiddeployqt
-        run: androiddeployqt --input android-WordClock-deployment-settings.json --output android-build --android-platform android-33 --jdk /opt/homebrew/opt/openjdk@11 --gradle --jarsigner --release --sign $QT_ANDROID_KEYSTORE_PATH $QT_ANDROID_KEYSTORE_ALIAS --storepass $QT_ANDROID_KEYSTORE_STORE_PASS --keypass $QT_ANDROID_KEYSTORE_KEY_PASS
+        run: androiddeployqt --input android-WordClock-deployment-settings.json --output android-build --android-platform android-33 --jdk /opt/homebrew/opt/openjdk@11 --gradle --aab --jarsigner --release --sign $QT_ANDROID_KEYSTORE_PATH $QT_ANDROID_KEYSTORE_ALIAS --storepass $QT_ANDROID_KEYSTORE_STORE_PASS --keypass $QT_ANDROID_KEYSTORE_KEY_PASS
         env:
           QT_ANDROID_KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
           QT_ANDROID_KEYSTORE_STORE_PASS: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -70,3 +70,22 @@ jobs:
         with:
           name: APK
           path: ${{ github.workspace }}/android-build/build/outputs/apk/release/*.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v3
+        with:
+          name: AAB
+          path: ${{ github.workspace }}/android-build/build/outputs/bundle/release/*.aab
+
+      - name: Decode Service Account Key JSON File
+        uses: timheuer/base64-to-file@v1.2
+        id: service_account_json_file
+        with:
+          fileName: "serviceAccount.json"
+          encodedString: ${{ secrets.GPLAY_SERVICE_ACCOUNT_KEY_JSON }}
+
+      - name: Deploy Android release
+        run: bundle exec fastlane android deploy
+        env:
+          ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
+          AAB_PATH: ${{ github.workspace }}/android-build/build/outputs/bundle/release/android-build-release.aab
