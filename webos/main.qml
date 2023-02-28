@@ -5,6 +5,7 @@
  */
 
 import QtQuick 2.6
+
 import WebOSServices 1.0
 import Eos.Window 0.1
 import PmLog 1.0

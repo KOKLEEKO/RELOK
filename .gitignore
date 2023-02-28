@@ -67,3 +67,6 @@ compile_commands.json
 */local.properties
 */.idea/
 */.gradle/
+
+#Fastlane
+fastlane/report.xml
