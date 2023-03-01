@@ -3,6 +3,9 @@ name: iOS-upload
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches:
+      - 'releases/**'
 
 jobs:
   build:
@@ -10,38 +13,41 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1.138.0
+        with:
+          ruby-version: 3.2.1
+          bundler-cache: true
+
+      - name: install tree
+        run: brew install tree
 
       - name: Install Qt
-        uses: johanremilien/install-qt-action@v2
+        uses: johanremilien/install-qt-action@v3
         with:
           target: ios
 
-      # - name: Apply Qt patch
-      #   run: |
-      #     cd ${{ env.Qt5_DIR }}
-      #     # wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)
-      #     wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
-      #     # unzip patch
-      #     unzip patch.zip; rm patch.zip
-      #     # apply patch
-      #     git apply a5273d4.diff; rm a5273d4.diff
-      #     cd -
+      - name: Apply Qt patch (Switch to using Xcode's new build system)
+        run: |
+          cd ${{ env.Qt5_DIR }}
+          echo "wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)"
+          wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
+          echo "unzip patch"
+          unzip patch.zip; rm patch.zip
+          echo "apply patch"
+          git apply a5273d4.diff; rm a5273d4.diff
+          cd -
+
+      - name: Use python3 as interpreter in devices.py
+        run: sed -i '' 's/\usr\/bin\/python/\usr\/bin\/python3/g' ${{ env.Qt5_DIR }}/mkspecs/features/uikit/devices.py
 
       - name: qmake
         run: qmake
 
       - name: make (generate qrc_ and moc_ files)
-        run: make -j$(sysctl -n hw.physicalcpu) -is
-
-      - name: make
-        run: make -j$(sysctl -n hw.physicalcpu)
-
-      - name: Set up ruby env
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1.2
-          bundler-cache: true
+        run: make -j$(sysctl -n hw.physicalcpu) -i
 
       - name: Import Code-Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1
@@ -49,8 +55,8 @@ jobs:
           p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
           p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
 
-      - name: Build & upload iOS binary
-        run: bundle exec fastlane ios build_upload_testflight
+      - name: Build iOS binary
+        run: bundle exec fastlane ios deploy
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
@@ -59,13 +65,27 @@ jobs:
           KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
 
       - name: Upload IPA
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: IPA
-          path: ${{ github.workspace }}/wordclock.ipa
+          path: ${{ github.workspace }}/*.ipa
+
+      - run: echo "APP_PATH=$(readlink -f ${{ github.workspace }}/Release-iphoneos/*.app)" >> $GITHUB_ENV
+      - name: Upload APP
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: APP
+          path: ${{ env.APP_PATH }}
 
       - name: Upload dSYM
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: dSYM
-          path: ${{ github.workspace }}/*.app.dSYM.zip
+          path: ${{ github.workspace }}/Release-iphoneos/*.app.dSYM
+
+      - name: tree
+        if: always()
+        run: tree .

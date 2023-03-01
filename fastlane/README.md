@@ -60,18 +60,18 @@ Check certs and profiles
 
 Build the iOS app for release
 
-### ios upload_release
+### ios upload_testflight
 
 ```sh
-[bundle exec] fastlane ios upload_release
+[bundle exec] fastlane ios upload_testflight
 ```
 
 Upload to TestFlight / ASC
 
-### ios build_upload_testflight
+### ios deploy
 
 ```sh
-[bundle exec] fastlane ios build_upload_testflight
+[bundle exec] fastlane ios deploy
 ```
 
 Build and upload to TestFlight
