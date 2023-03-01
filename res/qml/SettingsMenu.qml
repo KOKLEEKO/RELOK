@@ -162,6 +162,7 @@ Each grid contains a special message that will be displayed instead of the time 
         }
     }
     Controls.MenuSection {
+        visible: isDebug
         text: qsTr("Advanced")
         function applyColors() {
             let bc  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
