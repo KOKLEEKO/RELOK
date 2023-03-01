@@ -22,7 +22,13 @@ jobs:
       run: qmake
 
     - name: make
-      run: make
+      run: make -j$(nproc)
 
     - name: make check
-      run: make check
+      run: make -j$(nproc) check
+
+    - name: install tree
+      run: brew install tree
+
+    - name: tree
+      run: tree .

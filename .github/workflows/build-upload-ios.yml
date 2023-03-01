@@ -3,8 +3,6 @@ name: iOS-upload
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -19,22 +17,25 @@ jobs:
         with:
           target: ios
 
-      - name: Apply Qt patch
-        run: |
-          cd ${{ env.Qt5_DIR }}
-          # wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)
-          wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
-          # unzip patch
-          unzip patch.zip; rm patch.zip
-          # apply patch
-          git apply a5273d4.diff; rm a5273d4.diff
-          cd -
+      # - name: Apply Qt patch
+      #   run: |
+      #     cd ${{ env.Qt5_DIR }}
+      #     # wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)
+      #     wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
+      #     # unzip patch
+      #     unzip patch.zip; rm patch.zip
+      #     # apply patch
+      #     git apply a5273d4.diff; rm a5273d4.diff
+      #     cd -
 
       - name: qmake
         run: qmake
 
+      - name: make (generate qrc_ and moc_ files)
+        run: make -j$(sysctl -n hw.physicalcpu) -is
+
       - name: make
-        run: make
+        run: make -j$(sysctl -n hw.physicalcpu)
 
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
@@ -57,10 +58,14 @@ jobs:
           TEAM_ID: ${{ secrets.TEAM_ID }}
           KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
 
-      - name: Upload app-store ipa and dsyms to artifacts
-        uses: actions/upload-artifact@v2
+      - name: Upload IPA
+        uses: actions/upload-artifact@v3
         with:
-          name: app-store ipa & dsyms
-          path: |
-            ${{ github.workspace }}/wordclock.ipa
-            ${{ github.workspace }}/*.app.dSYM.zip
+          name: IPA
+          path: ${{ github.workspace }}/wordclock.ipa
+
+      - name: Upload dSYM
+        uses: actions/upload-artifact@v3
+        with:
+          name: dSYM
+          path: ${{ github.workspace }}/*.app.dSYM.zip

@@ -1,8 +1,6 @@
 name: iOS
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -19,19 +17,22 @@ jobs:
         with:
           target: ios
 
-      - name: Apply Qt patch
-        run: |
-          cd ${{ env.Qt5_DIR }}
-          # wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)
-          wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
-          # unzip patch
-          unzip patch.zip; rm patch.zip
-          # apply patch
-          git apply a5273d4.diff; rm a5273d4.diff
-          cd -
+      # - name: Apply Qt patch
+      #   run: |
+      #     cd ${{ env.Qt5_DIR }}
+      #     # wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)
+      #     wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
+      #     # unzip patch
+      #     unzip patch.zip; rm patch.zip
+      #     # apply patch
+      #     git apply a5273d4.diff; rm a5273d4.diff
+      #     cd -
 
       - name: qmake
         run: qmake
+
+      - name: make (generate qrc_ and moc_ files)
+        run: make -j$(sysctl -n hw.physicalcpu) -is
 
       - name: Set Default Scheme
         run: |
@@ -70,3 +71,6 @@ jobs:
       #    if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
       #    file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
       #    xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
+
+      - name: tree
+        run: tree .
