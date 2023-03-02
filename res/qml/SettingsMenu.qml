@@ -41,19 +41,15 @@ Controls.Menu {
 
         Controls.IconButton {
             name: "mug-saucer-solid"
+            visible: !Helpers.isMobile
             tooltip: "Ko-fi"
-            onClicked:  openUrl("https://ko-fi.com/johanremilien")
+            onClicked: openUrl("https://ko-fi.com/johanremilien")
         }
         Controls.IconButton {
-            name: "paypal-brands"
-            tooltip: "PayPal"
-            onClicked: openUrl("https://paypal.me/jrxxviij")
+            visible: Helpers.isMobile
+            name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
+            tooltip: Helpers.isIos ? "App Store" : "Google Play"
         }
-        //TODO: This will required some work, this feature might be postponed to the next release
-        //        Controls.IconButton {
-        //            name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
-        //            tooltip: Helpers.isIos ? "App Store" : "Google Play"
-        //        }
     }
 
     Controls.MenuSection {
@@ -116,19 +112,51 @@ If enabled the screen device will stay active, when the application is running.\
             text: qsTr("FullScreen")
             visible: !Helpers.isWebAssembly && !Helpers.isIos
             Switch {
-                function updateVisibility() {
-                    if (Helpers.isIos) {
-                        DeviceAccess.fullScreen(checked)
-                    } else {
-                        if (checked)
-                            root.visibility = Window.FullScreen
-                        else
-                            root.visibility = Window.Windowed
-                    }
+                checked: root.isFullScreen
+                onToggled: Helpers.updateVisibility(root, DeviceAccess)
+                Component.onCompleted: {
+                    if (root.isFullScreen !== DeviceAccess.settingsValue("Appearance/fullScreen", false))
+                        toggled()
                 }
-                checked: DeviceAccess.settingsValue("Appearance/fullScreen", false)
-                onToggled: DeviceAccess.setSettingsValue("Appearance/fullScreen", checked)
-                onCheckedChanged: updateVisibility()
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Display as widget")
+            visible: Helpers.isDesktop
+            Switch {
+                checked: root.isWidget
+                onToggled: Helpers.updateDisplayMode(root)
+                Component.onCompleted: {
+                    if (root.isWidget !== DeviceAccess.settingsValue("Appearance/widget", false))
+                        toggled()
+                }
+            }
+        }
+        Controls.MenuItem {
+            visible: Helpers.isDesktop
+            enabled: !root.isFullScreen
+            text: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control.value))
+            Slider {
+                from: 10
+                to: 100
+                value: DeviceAccess.settingsValue("Appearance/opacity", 1) * 100
+                onMoved: {
+                    root.opacity = value/100
+                    DeviceAccess.setSettingsValue("Appearance/opacity", root.opacity)
+                }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Display as watermark")
+            visible: Helpers.isDesktop
+            Button {
+                text: "Activate"
+                onClicked: {
+                    root.visibility = Window.Maximized
+                    root.opacity = Math.min(root.opacity, .85)
+                    root.flags = Qt.WindowStaysOnTopHint | Qt.WindowTransparentForInput
+                    settingPanel.close()
+                }
             }
         }
         Controls.MenuItem {
@@ -151,7 +179,7 @@ If enabled the screen device will stay active, when the application is running.\
             text: qsTr("Enable Special Message")
             detailsComponent: Controls.Details { text: qsTr("\
 Each grid contains a special message that will be displayed instead of the time for a minute at the\
- following times 12:00 AM (00:00), 11:11 AM (11:11) and 10:22 PM (22:22). The minute indicator at\
+ following times 12:00 AM (00:00), 11:11 AM (11:11) and 10:22 PM (22:22).\n\nThe minute indicator at\
  the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between\
  these different states.") }
             Switch {
@@ -160,10 +188,16 @@ Each grid contains a special message that will be displayed instead of the time 
                                                          wordClock.enable_special_message = checked)
             }
         }
+        Controls.MenuItem {
+            text: qsTr("Display tutorial as Startup")
+            visible: !Helpers.isWebAssembly
+            Switch {
+                checked: root.showTutorial
+                onCheckedChanged: DeviceAccess.setSettingsValue("Tutorial/showPopup", checked)
+            }
+        }
     }
     Controls.MenuSection {
-        visible: isDebug
-        text: qsTr("Advanced")
         function applyColors() {
             let bc  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
             let alc = DeviceAccess.settingsValue("Appearance/activatedLetterColor", "#FF0000")
@@ -172,6 +206,8 @@ Each grid contains a special message that will be displayed instead of the time 
             activatedLetterColorPicker.extraControls[3].setColor(alc)
             deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
         }
+        visible: Helpers.isDesktop || Helpers.isWebAssembly
+        text: qsTr("Advanced")
         Component.onCompleted: wordClock.applyColors.connect(applyColors)
         Controls.MenuItem {
             id: backgroundColorPicker
@@ -184,7 +220,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
-                    factor_type: Controls.Picker.Factors.Saturation
+                    factorType: Controls.Picker.Factors.Saturation
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].saturation = value)
                         moved()
@@ -193,7 +229,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
-                    factor_type: Controls.Picker.Factors.Lightness
+                    factorType: Controls.Picker.Factors.Lightness
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].lightness = value)
                         moved()
@@ -208,7 +244,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             Component.onCompleted: {
                 selected_colorChanged.
                 connect(() => {
-                            wordClock.background_color = selected_color
+                            wordClock.backgroundColor = selected_color
                             DeviceAccess.setSettingsValue("Appearance/backgroundColor",
                                                           selected_color.toString().toUpperCase())
                         })
@@ -223,7 +259,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
-                    factor_type: Controls.Picker.Factors.Saturation
+                    factorType: Controls.Picker.Factors.Saturation
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].saturation = value)
                         moved()
@@ -232,7 +268,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
-                    factor_type: Controls.Picker.Factors.Lightness
+                    factorType: Controls.Picker.Factors.Lightness
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].lightness = value)
                         moved()
@@ -262,7 +298,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
-                    factor_type: Controls.Picker.Factors.Saturation
+                    factorType: Controls.Picker.Factors.Saturation
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].saturation = value)
                         moved()
@@ -271,7 +307,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
-                    factor_type: Controls.Picker.Factors.Lightness
+                    factorType: Controls.Picker.Factors.Lightness
                     Component.onCompleted: {
                         onMoved.connect(() => parent.children[0].lightness = value)
                         moved()
@@ -303,14 +339,6 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 }
             }
         }
-        Controls.MenuItem {
-            text: qsTr("Tutorial")
-            visible: !Helpers.isWebAssembly
-            Button {
-                text: qsTr("Show at startup")
-                onClicked: DeviceAccess.setSettingsValue("Tutorial/showPopup", true)
-            }
-        }
     }
 
     Controls.MenuSection {
@@ -326,19 +354,20 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 onClicked: openUrl("https://github.com/kokleeko/WordClock")
             }
         }
-        //        Controls.MenuItem {
-        //            text: qsTr("Bug tracking")
-        //            detailsComponent: Controls.Details {
-        //                text: qsTr("\
-        //We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
-        //you encounter them. But you can disable this feature to enter submarine mode.\
-        //")
-        //            }
-        //            Switch  {
-        //                checked: DeviceAccess.isBugTracking
-        //                onToggled: DeviceAccess.isBugTracking = checked
-        //            }
-        //        }
+        Controls.MenuItem {
+            text: qsTr("Bug tracking")
+            enabled: false
+            detailsComponent: Controls.Details {
+                text: qsTr("\
+We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
+you encounter them. But you can disable this feature to enter submarine mode.\
+            ")
+            }
+            Switch  {
+                checked: DeviceAccess.isBugTracking && enabled
+                onToggled: DeviceAccess.isBugTracking = checked
+            }
+        }
         Controls.MenuItem {
             text: qsTr("Review")
             detailsComponent: Controls.Details { text: qsTr("Rate us by clicking on the stars") }

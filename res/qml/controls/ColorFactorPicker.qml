@@ -13,7 +13,7 @@ import "qrc:/js/Helpers.js" as Helpers
 Picker {
     id: control
     function getColor(hue, position) {
-        switch (factor_type) {
+        switch (factorType) {
         case Picker.Factors.Saturation:
             return Qt.hsla(hue, position, lightness, 1)
         case Picker.Factors.Lightness:
@@ -23,12 +23,12 @@ Picker {
         }
     }
 
-    required property int factor_type
+    required property int factorType
     Component.onCompleted: {
         hueChanged.connect(valueChanged)
-        if (factor_type === Picker.Factors.Saturation) {
+        if (factorType === Picker.Factors.Saturation) {
             lightnessChanged.connect(valueChanged)
-        } else if (factor_type === Picker.Factors.Lightness) {
+        } else if (factorType === Picker.Factors.Lightness) {
             saturationChanged.connect(valueChanged)
         }
 

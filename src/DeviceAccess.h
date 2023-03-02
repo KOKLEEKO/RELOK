@@ -42,7 +42,7 @@ public:
     Q_INVOKABLE void moveTaskToBack();
     Q_INVOKABLE void requestBrightnessUpdate();
 #elif defined(Q_OS_IOS)
-    Q_INVOKABLE void fullScreen(bool value);
+    Q_INVOKABLE void toggleFullScreen();
     bool isStatusBarHidden() const { return m_isStatusBarHidden; }
 #endif
 

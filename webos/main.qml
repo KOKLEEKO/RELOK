@@ -20,7 +20,7 @@ WebOSWindow {
     visible: true
     appId: "io.kokleeko.wordclock"
     title: "WordClock"
-    color: wordClock.background_color
+    color: wordClock.backgroundColor
     displayAffinity: params["displayAffinity"]
 
     onLaunchParamsChanged: pmLog.info("LAUNCH_PARAMS", {"params": launchParams})
