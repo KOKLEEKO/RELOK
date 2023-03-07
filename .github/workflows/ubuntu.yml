@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install Qt
-      uses: johanremilien/install-qt-action@v2
+      uses: johanremilien/install-qt-action@v3
 
     - name: qmake
       run: qmake

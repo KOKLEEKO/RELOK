@@ -28,7 +28,7 @@ echo_exec $Qt5_DIR_IOS/bin/qmake $PROJECT_DIR/$PROJECT_NAME.pro
 # for header in $(ls $PROJECT_DIR/src/*.h); do
 # 	echo_exec moc -o moc_$(basename $header .h).cpp $header
 # done
-echo_exec make -j$(nproc) -is
+echo_exec make -j$(nproc) -i
 
 SCHEMES=$(xcodebuild -list -json | tr -d "\n")
 DEFAULT_SCHEME=$(echo $SCHEMES | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")

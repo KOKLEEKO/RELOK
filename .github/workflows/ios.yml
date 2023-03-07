@@ -1,6 +1,8 @@
 name: iOS
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -10,29 +12,35 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: install tree
+        run: brew install tree
 
       - name: Install Qt
-        uses: johanremilien/install-qt-action@v2
+        uses: johanremilien/install-qt-action@v3
         with:
           target: ios
 
-      # - name: Apply Qt patch
-      #   run: |
-      #     cd ${{ env.Qt5_DIR }}
-      #     # wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)
-      #     wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
-      #     # unzip patch
-      #     unzip patch.zip; rm patch.zip
-      #     # apply patch
-      #     git apply a5273d4.diff; rm a5273d4.diff
-      #     cd -
+      - name: Apply Qt patch (Switch to using Xcode's new build system)
+        run: |
+          cd ${{ env.Qt5_DIR }}
+          echo "wget patch (see https://codereview.qt-project.org/c/qt/qtbase/+/353118)"
+          wget https://codereview.qt-project.org/changes/qt%2Fqtbase\~353118/revisions/2/patch\?zip\&path\=mkspecs%2Fmacx-xcode%2FWorkspaceSettings.xcsettings -O patch.zip
+          echo "unzip patch"
+          unzip patch.zip; rm patch.zip
+          echo "apply patch"
+          git apply a5273d4.diff; rm a5273d4.diff
+          cd -
+
+      - name: Use python3 as interpreter in devices.py
+        run: sed -i '' 's/\usr\/bin\/python/\usr\/bin\/python3/g' ${{ env.Qt5_DIR }}/mkspecs/features/uikit/devices.py
 
       - name: qmake
-        run: qmake
+        run: qmake -spec macx-ios-clang CONFIG+=qml_debug CONFIG+=iphonesimulator CONFIG+=simulator CONFIG+=qtquickcompiler -after
 
       - name: make (generate qrc_ and moc_ files)
-        run: make -j$(sysctl -n hw.physicalcpu) -is
+        run: make -j$(sysctl -n hw.physicalcpu) -i
 
       - name: Set Default Scheme
         run: |
@@ -60,6 +68,9 @@ jobs:
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
           xcodebuild build-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
 
+      - name: tree
+        run: tree .
+
       #- name: Test
       #  env:
       #    scheme: ${{ 'default' }}
@@ -71,6 +82,3 @@ jobs:
       #    if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
       #    file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
       #    xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
-
-      - name: tree
-        run: tree .
