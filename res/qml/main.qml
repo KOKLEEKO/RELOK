@@ -30,7 +30,6 @@ ApplicationWindow {
     minimumHeight: 300
     visible: true
     visibility:Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
-    color: "transparent"
     opacity: DeviceAccess.settingsValue("Appearance/opacity", 1)
     onClosing: {
         aboutToQuit = true

@@ -49,11 +49,20 @@ Controls.Menu {
             visible: Helpers.isMobile
             name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
             tooltip: Helpers.isIos ? "App Store" : "Google Play"
+
+            /*
+             - latte    1.90
+             - beer     2.95
+             - fries    3.25
+             - bone     3.50
+             - burger   5.95
+             - menu     8.45
+             */
         }
     }
 
     Controls.MenuSection {
-        visible: !Helpers.isWebAssembly
+        visible: Helpers.isMobile //!Helpers.isWebAssembly
         text: qsTr("Battery Saving")
         Controls.MenuItem {
             text: qsTr("Stay Awake")
@@ -178,6 +187,15 @@ If enabled the screen device will stay active, when the application is running.\
             ]
         }
         Controls.MenuItem {
+            text: qsTr("Speech")
+            visible: false
+            Switch {
+                checked: wordClock.enable_speech
+                onToggled: DeviceAccess.setSettingsValue("Appearance/speech",
+                                                         wordClock.enable_speech = checked)
+            }
+        }
+        Controls.MenuItem {
             text: qsTr("Enable Special Message")
             detailsComponent: Controls.Details { text: qsTr("\
 Each grid contains a special message that will be displayed instead of the time for a minute at the\
@@ -185,7 +203,7 @@ Each grid contains a special message that will be displayed instead of the time 
  the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between\
  these different states.") }
             Switch {
-                checked: DeviceAccess.settingsValue("Appearance/specialMessage", true)
+                checked: wordClock.enable_special_message
                 onToggled: DeviceAccess.setSettingsValue("Appearance/specialMessage",
                                                          wordClock.enable_special_message = checked)
             }
@@ -358,7 +376,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
         }
         Controls.MenuItem {
             text: qsTr("Bug tracking")
-            enabled: false
+            visible: false
             detailsComponent: Controls.Details {
                 text: qsTr("\
 We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
@@ -366,7 +384,7 @@ you encounter them. But you can disable this feature to enter submarine mode.\
             ")
             }
             Switch  {
-                checked: DeviceAccess.isBugTracking && enabled
+                checked: DeviceAccess.isBugTracking
                 onToggled: DeviceAccess.isBugTracking = checked
             }
         }
@@ -408,7 +426,7 @@ We would be very pleased to hear about your experience with this application")
                     name: "globe-solid"
                     visible: !Helpers.isWebAssembly
                     tooltip: qsTr("Web Site")
-                    onClicked: openUrl("https://kokleeko.io")
+                    onClicked: openUrl("https://wordclock.kokleeko.io")
                 },
                 Controls.IconButton {
                     name: "app-store-ios-brands"

@@ -11,6 +11,8 @@
 #include <QObject>
 #include <QSettings>
 #include <QTimerEvent>
+#include <QtTextToSpeech>
+
 #include <memory>
 
 Q_DECLARE_LOGGING_CATEGORY(lc)
@@ -98,6 +100,22 @@ public:
             return m_settings.value(key, defaultValue);
         }
     }
+    // Speech
+    Q_INVOKABLE void say(QString text)
+    {
+        m_speech.say(text);
+    }
+    Q_INVOKABLE void setSpeechLanguage(QString text)
+    {
+        if (text == "english") {
+            m_speech.setLocale({QLocale::English});
+        } else if (text == "french") {
+            m_speech.setLocale({QLocale::French});
+        } else if (text == "spanish") {
+            m_speech.setLocale({QLocale::Spanish});
+        }
+        qDebug() << text << m_speech.locale() << m_speech.voice().name();
+    }
 
 public slots:
     // About
@@ -165,6 +183,7 @@ private:
         }
     }
 
+    QTextToSpeech m_speech = QTextToSpeech();
     QSettings m_settings = QSettings();
     float m_brightness = .0;
     float m_notchHeight = .0;
