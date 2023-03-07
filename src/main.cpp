@@ -24,6 +24,11 @@ int main(int argc, char *argv[]) {
     app.setApplicationVersion("1.0.0");
     QQmlApplicationEngine engine;
 
+#ifdef QT_DEBUG
+    engine.rootContext()->setContextProperty("isDebug", true);
+#else
+    engine.rootContext()->setContextProperty("isDebug", false);
+#endif
     using namespace kokleeko::device;
     engine.rootContext()->setContextProperty("DeviceAccess",
                                              &DeviceAccess::instance());

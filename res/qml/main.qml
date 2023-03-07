@@ -15,24 +15,48 @@ import "qrc:/js/Helpers.js" as Helpers
 
 ApplicationWindow {
     id: root
+    property bool aboutToQuit: false
     property WebView webView
     property alias headings: headings
     property alias badReviewPopup: badReviewPopup
     readonly property bool isLandScape: width > height
+    readonly property bool isFullScreen: visibility == Window.FullScreen
+    property bool isWidget: false
+    property bool showTutorial: DeviceAccess.settingsValue("Tutorial/showPopup", true)
+    property real tmpOpacity: root.opacity
     width: 640
     height: 480
-    minimumWidth: 180
-    minimumHeight: minimumWidth
+    minimumWidth: 300
+    minimumHeight: 300
     visible: true
     visibility:Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
-    color: wordClock.background_color
+    color: "transparent"
+    opacity: DeviceAccess.settingsValue("Appearance/opacity", 1)
     onClosing: {
+        aboutToQuit = true
         if (Helpers.isAndroid) {
             close.accepted = false
             DeviceAccess.moveTaskToBack()
         }
     }
-    Component.onCompleted: { console.info("pixelDensity", Screen.pixelDensity) }
+    onIsFullScreenChanged: {
+        if (!aboutToQuit) {
+            DeviceAccess.setSettingsValue("Appearance/fullScreen", isFullScreen)
+            if (isFullScreen) {
+                tmpOpacity = root.opacity
+                root.opacity = 1
+            } else {
+                root.opacity = tmpOpacity
+            }
+        }
+    }
+    onIsWidgetChanged: {
+        if (Helpers.isDesktop)
+            DeviceAccess.setSettingsValue("Appearance/widget", isWidget)
+    }
+    Component.onCompleted: {
+        console.info("pixelDensity", Screen.pixelDensity)
+    }
 
     QtObject {
         id: headings
@@ -92,19 +116,25 @@ ApplicationWindow {
         ScriptAction { script: { if (orientationChangedSequence.isMenuOpened) settingPanel.open() }}
     }
     MouseArea {
-        function toggleFullScreen() {
-            if (!Helpers.isMobile)
-                Helpers.toggle(root, "visibility", Window.FullScreen, Window.AutomaticVisibility)
-        }
-        property point pressed
-        readonly property int threshold: 5
         anchors.fill: parent
-        onPressAndHold: toggleFullScreen()
-        onPressed: pressed = Qt.point(mouse.x, mouse.y)
-        onClicked: {
-            if (Math.abs(mouse.x -pressed.x) < threshold &&
-                    Math.abs(mouse.y - pressed.y) < threshold) {
-                settingPanel.open()
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onPressAndHold: (mouse) => {
+                            if (Helpers.isDesktop) {
+                                switch (mouse.button) {
+                                    case Qt.RightButton:
+                                    Helpers.updateDisplayMode(root)
+                                    break;
+                                    case Qt.LeftButton:
+                                    Helpers.updateVisibility(root, DeviceAccess)
+                                    break;
+                                }
+                            } else {
+                                Helpers.updateVisibility(root, DeviceAccess)
+                            }
+                        }
+        onClicked: (mouse) => {
+            if (!Helpers.isDesktop || mouse.button === Qt.RightButton) {
+                    settingPanel.open()
             }
         }
     }
@@ -120,6 +150,7 @@ ApplicationWindow {
         height: parent.height
         edge: Qt.RightEdge
         dim: false
+
         topPadding: Screen.orientation === Qt.PortraitOrientation ?
                         DeviceAccess.notchHeight : 0
         bottomPadding: Screen.orientation === Qt.InvertedPortraitOrientation ?
@@ -141,6 +172,7 @@ ApplicationWindow {
         title: qsTr("Welcome to WordClock")
         implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
         clip: true
+        background.opacity: 0.95
         ColumnLayout {
             anchors { fill: parent; margins: howtoPopup.margins }
             Label {
@@ -149,42 +181,43 @@ ApplicationWindow {
                 fontSizeMode: Label.Fit
                 minimumPixelSize: 1
                 wrapMode: Text.WordWrap
-                text: "\
-%1.
-
-%2.".arg(qsTr("Thank you for downloading this application, we wish you a pleasant use"))
-                .arg(qsTr("Please touch the screen to open the settings menu"))
+                text: "\%1.\n\n%2.".arg(qsTr("Thank you for downloading this application, we wish you a pleasant use"))
+                .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this window to close it and open the settings menu.")
+                                      : qsTr("Please right-click outside this window to close it and open the settings menu.")
+                    )
             }
-                CheckBox { id: hidePopupCheckbox; text: qsTr("Don't show this again") }
-            }
-            Connections { target: settingPanel; function onOpened() { howtoPopup.close() } }
-            onClosed: DeviceAccess.setSettingsValue("Tutorial/showPopup", !hidePopupCheckbox.checked)
-            standardButtons: Dialog.Close
-            closePolicy: Dialog.NoAutoClose
-            Component.onCompleted: {
-                if (!Helpers.isWebAssembly && DeviceAccess.settingsValue("Tutorial/showPopup", true))
-                    open()
+            CheckBox {
+                id: hidePopupCheckbox;
+                indicator.opacity: 0.5
+                text: qsTr("Don't show this again")
             }
         }
-        Dialog {
-            id: badReviewPopup
-            anchors.centerIn: parent
-            title: qsTr("Thanks for your review")
-            width: Math.max(root.width/2, header.implicitWidth)
-            clip: true
-            Label {
-                wrapMode: Text.WordWrap
-                width: parent.width
-                text: qsTr("\
-We are sorry to learn that you are not satisfied with this application.
-
-But thanks to you, we will be able to improve it even more.
-
-Send us your suggestions and we will take it into account.")
-            }
-            onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                             .arg(qsTr("Suggestions for WordClock")))
-            standardButtons: Dialog.Close | Dialog.Ok
+        Connections { target: settingPanel; function onOpened() { howtoPopup.close() } }
+        onClosed: root.showTutorial = !hidePopupCheckbox.checked
+        closePolicy: Dialog.NoAutoClose
+        Component.onCompleted: {
+            header.background.visible = false
+            if (!Helpers.isWebAssembly && showTutorial)
+                open()
         }
-        Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
     }
+    Dialog {
+        id: badReviewPopup
+        anchors.centerIn: parent
+        title: qsTr("Thanks for your review")
+        width: Math.max(root.width/2, header.implicitWidth)
+        clip: true
+        Label {
+            wrapMode: Text.WordWrap
+            width: parent.width
+            text: qsTr("\
+We are sorry to learn that you are not satisfied with this application.\
+\nBut thanks to you, we will be able to improve it even more.\
+\nSend us your suggestions and we will take it into account.")
+        }
+        onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
+                                         .arg(qsTr("Suggestions for WordClock")))
+        standardButtons: Dialog.Close | Dialog.Ok
+    }
+    Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
+}

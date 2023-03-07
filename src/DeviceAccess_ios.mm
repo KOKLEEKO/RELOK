@@ -106,10 +106,10 @@ void DeviceAccess::requestReview() {
     }
 }
 
-void DeviceAccess::fullScreen(bool value) {
-    m_isStatusBarHidden = value;
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController]
-            setNeedsStatusBarAppearanceUpdate];
+void DeviceAccess::toggleFullScreen() {
+//    m_isStatusBarHidden = value;
+//    [[[[UIApplication sharedApplication] keyWindow] rootViewController]
+//            setNeedsStatusBarAppearanceUpdate];
 }
 
 void DeviceAccess::security(bool /*value*/) {}

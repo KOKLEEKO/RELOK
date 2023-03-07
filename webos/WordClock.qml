@@ -66,7 +66,7 @@ Rectangle {
     // User-facing Settings
 
     property bool enable_special_message: true
-    property color background_color: "black"
+    property color backgroundColor: "black"
     property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
@@ -111,7 +111,7 @@ Rectangle {
     property var onoff_table: Helpers.createWelcomeTable()
     property var tmp_onoff_table: Helpers.createTable(rows, columns, false)
 
-    Behavior on background_color {
+    Behavior on backgroundColor {
         enabled: is_color_animation_enabled
         ColorAnimation { duration: 1000; easing.type: color_animation_easing }
     }
@@ -124,7 +124,7 @@ Rectangle {
         ColorAnimation { duration: 1000; easing.type: color_animation_easing }
     }
 
-    color: background_color
+    color: backgroundColor
     anchors.fill: parent
     Component.onCompleted: {
         //selectLanguage(DeviceAccess.settingsValue("Appearance/language", ""))
@@ -215,7 +215,7 @@ Rectangle {
                         color: is_enabled ? on_color : off_color
                         style: is_enabled ? Text.Outline : Text.Sunken
                         styleColor: is_enabled ? Qt.lighter(on_color, 1.1)
-                                               : Qt.darker(background_color, 1.1)
+                                               : Qt.darker(backgroundColor, 1.1)
                         horizontalAlignment : Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.Fit

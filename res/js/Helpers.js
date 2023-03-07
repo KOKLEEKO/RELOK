@@ -6,8 +6,10 @@
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 .pragma library
+.import QtQuick.Window 2.15 as QtWindow
 
 var isMobile = isEqual(Qt.platform.os, "android", "ios")
+var isDesktop = isEqual(Qt.platform.os, "linux", "osx", "unix", "windows")
 var isIos = Qt.platform.os === "ios"
 var isAndroid = Qt.platform.os === "android"
 var isWebAssembly = Qt.platform.os === "wasm"
@@ -206,3 +208,17 @@ function hexToHSL(H) {
   return {"hue": h, "saturation" :s, "lightness": l}
 }
 
+function updateVisibility(window, DeviceAccess) {
+    if (isIos) {
+        DeviceAccess.toggleFullScreen()
+    } else {
+        toggle(window, "visibility", QtWindow.Window.FullScreen, QtWindow.Window.AutomaticVisibility)
+    }
+}
+
+function updateDisplayMode(window) {
+    console.log("updateDisplayMode")
+    const widgetFlag = (Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+    window.flags ^= widgetFlag
+    window.isWidget = window.flags & widgetFlag
+}

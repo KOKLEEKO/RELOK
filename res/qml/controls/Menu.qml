@@ -39,7 +39,7 @@ ColumnLayout {
         id: scrollView
         Layout.fillHeight: true
         Layout.fillWidth: true
-        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+        ScrollBar.vertical.policy: ScrollBar.AsNeeded
         clip: true
         palette {
             // tribute to Qt (https://brand.qt.io/design)
