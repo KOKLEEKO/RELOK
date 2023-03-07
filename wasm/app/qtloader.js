@@ -235,12 +235,12 @@ function QtLoader(config)
     publicAPI.canLoadQt = canLoadQt();
     publicAPI.canLoadApplication = canLoadQt();
     publicAPI.status = undefined;
-    publicAPI.loadEmscriptenModule = loadEmscriptenModule;
-    publicAPI.addCanvasElement = addCanvasElement;
-    publicAPI.removeCanvasElement = removeCanvasElement;
-    publicAPI.resizeCanvasElement = resizeCanvasElement;
-    publicAPI.setFontDpi = setFontDpi;
-    publicAPI.fontDpi = fontDpi;
+    publicAPI.loadEmscriptenModule = loadEmscriptenModule;  // @disable-check M108
+    publicAPI.addCanvasElement = addCanvasElement;  // @disable-check M108
+    publicAPI.removeCanvasElement = removeCanvasElement;  // @disable-check M108
+    publicAPI.resizeCanvasElement = resizeCanvasElement;  // @disable-check M108
+    publicAPI.setFontDpi = setFontDpi;  // @disable-check M108
+    publicAPI.fontDpi = fontDpi;  // @disable-check M108
 
     restartCount = 0;
 
@@ -274,7 +274,7 @@ function QtLoader(config)
     function fetchCompileWasm(filePath) {
         return fetchResource(filePath).then(function(response) {
             if (typeof WebAssembly.compileStreaming !== "undefined") {
-                self.loaderSubState = "Downloading/Compiling";
+                self.loaderSubState = "Loading...";
                 setStatus("Loading");
                 return WebAssembly.compileStreaming(response).catch(function(error) {
                     // compileStreaming may/will fail if the server does not set the correct
@@ -310,7 +310,7 @@ function QtLoader(config)
         }
 
         // Continue waiting if loadEmscriptenModule() is called again
-        if (publicAPI.status == "Loading")
+        if (publicAPI.status === "Loading")
             return;
         self.loaderSubState = "Downloading";
         setStatus("Loading");
@@ -393,7 +393,7 @@ function QtLoader(config)
             setStatus("Exited");
         };
         Module.quit = Module.quit || function(code, exception) {
-            if (exception.name == "ExitStatus") {
+            if (exception.name === "ExitStatus") {
                 // Clean exit with code
                 publicAPI.exitText = undefined
                 publicAPI.exitCode = code;
@@ -420,7 +420,7 @@ function QtLoader(config)
 
             // Restart by reloading the page. This will wipe all state which means
             // reload loops can't be prevented.
-            if (config.restartType == "ReloadPage") {
+            if (config.restartType === "ReloadPage") {
                 location.reload();
             }
 
@@ -488,7 +488,7 @@ function QtLoader(config)
 
         // publicAPI.crashed = true;
 
-        if (publicAPI.status != "Exited")
+        if (publicAPI.status !== "Exited")
             return;
 
         if (config.containerElements === undefined) {
@@ -509,19 +509,19 @@ function QtLoader(config)
 
     var committedStatus = undefined;
     function handleStatusChange() {
-        if (publicAPI.status != "Loading" && committedStatus == publicAPI.status)
+        if (publicAPI.status !== "Loading" && committedStatus === publicAPI.status)
             return;
         committedStatus = publicAPI.status;
 
-        if (publicAPI.status == "Error") {
+        if (publicAPI.status === "Error") {
             setErrorContent();
-        } else if (publicAPI.status == "Loading") {
+        } else if (publicAPI.status === "Loading") {
             setLoaderContent();
-        } else if (publicAPI.status == "Running") {
+        } else if (publicAPI.status === "Running") {
             setCanvasContent();
-        } else if (publicAPI.status == "Exited") {
-            if (config.restartMode == "RestartOnExit" ||
-                config.restartMode == "RestartOnCrash" && publicAPI.crashed) {
+        } else if (publicAPI.status === "Exited") {
+            if (config.restartMode === "RestartOnExit" ||
+                config.restartMode === "RestartOnCrash" && publicAPI.crashed) {
                     committedStatus = undefined;
                     config.restart();
             } else {
@@ -535,7 +535,7 @@ function QtLoader(config)
     }
 
     function setStatus(status) {
-        if (status != "Loading" && publicAPI.status == status)
+        if (status !== "Loading" && publicAPI.status === status)
             return;
         publicAPI.status = status;
 
@@ -543,27 +543,27 @@ function QtLoader(config)
     }
 
     function addCanvasElement(element) {
-        if (publicAPI.status == "Running")
+        if (publicAPI.status === "Running")
             Module.qtAddCanvasElement(element);
         else
             console.log("Error: addCanvasElement can only be called in the Running state");
     }
 
     function removeCanvasElement(element) {
-        if (publicAPI.status == "Running")
+        if (publicAPI.status === "Running")
             Module.qtRemoveCanvasElement(element);
         else
             console.log("Error: removeCanvasElement can only be called in the Running state");
     }
 
     function resizeCanvasElement(element) {
-        if (publicAPI.status == "Running")
+        if (publicAPI.status === "Running")
             Module.qtResizeCanvasElement(element);
     }
 
     function setFontDpi(dpi) {
         Module.qtFontDpi = dpi;
-        if (publicAPI.status == "Running")
+        if (publicAPI.status === "Running")
             Module.qtSetFontDpi(dpi);
     }
 

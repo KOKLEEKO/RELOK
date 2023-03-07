@@ -154,7 +154,9 @@ If enabled the screen device will stay active, when the application is running.\
                 onClicked: {
                     root.visibility = Window.Maximized
                     root.opacity = Math.min(root.opacity, .85)
-                    root.flags = Qt.WindowStaysOnTopHint | Qt.WindowTransparentForInput
+                    root.flags = (Qt.WindowStaysOnTopHint |
+                                  Qt.WindowTransparentForInput |
+                                  Qt.FramelessWindowHint)
                     settingPanel.close()
                 }
             }

@@ -217,7 +217,6 @@ function updateVisibility(window, DeviceAccess) {
 }
 
 function updateDisplayMode(window) {
-    console.log("updateDisplayMode")
     const widgetFlag = (Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
     window.flags ^= widgetFlag
     window.isWidget = window.flags & widgetFlag
