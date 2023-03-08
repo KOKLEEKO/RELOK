@@ -8,6 +8,7 @@
 #import <Foundation/NSNotification.h>
 #import <StoreKit/StoreKit.h>
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import "DeviceAccess.h"
 
@@ -114,9 +115,13 @@ void DeviceAccess::toggleFullScreen() {
 
 void DeviceAccess::security(bool /*value*/) {}
 
-void DeviceAccess::updateNotchHeight() {
+void DeviceAccess::specificInitializationSteps() {
+    // get notch height
     if (@available(iOS 11.0, *)) {
         m_notchHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
     }
     qCDebug(lc) << "notch height:" << m_notchHeight;
+
+     // enable speech in silent mode
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 }

@@ -31,6 +31,7 @@ ApplicationWindow {
     visible: true
     visibility:Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
     opacity: DeviceAccess.settingsValue("Appearance/opacity", 1)
+    color: wordClock.background_color
     onClosing: {
         aboutToQuit = true
         if (Helpers.isAndroid) {

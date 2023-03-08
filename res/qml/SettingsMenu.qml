@@ -179,7 +179,10 @@ If enabled the screen device will stay active, when the application is running.\
                         readonly property string language: modelData.toLowerCase()
                         text: qsTr(modelData)
                         highlighted: wordClock.selected_language === language
-                        onClicked: wordClock.selectLanguage(language)
+                        onClicked: {
+                            wordClock.selectLanguage(language)
+                            DeviceAccess.setSettingsValue("Appearance/language", language)
+                        }
                     }
                 },
                 Button {
@@ -188,11 +191,21 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("Speech")
-            visible: false
             Switch {
                 checked: wordClock.enable_speech
                 onToggled: DeviceAccess.setSettingsValue("Appearance/speech",
                                                          wordClock.enable_speech = checked)
+            }
+            detailsComponent: ComboBox {
+                displayText: qsTr(currentText)
+                currentIndex: Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
+                model: Object.values(wordClock.speech_frequencies)
+                onActivated: (index) =>
+                             {
+                                 const speech_frequency = Object.keys(wordClock.speech_frequencies)[index]
+                                 wordClock.speech_frequency = speech_frequency
+                                 DeviceAccess.setSettingsValue("Appearance/speech_frequency", speech_frequency)
+                             }
             }
         }
         Controls.MenuItem {
@@ -264,7 +277,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             Component.onCompleted: {
                 selected_colorChanged.
                 connect(() => {
-                            wordClock.backgroundColor = selected_color
+                            wordClock.background_color = selected_color
                             DeviceAccess.setSettingsValue("Appearance/backgroundColor",
                                                           selected_color.toString().toUpperCase())
                         })

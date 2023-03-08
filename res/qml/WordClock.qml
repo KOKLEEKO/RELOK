@@ -9,8 +9,6 @@ Rectangle {
             DeviceAccess.setSpeechLanguage(language)
             language_url = "qrc:/qml/languages/%1.qml".arg(language)
             selected_language = language
-            if (DeviceAccess.settingsValue("Appearance/language") !== language)
-                DeviceAccess.setSettingsValue("Appearance/language", language)
         }
     }
     function detectAndUseDeviceLanguage() {
@@ -35,8 +33,9 @@ Rectangle {
         const tmp_onoff_dots = minutes_value % 5
         const written_time = language.written_time(hours_array_index, minutes_array_index, is_AM)
         console.debug(time, written_time, tmp_onoff_dots)
-        if (enable_speech)
-            DeviceAccess.say(written_time)
+        if (enable_speech && (minutes_value % parseInt(speech_frequency) == 0)) {
+            DeviceAccess.say(written_time + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : ""))
+        }
         if (was_special)
             language.special_message(false)
         if (previous_hours_array_index !== hours_array_index || is_special || was_special) {
@@ -69,9 +68,9 @@ Rectangle {
 
     // User-facing Settings
     property string selected_language
-    property bool enable_speech: DeviceAccess.settingsValue("Appearance/speech", true)
+    property bool enable_speech: DeviceAccess.settingsValue("Appearance/speech", false)
     property bool enable_special_message: DeviceAccess.settingsValue("Appearance/specialMessage", true)
-    property color backgroundColor: "black"
+    property color background_color: "black"
     property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
@@ -79,11 +78,26 @@ Rectangle {
     // Internal Settings
     property bool is_color_animation_enabled: true
     readonly property int color_animation_easing: Easing.Linear
-    property var languages: {"en": "English", "fr": "French", "es": "Spanish"}
+    property var languages: {
+        "en": QT_TR_NOOP("English"),
+        "fr": QT_TR_NOOP("French"),
+        "es": QT_TR_NOOP("Spanish")
+    }
     property url language_url
     readonly property real table_width: Math.min(height, width)*.9
     readonly property real cell_width: table_width/columns
     readonly property real dot_size: cell_width/4
+    readonly property var speech_frequencies: {
+        "1" : QT_TR_NOOP("every minute"),
+        "5" : QT_TR_NOOP("every 5 minutes"),
+        "10": QT_TR_NOOP("every 10 minutes"),
+        "15": QT_TR_NOOP("every 15 minutes"),
+        "20": QT_TR_NOOP("every 20 minutes"),
+        "30": QT_TR_NOOP("every 30 minutes"),
+        "60": QT_TR_NOOP("every hour")
+    }
+    property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
+
     property Language language
     property string time
     property bool is_AM
@@ -103,6 +117,7 @@ Rectangle {
                                                                             hours_array_step)
     property int previous_minutes_array_index: -1
     property int minutes_array_index: 0
+
     readonly property int minutes_array_step: 5
     readonly property int minutes_array_min: 0
     readonly property int minutes_array_max: 55
@@ -116,7 +131,7 @@ Rectangle {
     property var onoff_table: Helpers.createWelcomeTable()
     property var tmp_onoff_table: Helpers.createTable(rows, columns, false)
 
-    Behavior on backgroundColor {
+    Behavior on background_color {
         enabled: is_color_animation_enabled
         ColorAnimation { duration: 1000; easing.type: color_animation_easing }
     }
@@ -129,7 +144,7 @@ Rectangle {
         ColorAnimation { duration: 1000; easing.type: color_animation_easing }
     }
 
-    color: backgroundColor
+    color: background_color
     Component.onCompleted: {
         selectLanguage(DeviceAccess.settingsValue("Appearance/language", ""))
         language_urlChanged.connect(
@@ -217,7 +232,7 @@ Rectangle {
                         color: is_enabled ? on_color : off_color
                         style: is_enabled ? Text.Outline : Text.Sunken
                         styleColor: is_enabled ? Qt.lighter(on_color, 1.1)
-                                               : Qt.darker(backgroundColor, 1.1)
+                                               : Qt.darker(background_color, 1.1)
                         horizontalAlignment : Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.Fit

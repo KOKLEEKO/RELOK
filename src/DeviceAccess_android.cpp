@@ -50,7 +50,7 @@ void DeviceAccess::disableAutoLock(bool disable) {
     });
 }
 
-void DeviceAccess::updateNotchHeight() {}
+void DeviceAccess::specificInitializationSteps() {}
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
     QAndroidJniObject::callStaticMethod<void>(

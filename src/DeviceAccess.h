@@ -101,11 +101,12 @@ public:
         }
     }
     // Speech
-    Q_INVOKABLE void say(QString text)
+    Q_INVOKABLE virtual void say(QString text)
     {
-        m_speech.say(text);
+        m_speech.stop();
+        m_speech.say(text.toLower());
     }
-    Q_INVOKABLE void setSpeechLanguage(QString text)
+    Q_INVOKABLE virtual void setSpeechLanguage(QString text)
     {
         if (text == "english") {
             m_speech.setLocale({QLocale::English});
@@ -114,7 +115,6 @@ public:
         } else if (text == "spanish") {
             m_speech.setLocale({QLocale::Spanish});
         }
-        qDebug() << text << m_speech.locale() << m_speech.voice().name();
     }
 
 public slots:
@@ -160,7 +160,7 @@ private:
         connect(this, &DeviceAccess::isPluggedChanged, this, &DeviceAccess::batterySaving);
         connect(this, &DeviceAccess::isAutoLockRequestedChanged, this, &DeviceAccess::batterySaving);
 
-        updateNotchHeight();
+        specificInitializationSteps();
         qCDebug(lc) << m_settings.fileName();
 #ifdef Q_OS_WASM
         startTimer(10);
@@ -174,7 +174,7 @@ private:
     ~DeviceAccess() = default;
     DeviceAccess(const DeviceAccess&) = delete;
     DeviceAccess& operator=(const DeviceAccess&) = delete;
-    void updateNotchHeight();
+    void specificInitializationSteps();
     void timerEvent(QTimerEvent* event) {
         if (m_settings.status() != QSettings::AccessError) {
             killTimer(event->timerId());

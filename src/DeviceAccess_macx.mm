@@ -45,4 +45,4 @@ void DeviceAccess::requestReview() {
         // Fallback on earlier versions
     }
 }
-void DeviceAccess::updateNotchHeight() {}
+void DeviceAccess::specificInitializationSteps() {}
