@@ -172,22 +172,18 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("Clock Language")
-            extras: [
-                Repeater {
-                    model: Object.values(wordClock.languages)
-                    Button {
-                        readonly property string language: modelData.toLowerCase()
-                        text: qsTr(modelData)
-                        highlighted: wordClock.selected_language === language
-                        onClicked: {
-                            wordClock.selectLanguage(language)
-                            DeviceAccess.setSettingsValue("Appearance/language", language)
-                        }
-                    }
-                },
-                Button {
-                    text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
-            ]
+            Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
+            detailsComponent: ComboBox {
+                displayText: qsTr(currentText)
+                currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
+                model: Object.values(wordClock.languages)
+                onActivated: (index) =>
+                             {
+                                 const language = Object.keys(wordClock.languages)[index]
+                                 wordClock.selectLanguage(language)
+                                 DeviceAccess.setSettingsValue("Appearance/language", language)
+                             }
+            }
         }
         Controls.MenuItem {
             text: qsTr("Speech")
@@ -196,7 +192,8 @@ If enabled the screen device will stay active, when the application is running.\
                 onToggled: DeviceAccess.setSettingsValue("Appearance/speech",
                                                          wordClock.enable_speech = checked)
             }
-            detailsComponent: ComboBox {
+            detailsComponent:
+                ComboBox {
                 displayText: qsTr(currentText)
                 currentIndex: Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
                 model: Object.values(wordClock.speech_frequencies)
@@ -206,6 +203,13 @@ If enabled the screen device will stay active, when the application is running.\
                                  wordClock.speech_frequency = speech_frequency
                                  DeviceAccess.setSettingsValue("Appearance/speech_frequency", speech_frequency)
                              }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Voice")
+            detailsComponent:
+                ComboBox {
+                model: DeviceAccess.speechAvailableVoices
             }
         }
         Controls.MenuItem {

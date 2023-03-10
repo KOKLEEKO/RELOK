@@ -1,20 +1,29 @@
 import QtQuick 2.15
+import Qt.labs.folderlistmodel 2.15
 
 import "qrc:/qml/languages"
 import "qrc:/js/Helpers.js" as Helpers
 
 Rectangle {
-    function selectLanguage(language){
-        if (language !== "") {
-            DeviceAccess.setSpeechLanguage(language)
-            language_url = "qrc:/qml/languages/%1.qml".arg(language)
-            selected_language = language
+    function selectLanguage(language, speech) {
+        let fileBaseName = language
+        if (isDebug)
+            console.log(fileBaseName, supportedLanguages)
+        if (!supportedLanguages.includes(fileBaseName)) {
+            if (supportedLanguages.includes(fileBaseName.substring(0,2)))
+                fileBaseName = language.substring(0,2)
+            else
+                fileBaseName = "en"
         }
+        DeviceAccess.setSpeechLanguage(language)
+        const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
+        language_url = tmp_language_url
+        selected_language = language
+        if (enable_speech)
+            DeviceAccess.say(written_time)
     }
     function detectAndUseDeviceLanguage() {
-        let iso = Qt.locale().name.substring(0,2)
-        let language = languages[iso].toLowerCase()
-        selectLanguage(language)
+        selectLanguage(Qt.locale().name)
     }
     function updateTable() {
         const split_time = time.split(':')
@@ -31,10 +40,12 @@ Rectangle {
         hours_array_index = hours_value % 12
         minutes_array_index = Math.floor(minutes_value/5)
         const tmp_onoff_dots = minutes_value % 5
-        const written_time = language.written_time(hours_array_index, minutes_array_index, is_AM)
-        console.debug(time, written_time, tmp_onoff_dots)
+        written_time = language.written_time(hours_array_index, minutes_array_index, is_AM)
+                + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : "")
+        if (isDebug)
+            console.debug(time, written_time)
         if (enable_speech && (minutes_value % parseInt(speech_frequency) == 0)) {
-            DeviceAccess.say(written_time + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : ""))
+            DeviceAccess.say(written_time)
         }
         if (was_special)
             language.special_message(false)
@@ -78,11 +89,7 @@ Rectangle {
     // Internal Settings
     property bool is_color_animation_enabled: true
     readonly property int color_animation_easing: Easing.Linear
-    property var languages: {
-        "en": QT_TR_NOOP("English"),
-        "fr": QT_TR_NOOP("French"),
-        "es": QT_TR_NOOP("Spanish")
-    }
+    property var languages: DeviceAccess.speechAvailableLocales
     property url language_url
     readonly property real table_width: Math.min(height, width)*.9
     readonly property real cell_width: table_width/columns
@@ -98,7 +105,10 @@ Rectangle {
     }
     property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
 
+    property var supportedLanguages: []
     property Language language
+    //onLanguageChanged: Helpers.missingLetters(language.table)
+    property string written_time
     property string time
     property bool is_AM
     property bool was_AM
@@ -146,7 +156,7 @@ Rectangle {
 
     color: background_color
     Component.onCompleted: {
-        selectLanguage(DeviceAccess.settingsValue("Appearance/language", ""))
+        selected_language = DeviceAccess.settingsValue("Appearance/language", "")
         language_urlChanged.connect(
                     () => { if (time) {
                             previous_hours_array_index = -1
@@ -156,8 +166,6 @@ Rectangle {
                         }
                     })
         timeChanged.connect(updateTable)
-        if (language_url == "")
-            detectAndUseDeviceLanguage()
     }
     Loader { source: language_url; onLoaded: language = item }
     Timer {
@@ -209,6 +217,22 @@ Rectangle {
             }
         }
     }
+    FolderListModel {
+        id: folderModel
+        folder: "qrc:/qml/languages"
+        nameFilters: ["*.qml"]
+        onCountChanged: {
+            for (var i=0; i<count; i++) {
+                const fileBaseName = folderModel.get(i, "fileBaseName")
+                if (fileBaseName !== "Language"&&fileBaseName !== "")
+                    supportedLanguages.push(fileBaseName)
+            }
+            if (selected_language === "")
+                detectAndUseDeviceLanguage()
+            else
+                selectLanguage(selected_language)
+        }
+    }
     Image { id: backgroundImage; anchors.fill: parent }
     Column {
         id: column
@@ -216,7 +240,7 @@ Rectangle {
         width: table_width
         height: width
         Repeater {
-            model: language.table
+            model: language ? language.table : []
             Row {
                 Repeater {
                     id: repeater
