@@ -209,7 +209,26 @@ If enabled the screen device will stay active, when the application is running.\
             text: qsTr("Voice")
             detailsComponent:
                 ComboBox {
-                model: DeviceAccess.speechAvailableVoices
+                function setSpeechVoice(index) {
+                    DeviceAccess.setSpeechVoice(index)
+                    if (wordClock.enable_speech) {
+                        DeviceAccess.say(wordClock.written_time)
+                    }
+                    DeviceAccess.setSettingsValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
+                }
+
+                model: DeviceAccess.speechAvailableVoices[wordClock.selected_language]
+                onModelChanged: {
+                    currentIndex = DeviceAccess.settingsValue("Appearance/%1_voice".arg(wordClock.selected_language), 0)
+                    DeviceAccess.setSpeechVoice(currentIndex)
+                }
+                onActivated: (index) => {
+                                 DeviceAccess.setSpeechVoice(index)
+                                 if (wordClock.enable_speech) {
+                                     DeviceAccess.say(wordClock.written_time)
+                                 }
+                                 DeviceAccess.setSettingsValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
+                             }
             }
         }
         Controls.MenuItem {

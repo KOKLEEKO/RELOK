@@ -34,6 +34,7 @@ class DeviceAccess : public QObject {
     Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
     Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
     Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales CONSTANT)
+    Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
 
 public:
     static DeviceAccess& instance() {
@@ -102,15 +103,29 @@ public:
         }
     }
     // Speech
-    Q_INVOKABLE virtual void say(QString text)
+    Q_INVOKABLE void say(QString text)
     {
         m_speech.stop();
         m_speech.say(text.toLower());
     }
-    Q_INVOKABLE virtual void setSpeechLanguage(QString iso)
+    Q_INVOKABLE void setSpeechVoice(int index) {
+        m_speech.setVoice(m_speech.availableVoices().at(index));
+    }
+    Q_INVOKABLE void setSpeechLanguage(QString iso)
     {
         m_speech.setLocale({iso});
-        qCDebug(lc) << m_speech.locale();
+        if (!m_speechAvailableVoices.contains(iso)) {
+            const QVector<QVoice> availableVoices = m_speech.availableVoices();
+            QStringList voicesNames;
+            for (const auto& voice : availableVoices)
+                voicesNames << voice.name().split(" ")[0];
+            m_speechAvailableVoices.insert(iso, voicesNames);
+            int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(" ")[0]);
+            if (iso == "fr_FR" && m_speechAvailableVoices[iso].toStringList().size() > 9)
+                defaultIndex = 9;
+            setSettingsValue(QString("Appearance/%1_voice").arg(iso), defaultIndex == -1 ? 0 : defaultIndex);
+            emit speechAvailableVoicesChanged();
+        }
     }
 
 public slots:
@@ -149,6 +164,7 @@ signals:
     void isAutoLockDisabledChanged();
     void brightnessChanged();
     void settingsReady();
+    void speechAvailableVoicesChanged();
 
 private:
     DeviceAccess(QObject* parent = nullptr) : QObject(parent) {
@@ -172,9 +188,9 @@ private:
                 for(const auto &uiLanguage : uiLanguages)
                 {
                     if (uiLanguage.split("-").count() == 2)
-                        iso = uiLanguage;
+                        iso = QString(uiLanguage).replace("-","_");
                 }
-                m_speechAvailableLocales.insert(iso.replace("-","_"), QT_TR_NOOP(name));
+                m_speechAvailableLocales.insert(iso, QT_TR_NOOP(name));
             }
         };
 #ifdef Q_OS_WASM
@@ -199,6 +215,7 @@ private:
     }
 
     QVariantMap m_speechAvailableLocales;
+    QVariantMap m_speechAvailableVoices;
     QTextToSpeech m_speech = QTextToSpeech();
     QSettings m_settings = QSettings();
     float m_brightness = .0;

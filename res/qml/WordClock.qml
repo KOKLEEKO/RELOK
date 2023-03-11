@@ -45,7 +45,7 @@ Rectangle {
         if (isDebug)
             console.debug(time, written_time)
         if (enable_speech && (minutes_value % parseInt(speech_frequency) == 0)) {
-            DeviceAccess.say(written_time)
+            DeviceAccess.say(written_time.toLowerCase())
         }
         if (was_special)
             language.special_message(false)
@@ -79,7 +79,7 @@ Rectangle {
 
     // User-facing Settings
     property string selected_language
-    property bool enable_speech: DeviceAccess.settingsValue("Appearance/speech", false)
+    property bool enable_speech: DeviceAccess.settingsValue("Appearance/speech", true)
     property bool enable_special_message: DeviceAccess.settingsValue("Appearance/specialMessage", true)
     property color background_color: "black"
     property alias backgroud_image_source: backgroundImage.source
