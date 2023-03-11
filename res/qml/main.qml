@@ -82,7 +82,7 @@ ApplicationWindow {
         link: systemPalette.link
         linkVisited: systemPalette.linkVisited
         mid: systemPalette.mid
-        midlight: "red"
+        midlight: systemPalette.midlight
         shadow: systemPalette.shadow
         text: systemPalette.text
         toolTipBase: systemPalette.toolTipBase

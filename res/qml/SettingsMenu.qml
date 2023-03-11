@@ -174,6 +174,8 @@ If enabled the screen device will stay active, when the application is running.\
             text: qsTr("Clock Language")
             Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
             detailsComponent: ComboBox {
+                palette.dark: systemPalette.text
+                palette.text: systemPalette.text
                 displayText: qsTr(currentText)
                 currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
                 model: Object.values(wordClock.languages)
@@ -198,6 +200,8 @@ If enabled the screen device will stay active, when the application is running.\
             }
             detailsComponent:
                 ComboBox {
+                palette.dark: systemPalette.text
+                palette.text: systemPalette.text
                 displayText: qsTr(currentText)
                 currentIndex: Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
                 model: Object.values(wordClock.speech_frequencies)
@@ -214,6 +218,8 @@ If enabled the screen device will stay active, when the application is running.\
             visible: !Helpers.isAndroid
             detailsComponent:
                 ComboBox {
+                palette.dark: systemPalette.text
+                palette.text: systemPalette.text
                 function setSpeechVoice(index) {
                     DeviceAccess.setSpeechVoice(index)
                     if (wordClock.enable_speech) {
