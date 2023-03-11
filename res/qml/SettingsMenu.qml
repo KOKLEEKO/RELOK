@@ -177,8 +177,12 @@ If enabled the screen device will stay active, when the application is running.\
                 displayText: qsTr(currentText)
                 currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
                 model: Object.values(wordClock.languages)
-                onActivated: (index) =>
-                             {
+                onModelChanged: {
+                    if (Helpers.isAndroid) {
+                        currentIndex = Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
+                    }
+                }
+                onActivated: (index) => {
                                  const language = Object.keys(wordClock.languages)[index]
                                  wordClock.selectLanguage(language)
                                  DeviceAccess.setSettingsValue("Appearance/language", language)
@@ -207,6 +211,7 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("Voice")
+            visible: !Helpers.isAndroid
             detailsComponent:
                 ComboBox {
                 function setSpeechVoice(index) {

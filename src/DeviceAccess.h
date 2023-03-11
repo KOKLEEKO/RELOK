@@ -33,8 +33,12 @@ class DeviceAccess : public QObject {
     Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
     Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
     Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
+#ifdef Q_OS_ANDROID
+    Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales NOTIFY speechAvailableLocalesChanged)
+#else
     Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales CONSTANT)
     Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
+#endif
 
 public:
     static DeviceAccess& instance() {
@@ -114,6 +118,10 @@ public:
     Q_INVOKABLE void setSpeechLanguage(QString iso)
     {
         m_speech.setLocale({iso});
+#ifdef Q_OS_ANDROID
+        if (m_speechAvailableLocales.empty())
+            initlocales();
+#else
         if (!m_speechAvailableVoices.contains(iso)) {
             const QVector<QVoice> availableVoices = m_speech.availableVoices();
             QStringList voicesNames;
@@ -126,7 +134,24 @@ public:
             setSettingsValue(QString("Appearance/%1_voice").arg(iso), defaultIndex == -1 ? 0 : defaultIndex);
             emit speechAvailableVoicesChanged();
         }
+#endif
     }
+
+#ifdef Q_OS_ANDROID
+    Q_INVOKABLE void initlocales(){
+        const auto locales = m_speech.availableLocales();
+        for (const auto &locale : locales) {
+            if (m_supportedLanguages.contains(locale.name().left(2))) {
+                QString iso = locale.name();
+                const QString name = QString("%1 (%2)")
+                        .arg(QLocale::languageToString(locale.language()),
+                             QLocale::countryToString(locale.country()));
+                m_speechAvailableLocales.insert(iso, name);
+            }
+        }
+        emit speechAvailableLocalesChanged();
+    }
+#endif
 
 public slots:
     // About
@@ -164,7 +189,11 @@ signals:
     void isAutoLockDisabledChanged();
     void brightnessChanged();
     void settingsReady();
+#ifdef Q_OS_ANDROID
+    void speechAvailableLocalesChanged();
+#else
     void speechAvailableVoicesChanged();
+#endif
 
 private:
     DeviceAccess(QObject* parent = nullptr) : QObject(parent) {
@@ -175,11 +204,11 @@ private:
         specificInitializationSteps();
         qCDebug(lc) << m_settings.fileName();
 
-        QStringList supportedLanguages{"en", "es", "fr"};
+#ifndef Q_OS_ANDROID
         const QVector<QLocale> locales = m_speech.availableLocales();
         for (const QLocale &locale : locales)
         {
-            if (supportedLanguages.contains(locale.bcp47Name().left(2))) {
+            if (m_supportedLanguages.contains(locale.bcp47Name().left(2))) {
                 QString iso;
                 const QList uiLanguages{locale.uiLanguages()};
                 const QString name = QString("%1 (%2)")
@@ -193,6 +222,7 @@ private:
                 m_speechAvailableLocales.insert(iso, QT_TR_NOOP(name));
             }
         };
+#endif
 #ifdef Q_OS_WASM
         startTimer(10);
 #elif defined(Q_OS_ANDROID)
@@ -215,9 +245,12 @@ private:
     }
 
     QVariantMap m_speechAvailableLocales;
+#ifndef Q_OS_ANDROID
     QVariantMap m_speechAvailableVoices;
+#endif
     QTextToSpeech m_speech = QTextToSpeech();
     QSettings m_settings = QSettings();
+    QStringList m_supportedLanguages{"en", "es", "fr"};
     float m_brightness = .0;
     float m_notchHeight = .0;
     float m_brightnessRequested = .0;
