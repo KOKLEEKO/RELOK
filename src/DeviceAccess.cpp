@@ -20,4 +20,5 @@ void DeviceAccess::disableAutoLock(bool /*disable*/) {}
 void DeviceAccess::specificInitializationSteps() {}
 
 void DeviceAccess::setBrightnessRequested(float /*brightness*/) {}
-void kokleeko::device::DeviceAccess::initlocales() {}
+
+void DeviceAccess::endOfSpeech() {}

@@ -108,9 +108,9 @@ void DeviceAccess::requestReview() {
 }
 
 void DeviceAccess::toggleFullScreen() {
-//    m_isStatusBarHidden = value;
-//    [[[[UIApplication sharedApplication] keyWindow] rootViewController]
-//            setNeedsStatusBarAppearanceUpdate];
+    //    m_isStatusBarHidden = value;
+    //    [[[[UIApplication sharedApplication] keyWindow] rootViewController]
+    //            setNeedsStatusBarAppearanceUpdate];
 }
 
 void DeviceAccess::security(bool /*value*/) {}
@@ -122,6 +122,11 @@ void DeviceAccess::specificInitializationSteps() {
     }
     qCDebug(lc) << "notch height:" << m_notchHeight;
 
-     // enable speech in silent mode
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    // enable speech in silent mode
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                                 mode:AVAudioSessionModeVoicePrompt
+                                                 options:AVAudioSessionCategoryOptionDuckOthers|AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers error:nil];
+}
+void DeviceAccess::endOfSpeech(){
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil] ;
 }

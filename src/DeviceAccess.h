@@ -59,6 +59,7 @@ public:
     Q_INVOKABLE void requestReview();
     // Appearance
     float notchHeight() const { return m_notchHeight; }
+    void endOfSpeech();
     // Battery Saving
     void batterySaving() {
         qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
@@ -200,6 +201,11 @@ private:
         connect(this, &DeviceAccess::batteryLevelChanged, this, &DeviceAccess::batterySaving);
         connect(this, &DeviceAccess::isPluggedChanged, this, &DeviceAccess::batterySaving);
         connect(this, &DeviceAccess::isAutoLockRequestedChanged, this, &DeviceAccess::batterySaving);
+        connect(&m_speech, &QTextToSpeech::stateChanged, this, [=](QTextToSpeech::State state){
+            if (state == QTextToSpeech::Ready) {
+                endOfSpeech();
+            }
+        });
 
         specificInitializationSteps();
         qCDebug(lc) << m_settings.fileName();

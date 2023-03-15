@@ -96,3 +96,5 @@ void DeviceAccess::requestBrightnessUpdate() {
     QAndroidJniObject::callStaticMethod<void>(
                 "io/kokleeko/wordclock/DeviceAccess", "getBrightness", "()V");
 }
+
+void DeviceAccess::endOfSpeech() {}

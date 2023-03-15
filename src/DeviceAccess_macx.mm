@@ -46,3 +46,5 @@ void DeviceAccess::requestReview() {
     }
 }
 void DeviceAccess::specificInitializationSteps() {}
+
+void DeviceAccess::endOfSpeech(){}
