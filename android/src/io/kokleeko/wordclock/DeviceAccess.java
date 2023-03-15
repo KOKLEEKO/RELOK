@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.provider.Settings;
@@ -13,6 +14,8 @@ public class DeviceAccess {
   public DeviceAccess() {}
 
   static Context context;
+  static AudioManager audioManager;
+
   static ContentObserver brightnessContentObserver = new ContentObserver(null)
   {
       @Override

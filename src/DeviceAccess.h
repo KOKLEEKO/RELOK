@@ -13,6 +13,10 @@
 #include <QTimerEvent>
 #include <QtTextToSpeech>
 
+#ifdef Q_OS_ANDROID
+#include <QtAndroidExtras>
+#endif
+
 #include <memory>
 
 Q_DECLARE_LOGGING_CATEGORY(lc)
@@ -25,7 +29,9 @@ class DeviceAccess : public QObject {
     // About
     Q_PROPERTY(bool isBugTracking READ isBugTracking WRITE setIsBugTracking NOTIFY isBugTrackingChanged)
     // Appearance
-    Q_PROPERTY(float notchHeight READ notchHeight CONSTANT)
+    Q_PROPERTY(float notchHeight MEMBER m_notchHeight CONSTANT)
+    Q_PROPERTY(float statusBarHeight MEMBER m_statusBarHeight CONSTANT)
+    Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight CONSTANT)
     // BatterySaving
     Q_PROPERTY(float brightness READ brightness NOTIFY brightnessChanged)
     Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
@@ -46,6 +52,7 @@ public:
         return instance;
     }
 
+    Q_INVOKABLE void hideSplashScreen();
 #if defined(Q_OS_ANDROID)
     Q_INVOKABLE void moveTaskToBack();
     Q_INVOKABLE void requestBrightnessUpdate();
@@ -58,7 +65,6 @@ public:
     bool isBugTracking() const { return m_isBugTracking; }
     Q_INVOKABLE void requestReview();
     // Appearance
-    float notchHeight() const { return m_notchHeight; }
     void endOfSpeech();
     // Battery Saving
     void batterySaving() {
@@ -251,7 +257,10 @@ private:
     }
 
     QVariantMap m_speechAvailableLocales;
-#ifndef Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
+    QAndroidJniObject m_audioManager;
+    jint m_audioFocusRequest;
+#else
     QVariantMap m_speechAvailableVoices;
 #endif
     QTextToSpeech m_speech = QTextToSpeech();
@@ -259,6 +268,8 @@ private:
     QStringList m_supportedLanguages{"en", "es", "fr"};
     float m_brightness = .0;
     float m_notchHeight = .0;
+    float m_statusBarHeight = .0;
+    float m_navigationBarHeight = .0;
     float m_brightnessRequested = .0;
     int m_minimumBatteryLevel = m_settings.value("BatterySaving/minimumBatteryLevel", 50).toInt();
     int m_batteryLevel = 0;

@@ -130,3 +130,5 @@ void DeviceAccess::specificInitializationSteps() {
 void DeviceAccess::endOfSpeech(){
     [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil] ;
 }
+
+void DeviceAccess::hideSplashScreen() {}

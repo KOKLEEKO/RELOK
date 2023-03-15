@@ -35,6 +35,7 @@ DISTFILES += \
              README.md \
              .github/PULL_REQUEST_TEMPLATE \
              .github/workflows/* \
+             android/src/io/kokleeko/wordclock/MyActivity.java \
              src/README.md \
              fastlane/*
 

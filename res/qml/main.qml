@@ -29,7 +29,7 @@ ApplicationWindow {
     minimumWidth: 300
     minimumHeight: 300
     visible: true
-    visibility:Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
+    visibility: Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
     opacity: DeviceAccess.settingsValue("Appearance/opacity", 1)
     color: wordClock.background_color
     onClosing: {
@@ -115,6 +115,7 @@ ApplicationWindow {
         }
         ScriptAction { script: { if (orientationChangedSequence.isMenuOpened) settingPanel.open() }}
     }
+
     MouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -133,28 +134,33 @@ ApplicationWindow {
                             }
                         }
         onClicked: (mouse) => {
-            if (!Helpers.isDesktop || mouse.button === Qt.RightButton) {
-                    settingPanel.open()
-            }
-        }
+                       if (!Helpers.isDesktop || mouse.button === Qt.RightButton) {
+                           settingPanel.open()
+                       }
+                   }
     }
+
     WordClock {
         id: wordClock
-        height: parent.height
+        anchors.verticalCenter: parent.verticalCenter
+        height: parent.height - (isFullScreen ? 0 : (DeviceAccess.statusBarHeight + DeviceAccess.navigationBarHeight))
         width: parent.width - (isLandScape ? settingPanel.position*settingPanel.width : 0)
     }
     Drawer {
         id: settingPanel
-        y: (parent.height - height) / 2
+        y: isFullScreen ? 0 : DeviceAccess.statusBarHeight
         width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
-        height: parent.height
+        height: parent.height - (isFullScreen ? 0 : (DeviceAccess.statusBarHeight + DeviceAccess.navigationBarHeight))
         edge: Qt.RightEdge
         dim: false
-
-        topPadding: Screen.orientation === Qt.PortraitOrientation ?
+        topPadding: Screen.primaryOrientation === Qt.PortraitOrientation ?
                         DeviceAccess.notchHeight : 0
-        bottomPadding: Screen.orientation === Qt.InvertedPortraitOrientation ?
+        bottomPadding: Screen.primaryOrientation === Qt.InvertedPortraitOrientation ?
                            DeviceAccess.notchHeight : 0
+        leftPadding: Screen.primaryOrientation === Qt.PortraitOrientation ?
+                         DeviceAccess.notchHeight : 0
+        rightPadding: Screen.primaryOrientation === Qt.PortraitOrientation ?
+                          DeviceAccess.notchHeight : 0
         background: Item {
             clip: true
             opacity: isLandScape ? 1 : .95
@@ -183,8 +189,8 @@ ApplicationWindow {
                 wrapMode: Text.WordWrap
                 text: "\%1.\n\n%2.".arg(qsTr("Thank you for downloading this application, we wish you a pleasant use"))
                 .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this window to close it and open the settings menu.")
-                                      : qsTr("Please right-click outside this window to close it and open the settings menu.")
-                    )
+                : qsTr("Please right-click outside this window to close it and open the settings menu.")
+                )
             }
             CheckBox {
                 id: hidePopupCheckbox;

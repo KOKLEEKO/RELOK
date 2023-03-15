@@ -5,7 +5,6 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <QtAndroidExtras>
 
 #include "DeviceAccess.h"
 
@@ -50,7 +49,23 @@ void DeviceAccess::disableAutoLock(bool disable) {
     });
 }
 
-void DeviceAccess::specificInitializationSteps() {}
+void DeviceAccess::specificInitializationSteps() {
+    QAndroidJniObject activity = QtAndroid::androidActivity();
+
+    m_statusBarHeight = activity.callMethod<jdouble>("statusBarHeight");
+    m_navigationBarHeight = activity.callMethod<jdouble>("navigationBarHeight");
+    qCDebug(lc) << m_statusBarHeight << m_navigationBarHeight;
+
+    QAndroidJniObject window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
+
+    QAndroidJniObject context = QtAndroid::androidContext();
+    QAndroidJniObject audioServiceName = QAndroidJniObject::getStaticObjectField<jstring>("android.content.Context", "AUDIO_SERVICE");
+    m_audioManager = context.callObjectMethod("getSystemService",
+                                                  "(Ljava/lang/String;)Ljava/lang/Object;",
+                                                   audioServiceName.object<jstring>());
+    m_audioFocusRequest = QAndroidJniObject::getStaticField<jint>("android.media.AudioManager", "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
+
+}
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
     QAndroidJniObject::callStaticMethod<void>(
@@ -97,4 +112,13 @@ void DeviceAccess::requestBrightnessUpdate() {
                 "io/kokleeko/wordclock/DeviceAccess", "getBrightness", "()V");
 }
 
-void DeviceAccess::endOfSpeech() {}
+void DeviceAccess::endOfSpeech() {
+    QAndroidJniObject::getStaticField<jint>("android.media.AudioManager", "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
+    jint audioFocusStatus = m_audioManager.callMethod<jint>("abandonAudioFocusRequest","(I)I", m_audioFocusRequest);
+    qCDebug(lc) << "abandonAudioFocusRequest: " << audioFocusStatus;
+}
+
+void DeviceAccess::hideSplashScreen() {
+    qCDebug(lc) << __func__;
+    QtAndroid::hideSplashScreen();
+}

@@ -228,7 +228,7 @@ If enabled the screen device will stay active, when the application is running.\
                     DeviceAccess.setSettingsValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
                 }
 
-                model: DeviceAccess.speechAvailableVoices[wordClock.selected_language]
+                model: Helpers.isAndroid ? [] : DeviceAccess.speechAvailableVoices[wordClock.selected_language]
                 onModelChanged: {
                     currentIndex = DeviceAccess.settingsValue("Appearance/%1_voice".arg(wordClock.selected_language), 0)
                     DeviceAccess.setSpeechVoice(currentIndex)

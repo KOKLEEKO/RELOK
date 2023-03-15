@@ -88,7 +88,7 @@ Rectangle {
 
     // Internal Settings
     property bool is_color_animation_enabled: true
-    readonly property int color_animation_easing: Easing.Linear
+    readonly property int animation_easing: Easing.Linear
     property var languages: DeviceAccess.speechAvailableLocales
     property url language_url
     readonly property real table_width: Math.min(height, width)*.9
@@ -143,15 +143,22 @@ Rectangle {
 
     Behavior on background_color {
         enabled: is_color_animation_enabled
-        ColorAnimation { duration: 1000; easing.type: color_animation_easing }
+        ColorAnimation { duration: 1000; easing.type: animation_easing }
     }
     Behavior on on_color {
         enabled: is_color_animation_enabled
-        ColorAnimation {  duration: 1000; easing.type: color_animation_easing }
+        ColorAnimation {  duration: 1000; easing.type: animation_easing }
     }
     Behavior on off_color {
         enabled: is_color_animation_enabled
-        ColorAnimation { duration: 1000; easing.type: color_animation_easing }
+        ColorAnimation { duration: 1000; easing.type: animation_easing }
+    }
+
+    Connections {
+        function onLanguageChanged() {
+            DeviceAccess.hideSplashScreen()
+            enabled = false
+        }
     }
 
     color: background_color
@@ -270,6 +277,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: cell_width - dot_size
             topPadding: spacing/2
+            visible: ((language))
             Repeater {
                 model: 4
                 Rectangle {

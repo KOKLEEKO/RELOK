@@ -22,3 +22,5 @@ void DeviceAccess::specificInitializationSteps() {}
 void DeviceAccess::setBrightnessRequested(float /*brightness*/) {}
 
 void DeviceAccess::endOfSpeech() {}
+
+void DeviceAccess::hideSplashScreen() {}
