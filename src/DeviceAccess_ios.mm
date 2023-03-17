@@ -116,12 +116,6 @@ void DeviceAccess::toggleFullScreen() {
 void DeviceAccess::security(bool /*value*/) {}
 
 void DeviceAccess::specificInitializationSteps() {
-    // get notch height
-    if (@available(iOS 11.0, *)) {
-        m_safeInsetTop = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
-    }
-    qCDebug(lc) << "safeInsetTop: " << m_safeInsetTop;
-
     // enable speech in silent mode
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
                                                  mode:AVAudioSessionModeVoicePrompt
@@ -133,6 +127,14 @@ void DeviceAccess::endOfSpeech(){
 
 void DeviceAccess::hideSplashScreen() {}
 
-void DeviceAccess::updateSafeAreaInsets() {}
-
-void DeviceAccess::onViewConfigurationChanged() {}
+void DeviceAccess::updateSafeAreaInsets() {
+    // get notch height
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets;
+        m_safeInsetBottom = safeAreaInsets.bottom;
+        m_safeInsetLeft = safeAreaInsets.left;
+        m_safeInsetRight = safeAreaInsets.right;
+        m_safeInsetTop = safeAreaInsets.top;
+    }
+    emit safeInsetsChanged();
+}

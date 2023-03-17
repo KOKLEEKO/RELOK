@@ -69,7 +69,6 @@ public:
     Q_INVOKABLE void requestReview();
     // Appearance
     Q_INVOKABLE void updateSafeAreaInsets();
-    static void onViewConfigurationChanged();
     // Battery Saving
     void batterySaving() {
         qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged

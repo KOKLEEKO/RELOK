@@ -92,7 +92,7 @@ static void updateBatteryLevel(JNIEnv *, jobject, jfloat value) {
     DeviceAccess::instance().updateBatteryLevel(value);
 }
 
-void DeviceAccess::onViewConfigurationChanged() {
+static void notifyViewConfigurationChanged() {
     DeviceAccess &deviceAccess = DeviceAccess::instance();
     emit deviceAccess.viewConfigurationChanged();
 }
@@ -121,7 +121,7 @@ void DeviceAccess::registerListeners() {
     };
     JNINativeMethod activityMethods[]{
         {"configurationChanged", "()V",
-            reinterpret_cast<void *>(DeviceAccess::onViewConfigurationChanged)}
+            reinterpret_cast<void *>(::notifyViewConfigurationChanged)}
     };
 
     QAndroidJniEnvironment env;
