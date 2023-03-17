@@ -34,8 +34,8 @@ GridLayout {
         id: extrasGrid
         GridLayout {
             property real maximumWidth: 0
-            children: extras
-            onChildrenChanged: {
+            children: extras  // @disable-check M16
+            onChildrenChanged: {  // @disable-check M16
                 for (var index in children) {
                     var childWidth = children[index].width
                     if (maximumWidth < childWidth)

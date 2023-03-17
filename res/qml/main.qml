@@ -15,12 +15,13 @@ import "qrc:/js/Helpers.js" as Helpers
 
 ApplicationWindow {
     id: root
+    property size size: Qt.size(width, height)
     property bool aboutToQuit: false
     property WebView webView
     property alias headings: headings
     property alias badReviewPopup: badReviewPopup
     readonly property bool isLandScape: width > height
-    readonly property bool isFullScreen: visibility == Window.FullScreen
+    readonly property bool isFullScreen: visibility === Window.FullScreen
     property bool isWidget: false
     property bool showTutorial: DeviceAccess.settingsValue("Tutorial/showPopup", true)
     property real tmpOpacity: root.opacity
@@ -32,6 +33,7 @@ ApplicationWindow {
     visibility: Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
     opacity: DeviceAccess.settingsValue("Appearance/opacity", 1)
     color: wordClock.background_color
+
     onClosing: {
         aboutToQuit = true
         if (Helpers.isAndroid) {
@@ -54,8 +56,10 @@ ApplicationWindow {
         if (Helpers.isDesktop)
             DeviceAccess.setSettingsValue("Appearance/widget", isWidget)
     }
+    onVisibilityChanged: if (!settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
         console.info("pixelDensity", Screen.pixelDensity)
+        onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
     }
 
     QtObject {
@@ -93,15 +97,16 @@ ApplicationWindow {
 
     Connections {
         target: DeviceAccess
-        function onOrientationChanged() { orientationChangedSequence.start() }
+        function onViewConfigurationChanged() { viewConfigurationChangedSequence.start() }
     }
     SequentialAnimation {
-        id: orientationChangedSequence
+        id: viewConfigurationChangedSequence
+        alwaysRunToEnd: true
         property bool isMenuOpened
         PropertyAction { targets: [wordClock, settingPanel]; property:"opacity"; value: 0 }
         ScriptAction {
             script: {
-                orientationChangedSequence.isMenuOpened = settingPanel.opened
+                viewConfigurationChangedSequence.isMenuOpened = settingPanel.opened
                 settingPanel.close()
             }
         }
@@ -113,7 +118,24 @@ ApplicationWindow {
             from: 0
             to: 1
         }
-        ScriptAction { script: { if (orientationChangedSequence.isMenuOpened) settingPanel.open() }}
+        ScriptAction {
+            script: {
+                if (viewConfigurationChangedSequence.isMenuOpened)
+                    settingPanel.open()
+            }
+        }
+    }
+    SequentialAnimation {
+        id: visibilityChangedSequence
+        alwaysRunToEnd: true
+        PropertyAction { target: wordClock; property:"opacity"; value: 0 }
+        PropertyAnimation {
+            targets: wordClock
+            property: "opacity"
+            duration: 350
+            from: 0
+            to: 1
+        }
     }
 
     MouseArea {
@@ -143,24 +165,25 @@ ApplicationWindow {
     WordClock {
         id: wordClock
         anchors.verticalCenter: parent.verticalCenter
+        x: settingPanel.position * DeviceAccess.safeInsetLeft
         height: parent.height - (isFullScreen ? 0 : (DeviceAccess.statusBarHeight + DeviceAccess.navigationBarHeight))
-        width: parent.width - (isLandScape ? settingPanel.position*settingPanel.width : 0)
+        width: parent.width - (isLandScape ? settingPanel.position*(settingPanel.width + DeviceAccess.safeInsetLeft) : 0)
     }
     Drawer {
         id: settingPanel
-        y: isFullScreen ? 0 : DeviceAccess.statusBarHeight
+        y: isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
         width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
-        height: parent.height - (isFullScreen ? 0 : (DeviceAccess.statusBarHeight + DeviceAccess.navigationBarHeight))
+        height: parent.height - (isFullScreen ? 0
+                                              : (Math.max(DeviceAccess.statusBarHeight,
+                                                          DeviceAccess.safeInsetTop)
+                                                 + Math.max(DeviceAccess.navigationBarHeight,
+                                                            DeviceAccess.safeInsetBottom)))
         edge: Qt.RightEdge
         dim: false
-        topPadding: Screen.primaryOrientation === Qt.PortraitOrientation ?
-                        DeviceAccess.notchHeight : 0
-        bottomPadding: Screen.primaryOrientation === Qt.InvertedPortraitOrientation ?
-                           DeviceAccess.notchHeight : 0
-        leftPadding: Screen.primaryOrientation === Qt.PortraitOrientation ?
-                         DeviceAccess.notchHeight : 0
-        rightPadding: Screen.primaryOrientation === Qt.PortraitOrientation ?
-                          DeviceAccess.notchHeight : 0
+        bottomPadding: isFullScreen ? Math.max(20, DeviceAccess.safeInsetBottom) : 20
+        leftPadding: 20
+        rightPadding: Math.max(20, DeviceAccess.safeInsetRight)
+        topPadding: isFullScreen ? Math.max(20, DeviceAccess.safeInsetTop) : 20
         background: Item {
             clip: true
             opacity: isLandScape ? 1 : .95
@@ -178,9 +201,9 @@ ApplicationWindow {
         title: qsTr("Welcome to WordClock")
         implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
         clip: true
-        background.opacity: 0.95
+        background.opacity: .95
         ColumnLayout {
-            anchors { fill: parent; margins: howtoPopup.margins }
+            anchors { fill: parent; margins: howtoPopup.margins }  // @disable-check M16
             Label {
                 Layout.fillHeight: true
                 Layout.fillWidth: true

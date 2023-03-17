@@ -23,14 +23,15 @@ Controls.Menu {
 
     function greetings() {
         if (wordClock.is_AM)
-            return qsTr("Good morning")
+            return QT_TR_NOOP("Good morning")
         else if (parseInt(wordClock.hours_value) < 18) // 6:00 PM
-            return qsTr("Good afternoon")
-        return qsTr("Good evening")
+            return QT_TR_NOOP("Good afternoon")
+        return QT_TR_NOOP("Good evening")
     }
 
-    anchors { fill: parent; margins: 20 }
-    text: greetings()
+    anchors.fill: parent  // @disable-check M16
+
+    text: qsTr(greetings())
     footer: Controls.MenuSection {
         title.heading: headings.h3
         title.horizontalAlignment: Label.AlignHCenter
@@ -62,7 +63,7 @@ Controls.Menu {
     }
 
     Controls.MenuSection {
-        visible: Helpers.isMobile //!Helpers.isWebAssembly
+        visible: Helpers.isMobile //!Helpers.isWebAssembly  // @disable-check M16
         text: qsTr("Battery Saving")
         Controls.MenuItem {
             text: qsTr("Stay Awake")
@@ -79,7 +80,7 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("App pinning")
-            visible: Helpers.isAndroid
+            visible: Helpers.isAndroid  // @disable-check M16
             Switch { onToggled: DeviceAccess.security(checked) }
         }
         Controls.MenuItem {
@@ -119,7 +120,7 @@ If enabled the screen device will stay active, when the application is running.\
         text: qsTr("Appearance")
         Controls.MenuItem {
             text: qsTr("FullScreen")
-            visible: !Helpers.isWebAssembly && !Helpers.isIos
+            visible: !Helpers.isWebAssembly && !Helpers.isIos  // @disable-check M16
             Switch {
                 checked: root.isFullScreen
                 onToggled: Helpers.updateVisibility(root, DeviceAccess)
@@ -131,7 +132,7 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("Display as widget")
-            visible: Helpers.isDesktop
+            visible: Helpers.isDesktop  // @disable-check M16
             Switch {
                 checked: root.isWidget
                 onToggled: Helpers.updateDisplayMode(root)
@@ -142,8 +143,8 @@ If enabled the screen device will stay active, when the application is running.\
             }
         }
         Controls.MenuItem {
-            visible: Helpers.isDesktop
-            enabled: !root.isFullScreen
+            visible: Helpers.isDesktop  // @disable-check M16
+            enabled: !root.isFullScreen  // @disable-check M16
             text: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control.value))
             Slider {
                 from: 10
@@ -157,7 +158,7 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("Display as watermark")
-            visible: Helpers.isDesktop
+            visible: Helpers.isDesktop  // @disable-check M16
             Button {
                 text: "Activate"
                 onClicked: {
@@ -215,7 +216,7 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("Voice")
-            visible: !Helpers.isAndroid
+            visible: !Helpers.isAndroid  // @disable-check M16
             detailsComponent:
                 ComboBox {
                 palette.dark: systemPalette.text
@@ -257,7 +258,7 @@ Each grid contains a special message that will be displayed instead of the time 
         }
         Controls.MenuItem {
             text: qsTr("Display tutorial as Startup")
-            visible: !Helpers.isWebAssembly
+            visible: !Helpers.isWebAssembly  // @disable-check M16
             Switch {
                 checked: root.showTutorial
                 onCheckedChanged: DeviceAccess.setSettingsValue("Tutorial/showPopup", checked)
@@ -273,7 +274,7 @@ Each grid contains a special message that will be displayed instead of the time 
             activatedLetterColorPicker.extraControls[3].setColor(alc)
             deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
         }
-        visible: Helpers.isDesktop || Helpers.isWebAssembly
+        visible: Helpers.isDesktop || Helpers.isWebAssembly  // @disable-check M16
         text: qsTr("Advanced")
         Component.onCompleted: wordClock.applyColors.connect(applyColors)
         Controls.MenuItem {
@@ -423,7 +424,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
         }
         Controls.MenuItem {
             text: qsTr("Bug tracking")
-            visible: false
+            visible: false  // @disable-check M16
             detailsComponent: Controls.Details {
                 text: qsTr("\
 We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \

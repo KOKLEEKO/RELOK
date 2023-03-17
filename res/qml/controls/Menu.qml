@@ -52,7 +52,7 @@ ColumnLayout {
             width: scrollView.availableWidth
             height: scrollView.availableHeight
             implicitHeight: menuSections.implicitHeight
-            ColumnLayout { id: menuSections; anchors.fill: parent }
+            ColumnLayout { id: menuSections; anchors.fill: parent }  // @disable-check M16
         }
     }
     Loader { sourceComponent: footer; Layout.fillWidth: true }

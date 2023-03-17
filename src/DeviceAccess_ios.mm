@@ -25,7 +25,7 @@ using namespace kokleeko::device;
 @implementation QIOSViewController (ViewController)
 - (void)viewWillTransitionToSize:(CGSize)size
   withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    emit DeviceAccess::instance().orientationChanged();
+    emit DeviceAccess::instance().viewConfigurationChanged();
 }
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return DeviceAccess::instance().isStatusBarHidden() ? UIStatusBarStyleLightContent
@@ -118,9 +118,9 @@ void DeviceAccess::security(bool /*value*/) {}
 void DeviceAccess::specificInitializationSteps() {
     // get notch height
     if (@available(iOS 11.0, *)) {
-        m_notchHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
+        m_safeInsetTop = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
     }
-    qCDebug(lc) << "notch height:" << m_notchHeight;
+    qCDebug(lc) << "safeInsetTop: " << m_safeInsetTop;
 
     // enable speech in silent mode
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
@@ -132,3 +132,7 @@ void DeviceAccess::endOfSpeech(){
 }
 
 void DeviceAccess::hideSplashScreen() {}
+
+void DeviceAccess::updateSafeAreaInsets() {}
+
+void DeviceAccess::onViewConfigurationChanged() {}

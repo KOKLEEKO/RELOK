@@ -45,66 +45,94 @@ void DeviceAccess::disableAutoLock(bool disable) {
             }
         }
         QAndroidJniEnvironment env;
-        if (env->ExceptionCheck()) env->ExceptionClear();
+        if (env->ExceptionCheck())
+            env->ExceptionClear();
     });
 }
 
 void DeviceAccess::specificInitializationSteps() {
     QAndroidJniObject activity = QtAndroid::androidActivity();
 
-    m_statusBarHeight = activity.callMethod<jdouble>("statusBarHeight");
-    m_navigationBarHeight = activity.callMethod<jdouble>("navigationBarHeight");
-    qCDebug(lc) << m_statusBarHeight << m_navigationBarHeight;
-
     QAndroidJniObject window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
 
     QAndroidJniObject context = QtAndroid::androidContext();
-    QAndroidJniObject audioServiceName = QAndroidJniObject::getStaticObjectField<jstring>("android.content.Context", "AUDIO_SERVICE");
+    QAndroidJniObject audioServiceName =
+            QAndroidJniObject::getStaticObjectField<jstring>("android.content.Context",
+                                                             "AUDIO_SERVICE");
     m_audioManager = context.callObjectMethod("getSystemService",
-                                                  "(Ljava/lang/String;)Ljava/lang/Object;",
-                                                   audioServiceName.object<jstring>());
-    m_audioFocusRequest = QAndroidJniObject::getStaticField<jint>("android.media.AudioManager", "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
+                                              "(Ljava/lang/String;)Ljava/lang/Object;",
+                                              audioServiceName.object<jstring>());
+    m_audioFocusRequest =
+            QAndroidJniObject::getStaticField<jint>("android.media.AudioManager",
+                                                    "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
 
+    updateSafeAreaInsets();
 }
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
-    QAndroidJniObject::callStaticMethod<void>(
-                "io/kokleeko/wordclock/DeviceAccess", "setBrightness", "(I)V",
-                qRound(brightness * 255));
+    QAndroidJniObject::callStaticMethod<void>("io/kokleeko/wordclock/DeviceAccess",
+                                              "setBrightness",
+                                              "(I)V",
+                                              qRound(brightness * 255));
 }
 
 void DeviceAccess::moveTaskToBack() {
-    QtAndroid::androidActivity().callMethod<jboolean>("moveTaskToBack", "(Z)Z",
-                                                      true);
+    QtAndroid::androidActivity().callMethod<jboolean>("moveTaskToBack", "(Z)Z", true);
 }
 
 static void updateBrightness(JNIEnv *, jobject, jint value) {
     DeviceAccess::instance().updateBrightness(value / 255.0);
 }
+
 static void updateIsPlugged(JNIEnv *, jobject, jboolean value) {
     DeviceAccess::instance().updateIsPlugged(value);
 }
+
 static void updateBatteryLevel(JNIEnv *, jobject, jfloat value) {
     DeviceAccess::instance().updateBatteryLevel(value);
+}
+
+void DeviceAccess::onViewConfigurationChanged() {
+    DeviceAccess &deviceAccess = DeviceAccess::instance();
+    emit deviceAccess.viewConfigurationChanged();
+}
+
+void DeviceAccess::updateSafeAreaInsets() {
+    QAndroidJniObject activity = QtAndroid::androidActivity();
+    QAndroidJniObject safeAreaInsets = activity.callObjectMethod("safeAreaInsets",
+                                                                 "()Landroid/graphics/RectF;");
+    m_safeInsetBottom = safeAreaInsets.getField<float>("bottom");
+    m_safeInsetLeft = safeAreaInsets.getField<float>("left");
+    m_safeInsetRight = safeAreaInsets.getField<float>("right");
+    m_safeInsetTop = safeAreaInsets.getField<float>("top");
+    m_statusBarHeight = activity.callMethod<jdouble>("statusBarHeight");
+    m_navigationBarHeight = activity.callMethod<jdouble>("navigationBarHeight");
+    emit safeInsetsChanged();
 }
 
 void DeviceAccess::registerListeners() {
     QAndroidJniObject::callStaticMethod<void>(
                 "io/kokleeko/wordclock/DeviceAccess", "registerListeners",
                 "(Landroid/content/Context;)V", QtAndroid::androidContext().object());
-    JNINativeMethod methods[]{
-        {"updateBrightness", "(I)V",
-            reinterpret_cast<void *>(::updateBrightness)},
+    JNINativeMethod deviceAccessMethods[]{
+        {"updateBrightness", "(I)V", reinterpret_cast<void *>(::updateBrightness)},
         {"updateIsPlugged", "(Z)V", reinterpret_cast<void *>(::updateIsPlugged)},
-        {"updateBatteryLevel", "(F)V",
-            reinterpret_cast<void *>(::updateBatteryLevel)},
+        {"updateBatteryLevel", "(F)V", reinterpret_cast<void *>(::updateBatteryLevel)},
     };
-    QAndroidJniObject javaClass("io/kokleeko/wordclock/DeviceAccess");
+    JNINativeMethod activityMethods[]{
+        {"configurationChanged", "()V",
+            reinterpret_cast<void *>(DeviceAccess::onViewConfigurationChanged)}
+    };
+
     QAndroidJniEnvironment env;
-    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
-    env->RegisterNatives(objectClass, methods,
-                         sizeof(methods) / sizeof(methods[0]));
-    env->DeleteLocalRef(objectClass);
+    jclass deviceAccessObjectClass = env.findClass("io/kokleeko/wordclock/DeviceAccess");
+    jclass activityObjectClass =
+            env->GetObjectClass(QtAndroid::androidActivity().object<jobject>());
+    env->RegisterNatives(deviceAccessObjectClass, deviceAccessMethods,
+                         sizeof(deviceAccessMethods) / sizeof(deviceAccessMethods[0]));
+    env->RegisterNatives(activityObjectClass, activityMethods,
+                         sizeof(activityMethods) / sizeof(activityMethods[0]));
+    env->DeleteLocalRef(activityObjectClass);
 }
 
 void DeviceAccess::requestBrightnessUpdate() {
@@ -113,12 +141,14 @@ void DeviceAccess::requestBrightnessUpdate() {
 }
 
 void DeviceAccess::endOfSpeech() {
-    QAndroidJniObject::getStaticField<jint>("android.media.AudioManager", "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
-    jint audioFocusStatus = m_audioManager.callMethod<jint>("abandonAudioFocusRequest","(I)I", m_audioFocusRequest);
+    QAndroidJniObject::getStaticField<jint>("android.media.AudioManager",
+                                            "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
+    jint audioFocusStatus = m_audioManager.callMethod<jint>("abandonAudioFocusRequest",
+                                                            "(I)I",
+                                                            m_audioFocusRequest);
     qCDebug(lc) << "abandonAudioFocusRequest: " << audioFocusStatus;
 }
 
 void DeviceAccess::hideSplashScreen() {
-    qCDebug(lc) << __func__;
     QtAndroid::hideSplashScreen();
 }

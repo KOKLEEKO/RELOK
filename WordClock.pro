@@ -35,7 +35,6 @@ DISTFILES += \
              README.md \
              .github/PULL_REQUEST_TEMPLATE \
              .github/workflows/* \
-             android/src/io/kokleeko/wordclock/MyActivity.java \
              src/README.md \
              fastlane/*
 
@@ -75,7 +74,8 @@ macx | ios {
         android/gradlew \
         android/gradlew.bat \
         android/res/values/libs.xml \
-        android/src/io/kokleeko/wordclock/DeviceAccess.java
+        android/src/io/kokleeko/wordclock/DeviceAccess.java \
+        android/src/io/kokleeko/wordclock/MyActivity.java
     SOURCES += src/DeviceAccess_android.cpp
 } else {
   SOURCES += src/DeviceAccess.cpp

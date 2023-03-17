@@ -29,9 +29,12 @@ class DeviceAccess : public QObject {
     // About
     Q_PROPERTY(bool isBugTracking READ isBugTracking WRITE setIsBugTracking NOTIFY isBugTrackingChanged)
     // Appearance
-    Q_PROPERTY(float notchHeight MEMBER m_notchHeight CONSTANT)
-    Q_PROPERTY(float statusBarHeight MEMBER m_statusBarHeight CONSTANT)
-    Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight CONSTANT)
+    Q_PROPERTY(float safeInsetBottom MEMBER m_safeInsetBottom NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetLeft MEMBER m_safeInsetLeft NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetRight MEMBER m_safeInsetRight NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetTop MEMBER m_safeInsetTop NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float statusBarHeight MEMBER m_statusBarHeight NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight NOTIFY safeInsetsChanged)
     // BatterySaving
     Q_PROPERTY(float brightness READ brightness NOTIFY brightnessChanged)
     Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
@@ -65,7 +68,8 @@ public:
     bool isBugTracking() const { return m_isBugTracking; }
     Q_INVOKABLE void requestReview();
     // Appearance
-    void endOfSpeech();
+    Q_INVOKABLE void updateSafeAreaInsets();
+    static void onViewConfigurationChanged();
     // Battery Saving
     void batterySaving() {
         qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
@@ -159,6 +163,7 @@ public:
         emit speechAvailableLocalesChanged();
     }
 #endif
+    void endOfSpeech();
 
 public slots:
     // About
@@ -187,7 +192,8 @@ signals:
     // About
     void isBugTrackingChanged();
     // Appearance
-    void orientationChanged();
+    void safeInsetsChanged();
+    void viewConfigurationChanged();
     // BatterySaving
     void batteryLevelChanged();
     void minimumBatteryLevelChanged();
@@ -267,7 +273,10 @@ private:
     QSettings m_settings = QSettings();
     QStringList m_supportedLanguages{"en", "es", "fr"};
     float m_brightness = .0;
-    float m_notchHeight = .0;
+    float m_safeInsetBottom = .0;
+    float m_safeInsetLeft = .0;
+    float m_safeInsetRight = .0;
+    float m_safeInsetTop = .0;
     float m_statusBarHeight = .0;
     float m_navigationBarHeight = .0;
     float m_brightnessRequested = .0;
