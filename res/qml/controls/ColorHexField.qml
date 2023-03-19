@@ -28,7 +28,7 @@ TextField {
     font.pointSize: headings.p1
     horizontalAlignment: TextField.AlignHCenter
     color: acceptableInput ? palette.text : "red"
-    validator: RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }  // @disable-check M16
+    validator: RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }  // @disable-check M16 @disable-check M31
     inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
     selectByMouse: true
     selectedTextColor: "white"

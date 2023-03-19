@@ -27,26 +27,64 @@ class DeviceAccess : public QObject {
     Q_OBJECT
 
     // About
-    Q_PROPERTY(bool isBugTracking READ isBugTracking WRITE setIsBugTracking NOTIFY isBugTrackingChanged)
+    Q_PROPERTY(bool isBugTracking
+               READ isBugTracking
+               WRITE setIsBugTracking
+               NOTIFY isBugTrackingChanged)
     // Appearance
-    Q_PROPERTY(float safeInsetBottom MEMBER m_safeInsetBottom NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float safeInsetLeft MEMBER m_safeInsetLeft NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float safeInsetRight MEMBER m_safeInsetRight NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float safeInsetTop MEMBER m_safeInsetTop NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float statusBarHeight MEMBER m_statusBarHeight NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetBottom
+               MEMBER m_safeInsetBottom
+               NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetLeft
+               MEMBER m_safeInsetLeft
+               NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetRight
+               MEMBER m_safeInsetRight
+               NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetTop
+               MEMBER m_safeInsetTop
+               NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float statusBarHeight
+               MEMBER m_statusBarHeight
+               NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float navigationBarHeight
+               MEMBER m_navigationBarHeight
+               NOTIFY safeInsetsChanged)
+    Q_PROPERTY(bool prefersStatusBarHidden
+               READ prefersStatusBarHidden
+               NOTIFY prefersStatusBarHiddenChanged)
     // BatterySaving
-    Q_PROPERTY(float brightness READ brightness NOTIFY brightnessChanged)
-    Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
-    Q_PROPERTY(int minimumBatteryLevel READ minimumBatteryLevel WRITE setMinimumBatteryLevel NOTIFY minimumBatteryLevelChanged)
-    Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
-    Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
-    Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
+    Q_PROPERTY(float brightness
+               READ brightness
+               NOTIFY brightnessChanged)
+    Q_PROPERTY(float brightnessRequested
+               WRITE setBrightnessRequested
+               MEMBER m_brightnessRequested)
+    Q_PROPERTY(int minimumBatteryLevel
+               READ minimumBatteryLevel
+               WRITE setMinimumBatteryLevel
+               NOTIFY minimumBatteryLevelChanged)
+    Q_PROPERTY(int batteryLevel
+               READ batteryLevel
+               NOTIFY batteryLevelChanged)
+    Q_PROPERTY(bool isAutoLockRequested
+               READ isAutoLockRequested
+               WRITE requestAutoLock
+               NOTIFY isAutoLockRequestedChanged)
+    Q_PROPERTY(bool isAutoLockDisabled
+               READ isAutoLockDisabled
+               NOTIFY isAutoLockDisabledChanged)
 #ifdef Q_OS_ANDROID
-    Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales NOTIFY speechAvailableLocalesChanged)
+    Q_PROPERTY(QVariantMap speechAvailableLocales
+               MEMBER m_speechAvailableLocales
+               NOTIFY speechAvailableLocalesChanged)
 #else
-    Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales CONSTANT)
-    Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
+    Q_PROPERTY(QVariantMap speechAvailableLocales
+               MEMBER m_speechAvailableLocales
+               CONSTANT)
+    Q_PROPERTY(QVariantMap speechAvailableVoices
+               MEMBER m_speechAvailableVoices
+               NOTIFY speechAvailableVoicesChanged)
 #endif
 
 public:
@@ -61,7 +99,6 @@ public:
     Q_INVOKABLE void requestBrightnessUpdate();
 #elif defined(Q_OS_IOS)
     Q_INVOKABLE void toggleFullScreen();
-    bool isStatusBarHidden() const { return m_isStatusBarHidden; }
 #endif
 
     // About
@@ -69,6 +106,7 @@ public:
     Q_INVOKABLE void requestReview();
     // Appearance
     Q_INVOKABLE void updateSafeAreaInsets();
+    bool prefersStatusBarHidden() const { return m_prefersStatusBarHidden; }
     // Battery Saving
     void batterySaving() {
         qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
@@ -193,6 +231,7 @@ signals:
     // Appearance
     void safeInsetsChanged();
     void viewConfigurationChanged();
+    void prefersStatusBarHiddenChanged();
     // BatterySaving
     void batteryLevelChanged();
     void minimumBatteryLevelChanged();
@@ -285,8 +324,6 @@ private:
     bool m_isAutoLockRequested = m_settings.value("BatterySaving/isAutoLockRequested", true).toBool();
     bool m_isAutoLockDisabled = false;
     bool m_isBugTracking = m_settings.value("About/isBugTracking", true).toBool();
-#ifdef Q_OS_IOS
-    bool m_isStatusBarHidden = false;
-#endif
+    bool m_prefersStatusBarHidden = m_settings.value("Appearance/fullScreen", true).toBool();
 };
 }  // namespace kokleeko::device

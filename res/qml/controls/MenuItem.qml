@@ -23,8 +23,8 @@ GridLayout {
     rowSpacing: 0
     Layout.rightMargin: 25
     columnSpacing: 0
-    flow:  (in_line_implicit_width > scrollView.availableWidth) ? GridLayout.TopToBottom
-                                                                : GridLayout.LeftToRight
+    flow: (in_line_implicit_width > scrollView.availableWidth) ? GridLayout.TopToBottom
+                                                               : GridLayout.LeftToRight
     Title {
         id: label
         horizontalAlignment: Title.AlignLeft
@@ -34,8 +34,8 @@ GridLayout {
         id: extrasGrid
         GridLayout {
             property real maximumWidth: 0
-            children: extras  // @disable-check M16
-            onChildrenChanged: {  // @disable-check M16
+            children: extras  // @disable-check M16 @disable-check M31
+            onChildrenChanged: {  // @disable-check M16 @disable-check M31
                 for (var index in children) {
                     var childWidth = children[index].width
                     if (maximumWidth < childWidth)

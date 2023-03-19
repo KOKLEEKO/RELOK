@@ -21,7 +21,8 @@ ApplicationWindow {
     property alias headings: headings
     property alias badReviewPopup: badReviewPopup
     readonly property bool isLandScape: width > height
-    readonly property bool isFullScreen: visibility === Window.FullScreen
+    readonly property bool isFullScreen: Helpers.isIos ? DeviceAccess.prefersStatusBarHidden
+                                                       : visibility === Window.FullScreen
     property bool isWidget: false
     property bool showTutorial: DeviceAccess.settingsValue("Tutorial/showPopup", true)
     property real tmpOpacity: root.opacity
@@ -44,11 +45,13 @@ ApplicationWindow {
     onIsFullScreenChanged: {
         if (!aboutToQuit) {
             DeviceAccess.setSettingsValue("Appearance/fullScreen", isFullScreen)
-            if (isFullScreen) {
-                tmpOpacity = root.opacity
-                root.opacity = 1
-            } else {
-                root.opacity = tmpOpacity
+            if (Helpers.isDesktop) {
+                if (isFullScreen) {
+                    tmpOpacity = root.opacity
+                    root.opacity = 1
+                } else {
+                    root.opacity = tmpOpacity
+                }
             }
         }
     }
@@ -56,10 +59,15 @@ ApplicationWindow {
         if (Helpers.isDesktop)
             DeviceAccess.setSettingsValue("Appearance/widget", isWidget)
     }
-    onVisibilityChanged: if (!settingPanel.opened) visibilityChangedSequence.start()
+    onVisibilityChanged: if (Helpers.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
         console.info("pixelDensity", Screen.pixelDensity)
-        onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
+        if (Helpers.isAndroid)
+            onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
+
+        //        for (var prop in Qt.rgba(1,0,0,0))
+        //            console.log(prop)
+        //        console.log(Qt.rgba(1,0,0,0).hslLightness)
     }
 
     QtObject {
@@ -165,23 +173,36 @@ ApplicationWindow {
     WordClock {
         id: wordClock
         anchors.verticalCenter: parent.verticalCenter
-        x: settingPanel.position * DeviceAccess.safeInsetLeft
-        height: parent.height - (isFullScreen ? 0 : (DeviceAccess.statusBarHeight + DeviceAccess.navigationBarHeight))
-        width: parent.width - (isLandScape ? settingPanel.position*(settingPanel.width + DeviceAccess.safeInsetLeft) : 0)
+        x: DeviceAccess.safeInsetLeft
+        height: parent.height
+                - (isFullScreen ? 0
+                                : (Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+                                   + Math.max(DeviceAccess.navigationBarHeight,
+                                              DeviceAccess.safeInsetBottom)))
+        width: parent.width - (DeviceAccess.safeInsetLeft + DeviceAccess.safeInsetRight)
+               - (isLandScape ? settingPanel.position
+                                * (settingPanel.width - DeviceAccess.safeInsetRight)
+                              : 0)
     }
     Drawer {
         id: settingPanel
         y: isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+        Behavior on bottomPadding { NumberAnimation {duration: 100 } }
+        Behavior on height { NumberAnimation {duration: 100 } }
+        Behavior on topPadding { NumberAnimation {duration: 100 } }
+        Behavior on y { NumberAnimation {duration: 100 } }
         width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
-        height: parent.height - (isFullScreen ? 0
-                                              : (Math.max(DeviceAccess.statusBarHeight,
-                                                          DeviceAccess.safeInsetTop)
-                                                 + Math.max(DeviceAccess.navigationBarHeight,
-                                                            DeviceAccess.safeInsetBottom)))
+        height: parent.height
+                - (isFullScreen ? 0
+                                : (Math.max(DeviceAccess.statusBarHeight,
+                                            DeviceAccess.safeInsetTop)
+                                   + (Helpers.isIos ? 0
+                                                    : Math.max(DeviceAccess.navigationBarHeight,
+                                                               DeviceAccess.safeInsetBottom))))
         edge: Qt.RightEdge
         dim: false
-        bottomPadding: isFullScreen ? Math.max(20, DeviceAccess.safeInsetBottom) : 20
-        leftPadding: 20
+        bottomPadding: 20 + isFullScreen ? DeviceAccess.safeInsetBottom : 0
+        leftPadding: isLandScape ? 20 : Math.max(20, DeviceAccess.safeInsetLeft)
         rightPadding: Math.max(20, DeviceAccess.safeInsetRight)
         topPadding: isFullScreen ? Math.max(20, DeviceAccess.safeInsetTop) : 20
         background: Item {
@@ -203,7 +224,7 @@ ApplicationWindow {
         clip: true
         background.opacity: .95
         ColumnLayout {
-            anchors { fill: parent; margins: howtoPopup.margins }  // @disable-check M16
+            anchors { fill: parent; margins: howtoPopup.margins }  // @disable-check M16  @disable-check M31
             Label {
                 Layout.fillHeight: true
                 Layout.fillWidth: true

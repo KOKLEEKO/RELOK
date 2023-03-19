@@ -1,7 +1,6 @@
 package io.kokleeko.wordclock;
 
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,14 +22,9 @@ public class MyActivity extends QtActivity
     }
 
     void setCustomStatusAndNavBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // Lollipop: API 21
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // Kikat: API 19
             Window window = getWindow();
-            window.addFlags( WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
-                           | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
-                           | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            //window.setStatusBarColor(Color.BLACK);
-            //window.setNavigationBarColor(Color.BLACK);
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) // Pie: API 28
                 window.getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         }
@@ -47,7 +41,7 @@ public class MyActivity extends QtActivity
                 safeAreaInsets.top = cutout.getSafeInsetTop();
             }
         }
-        Log.i(TAG, "safeAreaInsets: " + safeAreaInsets);
+        Log.i(TAG, "safeAreaInsets(L,T,R,B) : " + safeAreaInsets);
         return safeAreaInsets;
     }
 

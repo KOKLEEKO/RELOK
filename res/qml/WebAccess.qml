@@ -13,12 +13,12 @@ Drawer {
     height: parent.height
     interactive: opened
     ColumnLayout {
-        anchors.fill: parent  // @disable-check M16
+        anchors.fill: parent  // @disable-check M16 @disable-check M31
         spacing: 0
         ToolBar {
             Layout.fillWidth: true
             RowLayout {
-                anchors.fill: parent  // @disable-check M16
+                anchors.fill: parent  // @disable-check M16 @disable-check M31
                 ToolButton {
                     icon.source: "qrc:/assets/circle-xmark-solid.svg"
                     onClicked: popup.close()
