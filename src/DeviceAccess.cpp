@@ -26,3 +26,5 @@ void DeviceAccess::endOfSpeech() {}
 void DeviceAccess::hideSplashScreen() {}
 
 void DeviceAccess::updateSafeAreaInsets() {}
+
+void DeviceAccess::toggleFullScreen() {}

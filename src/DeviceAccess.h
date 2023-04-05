@@ -94,12 +94,13 @@ public:
     }
 
     Q_INVOKABLE void hideSplashScreen();
-#if defined(Q_OS_ANDROID)
+
+#ifdef Q_OS_ANDROID
     Q_INVOKABLE void moveTaskToBack();
     Q_INVOKABLE void requestBrightnessUpdate();
-#elif defined(Q_OS_IOS)
-    Q_INVOKABLE void toggleFullScreen();
 #endif
+
+    Q_INVOKABLE void toggleFullScreen();
 
     // About
     bool isBugTracking() const { return m_isBugTracking; }
@@ -157,6 +158,9 @@ public:
     // Speech
     Q_INVOKABLE void say(QString text)
     {
+#ifdef Q_OS_ANDROID
+        requestAudioFocus();
+#endif
         m_speech.stop();
         m_speech.say(text.toLower());
     }
@@ -199,6 +203,7 @@ public:
         }
         emit speechAvailableLocalesChanged();
     }
+    void requestAudioFocus();
 #endif
     void endOfSpeech();
 
@@ -301,10 +306,7 @@ private:
     }
 
     QVariantMap m_speechAvailableLocales;
-#ifdef Q_OS_ANDROID
-    QAndroidJniObject m_audioManager;
-    jint m_audioFocusRequest;
-#else
+#ifndef Q_OS_ANDROID
     QVariantMap m_speechAvailableVoices;
 #endif
     QTextToSpeech m_speech = QTextToSpeech();

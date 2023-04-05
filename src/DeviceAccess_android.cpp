@@ -51,21 +51,6 @@ void DeviceAccess::disableAutoLock(bool disable) {
 }
 
 void DeviceAccess::specificInitializationSteps() {
-    QAndroidJniObject activity = QtAndroid::androidActivity();
-
-    QAndroidJniObject window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
-
-    QAndroidJniObject context = QtAndroid::androidContext();
-    QAndroidJniObject audioServiceName =
-            QAndroidJniObject::getStaticObjectField<jstring>("android.content.Context",
-                                                             "AUDIO_SERVICE");
-    m_audioManager = context.callObjectMethod("getSystemService",
-                                              "(Ljava/lang/String;)Ljava/lang/Object;",
-                                              audioServiceName.object<jstring>());
-    m_audioFocusRequest =
-            QAndroidJniObject::getStaticField<jint>("android.media.AudioManager",
-                                                    "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
-
     updateSafeAreaInsets();
 }
 
@@ -140,15 +125,16 @@ void DeviceAccess::requestBrightnessUpdate() {
                 "io/kokleeko/wordclock/DeviceAccess", "getBrightness", "()V");
 }
 
+void DeviceAccess::requestAudioFocus() {
+        QtAndroid::androidActivity().callMethod<void>("requestAudioFocus");
+}
+
 void DeviceAccess::endOfSpeech() {
-    QAndroidJniObject::getStaticField<jint>("android.media.AudioManager",
-                                            "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
-    jint audioFocusStatus = m_audioManager.callMethod<jint>("abandonAudioFocusRequest",
-                                                            "(I)I",
-                                                            m_audioFocusRequest);
-    qCDebug(lc) << "abandonAudioFocusRequest: " << audioFocusStatus;
+    QtAndroid::androidActivity().callMethod<void>("abandonAudioFocus");
 }
 
 void DeviceAccess::hideSplashScreen() {
     QtAndroid::hideSplashScreen();
 }
+
+void DeviceAccess::toggleFullScreen() {}
