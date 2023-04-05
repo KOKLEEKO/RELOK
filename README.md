@@ -11,6 +11,7 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 [![iOS](https://github.com/kokleeko/WordClock/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/build-upload-ios.yml)
 [![macOS](https://github.com/kokleeko/WordClock/actions/workflows/macos.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/macos.yml)
 [![Ubuntu](https://github.com/kokleeko/WordClock/actions/workflows/ubuntu.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/ubuntu.yml)
+[![WebAssembly](https://github.com/kokleeko/WordClock/actions/workflows/wasm.yml/badge.svg)](https://github.com/kokleeko/WordClock/actions/workflows/wasm.yml)
 [![Windows](https://github.com/kokleeko/WordClock/actions/workflows/windows.yml/badge.svg?branch=main)](https://github.com/johanrkokleekoemilien/WordClock/actions/workflows/windows.yml)
 
 [![codefactor](https://www.codefactor.io/repository/github/kokleeko/WordClock/badge)](https://www.codefactor.io/repository/github/kokleeko/WordClock)
@@ -18,7 +19,7 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 
 ![ViewCount](https://views.whatilearened.today/views/github/kokleeko/WordClock.svg)
 
-Supported languages: 🇺🇸  🇪🇸  🇫🇷
+Supported languages: 🇺🇸  🇬🇧  🇪🇸  🇫🇷
 
 Bêta version is available on  [(iOS) TestFlight 📲](https://testflight.apple.com/join/02s6IwG2) and also as a [web application 🌐](https://wordclock.kokleeko.io)
 

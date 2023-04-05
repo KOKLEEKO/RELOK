@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+cd -- "$(dirname "$0")"
+emrun --no_emrun_detect --serve_after_close index.html
