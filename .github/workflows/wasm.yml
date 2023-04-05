@@ -1,0 +1,42 @@
+name: Web Assembly
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Checkout emsdk
+      uses: actions/checkout@v3
+      with:
+        repository: emscripten-core/emsdk
+        ref: '1.39.8'
+        path: emsdk
+
+    - name: install emsdk
+      run: |
+        cd emsdk
+        ./emsdk install 1.39.8
+        ./emsdk activate --embedded 1.39.8
+        source ./emsdk_env.sh
+        em++ --version
+
+    - name: Install Qt
+      run: |
+        git clone -b 5.15.2 https://code.qt.io/qt/qt5.git
+        cd qt5
+        ./init-repository -f --module-subset=qtbase,qtdeclarative,qtwebsockets,qtsvg,qtquickcontrols,qtquickcontrols2,qtgraphicaleffects
+        ./configure -opensource -confirm-license -xplatform wasm-emscripten -release -static -no-feature-thread -nomake examples -no-dbus -no-ssl
+        make
+        cd ..
+
+    - name: tree
+      run: tree .
