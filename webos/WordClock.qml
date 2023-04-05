@@ -127,7 +127,6 @@ Rectangle {
     color: backgroundColor
     anchors.fill: parent
     Component.onCompleted: {
-        //selectLanguage(DeviceAccess.settingsValue("Appearance/language", ""))
         language_urlChanged.connect(
                     () => { if (time) {
                             previous_hours_array_index = -1

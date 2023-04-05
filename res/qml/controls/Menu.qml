@@ -39,7 +39,8 @@ ColumnLayout {
         id: scrollView
         Layout.fillHeight: true
         Layout.fillWidth: true
-        ScrollBar.vertical.policy: ScrollBar.AsNeeded
+        ScrollBar.vertical.policy: (collapsed && !collapsed.is_collapsed) ? ScrollBar.AlwaysOn
+                                                                          : ScrollBar.AsNeeded
         clip: true
         palette {
             // tribute to Qt (https://brand.qt.io/design)
@@ -52,7 +53,7 @@ ColumnLayout {
             width: scrollView.availableWidth
             height: scrollView.availableHeight
             implicitHeight: menuSections.implicitHeight
-            ColumnLayout { id: menuSections; anchors.fill: parent }
+            ColumnLayout { id: menuSections; anchors.fill: parent }  // @disable-check M16  @disable-check M31
         }
     }
     Loader { sourceComponent: footer; Layout.fillWidth: true }

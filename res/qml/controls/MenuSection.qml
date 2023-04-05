@@ -35,13 +35,13 @@ ColumnLayout {
     GridLayout {
         id: menuItems
         flow: GridLayout.TopToBottom
-        clip: true
-        opacity: is_collapsed? .0 : 1.
+        clip: true  // @disable-check M16 @disable-check M31
+        opacity: is_collapsed? .0 : 1.  // @disable-check M16 @disable-check M31
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
         Layout.maximumHeight: is_collapsed ? 0 : implicitHeight
-        layer.enabled: true
+        layer.enabled: true  // @disable-check M16 @disable-check M31
         Behavior on Layout.maximumHeight { NumberAnimation { duration: 300 } }
-        Behavior on opacity { NumberAnimation { duration: 200 } }
+        Behavior on opacity { NumberAnimation { duration: 200 } }  // @disable-check M16 @disable-check M31
     }
 }

@@ -5,7 +5,7 @@
 ###################################################################################################
 
 TEMPLATE = app
-QT += quick core webview svg
+QT += quick core webview svg texttospeech
 
 #include(webos.pri)
 
@@ -74,7 +74,8 @@ macx | ios {
         android/gradlew \
         android/gradlew.bat \
         android/res/values/libs.xml \
-        android/src/io/kokleeko/wordclock/DeviceAccess.java
+        android/src/io/kokleeko/wordclock/DeviceAccess.java \
+        android/src/io/kokleeko/wordclock/MyActivity.java
     SOURCES += src/DeviceAccess_android.cpp
 } else {
   SOURCES += src/DeviceAccess.cpp

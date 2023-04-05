@@ -23,14 +23,15 @@ Controls.Menu {
 
     function greetings() {
         if (wordClock.is_AM)
-            return qsTr("Good morning")
+            return QT_TR_NOOP("Good morning")
         else if (parseInt(wordClock.hours_value) < 18) // 6:00 PM
-            return qsTr("Good afternoon")
-        return qsTr("Good evening")
+            return QT_TR_NOOP("Good afternoon")
+        return QT_TR_NOOP("Good evening")
     }
 
-    anchors { fill: parent; margins: 20 }
-    text: greetings()
+    anchors.fill: parent  // @disable-check M16  @disable-check M31
+
+    text: qsTr(greetings())
     footer: Controls.MenuSection {
         title.heading: headings.h3
         title.horizontalAlignment: Label.AlignHCenter
@@ -49,11 +50,20 @@ Controls.Menu {
             visible: Helpers.isMobile
             name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
             tooltip: Helpers.isIos ? "App Store" : "Google Play"
+
+            /*
+             - latte    1.90
+             - beer     2.95
+             - fries    3.25
+             - bone     3.50
+             - burger   5.95
+             - menu     8.45
+             */
         }
     }
 
     Controls.MenuSection {
-        visible: !Helpers.isWebAssembly
+        visible: Helpers.isMobile //!Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
         text: qsTr("Battery Saving")
         Controls.MenuItem {
             text: qsTr("Stay Awake")
@@ -70,7 +80,7 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("App pinning")
-            visible: Helpers.isAndroid
+            visible: Helpers.isAndroid  // @disable-check M16  @disable-check M31
             Switch { onToggled: DeviceAccess.security(checked) }
         }
         Controls.MenuItem {
@@ -110,7 +120,7 @@ If enabled the screen device will stay active, when the application is running.\
         text: qsTr("Appearance")
         Controls.MenuItem {
             text: qsTr("FullScreen")
-            visible: !Helpers.isWebAssembly && !Helpers.isIos
+            visible: !Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
             Switch {
                 checked: root.isFullScreen
                 onToggled: Helpers.updateVisibility(root, DeviceAccess)
@@ -122,7 +132,7 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("Display as widget")
-            visible: Helpers.isDesktop
+            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
             Switch {
                 checked: root.isWidget
                 onToggled: Helpers.updateDisplayMode(root)
@@ -133,8 +143,8 @@ If enabled the screen device will stay active, when the application is running.\
             }
         }
         Controls.MenuItem {
-            visible: Helpers.isDesktop
-            enabled: !root.isFullScreen
+            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+            enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
             text: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control.value))
             Slider {
                 from: 10
@@ -148,32 +158,90 @@ If enabled the screen device will stay active, when the application is running.\
         }
         Controls.MenuItem {
             text: qsTr("Display as watermark")
-            visible: Helpers.isDesktop
+            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
             Button {
                 text: "Activate"
                 onClicked: {
                     root.visibility = Window.Maximized
                     root.opacity = Math.min(root.opacity, .85)
-                    root.flags = Qt.WindowStaysOnTopHint | Qt.WindowTransparentForInput
+                    root.flags = (Qt.WindowStaysOnTopHint |
+                                  Qt.WindowTransparentForInput |
+                                  Qt.FramelessWindowHint)
                     settingPanel.close()
                 }
             }
         }
         Controls.MenuItem {
             text: qsTr("Clock Language")
-            extras: [
-                Repeater {
-                    model: Object.values(wordClock.languages)
-                    Button {
-                        readonly property string language: modelData.toLowerCase()
-                        text: qsTr(modelData)
-                        highlighted: wordClock.selected_language === language
-                        onClicked: wordClock.selectLanguage(language)
+            Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
+            detailsComponent: ComboBox {
+                palette.dark: systemPalette.text
+                palette.text: systemPalette.text
+                displayText: qsTr(currentText)
+                currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
+                model: Object.values(wordClock.languages)
+                onModelChanged: {
+                    if (Helpers.isAndroid) {
+                        currentIndex = Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
                     }
-                },
-                Button {
-                    text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
-            ]
+                }
+                onActivated: (index) => {
+                                 const language = Object.keys(wordClock.languages)[index]
+                                 wordClock.selectLanguage(language)
+                                 DeviceAccess.setSettingsValue("Appearance/language", language)
+                             }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Speech")
+            Switch {
+                checked: wordClock.enable_speech
+                onToggled: DeviceAccess.setSettingsValue("Appearance/speech",
+                                                         wordClock.enable_speech = checked)
+            }
+            detailsComponent:
+                ComboBox {
+                palette.dark: systemPalette.text
+                palette.text: systemPalette.text
+                displayText: qsTr(currentText)
+                currentIndex: Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
+                model: Object.values(wordClock.speech_frequencies)
+                onActivated: (index) =>
+                             {
+                                 const speech_frequency = Object.keys(wordClock.speech_frequencies)[index]
+                                 wordClock.speech_frequency = speech_frequency
+                                 DeviceAccess.setSettingsValue("Appearance/speech_frequency", speech_frequency)
+                             }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Voice")
+            visible: !Helpers.isAndroid  // @disable-check M16  @disable-check M31
+            detailsComponent:
+                ComboBox {
+                palette.dark: systemPalette.text
+                palette.text: systemPalette.text
+                function setSpeechVoice(index) {
+                    DeviceAccess.setSpeechVoice(index)
+                    if (wordClock.enable_speech) {
+                        DeviceAccess.say(wordClock.written_time)
+                    }
+                    DeviceAccess.setSettingsValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
+                }
+
+                model: Helpers.isAndroid ? [] : DeviceAccess.speechAvailableVoices[wordClock.selected_language]
+                onModelChanged: {
+                    currentIndex = DeviceAccess.settingsValue("Appearance/%1_voice".arg(wordClock.selected_language), 0)
+                    DeviceAccess.setSpeechVoice(currentIndex)
+                }
+                onActivated: (index) => {
+                                 DeviceAccess.setSpeechVoice(index)
+                                 if (wordClock.enable_speech) {
+                                     DeviceAccess.say(wordClock.written_time)
+                                 }
+                                 DeviceAccess.setSettingsValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
+                             }
+            }
         }
         Controls.MenuItem {
             text: qsTr("Enable Special Message")
@@ -183,14 +251,14 @@ Each grid contains a special message that will be displayed instead of the time 
  the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between\
  these different states.") }
             Switch {
-                checked: DeviceAccess.settingsValue("Appearance/specialMessage", true)
+                checked: wordClock.enable_special_message
                 onToggled: DeviceAccess.setSettingsValue("Appearance/specialMessage",
                                                          wordClock.enable_special_message = checked)
             }
         }
         Controls.MenuItem {
             text: qsTr("Display tutorial as Startup")
-            visible: !Helpers.isWebAssembly
+            visible: !Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
             Switch {
                 checked: root.showTutorial
                 onCheckedChanged: DeviceAccess.setSettingsValue("Tutorial/showPopup", checked)
@@ -206,7 +274,7 @@ Each grid contains a special message that will be displayed instead of the time 
             activatedLetterColorPicker.extraControls[3].setColor(alc)
             deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
         }
-        visible: Helpers.isDesktop || Helpers.isWebAssembly
+        visible: Helpers.isDesktop || Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
         text: qsTr("Advanced")
         Component.onCompleted: wordClock.applyColors.connect(applyColors)
         Controls.MenuItem {
@@ -244,7 +312,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             Component.onCompleted: {
                 selected_colorChanged.
                 connect(() => {
-                            wordClock.backgroundColor = selected_color
+                            wordClock.background_color = selected_color
                             DeviceAccess.setSettingsValue("Appearance/backgroundColor",
                                                           selected_color.toString().toUpperCase())
                         })
@@ -356,7 +424,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
         }
         Controls.MenuItem {
             text: qsTr("Bug tracking")
-            enabled: false
+            visible: false  // @disable-check M16  @disable-check M31
             detailsComponent: Controls.Details {
                 text: qsTr("\
 We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
@@ -364,7 +432,7 @@ you encounter them. But you can disable this feature to enter submarine mode.\
             ")
             }
             Switch  {
-                checked: DeviceAccess.isBugTracking && enabled
+                checked: DeviceAccess.isBugTracking
                 onToggled: DeviceAccess.isBugTracking = checked
             }
         }
@@ -406,7 +474,7 @@ We would be very pleased to hear about your experience with this application")
                     name: "globe-solid"
                     visible: !Helpers.isWebAssembly
                     tooltip: qsTr("Web Site")
-                    onClicked: openUrl("https://kokleeko.io")
+                    onClicked: openUrl("https://wordclock.kokleeko.io")
                 },
                 Controls.IconButton {
                     name: "app-store-ios-brands"

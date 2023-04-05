@@ -8,6 +8,7 @@
 #import <Foundation/NSNotification.h>
 #import <StoreKit/StoreKit.h>
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import "DeviceAccess.h"
 
@@ -22,13 +23,20 @@ using namespace kokleeko::device;
 @end
 
 @implementation QIOSViewController (ViewController)
+
+bool shouldNotifyViewConfigurationChanged = YES;
+
 - (void)viewWillTransitionToSize:(CGSize)size
   withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    emit DeviceAccess::instance().orientationChanged();
+    emit DeviceAccess::instance().viewConfigurationChanged();
 }
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return DeviceAccess::instance().isStatusBarHidden() ? UIStatusBarStyleLightContent
-                                                        : UIStatusBarStyleDefault;
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return DeviceAccess::instance().prefersStatusBarHidden();
 }
 
 - (void)viewDidLoad {
@@ -53,6 +61,16 @@ using namespace kokleeko::device;
                         selector:@selector(receiveBrightnessDidChangeNotification:)
       name:UIScreenBrightnessDidChangeNotification
       object:screen];
+
+    [[NSNotificationCenter defaultCenter]
+            addObserver:self
+                        selector:@selector(receiveBrightnessDidChangeNotification:)
+      name:UIScreenBrightnessDidChangeNotification
+      object:screen];
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    DeviceAccess::instance().updateSafeAreaInsets();
 }
 
 - (void)updateBatteryLevel:(float)batteryLevel {
@@ -107,16 +125,43 @@ void DeviceAccess::requestReview() {
 }
 
 void DeviceAccess::toggleFullScreen() {
-//    m_isStatusBarHidden = value;
-//    [[[[UIApplication sharedApplication] keyWindow] rootViewController]
-//            setNeedsStatusBarAppearanceUpdate];
+    m_prefersStatusBarHidden ^=true;
+    shouldNotifyViewConfigurationChanged = NO;
+    emit prefersStatusBarHiddenChanged();
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController] setNeedsStatusBarAppearanceUpdate];
 }
 
 void DeviceAccess::security(bool /*value*/) {}
 
-void DeviceAccess::updateNotchHeight() {
+void DeviceAccess::specificInitializationSteps() {
+    // enable speech in silent mode
+    [[AVAudioSession sharedInstance]
+            setCategory:AVAudioSessionCategoryPlayback
+                        mode:AVAudioSessionModeVoicePrompt
+                        options:AVAudioSessionCategoryOptionDuckOthers
+                        | AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers
+                        error:nil];
+}
+void DeviceAccess::endOfSpeech(){
+    [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil] ;
+}
+
+void DeviceAccess::hideSplashScreen() {}
+
+void DeviceAccess::updateSafeAreaInsets() {
+    // get notch height
     if (@available(iOS 11.0, *)) {
-        m_notchHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
+        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets;
+        m_safeInsetBottom = safeAreaInsets.bottom;
+        m_safeInsetLeft = safeAreaInsets.left;
+        m_safeInsetRight = safeAreaInsets.right;
+        m_safeInsetTop = safeAreaInsets.top;
+        if (@available(iOS 13.0, *))
+            m_statusBarHeight = [[[UIApplication sharedApplication] keyWindow] windowScene].statusBarManager.statusBarFrame.size.height;
+        else
+            m_statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        emit safeInsetsChanged();
+        if (shouldNotifyViewConfigurationChanged)
+            emit viewConfigurationChanged();
     }
-    qCDebug(lc) << "notch height:" << m_notchHeight;
 }

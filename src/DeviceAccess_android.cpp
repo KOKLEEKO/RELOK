@@ -5,7 +5,6 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <QtAndroidExtras>
 
 #include "DeviceAccess.h"
 
@@ -46,53 +45,96 @@ void DeviceAccess::disableAutoLock(bool disable) {
             }
         }
         QAndroidJniEnvironment env;
-        if (env->ExceptionCheck()) env->ExceptionClear();
+        if (env->ExceptionCheck())
+            env->ExceptionClear();
     });
 }
 
-void DeviceAccess::updateNotchHeight() {}
+void DeviceAccess::specificInitializationSteps() {
+    updateSafeAreaInsets();
+}
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
-    QAndroidJniObject::callStaticMethod<void>(
-                "io/kokleeko/wordclock/DeviceAccess", "setBrightness", "(I)V",
-                qRound(brightness * 255));
+    QAndroidJniObject::callStaticMethod<void>("io/kokleeko/wordclock/DeviceAccess",
+                                              "setBrightness",
+                                              "(I)V",
+                                              qRound(brightness * 255));
 }
 
 void DeviceAccess::moveTaskToBack() {
-    QtAndroid::androidActivity().callMethod<jboolean>("moveTaskToBack", "(Z)Z",
-                                                      true);
+    QtAndroid::androidActivity().callMethod<jboolean>("moveTaskToBack", "(Z)Z", true);
 }
 
 static void updateBrightness(JNIEnv *, jobject, jint value) {
     DeviceAccess::instance().updateBrightness(value / 255.0);
 }
+
 static void updateIsPlugged(JNIEnv *, jobject, jboolean value) {
     DeviceAccess::instance().updateIsPlugged(value);
 }
+
 static void updateBatteryLevel(JNIEnv *, jobject, jfloat value) {
     DeviceAccess::instance().updateBatteryLevel(value);
+}
+
+static void notifyViewConfigurationChanged() {
+    DeviceAccess &deviceAccess = DeviceAccess::instance();
+    emit deviceAccess.viewConfigurationChanged();
+}
+
+void DeviceAccess::updateSafeAreaInsets() {
+    QAndroidJniObject activity = QtAndroid::androidActivity();
+    QAndroidJniObject safeAreaInsets = activity.callObjectMethod("safeAreaInsets",
+                                                                 "()Landroid/graphics/RectF;");
+    m_safeInsetBottom = safeAreaInsets.getField<float>("bottom");
+    m_safeInsetLeft = safeAreaInsets.getField<float>("left");
+    m_safeInsetRight = safeAreaInsets.getField<float>("right");
+    m_safeInsetTop = safeAreaInsets.getField<float>("top");
+    m_statusBarHeight = activity.callMethod<jdouble>("statusBarHeight");
+    m_navigationBarHeight = activity.callMethod<jdouble>("navigationBarHeight");
+    emit safeInsetsChanged();
 }
 
 void DeviceAccess::registerListeners() {
     QAndroidJniObject::callStaticMethod<void>(
                 "io/kokleeko/wordclock/DeviceAccess", "registerListeners",
                 "(Landroid/content/Context;)V", QtAndroid::androidContext().object());
-    JNINativeMethod methods[]{
-        {"updateBrightness", "(I)V",
-            reinterpret_cast<void *>(::updateBrightness)},
+    JNINativeMethod deviceAccessMethods[]{
+        {"updateBrightness", "(I)V", reinterpret_cast<void *>(::updateBrightness)},
         {"updateIsPlugged", "(Z)V", reinterpret_cast<void *>(::updateIsPlugged)},
-        {"updateBatteryLevel", "(F)V",
-            reinterpret_cast<void *>(::updateBatteryLevel)},
+        {"updateBatteryLevel", "(F)V", reinterpret_cast<void *>(::updateBatteryLevel)},
     };
-    QAndroidJniObject javaClass("io/kokleeko/wordclock/DeviceAccess");
+    JNINativeMethod activityMethods[]{
+        {"configurationChanged", "()V",
+            reinterpret_cast<void *>(::notifyViewConfigurationChanged)}
+    };
+
     QAndroidJniEnvironment env;
-    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
-    env->RegisterNatives(objectClass, methods,
-                         sizeof(methods) / sizeof(methods[0]));
-    env->DeleteLocalRef(objectClass);
+    jclass deviceAccessObjectClass = env.findClass("io/kokleeko/wordclock/DeviceAccess");
+    jclass activityObjectClass =
+            env->GetObjectClass(QtAndroid::androidActivity().object<jobject>());
+    env->RegisterNatives(deviceAccessObjectClass, deviceAccessMethods,
+                         sizeof(deviceAccessMethods) / sizeof(deviceAccessMethods[0]));
+    env->RegisterNatives(activityObjectClass, activityMethods,
+                         sizeof(activityMethods) / sizeof(activityMethods[0]));
+    env->DeleteLocalRef(activityObjectClass);
 }
 
 void DeviceAccess::requestBrightnessUpdate() {
     QAndroidJniObject::callStaticMethod<void>(
                 "io/kokleeko/wordclock/DeviceAccess", "getBrightness", "()V");
 }
+
+void DeviceAccess::requestAudioFocus() {
+        QtAndroid::androidActivity().callMethod<void>("requestAudioFocus");
+}
+
+void DeviceAccess::endOfSpeech() {
+    QtAndroid::androidActivity().callMethod<void>("abandonAudioFocus");
+}
+
+void DeviceAccess::hideSplashScreen() {
+    QtAndroid::hideSplashScreen();
+}
+
+void DeviceAccess::toggleFullScreen() {}

@@ -15,12 +15,14 @@ import "qrc:/js/Helpers.js" as Helpers
 
 ApplicationWindow {
     id: root
+    property size size: Qt.size(width, height)
     property bool aboutToQuit: false
     property WebView webView
     property alias headings: headings
     property alias badReviewPopup: badReviewPopup
     readonly property bool isLandScape: width > height
-    readonly property bool isFullScreen: visibility == Window.FullScreen
+    readonly property bool isFullScreen: Helpers.isIos ? DeviceAccess.prefersStatusBarHidden
+                                                       : visibility === Window.FullScreen
     property bool isWidget: false
     property bool showTutorial: DeviceAccess.settingsValue("Tutorial/showPopup", true)
     property real tmpOpacity: root.opacity
@@ -29,9 +31,10 @@ ApplicationWindow {
     minimumWidth: 300
     minimumHeight: 300
     visible: true
-    visibility:Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
-    color: "transparent"
+    visibility: Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
     opacity: DeviceAccess.settingsValue("Appearance/opacity", 1)
+    color: wordClock.background_color
+
     onClosing: {
         aboutToQuit = true
         if (Helpers.isAndroid) {
@@ -42,11 +45,13 @@ ApplicationWindow {
     onIsFullScreenChanged: {
         if (!aboutToQuit) {
             DeviceAccess.setSettingsValue("Appearance/fullScreen", isFullScreen)
-            if (isFullScreen) {
-                tmpOpacity = root.opacity
-                root.opacity = 1
-            } else {
-                root.opacity = tmpOpacity
+            if (Helpers.isDesktop) {
+                if (isFullScreen) {
+                    tmpOpacity = root.opacity
+                    root.opacity = 1
+                } else {
+                    root.opacity = tmpOpacity
+                }
             }
         }
     }
@@ -54,8 +59,15 @@ ApplicationWindow {
         if (Helpers.isDesktop)
             DeviceAccess.setSettingsValue("Appearance/widget", isWidget)
     }
+    onVisibilityChanged: if (Helpers.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
         console.info("pixelDensity", Screen.pixelDensity)
+        if (Helpers.isAndroid)
+            onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
+
+        //        for (var prop in Qt.rgba(1,0,0,0))
+        //            console.log(prop)
+        //        console.log(Qt.rgba(1,0,0,0).hslLightness)
     }
 
     QtObject {
@@ -82,7 +94,7 @@ ApplicationWindow {
         link: systemPalette.link
         linkVisited: systemPalette.linkVisited
         mid: systemPalette.mid
-        midlight: "red"
+        midlight: systemPalette.midlight
         shadow: systemPalette.shadow
         text: systemPalette.text
         toolTipBase: systemPalette.toolTipBase
@@ -93,15 +105,16 @@ ApplicationWindow {
 
     Connections {
         target: DeviceAccess
-        function onOrientationChanged() { orientationChangedSequence.start() }
+        function onViewConfigurationChanged() { viewConfigurationChangedSequence.start() }
     }
     SequentialAnimation {
-        id: orientationChangedSequence
+        id: viewConfigurationChangedSequence
+        alwaysRunToEnd: true
         property bool isMenuOpened
         PropertyAction { targets: [wordClock, settingPanel]; property:"opacity"; value: 0 }
         ScriptAction {
             script: {
-                orientationChangedSequence.isMenuOpened = settingPanel.opened
+                viewConfigurationChangedSequence.isMenuOpened = settingPanel.opened
                 settingPanel.close()
             }
         }
@@ -113,8 +126,26 @@ ApplicationWindow {
             from: 0
             to: 1
         }
-        ScriptAction { script: { if (orientationChangedSequence.isMenuOpened) settingPanel.open() }}
+        ScriptAction {
+            script: {
+                if (viewConfigurationChangedSequence.isMenuOpened)
+                    settingPanel.open()
+            }
+        }
     }
+    SequentialAnimation {
+        id: visibilityChangedSequence
+        alwaysRunToEnd: true
+        PropertyAction { target: wordClock; property:"opacity"; value: 0 }
+        PropertyAnimation {
+            targets: wordClock
+            property: "opacity"
+            duration: 350
+            from: 0
+            to: 1
+        }
+    }
+
     MouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -133,28 +164,47 @@ ApplicationWindow {
                             }
                         }
         onClicked: (mouse) => {
-            if (!Helpers.isDesktop || mouse.button === Qt.RightButton) {
-                    settingPanel.open()
-            }
-        }
+                       if (!Helpers.isDesktop || mouse.button === Qt.RightButton) {
+                           settingPanel.open()
+                       }
+                   }
     }
+
     WordClock {
         id: wordClock
+        anchors.verticalCenter: parent.verticalCenter
+        x: DeviceAccess.safeInsetLeft
         height: parent.height
-        width: parent.width - (isLandScape ? settingPanel.position*settingPanel.width : 0)
+                - (isFullScreen ? 0
+                                : (Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+                                   + Math.max(DeviceAccess.navigationBarHeight,
+                                              DeviceAccess.safeInsetBottom)))
+        width: parent.width - (DeviceAccess.safeInsetLeft + DeviceAccess.safeInsetRight)
+               - (isLandScape ? settingPanel.position
+                                * (settingPanel.width - DeviceAccess.safeInsetRight)
+                              : 0)
     }
     Drawer {
         id: settingPanel
-        y: (parent.height - height) / 2
+        y: isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+        Behavior on bottomPadding { NumberAnimation {duration: 100 } }
+        Behavior on height { NumberAnimation {duration: 100 } }
+        Behavior on topPadding { NumberAnimation {duration: 100 } }
+        Behavior on y { NumberAnimation {duration: 100 } }
         width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
         height: parent.height
+                - (isFullScreen ? 0
+                                : (Math.max(DeviceAccess.statusBarHeight,
+                                            DeviceAccess.safeInsetTop)
+                                   + (Helpers.isIos ? 0
+                                                    : Math.max(DeviceAccess.navigationBarHeight,
+                                                               DeviceAccess.safeInsetBottom))))
         edge: Qt.RightEdge
         dim: false
-
-        topPadding: Screen.orientation === Qt.PortraitOrientation ?
-                        DeviceAccess.notchHeight : 0
-        bottomPadding: Screen.orientation === Qt.InvertedPortraitOrientation ?
-                           DeviceAccess.notchHeight : 0
+        bottomPadding: 20 + isFullScreen ? DeviceAccess.safeInsetBottom : 0
+        leftPadding: isLandScape ? 20 : Math.max(20, DeviceAccess.safeInsetLeft)
+        rightPadding: Math.max(20, DeviceAccess.safeInsetRight)
+        topPadding: isFullScreen ? Math.max(20, DeviceAccess.safeInsetTop) : 20
         background: Item {
             clip: true
             opacity: isLandScape ? 1 : .95
@@ -172,9 +222,9 @@ ApplicationWindow {
         title: qsTr("Welcome to WordClock")
         implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
         clip: true
-        background.opacity: 0.95
+        background.opacity: .95
         ColumnLayout {
-            anchors { fill: parent; margins: howtoPopup.margins }
+            anchors { fill: parent; margins: howtoPopup.margins }  // @disable-check M16  @disable-check M31
             Label {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -183,8 +233,8 @@ ApplicationWindow {
                 wrapMode: Text.WordWrap
                 text: "\%1.\n\n%2.".arg(qsTr("Thank you for downloading this application, we wish you a pleasant use"))
                 .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this window to close it and open the settings menu.")
-                                      : qsTr("Please right-click outside this window to close it and open the settings menu.")
-                    )
+                : qsTr("Please right-click outside this window to close it and open the settings menu.")
+                )
             }
             CheckBox {
                 id: hidePopupCheckbox;

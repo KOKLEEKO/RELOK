@@ -17,6 +17,14 @@ void DeviceAccess::requestReview() {}
 
 void DeviceAccess::disableAutoLock(bool /*disable*/) {}
 
-void DeviceAccess::updateNotchHeight() {}
+void DeviceAccess::specificInitializationSteps() {}
 
 void DeviceAccess::setBrightnessRequested(float /*brightness*/) {}
+
+void DeviceAccess::endOfSpeech() {}
+
+void DeviceAccess::hideSplashScreen() {}
+
+void DeviceAccess::updateSafeAreaInsets() {}
+
+void DeviceAccess::toggleFullScreen() {}

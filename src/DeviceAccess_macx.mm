@@ -45,4 +45,12 @@ void DeviceAccess::requestReview() {
         // Fallback on earlier versions
     }
 }
-void DeviceAccess::updateNotchHeight() {}
+void DeviceAccess::specificInitializationSteps() {}
+
+void DeviceAccess::endOfSpeech(){}
+
+void DeviceAccess::hideSplashScreen() {}
+
+void DeviceAccess::updateSafeAreaInsets() {}
+
+void DeviceAccess::toggleFullScreen() {}

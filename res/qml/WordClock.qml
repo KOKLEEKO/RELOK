@@ -1,21 +1,29 @@
 import QtQuick 2.15
+import Qt.labs.folderlistmodel 2.15
 
 import "qrc:/qml/languages"
 import "qrc:/js/Helpers.js" as Helpers
 
 Rectangle {
-    function selectLanguage(language){
-        if (language !== "") {
-            language_url = "qrc:/qml/languages/%1.qml".arg(language)
-            selected_language = language
-            if (DeviceAccess.settingsValue("Appearance/language") !== language)
-                DeviceAccess.setSettingsValue("Appearance/language", language)
+    function selectLanguage(language, speech) {
+        let fileBaseName = language
+        if (isDebug)
+            console.log(fileBaseName, supportedLanguages)
+        if (!supportedLanguages.includes(fileBaseName)) {
+            if (supportedLanguages.includes(fileBaseName.substring(0,2)))
+                fileBaseName = language.substring(0,2)
+            else
+                fileBaseName = "en"
         }
+        DeviceAccess.setSpeechLanguage(language)
+        const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
+        language_url = tmp_language_url
+        selected_language = language
+        if (enable_speech)
+            DeviceAccess.say(written_time)
     }
     function detectAndUseDeviceLanguage() {
-        let iso = Qt.locale().name.substring(0,2)
-        let language = languages[iso].toLowerCase()
-        selectLanguage(language)
+        selectLanguage(Qt.locale().name)
     }
     function updateTable() {
         const split_time = time.split(':')
@@ -32,9 +40,13 @@ Rectangle {
         hours_array_index = hours_value % 12
         minutes_array_index = Math.floor(minutes_value/5)
         const tmp_onoff_dots = minutes_value % 5
-        console.debug(time,
-                      language.written_time(hours_array_index, minutes_array_index, is_AM),
-                      tmp_onoff_dots)
+        written_time = language.written_time(hours_array_index, minutes_array_index, is_AM)
+                + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : "")
+        if (isDebug)
+            console.debug(time, written_time)
+        if (enable_speech && (minutes_value % parseInt(speech_frequency) == 0)) {
+            DeviceAccess.say(written_time.toLowerCase())
+        }
         if (was_special)
             language.special_message(false)
         if (previous_hours_array_index !== hours_array_index || is_special || was_special) {
@@ -67,21 +79,36 @@ Rectangle {
 
     // User-facing Settings
     property string selected_language
-    property bool enable_special_message: true
-    property color backgroundColor: "black"
+    property bool enable_speech: DeviceAccess.settingsValue("Appearance/speech", true)
+    property bool enable_special_message: DeviceAccess.settingsValue("Appearance/specialMessage", true)
+    property color background_color: "black"
     property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
 
     // Internal Settings
     property bool is_color_animation_enabled: true
-    readonly property int color_animation_easing: Easing.Linear
-    property var languages: {"en": "English", "fr": "French", "es": "Spanish"}
+    readonly property int animation_easing: Easing.Linear
+    property var languages: DeviceAccess.speechAvailableLocales
     property url language_url
     readonly property real table_width: Math.min(height, width)*.9
     readonly property real cell_width: table_width/columns
     readonly property real dot_size: cell_width/4
+    readonly property var speech_frequencies: {
+        "1" : QT_TR_NOOP("every minute"),
+        "5" : QT_TR_NOOP("every 5 minutes"),
+        "10": QT_TR_NOOP("every 10 minutes"),
+        "15": QT_TR_NOOP("every 15 minutes"),
+        "20": QT_TR_NOOP("every 20 minutes"),
+        "30": QT_TR_NOOP("every 30 minutes"),
+        "60": QT_TR_NOOP("every hour")
+    }
+    property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
+
+    property var supportedLanguages: []
     property Language language
+    //onLanguageChanged: Helpers.missingLetters(language.table)
+    property string written_time
     property string time
     property bool is_AM
     property bool was_AM
@@ -100,6 +127,7 @@ Rectangle {
                                                                             hours_array_step)
     property int previous_minutes_array_index: -1
     property int minutes_array_index: 0
+
     readonly property int minutes_array_step: 5
     readonly property int minutes_array_min: 0
     readonly property int minutes_array_max: 55
@@ -113,22 +141,29 @@ Rectangle {
     property var onoff_table: Helpers.createWelcomeTable()
     property var tmp_onoff_table: Helpers.createTable(rows, columns, false)
 
-    Behavior on backgroundColor {
+    Behavior on background_color {
         enabled: is_color_animation_enabled
-        ColorAnimation { duration: 1000; easing.type: color_animation_easing }
+        ColorAnimation { duration: 1000; easing.type: animation_easing }
     }
     Behavior on on_color {
         enabled: is_color_animation_enabled
-        ColorAnimation {  duration: 1000; easing.type: color_animation_easing }
+        ColorAnimation {  duration: 1000; easing.type: animation_easing }
     }
     Behavior on off_color {
         enabled: is_color_animation_enabled
-        ColorAnimation { duration: 1000; easing.type: color_animation_easing }
+        ColorAnimation { duration: 1000; easing.type: animation_easing }
     }
 
-    color: backgroundColor
+    Connections {
+        function onLanguageChanged() {
+            DeviceAccess.hideSplashScreen()
+            enabled = false
+        }
+    }
+
+    color: background_color
     Component.onCompleted: {
-        selectLanguage(DeviceAccess.settingsValue("Appearance/language", ""))
+        selected_language = DeviceAccess.settingsValue("Appearance/language", "")
         language_urlChanged.connect(
                     () => { if (time) {
                             previous_hours_array_index = -1
@@ -138,8 +173,6 @@ Rectangle {
                         }
                     })
         timeChanged.connect(updateTable)
-        if (language_url == "")
-            detectAndUseDeviceLanguage()
     }
     Loader { source: language_url; onLoaded: language = item }
     Timer {
@@ -191,6 +224,22 @@ Rectangle {
             }
         }
     }
+    FolderListModel {
+        id: folderModel
+        folder: "qrc:/qml/languages"
+        nameFilters: ["*.qml"]
+        onCountChanged: {
+            for (var i=0; i<count; i++) {
+                const fileBaseName = folderModel.get(i, "fileBaseName")
+                if (fileBaseName !== "Language"&&fileBaseName !== "")
+                    supportedLanguages.push(fileBaseName)
+            }
+            if (selected_language === "")
+                detectAndUseDeviceLanguage()
+            else
+                selectLanguage(selected_language)
+        }
+    }
     Image { id: backgroundImage; anchors.fill: parent }
     Column {
         id: column
@@ -198,7 +247,7 @@ Rectangle {
         width: table_width
         height: width
         Repeater {
-            model: language.table
+            model: language ? language.table : []
             Row {
                 Repeater {
                     id: repeater
@@ -214,7 +263,7 @@ Rectangle {
                         color: is_enabled ? on_color : off_color
                         style: is_enabled ? Text.Outline : Text.Sunken
                         styleColor: is_enabled ? Qt.lighter(on_color, 1.1)
-                                               : Qt.darker(backgroundColor, 1.1)
+                                               : Qt.darker(background_color, 1.1)
                         horizontalAlignment : Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.Fit
@@ -228,6 +277,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: cell_width - dot_size
             topPadding: spacing/2
+            visible: ((language))
             Repeater {
                 model: 4
                 Rectangle {
