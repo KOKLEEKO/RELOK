@@ -74,18 +74,12 @@ class DeviceAccess : public QObject {
     Q_PROPERTY(bool isAutoLockDisabled
                READ isAutoLockDisabled
                NOTIFY isAutoLockDisabledChanged)
-#ifdef Q_OS_ANDROID
     Q_PROPERTY(QVariantMap speechAvailableLocales
                MEMBER m_speechAvailableLocales
                NOTIFY speechAvailableLocalesChanged)
-#else
-    Q_PROPERTY(QVariantMap speechAvailableLocales
-               MEMBER m_speechAvailableLocales
-               CONSTANT)
     Q_PROPERTY(QVariantMap speechAvailableVoices
                MEMBER m_speechAvailableVoices
                NOTIFY speechAvailableVoicesChanged)
-#endif
 
 public:
     static DeviceAccess& instance() {
@@ -198,7 +192,7 @@ public:
                 const QString name = QString("%1 (%2)")
                         .arg(QLocale::languageToString(locale.language()),
                              QLocale::countryToString(locale.country()));
-                m_speechAvailableLocales.insert(iso, name);
+                m_speechAvailableLocales.insert(iso, QT_TR_NOOP(name));
             }
         }
         emit speechAvailableLocalesChanged();
@@ -245,11 +239,8 @@ signals:
     void isAutoLockDisabledChanged();
     void brightnessChanged();
     void settingsReady();
-#ifdef Q_OS_ANDROID
     void speechAvailableLocalesChanged();
-#else
     void speechAvailableVoicesChanged();
-#endif
 
 private:
     DeviceAccess(QObject* parent = nullptr) : QObject(parent) {
@@ -286,8 +277,6 @@ private:
 #endif
 #ifdef Q_OS_WASM
         startTimer(10);
-#elif defined(Q_OS_ANDROID)
-        registerListeners();
 #endif
     }
 #ifdef Q_OS_ANDROID
@@ -306,9 +295,7 @@ private:
     }
 
     QVariantMap m_speechAvailableLocales;
-#ifndef Q_OS_ANDROID
     QVariantMap m_speechAvailableVoices;
-#endif
     QTextToSpeech m_speech = QTextToSpeech();
     QSettings m_settings = QSettings();
     QStringList m_supportedLanguages{"en", "es", "fr"};

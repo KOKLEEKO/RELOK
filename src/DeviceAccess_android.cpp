@@ -51,6 +51,7 @@ void DeviceAccess::disableAutoLock(bool disable) {
 }
 
 void DeviceAccess::specificInitializationSteps() {
+    registerListeners();
     updateSafeAreaInsets();
 }
 
@@ -126,7 +127,7 @@ void DeviceAccess::requestBrightnessUpdate() {
 }
 
 void DeviceAccess::requestAudioFocus() {
-        QtAndroid::androidActivity().callMethod<void>("requestAudioFocus");
+    QtAndroid::androidActivity().callMethod<void>("requestAudioFocus");
 }
 
 void DeviceAccess::endOfSpeech() {
