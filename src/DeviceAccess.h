@@ -175,9 +175,11 @@ public:
             initlocales();
 #else
         if (!m_speechAvailableVoices.contains(iso)) {
-            const QVector<QVoice> availableVoices = m_speech.availableVoices();
+            const QVector<QVoice> &availableVoices = m_speech.availableVoices();
+            if (availableVoices.empty())
+                return;
             QStringList voicesNames;
-            for (const auto& voice : availableVoices)
+            for (const auto &voice : availableVoices)
                 voicesNames << voice.name().split(" ")[0];
             m_speechAvailableVoices.insert(iso, voicesNames);
             int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(" ")[0]);
@@ -190,10 +192,9 @@ public:
     }
 
     Q_INVOKABLE void initlocales() {
-        const QVector<QLocale> locales = m_speech.availableLocales();
+        const QVector<QLocale> &locales = m_speech.availableLocales();
         for (const auto &locale : locales) {
             if (m_speechFilter.contains(locale.bcp47Name().left(2))) {
-                qCDebug(lc) << locale.name() << locale.bcp47Name();
 #ifdef Q_OS_ANDROID
                 QString iso = locale.name();
 #else
