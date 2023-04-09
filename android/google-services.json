@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "296597307508",
+    "project_id": "wordclock-d1d4c",
+    "storage_bucket": "wordclock-d1d4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296597307508:android:80bf709339c26703f45121",
+        "android_client_info": {
+          "package_name": "io.kokleeko.wordclock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296597307508-j476k46mktas3g7kreaa67om1hmhmj0t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.kokleeko.wordclock",
+            "certificate_hash": "4d0e29dd8a1f562b0b32944bbe962df36abad4ee"
+          }
+        },
+        {
+          "client_id": "296597307508-01vb5j93fj7kdpu7103nk9s2nqjh4t3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1i2eK8JfStDTHcHWpH6vFBwGKCfbTIXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296597307508-01vb5j93fj7kdpu7103nk9s2nqjh4t3p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "296597307508-pa9cof2c5spg0brkr7saelf95i711ngn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.kokleeko.wordclock",
+                "app_store_id": "1626068981"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
