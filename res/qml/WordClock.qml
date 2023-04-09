@@ -1,5 +1,4 @@
 import QtQuick 2.15
-import Qt.labs.folderlistmodel 2.15
 
 import "qrc:/qml/languages"
 import "qrc:/js/Helpers.js" as Helpers
@@ -89,7 +88,8 @@ Rectangle {
     // Internal Settings
     property bool is_color_animation_enabled: true
     readonly property int animation_easing: Easing.Linear
-    property var languages: DeviceAccess.speechAvailableLocales
+    property var languages: Object.keys(DeviceAccess.speechAvailableLocales).length ? DeviceAccess.speechAvailableLocales
+                                                                                    : DeviceAccess.availableLocales
     property url language_url
     readonly property real table_width: Math.min(height, width)*.9
     readonly property real cell_width: table_width/columns
@@ -103,9 +103,9 @@ Rectangle {
         "30": QT_TR_NOOP("every 30 minutes"),
         "60": QT_TR_NOOP("every hour")
     }
-    property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
+    readonly property var supportedLanguages: DeviceAccess.supportedLanguages
 
-    property var supportedLanguages: []
+    property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
     property Language language
     //onLanguageChanged: Helpers.missingLetters(language.table)
     property string written_time
@@ -173,6 +173,10 @@ Rectangle {
                         }
                     })
         timeChanged.connect(updateTable)
+        if (selected_language === "")
+            detectAndUseDeviceLanguage()
+        else
+            selectLanguage(selected_language)
     }
     Loader { source: language_url; onLoaded: language = item }
     Timer {
@@ -224,22 +228,7 @@ Rectangle {
             }
         }
     }
-    FolderListModel {
-        id: folderModel
-        folder: "qrc:/qml/languages"
-        nameFilters: ["*.qml"]
-        onCountChanged: {
-            for (var i=0; i<count; i++) {
-                const fileBaseName = folderModel.get(i, "fileBaseName")
-                if (fileBaseName !== "Language"&&fileBaseName !== "")
-                    supportedLanguages.push(fileBaseName)
-            }
-            if (selected_language === "")
-                detectAndUseDeviceLanguage()
-            else
-                selectLanguage(selected_language)
-        }
-    }
+
     Image { id: backgroundImage; anchors.fill: parent }
     Column {
         id: column
