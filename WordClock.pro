@@ -68,6 +68,7 @@ macx | ios {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     DISTFILES += \
         android/AndroidManifest.xml \
+        android/google-services.json \
         android/build.gradle \
         android/gradle.properties \
         android/gradle/wrapper/gradle-wrapper.jar \
