@@ -57,9 +57,22 @@ macx | ios {
     } else:ios {
         QMAKE_INFO_PLIST = apple/ios/Info.plist
         OBJECTIVE_SOURCES += src/DeviceAccess_ios.mm
-        OTHER_FILES += apple/ios/Launch.storyboard
+
         app_launch_screen.files = apple/ios/Launch.storyboard
-        QMAKE_BUNDLE_DATA += app_launch_screen
+        XCODE_EXTRAS.files = apple/ios/GoogleService-Info.plist
+        QMAKE_BUNDLE_DATA += \
+            app_launch_screen \
+            XCODE_EXTRAS
+
+    system(cp $$PWD/apple/ios/Podfile $$OUT_PWD; cd $$OUT_PWD; arch -x86_64 pod install --repo-update)
+
+    INCLUDEPATH += $$OUT_PWD/Pods \
+                   $$OUT_PWD/Pods/Headers/Public
+    LIBS += -F$$OUT_PWD/Pods/FirebaseAnalytics/Frameworks/FirebaseAnalytics.xcframework/ios-arm64_armv7 -framework FirebaseAnalytics \
+            -F$$OUT_PWD/Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_armv7 -framework GoogleAppMeasurement
+
+    OTHER_FILES += apple/ios/Launch.storyboard \
+                   apple/ios/Podfile
     }
 } else:android {
     QT += androidextras
