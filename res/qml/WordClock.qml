@@ -28,18 +28,18 @@ Rectangle {
         const split_time = time.split(':')
         hours_value = split_time[0]
         const minutes_value = split_time[1]
-        is_AM = (split_time[2] === "am")
+        var isAM = is_AM = (split_time[2] === "am")
         const is_special = enable_special_message &&
                          (hours_value[0] === hours_value[1]) &&
                          (hours_value === minutes_value)
         if (minutes_value >= 35) {
             if (++hours_value % 12 == 0)
-                is_AM ^= true
+                isAM ^= true
         }
         hours_array_index = hours_value % 12
         minutes_array_index = Math.floor(minutes_value/5)
         const tmp_onoff_dots = minutes_value % 5
-        written_time = language.written_time(hours_array_index, minutes_array_index, is_AM)
+        written_time = language.written_time(hours_array_index, minutes_array_index, isAM)
                 + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : "")
         if (isDebug)
             console.debug(time, written_time)
@@ -51,9 +51,9 @@ Rectangle {
         if (previous_hours_array_index !== hours_array_index || is_special || was_special) {
             if (previous_hours_array_index !== -1)
                 language["hours_" + hours_array[previous_hours_array_index]](false, was_AM)
-            was_AM = is_AM
+            was_AM = isAM
             if (!is_special) {
-                language["hours_" + hours_array[hours_array_index]](true, is_AM)
+                language["hours_" + hours_array[hours_array_index]](true, isAM)
                 previous_hours_array_index = hours_array_index
             }
         }
@@ -197,12 +197,12 @@ Rectangle {
     Timer {
         id: timer
         //public
-        property bool is_debug: false
+        property bool is_debug: true
         property int fake_counter: 0
         property bool jump_by_minute: false
         property bool jump_by_5_minutes: false
         property bool jump_by_hour: false
-        readonly property string time_reference: "00:00:00"
+        readonly property string time_reference: "22:22:00"
         //private
         readonly property int hour_to_ms: 3600000
         readonly property int minute_to_ms:60000
