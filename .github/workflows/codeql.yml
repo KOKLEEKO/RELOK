@@ -52,6 +52,8 @@ jobs:
 
     - name: Install Qt
       uses: johanremilien/install-qt-action@v3
+      with:
+        modules: qtpurchasing
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)

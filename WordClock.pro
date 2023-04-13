@@ -5,7 +5,8 @@
 ###################################################################################################
 
 TEMPLATE = app
-QT += quick core webview svg texttospeech
+QT += quick core webview svg texttospeech purchasing
+
 
 #include(webos.pri)
 

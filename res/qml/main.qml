@@ -5,6 +5,8 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
+import QtDigitalAdvertising 1.1
+import QtPurchasing 1.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
@@ -26,6 +28,20 @@ ApplicationWindow {
     property bool isWidget: false
     property bool showTutorial: DeviceAccess.settingsValue("Tutorial/showPopup", true)
     property real tmpOpacity: root.opacity
+
+    //Tips
+    property alias failTransactionPopup: failTransactionPopup
+    property alias tipthanksPopup: tipthanksPopup
+    property var failedProduct: null
+
+    property alias productTipBone: productTipBone
+    property alias productTipCoffee: productTipCoffee
+    property alias productTipCookie: productTipCookie
+    property alias productTipIceCream: productTipIceCream
+    property alias productTipBeer: productTipBeer
+    property alias productTipBurger: productTipBurger
+    property alias productTipWine: productTipWine
+
     width: 640
     height: 480
     minimumWidth: 300
@@ -68,6 +84,77 @@ ApplicationWindow {
         //        for (var prop in Qt.rgba(1,0,0,0))
         //            console.log(prop)
         //        console.log(Qt.rgba(1,0,0,0).hslLightness)
+    }
+
+    Store {
+        id: store
+        function success(transaction) {
+            transaction.finalize()
+            purchasing = false
+            tipthanksPopup.open()
+        }
+        function failed(transaction) {
+            transaction.finalize()
+            purchasing = false
+            failedProduct = this
+            failTransactionPopup.open()
+        }
+        Product {
+            id: productTipBone
+            property bool purchasing: false
+            identifier: "io.kokleeko.wordclock.tip.bone"
+            type: Product.Consumable
+            onPurchaseSucceeded: (transaction) => store.success(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction)
+        }
+        Product {
+            id: productTipCoffee
+            property bool purchasing: false
+            identifier: "io.kokleeko.wordclock.tip.coffee"
+            type: Product.Consumable
+            onPurchaseSucceeded: (transaction) => store.success(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction)
+        }
+        Product {
+            id: productTipCookie
+            property bool purchasing: false
+            identifier: "io.kokleeko.wordclock.tip.cookie"
+            type: Product.Consumable
+            onPurchaseSucceeded: (transaction) => store.success(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction)
+        }
+        Product {
+            id: productTipIceCream
+            property bool purchasing: false
+            identifier: "io.kokleeko.wordclock.tip.icecream"
+            type: Product.Consumable
+            onPurchaseSucceeded: (transaction) => store.success(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction)
+        }
+        Product {
+            id: productTipBeer
+            property bool purchasing: false
+            identifier: "io.kokleeko.wordclock.tip.beer"
+            type: Product.Consumable
+            onPurchaseSucceeded: (transaction) => store.success(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction)
+        }
+        Product {
+            id: productTipBurger
+            property bool purchasing: false
+            identifier: "io.kokleeko.wordclock.tip.burger"
+            type: Product.Consumable
+            onPurchaseSucceeded: (transaction) => store.success(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction)
+        }
+        Product {
+            id: productTipWine
+            property bool purchasing: false
+            identifier: "io.kokleeko.wordclock.tip.wine"
+            type: Product.Consumable
+            onPurchaseSucceeded: (transaction) => store.success(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction)
+        }
     }
 
     QtObject {
@@ -217,12 +304,43 @@ ApplicationWindow {
         SettingsMenu { }
     }
     Dialog {
+        id: tipthanksPopup
+        anchors.centerIn: parent
+        clip: true
+        title: qsTr("It means a lot to us")
+        width: Math.max(root.width/2, header.implicitWidth)
+        z: 1
+        Label {
+            horizontalAlignment: Label.Center
+            width: parent.width
+            wrapMode: Text.WordWrap
+            text: "❤\n%1\n❤".arg(qsTr("Thank you for your support"))
+        }
+    }
+    Dialog {
+        id: failTransactionPopup
+        anchors.centerIn: parent
+        clip: true
+        title: qsTr("Failed transaction")
+        width: Math.max(root.width/2, header.implicitWidth)
+        z: 1
+        Label {
+            horizontalAlignment: Label.Center
+            width: parent.width
+            wrapMode: Text.WordWrap
+            text: qsTr("Do you want to try again?")
+        }
+        standardButtons: Dialog.Cancel | Dialog.Ok
+        onAccepted: if (failedTip.purchasing) failedTip.purchase()
+    }
+    Dialog {
         id: howtoPopup
         anchors.centerIn: parent
-        title: qsTr("Welcome to WordClock")
-        implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
-        clip: true
         background.opacity: .95
+        clip: true
+        implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
+        title: qsTr("Welcome to WordClock")
+        z: 1
         ColumnLayout {
             anchors { fill: parent; margins: howtoPopup.margins }  // @disable-check M16  @disable-check M31
             Label {
@@ -233,11 +351,10 @@ ApplicationWindow {
                 wrapMode: Text.WordWrap
                 text: "\%1.\n\n%2.".arg(qsTr("Thank you for downloading this application, we wish you a pleasant use"))
                 .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this window to close it and open the settings menu.")
-                : qsTr("Please right-click outside this window to close it and open the settings menu.")
-                )
+                : qsTr("Please right-click outside this window to close it and open the settings menu."))
             }
             CheckBox {
-                id: hidePopupCheckbox;
+                id: hidePopupCheckbox
                 indicator.opacity: 0.5
                 text: qsTr("Don't show this again")
             }
@@ -254,19 +371,20 @@ ApplicationWindow {
     Dialog {
         id: badReviewPopup
         anchors.centerIn: parent
+        clip: true
         title: qsTr("Thanks for your review")
         width: Math.max(root.width/2, header.implicitWidth)
-        clip: true
+        z: 1
         Label {
-            wrapMode: Text.WordWrap
             width: parent.width
+            wrapMode: Text.WordWrap
             text: qsTr("\
 We are sorry to learn that you are not satisfied with this application.\
 \nBut thanks to you, we will be able to improve it even more.\
 \nSend us your suggestions and we will take it into account.")
         }
-        onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                         .arg(qsTr("Suggestions for WordClock")))
+        onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1".arg(
+                                             qsTr("Suggestions for WordClock")))
         standardButtons: Dialog.Close | Dialog.Ok
     }
     Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }

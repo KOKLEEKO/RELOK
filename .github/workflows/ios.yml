@@ -19,6 +19,7 @@ jobs:
         uses: johanremilien/install-qt-action@v3
         with:
           target: ios
+          modules: qtpurchasing
 
       - name: Apply Qt patch (Switch to using Xcode's new build system)
         run: |

@@ -5,6 +5,7 @@
 **    details.
 **    Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
+import QtPurchasing 1.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
@@ -42,48 +43,76 @@ Controls.Menu {
 
         Controls.IconButton {
             name: "bone-solid"
+            enabled: !productTipBone.purchasing && productTipBone.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Bone (for Denver)")
-            // 0.5 €
+            onClicked: {
+                productTipBone.purchasing = true
+                productTipBone.purchase()
+            }
         }
         Controls.IconButton {
             name: "mug-saucer-solid"
+            enabled: !Helpers.isMobile || (!productTipCoffee.purchasing && productTipCoffee.status === Product.Registered)
             tooltip: Helpers.isMobile ? qsTr("Latte") : qsTr("Ko-fi")
             onClicked: {
-                if (!Helpers.isMobile)
+                if (Helpers.isMobile) {
+                    productTipBone.purchasing = true
+                    productTipBone.purchase()
+                } else {
                     openUrl("https://ko-fi.com/johanremilien")
+                }
             }
-            // 1.00 €
         }
         Controls.IconButton {
             name: "cookie-solid"
+            enabled: !productTipCookie.purchasing && productTipCookie.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Cookie")
-            // 2.00 €
+            onClicked: {
+                productTipCookie.purchasing = true
+                productTipCookie.purchase()
+            }
         }
         Controls.IconButton {
             name: "ice-cream-solid"
+            enabled: !productTipIceCream.purchasing && productTipIceCream.status === Product.Registered
             visible: Helpers.isMobile
-            tooltip: qsTr("Ice cream")
-            // 3.00 €
+            tooltip: qsTr("Ice Cream")
+            onClicked: {
+                productTipIceCream.purchasing = true
+                productTipIceCream.purchase()
+            }
         }
         Controls.IconButton {
             name: "beer-mug-empty-solid"
+            enabled: !productTipBeer.purchasing && productTipBeer.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Beer")
-            //4.00 €
+            onClicked: {
+                productTipBeer.purchasing = true
+                productTipBeer.purchase()
+            }
         }
         Controls.IconButton {
             name: "burger-solid"
+            enabled: !productTipBurger.purchasing && productTipBurger.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Burger")
-            //9.99 €
+            onClicked: {
+                productTipBurger.purchasing = true
+                productTipBurger.purchase()
+            }
         }
         Controls.IconButton {
             name: "wine-bottle-solid"
+            enabled: !productTipWine.purchasing && productTipWine.status === Product.Registered
             visible: Helpers.isMobile
-            tooltip: qsTr("Wine bottle")
-            //19.99 €
+            tooltip: qsTr("Wine Bottle")
+            onClicked: {
+                productTipWine.purchasing = true
+                productTipWine.purchase()
+            }
         }
         show_detailsComponent: Helpers.isMobile
         detailsComponent: Controls.Details {
