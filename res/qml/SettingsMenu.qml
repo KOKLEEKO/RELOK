@@ -85,10 +85,16 @@ Controls.Menu {
             tooltip: qsTr("Wine bottle")
             //19.99 €
         }
+        show_detailsComponent: Helpers.isMobile
+        detailsComponent: Controls.Details {
+            horizontalAlignment: Label.Center
+            font.bold: true
+            text: qsTr("These preceding items are representative of a bonus paid to the development team, with no benefit to you.")
+        }
     }
 
     Controls.MenuSection {
-        visible: Helpers.isMobile //!Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
+        visible: Helpers.isMobile  // @disable-check M16  @disable-check M31
         text: qsTr("Battery Saving")
         Controls.MenuItem {
             text: qsTr("Stay Awake")

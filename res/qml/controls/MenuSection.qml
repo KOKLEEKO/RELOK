@@ -13,6 +13,9 @@ ColumnLayout {
     property string text
     property alias title: title
     property alias menuItems: menuItems
+    property Component detailsComponent: null
+    property bool show_detailsComponent: false
+    property var details: null
     default property alias contentItem: menuItems.children
     property url icon
     property bool is_collapsed: is_collapsable
@@ -34,13 +37,24 @@ ColumnLayout {
     }
     GridLayout {
         id: menuItems
-        flow: GridLayout.TopToBottom
-        clip: true  // @disable-check M16 @disable-check M31
-        opacity: is_collapsed? .0 : 1.  // @disable-check M16 @disable-check M31
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
         Layout.maximumHeight: is_collapsed ? 0 : implicitHeight
+        clip: true  // @disable-check M16 @disable-check M31
+        flow: GridLayout.TopToBottom
         layer.enabled: true  // @disable-check M16 @disable-check M31
+        opacity: is_collapsed? .0 : 1.  // @disable-check M16 @disable-check M31
+        Behavior on Layout.maximumHeight { NumberAnimation { duration: 300 } }
+        Behavior on opacity { NumberAnimation { duration: 200 } }  // @disable-check M16 @disable-check M31
+    }
+    Loader {
+        active: show_detailsComponent
+        Layout.fillWidth: true
+        Layout.maximumHeight: is_collapsed ? 0 : implicitHeight
+        layer.enabled: true  // @disable-check M16 @disable-check M31
+        opacity: is_collapsed? .0 : 1.  // @disable-check M16 @disable-check M31
+        sourceComponent: detailsComponent
+        onLoaded: details = item
         Behavior on Layout.maximumHeight { NumberAnimation { duration: 300 } }
         Behavior on opacity { NumberAnimation { duration: 200 } }  // @disable-check M16 @disable-check M31
     }
