@@ -16,6 +16,8 @@
 
     before_all do
      update_fastlane
+     require 'spaceship'
+     Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
     end
 
     platform :android do
