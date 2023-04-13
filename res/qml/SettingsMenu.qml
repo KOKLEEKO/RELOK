@@ -41,24 +41,49 @@ Controls.Menu {
         menuItems.flow: GridLayout.LeftToRight
 
         Controls.IconButton {
-            name: "mug-saucer-solid"
-            visible: !Helpers.isMobile
-            tooltip: "Ko-fi"
-            onClicked: openUrl("https://ko-fi.com/johanremilien")
+            name: "bone-solid"
+            visible: Helpers.isMobile
+            tooltip: qsTr("Bone (for Denver)")
+            // 0.5 €
         }
         Controls.IconButton {
+            name: "mug-saucer-solid"
+            tooltip: Helpers.isMobile ? qsTr("Latte") : qsTr("Ko-fi")
+            onClicked: {
+                if (!Helpers.isMobile)
+                    openUrl("https://ko-fi.com/johanremilien")
+            }
+            // 1.00 €
+        }
+        Controls.IconButton {
+            name: "cookie-solid"
             visible: Helpers.isMobile
-            name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
-            tooltip: Helpers.isIos ? "App Store" : "Google Play"
-
-            /*
-             - latte    1.90
-             - beer     2.95
-             - fries    3.25
-             - bone     3.50
-             - burger   5.95
-             - menu     8.45
-             */
+            tooltip: qsTr("Cookie")
+            // 2.00 €
+        }
+        Controls.IconButton {
+            name: "ice-cream-solid"
+            visible: Helpers.isMobile
+            tooltip: qsTr("Ice cream")
+            // 3.00 €
+        }
+        Controls.IconButton {
+            name: "beer-mug-empty-solid"
+            visible: Helpers.isMobile
+            tooltip: qsTr("Beer")
+            //4.00 €
+        }
+        Controls.IconButton {
+            name: "burger-solid"
+            visible: Helpers.isMobile
+            tooltip: qsTr("Burger")
+            //9.99 €
+        }
+        Controls.IconButton {
+            name: "wine-bottle-solid"
+            visible: Helpers.isMobile
+            tooltip: qsTr("Wine bottle")
+            //19.99 €
         }
     }
 

@@ -197,12 +197,12 @@ Rectangle {
     Timer {
         id: timer
         //public
-        property bool is_debug: true
+        property bool is_debug: false
         property int fake_counter: 0
         property bool jump_by_minute: false
         property bool jump_by_5_minutes: false
         property bool jump_by_hour: false
-        readonly property string time_reference: "22:22:00"
+        readonly property string time_reference: "00:00:00"
         //private
         readonly property int hour_to_ms: 3600000
         readonly property int minute_to_ms:60000
