@@ -16,5 +16,11 @@
         <file>assets/mug-saucer-solid.svg</file>
         <file>assets/arrow-rotate-right-solid.svg</file>
         <file>assets/circle-xmark-solid.svg</file>
+        <file>assets/beer-mug-empty-solid.svg</file>
+        <file>assets/bone-solid.svg</file>
+        <file>assets/burger-solid.svg</file>
+        <file>assets/cookie-solid.svg</file>
+        <file>assets/ice-cream-solid.svg</file>
+        <file>assets/wine-bottle-solid.svg</file>
     </qresource>
 </RCC>

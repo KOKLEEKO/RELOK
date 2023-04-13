@@ -35,6 +35,7 @@ jobs:
         uses: johanremilien/install-qt-action@v3
         with:
           target: android
+          modules: qtpurchasing
 
       - name: Define version code with offset
         env:

@@ -5,6 +5,7 @@
 **    details.
 **    Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
+import QtPurchasing 1.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
@@ -41,29 +42,88 @@ Controls.Menu {
         menuItems.flow: GridLayout.LeftToRight
 
         Controls.IconButton {
-            name: "mug-saucer-solid"
-            visible: !Helpers.isMobile
-            tooltip: "Ko-fi"
-            onClicked: openUrl("https://ko-fi.com/johanremilien")
+            name: "bone-solid"
+            enabled: !productTipBone.purchasing && productTipBone.status === Product.Registered
+            visible: Helpers.isMobile
+            tooltip: qsTr("Bone (for Denver)")
+            onClicked: {
+                productTipBone.purchasing = true
+                productTipBone.purchase()
+            }
         }
         Controls.IconButton {
+            name: "mug-saucer-solid"
+            enabled: !Helpers.isMobile || (!productTipCoffee.purchasing && productTipCoffee.status === Product.Registered)
+            tooltip: Helpers.isMobile ? qsTr("Latte") : qsTr("Ko-fi")
+            onClicked: {
+                if (Helpers.isMobile) {
+                    productTipBone.purchasing = true
+                    productTipBone.purchase()
+                } else {
+                    openUrl("https://ko-fi.com/johanremilien")
+                }
+            }
+        }
+        Controls.IconButton {
+            name: "cookie-solid"
+            enabled: !productTipCookie.purchasing && productTipCookie.status === Product.Registered
             visible: Helpers.isMobile
-            name: (Helpers.isIos ? "app-store-ios" : "google-play") + "-brands"
-            tooltip: Helpers.isIos ? "App Store" : "Google Play"
-
-            /*
-             - latte    1.90
-             - beer     2.95
-             - fries    3.25
-             - bone     3.50
-             - burger   5.95
-             - menu     8.45
-             */
+            tooltip: qsTr("Cookie")
+            onClicked: {
+                productTipCookie.purchasing = true
+                productTipCookie.purchase()
+            }
+        }
+        Controls.IconButton {
+            name: "ice-cream-solid"
+            enabled: !productTipIceCream.purchasing && productTipIceCream.status === Product.Registered
+            visible: Helpers.isMobile
+            tooltip: qsTr("Ice Cream")
+            onClicked: {
+                productTipIceCream.purchasing = true
+                productTipIceCream.purchase()
+            }
+        }
+        Controls.IconButton {
+            name: "beer-mug-empty-solid"
+            enabled: !productTipBeer.purchasing && productTipBeer.status === Product.Registered
+            visible: Helpers.isMobile
+            tooltip: qsTr("Beer")
+            onClicked: {
+                productTipBeer.purchasing = true
+                productTipBeer.purchase()
+            }
+        }
+        Controls.IconButton {
+            name: "burger-solid"
+            enabled: !productTipBurger.purchasing && productTipBurger.status === Product.Registered
+            visible: Helpers.isMobile
+            tooltip: qsTr("Burger")
+            onClicked: {
+                productTipBurger.purchasing = true
+                productTipBurger.purchase()
+            }
+        }
+        Controls.IconButton {
+            name: "wine-bottle-solid"
+            enabled: !productTipWine.purchasing && productTipWine.status === Product.Registered
+            visible: Helpers.isMobile
+            tooltip: qsTr("Wine Bottle")
+            onClicked: {
+                productTipWine.purchasing = true
+                productTipWine.purchase()
+            }
+        }
+        show_detailsComponent: Helpers.isMobile
+        detailsComponent: Controls.Details {
+            horizontalAlignment: Label.Center
+            font.bold: true
+            text: qsTr("These preceding items are representative of a bonus paid to the development team, with no benefit to you.")
         }
     }
 
     Controls.MenuSection {
-        visible: Helpers.isMobile //!Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
+        visible: Helpers.isMobile  // @disable-check M16  @disable-check M31
         text: qsTr("Battery Saving")
         Controls.MenuItem {
             text: qsTr("Stay Awake")
@@ -252,8 +312,12 @@ Each grid contains a special message that will be displayed instead of the time 
  these different states.") }
             Switch {
                 checked: wordClock.enable_special_message
-                onToggled: DeviceAccess.setSettingsValue("Appearance/specialMessage",
-                                                         wordClock.enable_special_message = checked)
+                onToggled: {
+                    DeviceAccess.setSettingsValue("Appearance/specialMessage",
+                                                  wordClock.enable_special_message = checked)
+                    if(Helpers.isEqual(wordClock.time, "00:00:am", "11:11:am", "22:22:pm"))
+                        wordClock.updateTable()
+                }
             }
         }
         Controls.MenuItem {

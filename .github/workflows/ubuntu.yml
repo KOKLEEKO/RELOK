@@ -16,6 +16,8 @@ jobs:
 
     - name: Install Qt
       uses: johanremilien/install-qt-action@v3
+      with:
+        modules: qtpurchasing qtwebengine
 
     - name: qmake
       run: qmake
