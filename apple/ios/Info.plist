@@ -30,6 +30,11 @@
 	<string>True</string>
 	<key>NSPrincipalClass</key>
 	<string>UIApplication</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch</string>
 	<key>UIStatusBarHidden</key>

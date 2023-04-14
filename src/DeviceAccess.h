@@ -204,7 +204,6 @@ public slots:
     void requestAutoLock(bool isAutoLockRequested) {
         if (m_isAutoLockRequested == isAutoLockRequested) return;
         m_settings.setValue("BatterySaving/isAutoLockRequested", m_isAutoLockRequested = isAutoLockRequested);
-
         emit isAutoLockRequestedChanged();
     }
     void setMinimumBatteryLevel(int minimumBatteryLevel) {
@@ -241,10 +240,8 @@ private:
         connect(&m_speech, &QTextToSpeech::stateChanged, this, [=](QTextToSpeech::State state) {
             if (state == QTextToSpeech::Ready) endOfSpeech();
         });
-
         specificInitializationSteps();
         qCDebug(lc) << "Settings file:" << m_settings.fileName();
-
         qCDebug(lc) << "Available TTS engines:" << QTextToSpeech::availableEngines();
         QFileInfoList wordClockLanguages = QDir(":/qml/languages").entryInfoList({"[^.]*.qml"});
         for (const auto & fileInfo : wordClockLanguages) {
@@ -264,7 +261,6 @@ private:
             }
         }
         initlocales();
-
         QFileInfoList applicationLanguages = QDir(":/i18n").entryInfoList({"*.qm"});
         m_availableTranslations.insert("en", "English");
         for (const auto & fileInfo : applicationLanguages) {
