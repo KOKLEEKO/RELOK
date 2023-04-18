@@ -1,0 +1,9 @@
+{
+  "upload": {  
+    "type": "qt-ts",
+    "files": "strings.ts"
+  },
+  "download": {
+    "files": "${lang}.ts"
+  }
+}

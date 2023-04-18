@@ -1,0 +1,3 @@
+#!/bin/sh
+
+lupdate *.pro -ts translations/strings.ts
