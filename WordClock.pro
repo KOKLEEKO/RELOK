@@ -39,6 +39,9 @@ DISTFILES += \
              src/README.md \
              fastlane/*
 
+TRANSLATIONS = translations/[^strings]*.ts
+OTHER_FILES += translations/Localazy.json
+
 VERSION = 1.0.0
 
 macx | ios {
