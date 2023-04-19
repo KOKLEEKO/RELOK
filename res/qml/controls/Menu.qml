@@ -15,7 +15,7 @@ ColumnLayout {
     property alias text: title.text
     default property alias contentItem: menuSections.children
     property url icon
-    property var collapsed: null
+    property MenuSection collapsed: null
     property alias scrollView: scrollView
     property Component footer: null
     RowLayout {
@@ -39,15 +39,16 @@ ColumnLayout {
         id: scrollView
         Layout.fillHeight: true
         Layout.fillWidth: true
-        ScrollBar.vertical.policy: (collapsed && !collapsed.is_collapsed) ? ScrollBar.AlwaysOn
-                                                                          : ScrollBar.AsNeeded
+        ScrollBar.vertical.policy: (collapsed && !collapsed.is_collapsed && !collapsed.is_tipMe)
+                                   ? ScrollBar.AlwaysOn
+                                   : ScrollBar.AsNeeded
         clip: true
-        palette {
-            // tribute to Qt (https://brand.qt.io/design)
-            midlight: "#cecfd5"
-            dark: "#41cd52"
-            button: "#cecfd5"
-        }
+        //palette {
+        //  /* tribute to Qt (https://brand.qt.io/design)*/
+        //  midlight: "#cecfd5"
+        //  dark: "#41cd52"
+        //  button: "#cecfd5"
+        //}
 
         Item {
             width: scrollView.availableWidth

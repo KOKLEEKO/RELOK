@@ -26,14 +26,14 @@ ApplicationWindow {
     readonly property bool isFullScreen: Helpers.isIos ? DeviceAccess.prefersStatusBarHidden
                                                        : visibility === Window.FullScreen
     property bool isWidget: false
-    property bool showTutorial: DeviceAccess.settingsValue("Tutorial/showPopup", true)
+    property bool showWelcome: DeviceAccess.settingsValue("Welcome/showPopup", true)
     property real tmpOpacity: root.opacity
 
     //Tips
-    property alias failTransactionPopup: failTransactionPopup
-    property alias tipthanksPopup: tipthanksPopup
     property var failedProduct: null
+    property string failedProductErrorSrting: ""
 
+    property alias store: store
     property alias productTipBone: productTipBone
     property alias productTipCoffee: productTipCoffee
     property alias productTipCookie: productTipCookie
@@ -81,79 +81,84 @@ ApplicationWindow {
         if (Helpers.isAndroid)
             onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
 
-        //        for (var prop in Qt.rgba(1,0,0,0))
-        //            console.log(prop)
-        //        console.log(Qt.rgba(1,0,0,0).hslLightness)
+        //for (var prop in Qt.rgba(1,0,0,0))
+        //  console.log(prop)
+        //console.log(Qt.rgba(1,0,0,0).hslLightness)
     }
 
     Store {
         id: store
+        property bool purchasing: false
         function success(transaction) {
-            transaction.finalize()
-            purchasing = false
+            if (transaction)
+                transaction.finalize()
             tipthanksPopup.open()
-        }
-        function failed(transaction) {
-            transaction.finalize()
             purchasing = false
-            failedProduct = this
-            failTransactionPopup.open()
         }
+        function failed(transaction, product) {
+            if (transaction) {
+                transaction.finalize()
+                failedProduct = product
+                failedProductErrorSrting = transaction.errorString
+                failTransactionPopup.open()
+            } else
+                purchasing = false
+        }
+        onPurchasingChanged: {
+            if (!purchasing) {
+                failedProduct = null
+                failedProductErrorSrting = ""
+            }
+        }
+
         Product {
             id: productTipBone
-            property bool purchasing: false
             identifier: "io.kokleeko.wordclock.tip.bone"
             type: Product.Consumable
             onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction, productTipBone)
         }
         Product {
             id: productTipCoffee
-            property bool purchasing: false
             identifier: "io.kokleeko.wordclock.tip.coffee"
             type: Product.Consumable
             onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction, productTipCoffee)
         }
         Product {
             id: productTipCookie
-            property bool purchasing: false
             identifier: "io.kokleeko.wordclock.tip.cookie"
             type: Product.Consumable
             onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction, productTipCookie)
         }
         Product {
             id: productTipIceCream
-            property bool purchasing: false
             identifier: "io.kokleeko.wordclock.tip.icecream"
             type: Product.Consumable
             onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction, productTipIceCream)
         }
         Product {
             id: productTipBeer
-            property bool purchasing: false
             identifier: "io.kokleeko.wordclock.tip.beer"
             type: Product.Consumable
             onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction, productTipBeer)
         }
         Product {
             id: productTipBurger
-            property bool purchasing: false
             identifier: "io.kokleeko.wordclock.tip.burger"
             type: Product.Consumable
             onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction, productTipBurger)
         }
         Product {
             id: productTipWine
-            property bool purchasing: false
             identifier: "io.kokleeko.wordclock.tip.wine"
             type: Product.Consumable
             onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction. productTipWine)
         }
     }
 
@@ -169,26 +174,26 @@ ApplicationWindow {
     }
 
     SystemPalette { id: systemPalette }
-    palette {
-        alternateBase: systemPalette.alternateBase
-        base: systemPalette.base
-        button: systemPalette.button
-        buttonText: systemPalette.windowText
-        dark: systemPalette.highlight
-        highlight: systemPalette.highlight
-        highlightedText: systemPalette.highlightedText
-        light: systemPalette.light
-        link: systemPalette.link
-        linkVisited: systemPalette.linkVisited
-        mid: systemPalette.mid
-        midlight: systemPalette.midlight
-        shadow: systemPalette.shadow
-        text: systemPalette.text
-        toolTipBase: systemPalette.toolTipBase
-        toolTipText: systemPalette.toolTipText
-        window: systemPalette.window
-        windowText: systemPalette.windowText
-    }
+    //palette {
+    //  alternateBase: systemPalette.alternateBase
+    //  base: systemPalette.base
+    //  button: systemPalette.button
+    //  buttonText: systemPalette.windowText
+    //  dark: systemPalette.highlight
+    //  highlight: systemPalette.highlight
+    //  highlightedText: systemPalette.highlightedText
+    //  light: systemPalette.light
+    //  link: systemPalette.link
+    //  linkVisited: systemPalette.linkVisited
+    //  mid: systemPalette.mid
+    //  midlight: systemPalette.midlight
+    //  shadow: systemPalette.shadow
+    //  text: systemPalette.text
+    //  toolTipBase: systemPalette.toolTipBase
+    //  toolTipText: systemPalette.toolTipText
+    //  window: systemPalette.window
+    //  windowText: systemPalette.windowText
+    //}
 
     Connections {
         target: DeviceAccess
@@ -271,6 +276,7 @@ ApplicationWindow {
                                 * (settingPanel.width - DeviceAccess.safeInsetRight)
                               : 0)
     }
+
     Drawer {
         id: settingPanel
         y: isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
@@ -302,36 +308,51 @@ ApplicationWindow {
             }
         }
         SettingsMenu { }
+        BusyIndicator {
+            anchors.centerIn: parent
+            running: store.purchasing
+        }
+    }
+    Popup {
+            id: purchasingPopup
+            width: 0
+            height: 0
+            modal: true
+            visible: store.purchasing
+            closePolicy: Popup.NoAutoClose
     }
     Dialog {
         id: tipthanksPopup
         anchors.centerIn: parent
         clip: true
-        title: qsTr("It means a lot to us")
+        modal: true
+        title: qsTr("Thank you for your support!")
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1
         Label {
             horizontalAlignment: Label.Center
             width: parent.width
             wrapMode: Text.WordWrap
-            text: "❤\n%1\n❤".arg(qsTr("Thank you for your support"))
+            text: "❤\n\n%1".arg(qsTr("It means a lot to us."))
         }
     }
     Dialog {
         id: failTransactionPopup
         anchors.centerIn: parent
         clip: true
-        title: qsTr("Failed transaction")
+        modal: true
+        title: qsTr("Oops...")
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1
         Label {
             horizontalAlignment: Label.Center
             width: parent.width
             wrapMode: Text.WordWrap
-            text: qsTr("Do you want to try again?")
+            text: "%1\n\n%2".arg(failedProductErrorSrting).arg(qsTr("Do you want to try again?"))
         }
-        standardButtons: Dialog.Cancel | Dialog.Ok
-        onAccepted: if (failedTip.purchasing) failedTip.purchase()
+        standardButtons: Dialog.No | Dialog.Yes
+        onAccepted: failedProduct.purchase()
+        onRejected: store.purchasing = false
     }
     Dialog {
         id: howtoPopup
@@ -339,7 +360,7 @@ ApplicationWindow {
         background.opacity: .95
         clip: true
         implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
-        title: qsTr("Welcome to WordClock")
+        title: qsTr("Welcome to WordClock++")
         z: 1
         ColumnLayout {
             anchors { fill: parent; margins: howtoPopup.margins }  // @disable-check M16  @disable-check M31
@@ -360,11 +381,11 @@ ApplicationWindow {
             }
         }
         Connections { target: settingPanel; function onOpened() { howtoPopup.close() } }
-        onClosed: root.showTutorial = !hidePopupCheckbox.checked
+        onClosed: root.showWelcome = !hidePopupCheckbox.checked
         closePolicy: Dialog.NoAutoClose
         Component.onCompleted: {
             header.background.visible = false
-            if (!Helpers.isWebAssembly && showTutorial)
+            if (!Helpers.isWebAssembly && showWelcome)
                 open()
         }
     }
@@ -372,6 +393,7 @@ ApplicationWindow {
         id: badReviewPopup
         anchors.centerIn: parent
         clip: true
+        modal: true
         title: qsTr("Thanks for your review")
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1

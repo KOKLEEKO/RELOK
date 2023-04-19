@@ -11,15 +11,16 @@ import QtQuick.Layouts 1.15
 
 GridLayout {
     id: gridLayout
+    property list<Item> extras
     default property Component controlComponent: null
     property Component detailsComponent: null
-    property alias text: label.text
-    property list<Item> extras
     property var control: null
     property var details: null
-    property var extraGrid: null
     property var extraControls: extraGrid ? extraGrid.children : null
+    property var extraGrid: null
+    property alias text: label.text
     property real in_line_implicit_width: 0
+
     rowSpacing: 0
     Layout.rightMargin: 25
     columnSpacing: 0

@@ -1,3 +1,4 @@
 #!/bin/sh
 
 lupdate *.pro -ts translations/strings.ts
+git add translations/strings.ts

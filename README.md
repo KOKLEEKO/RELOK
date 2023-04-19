@@ -16,6 +16,7 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 
 [![codefactor](https://www.codefactor.io/repository/github/kokleeko/WordClock/badge)](https://www.codefactor.io/repository/github/kokleeko/WordClock)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/52b97f63c7374ead9f582e8631cef76a)](https://www.codacy.com/gh/kokleeko/WordClock/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kokleeko/WordClock&amp;utm_campaign=Badge_Grade)
+[![Crowdin](https://badges.crowdin.net/wordclock/localized.svg)](https://crowdin.com/project/wordclock)
 
 ![ViewCount](https://views.whatilearened.today/views/github/kokleeko/WordClock.svg)
 

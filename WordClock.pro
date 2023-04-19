@@ -7,7 +7,6 @@
 TEMPLATE = app
 QT += quick core webview svg texttospeech purchasing
 
-
 #include(webos.pri)
 
 CONFIG += \
@@ -20,11 +19,7 @@ SOURCES += src/main.cpp
 
 RESOURCES += $$files(res/*.qrc)
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
-
-# Additional import path used to resolve QML modules just for Qt Quick Designer
-QML_DESIGNER_IMPORT_PATH =
+VERSION = 1.0.0
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -40,9 +35,7 @@ DISTFILES += \
              fastlane/*
 
 TRANSLATIONS = translations/[^strings]*.ts
-OTHER_FILES += translations/Localazy.json
-
-VERSION = 1.0.0
+OTHER_FILES += translations/strings.ts
 
 macx | ios {
     QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
