@@ -34,6 +34,7 @@ Controls.Menu {
 
     text: qsTr(greetings())
     footer: Controls.MenuSection {
+        is_tipMe: true
         title.heading: headings.h3
         title.horizontalAlignment: Label.AlignHCenter
         title.text: "%1 %2 %3".arg(is_collapsed ? "☞" : "❤️")
@@ -43,22 +44,22 @@ Controls.Menu {
 
         Controls.IconButton {
             name: "bone-solid"
-            enabled: !productTipBone.purchasing && productTipBone.status === Product.Registered
+            enabled: !store.purchasing && productTipBone.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Bone (for Denver)")
             onClicked: {
-                productTipBone.purchasing = true
+                store.purchasing = true
                 productTipBone.purchase()
             }
         }
         Controls.IconButton {
             name: "mug-saucer-solid"
-            enabled: !Helpers.isMobile || (!productTipCoffee.purchasing && productTipCoffee.status === Product.Registered)
-            tooltip: Helpers.isMobile ? qsTr("Latte") : qsTr("Ko-fi")
+            enabled: !Helpers.isMobile || (!store.purchasing && productTipCoffee.status === Product.Registered)
+            tooltip: Helpers.isMobile ? qsTr("Latte") : "Ko-fi"
             onClicked: {
                 if (Helpers.isMobile) {
-                    productTipBone.purchasing = true
-                    productTipBone.purchase()
+                    store.purchasing = true
+                    productTipCoffee.purchase()
                 } else {
                     openUrl("https://ko-fi.com/johanremilien")
                 }
@@ -66,51 +67,51 @@ Controls.Menu {
         }
         Controls.IconButton {
             name: "cookie-solid"
-            enabled: !productTipCookie.purchasing && productTipCookie.status === Product.Registered
+            enabled: !store.purchasing && productTipCookie.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Cookie")
             onClicked: {
-                productTipCookie.purchasing = true
+                store.purchasing = true
                 productTipCookie.purchase()
             }
         }
         Controls.IconButton {
             name: "ice-cream-solid"
-            enabled: !productTipIceCream.purchasing && productTipIceCream.status === Product.Registered
+            enabled: !store.purchasing && productTipIceCream.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Ice Cream")
             onClicked: {
-                productTipIceCream.purchasing = true
+                store.purchasing = true
                 productTipIceCream.purchase()
             }
         }
         Controls.IconButton {
             name: "beer-mug-empty-solid"
-            enabled: !productTipBeer.purchasing && productTipBeer.status === Product.Registered
+            enabled: !store.purchasing && productTipBeer.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Beer")
             onClicked: {
-                productTipBeer.purchasing = true
+                store.purchasing = true
                 productTipBeer.purchase()
             }
         }
         Controls.IconButton {
             name: "burger-solid"
-            enabled: !productTipBurger.purchasing && productTipBurger.status === Product.Registered
+            enabled: !store.purchasing && productTipBurger.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Burger")
             onClicked: {
-                productTipBurger.purchasing = true
+                store.purchasing = true
                 productTipBurger.purchase()
             }
         }
         Controls.IconButton {
             name: "wine-bottle-solid"
-            enabled: !productTipWine.purchasing && productTipWine.status === Product.Registered
+            enabled: !store.purchasing && productTipWine.status === Product.Registered
             visible: Helpers.isMobile
             tooltip: qsTr("Wine Bottle")
             onClicked: {
-                productTipWine.purchasing = true
+                store.purchasing = true
                 productTipWine.purchase()
             }
         }
@@ -129,8 +130,8 @@ Controls.Menu {
             text: qsTr("Stay Awake")
             detailsComponent: Controls.Details {
                 text: qsTr("\
-If enabled the screen device will stay active, when the application is running.\
-\nThink about activating '%1' if you might loose attention on your device.\
+If this option is enabled, the device's screen will remain active while the application is running.\
+\nDon't forget to enable '%1' if you might lose attention on your device.\
 ").arg(Helpers.isAndroid ? qsTr("App pinning") : qsTr("Guided Access"))
             }
             Switch {
@@ -147,10 +148,10 @@ If enabled the screen device will stay active, when the application is running.\
             text: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(control.value.toString())
             detailsComponent: Controls.Details {
                 text: qsTr("\
-'Stay Awake' feature will be automatically disabled when the battery level will reach this value,\
- unless the device is charging.") + (Helpers.isMobile ? "\n(%1: %2%)"
-                                                        .arg(qsTr("current battery level"))
-                                                        .arg(DeviceAccess.batteryLevel) : "")
+'%1' feature will be automatically disabled when the battery level will reach this value,\
+ unless the device is charging.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%1: %2%)"
+                                                                                .arg(qsTr("current battery level"))
+                                                                                .arg(DeviceAccess.batteryLevel) : "")
             }
             Slider {
                 from: 20
@@ -173,14 +174,24 @@ If enabled the screen device will stay active, when the application is running.\
                     }
                 }
             }
+            detailsComponent: Controls.Details {
+                text: qsTr("High brightness levels cause the battery to discharge more faster.")
+            }
         }
     }
 
     Controls.MenuSection {
         text: qsTr("Appearance")
         Controls.MenuItem {
-            text: qsTr("FullScreen")
-            visible: !Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
+            text: qsTr("Application Language")
+            detailsComponent: ComboBox {
+                //palette.dark: systemPalette.text
+                //palette.text: systemPalette.text
+            }
+        }
+        Controls.MenuItem {
+            text: Helpers.isIos ? qsTr("Hide Status Bar") : qsTr("FullScreen")
+            visible: Helpers.isDesktop || Helpers.isMobile  // @disable-check M16  @disable-check M31
             Switch {
                 checked: root.isFullScreen
                 onToggled: Helpers.updateVisibility(root, DeviceAccess)
@@ -188,6 +199,9 @@ If enabled the screen device will stay active, when the application is running.\
                     if (root.isFullScreen !== DeviceAccess.settingsValue("Appearance/fullScreen", false))
                         toggled()
                 }
+            }
+            detailsComponent: Controls.Details {
+                text: qsTr("This operation can be performed by a long press on the clock")
             }
         }
         Controls.MenuItem {
@@ -235,8 +249,8 @@ If enabled the screen device will stay active, when the application is running.\
             text: qsTr("Clock Language")
             Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
             detailsComponent: ComboBox {
-                palette.dark: systemPalette.text
-                palette.text: systemPalette.text
+                //palette.dark: systemPalette.text
+                //palette.text: systemPalette.text
                 displayText: qsTr(currentText)
                 currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
                 model: Object.values(wordClock.languages)
@@ -261,8 +275,8 @@ If enabled the screen device will stay active, when the application is running.\
             }
             detailsComponent:
                 ComboBox {
-                palette.dark: systemPalette.text
-                palette.text: systemPalette.text
+                //palette.dark: systemPalette.text
+                //palette.text: systemPalette.text
                 displayText: qsTr(currentText)
                 currentIndex: Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
                 model: Object.values(wordClock.speech_frequencies)
@@ -279,8 +293,8 @@ If enabled the screen device will stay active, when the application is running.\
             visible: Object.keys(DeviceAccess.speechAvailableVoices).length // @disable-check M16  @disable-check M31
             detailsComponent:
                 ComboBox {
-                palette.dark: systemPalette.text
-                palette.text: systemPalette.text
+                //palette.dark: systemPalette.text
+                //palette.text: systemPalette.text
                 function setSpeechVoice(index) {
                     DeviceAccess.setSpeechVoice(index)
                     if (wordClock.enable_speech) {
@@ -306,10 +320,10 @@ If enabled the screen device will stay active, when the application is running.\
         Controls.MenuItem {
             text: qsTr("Enable Special Message")
             detailsComponent: Controls.Details { text: qsTr("\
-Each grid contains a special message that will be displayed instead of the time for a minute at the\
- following times 12:00 AM (00:00), 11:11 AM (11:11) and 10:22 PM (22:22).\n\nThe minute indicator at\
- the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between\
- these different states.") }
+Each grid contains a special message displayed in place of the hour for one minute at the \
+following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM).
+The minute indicator at the bottom of the panel will display 0, 1, or 2 lights, \
+allowing you to distinguish these different states.") }
             Switch {
                 checked: wordClock.enable_special_message
                 onToggled: {
@@ -321,11 +335,11 @@ Each grid contains a special message that will be displayed instead of the time 
             }
         }
         Controls.MenuItem {
-            text: qsTr("Display tutorial as Startup")
+            text: qsTr("Display welcome popup at startup")
             visible: !Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
             Switch {
-                checked: root.showTutorial
-                onCheckedChanged: DeviceAccess.setSettingsValue("Tutorial/showPopup", checked)
+                checked: root.showWelcome
+                onCheckedChanged: DeviceAccess.setSettingsValue("Welcome/showPopup", checked)
             }
         }
     }
@@ -478,7 +492,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
         Controls.MenuItem {
             text: qsTr("Open source")
             detailsComponent: Controls.Details {
-                text: qsTr("The source code is available on GitHub under the MIT license, see it")
+                text: qsTr("The source code is available on GitHub under the MIT license.")
             }
             Controls.IconButton {
                 name: "github-brands"
@@ -512,7 +526,7 @@ you encounter them. But you can disable this feature to enter submarine mode.\
                     Button {
                         property bool isSelected: index <= parent.rating
                         icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "solid" : "regular")
-                        icon.color: systemPalette.windowText
+                        //icon.color: systemPalette.windowText
                         display: Button.IconOnly
                         background: null
                         onClicked: {
@@ -543,8 +557,13 @@ We would be very pleased to hear about your experience with this application")
                 Controls.IconButton {
                     name: "app-store-ios-brands"
                     visible: !Helpers.isIos
-                    tooltip: qsTr("App Store")
+                    tooltip: "App Store"
                     onClicked: openUrl("https://testflight.apple.com/join/02s6IwG2")
+                },
+                Controls.IconButton {
+                    name: "google-play-brands"
+                    visible: !Helpers.isAndroid
+                    tooltip: "Google Play"
                 },
                 Controls.IconButton {
                     name: "twitter-brands"
@@ -576,7 +595,7 @@ We would be very pleased to hear about your experience with this application")
         Controls.MenuItem {
             text: qsTr("Credits")
             detailsComponent: Controls.Details {
-                text: qsTr("Developed with love by Johan Remilien and published by Denver.")
+                text: qsTr("\nDeveloped with love by Johan Remilien and published by Denver.")
             }
             extras: [
                 Button {
@@ -584,8 +603,16 @@ We would be very pleased to hear about your experience with this application")
                     onClicked: openUrl("https://www.qt.io")
                 },
                 Button {
+                    text: qsTr("Released with Fastlane")
+                    onClicked: openUrl("https://fastlane.tools")
+                },
+                Button {
                     text: qsTr("Icons from FontAwesome")
                     onClicked: openUrl("https://fontawesome.com")
+                },
+                Button {
+                    text: qsTr("Localization with Crowdin")
+                    onClicked: openUrl("https://crowdin.com")
                 }
             ]
         }

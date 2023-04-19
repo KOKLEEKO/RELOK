@@ -10,16 +10,18 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 ColumnLayout {
-    property string text
-    property alias title: title
-    property alias menuItems: menuItems
     property Component detailsComponent: null
-    property bool show_detailsComponent: false
     property var details: null
-    default property alias contentItem: menuItems.children
+    property string text
     property url icon
-    property bool is_collapsed: is_collapsable
+    default property alias contentItem: menuItems.children
+    property alias menuItems: menuItems
+    property alias title: title
     property bool is_collapsable: true
+    property bool is_collapsed: is_collapsable
+    property bool is_tipMe: false
+    property bool show_detailsComponent: false
+
     spacing: 20
     Title {
         id: title
