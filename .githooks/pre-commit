@@ -1,4 +1,4 @@
 #!/bin/sh
 
-lupdate *.pro -ts translations/strings.ts
+lupdate *.pro -source-language en_US -ts translations/strings.ts -no-obsolete
 git add translations/strings.ts

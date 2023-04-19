@@ -160,6 +160,7 @@ void DeviceAccess::updateSafeAreaInsets() {
             m_statusBarHeight = [[[UIApplication sharedApplication] keyWindow] windowScene].statusBarManager.statusBarFrame.size.height;
         else
             m_statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        qCDebug(lc) << "statusBarHeight:" << m_statusBarHeight;
         emit safeInsetsChanged();
         if (shouldNotifyViewConfigurationChanged)
             emit viewConfigurationChanged();

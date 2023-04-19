@@ -300,7 +300,7 @@ ApplicationWindow {
         topPadding: isFullScreen ? Math.max(20, DeviceAccess.safeInsetTop) : 20
         background: Item {
             clip: true
-            opacity: isLandScape ? 1 : .95
+            opacity: isLandScape ? 1 : .925
             Rectangle {
                 anchors { fill: parent; rightMargin: -radius }
                 radius: Math.min(parent.height, parent.width)*.011
@@ -348,14 +348,14 @@ ApplicationWindow {
             horizontalAlignment: Label.Center
             width: parent.width
             wrapMode: Text.WordWrap
-            text: "%1\n\n%2".arg(failedProductErrorSrting).arg(qsTr("Do you want to try again?"))
+            text: "%1.\n\n%2".arg(failedProductErrorSrting).arg(qsTr("Do you want to try again?"))
         }
         standardButtons: Dialog.No | Dialog.Yes
         onAccepted: failedProduct.purchase()
         onRejected: store.purchasing = false
     }
     Dialog {
-        id: howtoPopup
+        id: welcomePopup
         anchors.centerIn: parent
         background.opacity: .95
         clip: true
@@ -363,16 +363,16 @@ ApplicationWindow {
         title: qsTr("Welcome to WordClock++")
         z: 1
         ColumnLayout {
-            anchors { fill: parent; margins: howtoPopup.margins }  // @disable-check M16  @disable-check M31
+            anchors { fill: parent; margins: welcomePopup.margins }  // @disable-check M16  @disable-check M31
             Label {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 fontSizeMode: Label.Fit
                 minimumPixelSize: 1
                 wrapMode: Text.WordWrap
-                text: "\%1.\n\n%2.".arg(qsTr("Thank you for downloading this application, we wish you a pleasant use"))
-                .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this window to close it and open the settings menu.")
-                : qsTr("Please right-click outside this window to close it and open the settings menu."))
+                text: "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use."))
+                .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this pop-up window to close it and open the settings menu.")
+                : qsTr("Please right-click outside this pop-up window to close it and open the settings menu."))
             }
             CheckBox {
                 id: hidePopupCheckbox
@@ -380,7 +380,7 @@ ApplicationWindow {
                 text: qsTr("Don't show this again")
             }
         }
-        Connections { target: settingPanel; function onOpened() { howtoPopup.close() } }
+        Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
         onClosed: root.showWelcome = !hidePopupCheckbox.checked
         closePolicy: Dialog.NoAutoClose
         Component.onCompleted: {
@@ -401,13 +401,13 @@ ApplicationWindow {
             width: parent.width
             wrapMode: Text.WordWrap
             text: qsTr("\
-We are sorry to learn that you are not satisfied with this application.\
-\nBut thanks to you, we will be able to improve it even more.\
-\nSend us your suggestions and we will take it into account.")
+We are sorry to find out that you are not completely satisfied with this application...\
+But with your feedback, we can make it even better!\
+Your suggestions will be taken into account.")
         }
         onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1".arg(
                                              qsTr("Suggestions for WordClock")))
         standardButtons: Dialog.Close | Dialog.Ok
     }
-    Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
+    Loader {active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
 }
