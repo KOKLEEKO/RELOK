@@ -183,7 +183,7 @@ If this option is enabled, the device's screen will remain active while the appl
     Controls.MenuSection {
         text: qsTr("Appearance")
         Controls.MenuItem {
-            text: qsTr("Application Language")
+            text: qsTr("Language")
             detailsComponent: ComboBox {
                 //palette.dark: systemPalette.text
                 //palette.text: systemPalette.text
@@ -335,12 +335,13 @@ allowing you to distinguish these different states.") }
             }
         }
         Controls.MenuItem {
-            text: qsTr("Display welcome popup at startup")
+            text: qsTr("Welcome popup")
             visible: !Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
             Switch {
                 checked: root.showWelcome
                 onCheckedChanged: DeviceAccess.setSettingsValue("Welcome/showPopup", checked)
             }
+            detailsComponent: Controls.Details { text: qsTr("Display at startup") }
         }
     }
     Controls.MenuSection {

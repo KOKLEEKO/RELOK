@@ -9,8 +9,15 @@ Drawer {
     id: popup
     property alias webView: webView
     edge: Qt.RightEdge
-    width: parent.width
+    y: root.isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+    width: root.isLandScape ? Math.max(parent.width*.65, 300) : parent.width
     height: parent.height
+            - (isFullScreen ? 0
+                            : (Math.max(DeviceAccess.statusBarHeight,
+                                        DeviceAccess.safeInsetTop)
+                               + (Helpers.isIos ? 0
+                                                : Math.max(DeviceAccess.navigationBarHeight,
+                                                           DeviceAccess.safeInsetBottom))))
     interactive: opened
     ColumnLayout {
         anchors.fill: parent  // @disable-check M16 @disable-check M31
