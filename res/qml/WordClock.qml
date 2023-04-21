@@ -163,7 +163,7 @@ Rectangle {
 
     color: background_color
     Component.onCompleted: {
-        selected_language = DeviceAccess.settingsValue("Appearance/language", "")
+        selected_language = DeviceAccess.settingsValue("Appearance/clockLanguage", "")
         language_urlChanged.connect(
                     () => { if (time) {
                             previous_hours_array_index = -1

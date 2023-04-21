@@ -37,15 +37,14 @@ Controls.Menu {
         is_tipMe: true
         title.heading: headings.h3
         title.horizontalAlignment: Label.AlignHCenter
-        title.text: "%1 %2 %3".arg(is_collapsed ? "☞" : "❤️")
-        .arg(qsTr("Tip me")).arg(is_collapsed ? "☜" : "❤️")
+        title.text: (is_collapsed ? "☞" : "♥").concat(" ", qsTr("Tip me")).concat(" ", is_collapsed ? "☜":"♥")
         Layout.alignment: Qt.AlignBottom
         menuItems.flow: GridLayout.LeftToRight
 
         Controls.IconButton {
             name: "bone-solid"
             enabled: !store.purchasing && productTipBone.status === Product.Registered
-            visible: Helpers.isMobile
+            visible: Helpers.isPurchasing
             tooltip: qsTr("Bone (for Denver)")
             onClicked: {
                 store.purchasing = true
@@ -54,10 +53,10 @@ Controls.Menu {
         }
         Controls.IconButton {
             name: "mug-saucer-solid"
-            enabled: !Helpers.isMobile || (!store.purchasing && productTipCoffee.status === Product.Registered)
-            tooltip: Helpers.isMobile ? qsTr("Latte") : "Ko-fi"
+            enabled: !Helpers.isPurchasing || (!store.purchasing && productTipCoffee.status === Product.Registered)
+            tooltip: Helpers.isPurchasing ? qsTr("Latte") : "Ko-fi"
             onClicked: {
-                if (Helpers.isMobile) {
+                if (Helpers.isPurchasing) {
                     store.purchasing = true
                     productTipCoffee.purchase()
                 } else {
@@ -68,7 +67,7 @@ Controls.Menu {
         Controls.IconButton {
             name: "cookie-solid"
             enabled: !store.purchasing && productTipCookie.status === Product.Registered
-            visible: Helpers.isMobile
+            visible: Helpers.isPurchasing
             tooltip: qsTr("Cookie")
             onClicked: {
                 store.purchasing = true
@@ -78,7 +77,7 @@ Controls.Menu {
         Controls.IconButton {
             name: "ice-cream-solid"
             enabled: !store.purchasing && productTipIceCream.status === Product.Registered
-            visible: Helpers.isMobile
+            visible: Helpers.isPurchasing
             tooltip: qsTr("Ice Cream")
             onClicked: {
                 store.purchasing = true
@@ -88,7 +87,7 @@ Controls.Menu {
         Controls.IconButton {
             name: "beer-mug-empty-solid"
             enabled: !store.purchasing && productTipBeer.status === Product.Registered
-            visible: Helpers.isMobile
+            visible: Helpers.isPurchasing
             tooltip: qsTr("Beer")
             onClicked: {
                 store.purchasing = true
@@ -98,7 +97,7 @@ Controls.Menu {
         Controls.IconButton {
             name: "burger-solid"
             enabled: !store.purchasing && productTipBurger.status === Product.Registered
-            visible: Helpers.isMobile
+            visible: Helpers.isPurchasing
             tooltip: qsTr("Burger")
             onClicked: {
                 store.purchasing = true
@@ -108,14 +107,14 @@ Controls.Menu {
         Controls.IconButton {
             name: "wine-bottle-solid"
             enabled: !store.purchasing && productTipWine.status === Product.Registered
-            visible: Helpers.isMobile
+            visible: Helpers.isPurchasing
             tooltip: qsTr("Wine Bottle")
             onClicked: {
                 store.purchasing = true
                 productTipWine.purchase()
             }
         }
-        show_detailsComponent: Helpers.isMobile
+        show_detailsComponent: Helpers.isPurchasing
         detailsComponent: Controls.Details {
             horizontalAlignment: Label.Center
             font.bold: true
@@ -169,9 +168,8 @@ If this option is enabled, the device's screen will remain active while the appl
                 value: DeviceAccess.brightness
                 onMoved: DeviceAccess.brightnessRequested = value/100
                 Component.onCompleted: {
-                    if (Helpers.isAndroid) {
+                    if (Helpers.isAndroid)
                         DeviceAccess.requestBrightnessUpdate();
-                    }
                 }
             }
             detailsComponent: Controls.Details {
@@ -261,7 +259,7 @@ If this option is enabled, the device's screen will remain active while the appl
                 onActivated: (index) => {
                                  const language = Object.keys(wordClock.languages)[index]
                                  wordClock.selectLanguage(language)
-                                 DeviceAccess.setSettingsValue("Appearance/language", language)
+                                 DeviceAccess.setSettingsValue("Appearance/clockLanguage", language)
                              }
             }
         }
@@ -297,24 +295,16 @@ If this option is enabled, the device's screen will remain active while the appl
                 //palette.text: systemPalette.text
                 function setSpeechVoice(index) {
                     DeviceAccess.setSpeechVoice(index)
-                    if (wordClock.enable_speech) {
+                    if (wordClock.enable_speech)
                         DeviceAccess.say(wordClock.written_time)
-                    }
                     DeviceAccess.setSettingsValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
                 }
-
                 model: Helpers.isAndroid ? [] : DeviceAccess.speechAvailableVoices[wordClock.selected_language]
                 onModelChanged: {
                     currentIndex = DeviceAccess.settingsValue("Appearance/%1_voice".arg(wordClock.selected_language), 0)
                     DeviceAccess.setSpeechVoice(currentIndex)
                 }
-                onActivated: (index) => {
-                                 DeviceAccess.setSpeechVoice(index)
-                                 if (wordClock.enable_speech) {
-                                     DeviceAccess.say(wordClock.written_time)
-                                 }
-                                 DeviceAccess.setSettingsValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
-                             }
+                onActivated: (index) => setSpeechVoice(index)
             }
         }
         Controls.MenuItem {
