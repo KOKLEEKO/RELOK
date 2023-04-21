@@ -28,64 +28,64 @@ class DeviceAccess : public QObject {
 
     // About
     Q_PROPERTY(bool isBugTracking
-               READ isBugTracking
-               WRITE setIsBugTracking
-               NOTIFY isBugTrackingChanged)
+                   READ isBugTracking
+                       WRITE setIsBugTracking
+                           NOTIFY isBugTrackingChanged)
     // Appearance
     Q_PROPERTY(float safeInsetBottom
-               MEMBER m_safeInsetBottom
-               NOTIFY safeInsetsChanged)
+                   MEMBER m_safeInsetBottom
+                       NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetLeft
-               MEMBER m_safeInsetLeft
-               NOTIFY safeInsetsChanged)
+                   MEMBER m_safeInsetLeft
+                       NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetRight
-               MEMBER m_safeInsetRight
-               NOTIFY safeInsetsChanged)
+                   MEMBER m_safeInsetRight
+                       NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetTop
-               MEMBER m_safeInsetTop
-               NOTIFY safeInsetsChanged)
+                   MEMBER m_safeInsetTop
+                       NOTIFY safeInsetsChanged)
     Q_PROPERTY(float statusBarHeight
-               MEMBER m_statusBarHeight
-               NOTIFY safeInsetsChanged)
+                   MEMBER m_statusBarHeight
+                       NOTIFY safeInsetsChanged)
     Q_PROPERTY(float navigationBarHeight
-               MEMBER m_navigationBarHeight
-               NOTIFY safeInsetsChanged)
+                   MEMBER m_navigationBarHeight
+                       NOTIFY safeInsetsChanged)
     Q_PROPERTY(bool prefersStatusBarHidden
-               READ prefersStatusBarHidden
-               NOTIFY prefersStatusBarHiddenChanged)
+                   READ prefersStatusBarHidden
+                       NOTIFY prefersStatusBarHiddenChanged)
     Q_PROPERTY(QVariantMap availableLocales
-               MEMBER m_availableLocales
-               CONSTANT)
+                   MEMBER m_availableLocales
+                       CONSTANT)
     Q_PROPERTY(QVariantMap speechAvailableLocales
-               MEMBER m_speechAvailableLocales
-               NOTIFY speechAvailableLocalesChanged)
+                   MEMBER m_speechAvailableLocales
+                       NOTIFY speechAvailableLocalesChanged)
     Q_PROPERTY(QVariantMap speechAvailableVoices
-               MEMBER m_speechAvailableVoices
-               NOTIFY speechAvailableVoicesChanged)
+                   MEMBER m_speechAvailableVoices
+                       NOTIFY speechAvailableVoicesChanged)
     Q_PROPERTY(QStringList supportedLanguages
-               MEMBER m_supportedLanguages
-               CONSTANT)
+                   MEMBER m_supportedLanguages
+                       CONSTANT)
     // BatterySaving
     Q_PROPERTY(float brightness
-               READ brightness
-               NOTIFY brightnessChanged)
+                   READ brightness
+                       NOTIFY brightnessChanged)
     Q_PROPERTY(float brightnessRequested
-               WRITE setBrightnessRequested
-               MEMBER m_brightnessRequested)
+                   WRITE setBrightnessRequested
+                       MEMBER m_brightnessRequested)
     Q_PROPERTY(int minimumBatteryLevel
-               READ minimumBatteryLevel
-               WRITE setMinimumBatteryLevel
-               NOTIFY minimumBatteryLevelChanged)
+                   READ minimumBatteryLevel
+                       WRITE setMinimumBatteryLevel
+                           NOTIFY minimumBatteryLevelChanged)
     Q_PROPERTY(int batteryLevel
-               READ batteryLevel
-               NOTIFY batteryLevelChanged)
+                   READ batteryLevel
+                       NOTIFY batteryLevelChanged)
     Q_PROPERTY(bool isAutoLockRequested
-               READ isAutoLockRequested
-               WRITE requestAutoLock
-               NOTIFY isAutoLockRequestedChanged)
+                   READ isAutoLockRequested
+                       WRITE requestAutoLock
+                           NOTIFY isAutoLockRequestedChanged)
     Q_PROPERTY(bool isAutoLockDisabled
-               READ isAutoLockDisabled
-               NOTIFY isAutoLockDisabledChanged)
+                   READ isAutoLockDisabled
+                       NOTIFY isAutoLockDisabledChanged)
 
 public:
     static DeviceAccess& instance() {
@@ -113,7 +113,7 @@ public:
         qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
                     << m_batteryLevel << m_minimumBatteryLevel;
         bool disable = !m_isAutoLockRequested &&
-                (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
+                       (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
         disableAutoLock(disable);
     }
     int minimumBatteryLevel() const { return m_minimumBatteryLevel; }
@@ -182,10 +182,13 @@ public:
             for (const auto &voice : availableVoices)
                 voicesNames << voice.name().split(" ")[0];
             m_speechAvailableVoices.insert(iso, voicesNames);
-            int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(" ")[0]);
-            if (iso == "fr_FR" && m_speechAvailableVoices[iso].toStringList().size() > 9)
-                defaultIndex = 9;
-            setSettingsValue(QString("Appearance/%1_voice").arg(iso), defaultIndex == -1 ? 0 : defaultIndex);
+            const QString settingName = QString("Appearance/%1_voice").arg(iso);
+            if (m_settings.value(settingName, -1).toInt() == -1) {
+                int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(" ")[0]);
+                if (iso == "fr_FR" && m_speechAvailableVoices[iso].toStringList().size() > 9)
+                    defaultIndex = 9;
+                m_settings.setValue(QString("Appearance/%1_voice").arg(iso), defaultIndex == -1 ? 0 : defaultIndex);
+            }
             emit speechAvailableVoicesChanged();
         }
 #endif
@@ -206,8 +209,8 @@ public:
                 }
 #endif
                 const QString name = QString("%1 (%2)")
-                        .arg(QLocale::languageToString(locale.language()),
-                             QLocale::countryToString(locale.country()));
+                                         .arg(QLocale::languageToString(locale.language()),
+                                              QLocale::countryToString(locale.country()));
                 m_speechAvailableLocales.insert(iso, QT_TR_NOOP(name));
             }
         }
