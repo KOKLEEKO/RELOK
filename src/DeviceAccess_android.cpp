@@ -18,8 +18,7 @@ void DeviceAccess::security(bool value) {
 }
 
 void DeviceAccess::requestReview() {
-    QAndroidJniObject::callStaticMethod<void>(
-                "io/kokleeko/wordclock/DeviceAccess", "requestReview", "()V");
+    QtAndroid::androidActivity().callMethod<void>("requestReview");
 }
 
 void DeviceAccess::disableAutoLock(bool disable) {
