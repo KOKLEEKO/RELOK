@@ -108,6 +108,8 @@ Rectangle {
     property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
     property Language language
     //onLanguageChanged: Helpers.missingLetters(language.table)
+    property date date
+    property int deltaTime: 0
     property string written_time
     property string time
     property bool is_AM
@@ -218,14 +220,14 @@ Rectangle {
         triggeredOnStart: true
         onTriggered: {
             if (is_debug) {
-                time = new Date(time_reference_ms +
-                                (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
-                                fake_counter*minute_to_ms)
-                .toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
+                date = new Date(time_reference_ms +
+                               (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
+                               fake_counter*minute_to_ms)
                 fake_counter++;
             } else {
-                time = new Date().toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
+                date = new Date(Date.now() - deltaTime*minute_to_ms)
             }
+            time = date.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
         }
     }
 

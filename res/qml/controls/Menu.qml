@@ -28,10 +28,8 @@ ColumnLayout {
             mouseArea.enabled: true
             mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
         }
-        Button {
-            text: "✖"
-            font.pointSize: headings.h3
-            background: null
+        IconButton {
+            name: "close"
             onClicked: settingPanel.close()
         }
     }

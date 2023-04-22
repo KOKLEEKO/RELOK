@@ -27,16 +27,16 @@ Drawer {
             RowLayout {
                 anchors.fill: parent  // @disable-check M16 @disable-check M31
                 ToolButton {
-                    icon.source: "qrc:/assets/circle-xmark-solid.svg"
+                    icon.source: "qrc:/assets/close.svg"
                     onClicked: popup.close()
                 }
                 ToolSeparator { }
                 ToolButton {
-                    icon.source: "qrc:/assets/arrow-left-solid.svg"
+                    icon.source: "qrc:/assets/back.svg"
                     onClicked: webView.openUrl(webView.base_url, true)
                 }
                 ToolButton {
-                    icon.source: "qrc:/assets/arrow-rotate-right-solid.svg"
+                    icon.source: "qrc:/assets/refresh.svg"
                     onClicked: webView.reload()
                 }
                 Label {
@@ -48,7 +48,7 @@ Drawer {
                     font.bold: true
                 }
                 ToolButton {
-                    icon.source: "qrc:/assets/share-from-square-solid.svg"
+                    icon.source: "qrc:/assets/browser.svg"
                     onClicked: Qt.openUrlExternally(webView.base_url)
                 }
             }
