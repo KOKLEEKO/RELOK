@@ -83,6 +83,4 @@ public class DeviceAccess {
         intent.setData(Uri.parse("package:" + context.getPackageName()));
         context.startActivity(intent);
     }
-
-    public static void requestReview() {}
 }

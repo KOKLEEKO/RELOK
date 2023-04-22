@@ -3,15 +3,18 @@ package io.kokleeko.wordclock;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.RectF;
-import android.media.AudioManager;
 import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.DisplayCutout;
 import android.view.Window;
 import android.view.WindowManager;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
 import org.qtproject.qt5.android.bindings.QtActivity;
 
 public class MyActivity extends QtActivity
@@ -19,12 +22,14 @@ public class MyActivity extends QtActivity
     private static final String TAG = "MyActivity";
     private static AudioManager audioManager;
     private static AudioFocusRequest audioFocusRequest;
+    private static ReviewManager reviewManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setCustomStatusAndNavBar();
       initAudioManager();
+      reviewManager = ReviewManagerFactory.create(this);
     }
 
     void setCustomStatusAndNavBar() {
@@ -98,5 +103,9 @@ public class MyActivity extends QtActivity
         }
         Log.i(TAG, "navigationBarHeight: " + result);
         return result;
+    }
+
+    public void requestReview() {
+        reviewManager.requestReviewFlow();
     }
 }

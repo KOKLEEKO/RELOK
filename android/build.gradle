@@ -19,6 +19,7 @@ apply plugin: 'com.android.application'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation "com.android.billingclient:billing:5.2.0"
+    implementation "com.google.android.play:review:2.0.1"
 }
 
 android {
