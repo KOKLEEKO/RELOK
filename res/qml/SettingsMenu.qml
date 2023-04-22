@@ -186,11 +186,11 @@ If this option is enabled, the device's screen will remain active while the appl
             }
         }
     }
-
     Controls.MenuSection {
         text: qsTr("Appearance")
         Controls.MenuItem {
             text: qsTr("Language")
+            visible: false
             detailsComponent: ComboBox {
                 //palette.dark: systemPalette.text
                 //palette.text: systemPalette.text
@@ -212,71 +212,6 @@ If this option is enabled, the device's screen will remain active while the appl
             }
         }
         Controls.MenuItem {
-            text: qsTr("Display as widget")
-            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
-            Switch {
-                checked: root.isWidget
-                onToggled: Helpers.updateDisplayMode(root)
-                Component.onCompleted: {
-                    if (root.isWidget !== DeviceAccess.settingsValue("Appearance/widget", false))
-                        toggled()
-                }
-            }
-        }
-        Controls.MenuItem {
-            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
-            enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
-            text: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control.value))
-            Slider {
-                from: 10
-                to: 100
-                value: DeviceAccess.settingsValue("Appearance/opacity", 1) * 100
-                onMoved: {
-                    root.opacity = value/100
-                    DeviceAccess.setSettingsValue("Appearance/opacity", root.opacity)
-                }
-            }
-        }
-        Controls.MenuItem {
-            text: qsTr("Display as watermark")
-            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
-            Button {
-                text: "Activate"
-                onClicked: {
-                    root.visibility = Window.Maximized
-                    root.opacity = Math.min(root.opacity, .85)
-                    root.flags = (Qt.WindowStaysOnTopHint |
-                                  Qt.WindowTransparentForInput |
-                                  Qt.FramelessWindowHint)
-                    settingPanel.close()
-                }
-            }
-        }
-        Controls.MenuItem {
-            function halfHoursOffsetToUTC(value) {
-                return String("%1%2:%3").arg(Math.sign(value) < 0 ? "-" : "+")
-                .arg(("0" + Math.abs(Math.trunc(value/2))).slice(-2))
-                .arg(value%2 ? "30" : "00")
-            }
-
-            readonly property int halfHoursDeviceOffset: Math.floor(-wordClock.date.getTimezoneOffset() / 30)
-            readonly property string deviceUTC: halfHoursOffsetToUTC(halfHoursDeviceOffset)
-            text: qsTr("Time Zone [UTC%1]").arg(details.utc)
-            Button {
-                text: qsTr("Reset")
-                enabled: parent.parent.details.value !== parent.parent.halfHoursDeviceOffset
-                onClicked: parent.parent.details.value = parent.parent.halfHoursDeviceOffset
-            }
-            detailsComponent: Slider {
-                value: parent.parent.halfHoursDeviceOffset
-                readonly property string utc: parent.parent.halfHoursOffsetToUTC(value)
-                from: -24
-                to: 28
-                stepSize: 1
-                onValueChanged: wordClock.deltaTime = (parent.parent.halfHoursDeviceOffset - value) * 30
-            }
-        }
-        Controls.MenuItem {
             text: qsTr("Clock Language")
             Button {
                 text: qsTr("Reset")
@@ -291,7 +226,7 @@ If this option is enabled, the device's screen will remain active while the appl
                 model: Object.values(wordClock.languages)
                 onModelChanged: {
                     if (Helpers.isAndroid)
-                        currentIndex = Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
+                        currentIndex = Qt.binding(() => Object.keys(wordClock.languages).indexOf(wordClock.selected_language))
                 }
                 onActivated: (index) => {
                                  const language = Object.keys(wordClock.languages)[index]
@@ -361,6 +296,9 @@ allowing you to distinguish these different states.") }
                 }
             }
         }
+    }
+    Controls.MenuSection {
+        text: qsTr("Advanced")
         Controls.MenuItem {
             text: qsTr("Welcome popup")
             visible: !Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
@@ -369,6 +307,78 @@ allowing you to distinguish these different states.") }
                 onCheckedChanged: DeviceAccess.setSettingsValue("Welcome/showPopup", checked)
             }
             detailsComponent: Controls.Details { text: qsTr("Display at startup.") }
+        }
+        Controls.MenuItem {
+            text: qsTr("Display as widget")
+            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+            Switch {
+                checked: root.isWidget
+                onToggled: Helpers.updateDisplayMode(root)
+                Component.onCompleted: {
+                    if (root.isWidget !== DeviceAccess.settingsValue("Appearance/widget", false))
+                        toggled()
+                }
+            }
+        }
+        Controls.MenuItem {
+            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+            enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
+            text: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control.value))
+            Slider {
+                from: 10
+                to: 100
+                value: DeviceAccess.settingsValue("Appearance/opacity", 1) * 100
+                onMoved: {
+                    root.opacity = value/100
+                    DeviceAccess.setSettingsValue("Appearance/opacity", root.opacity)
+                }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Display as watermark")
+            visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+            Button {
+                text: "Activate"
+                onClicked: {
+                    root.visibility = Window.Maximized
+                    root.opacity = Math.min(root.opacity, .85)
+                    root.flags = (Qt.WindowStaysOnTopHint |
+                                  Qt.WindowTransparentForInput |
+                                  Qt.FramelessWindowHint)
+                    settingPanel.close()
+                }
+            }
+        }
+        Controls.MenuItem {
+            function halfHoursOffsetToUTC(value) {
+                return String("%1%2:%3").arg(Math.sign(value) < 0 ? "-" : "+")
+                /**/                    .arg(("0" + Math.abs(Math.trunc(value/2))).slice(-2))
+                /**/                    .arg(value%2 ? "30" : "00")
+            }
+
+            readonly property int halfHoursDeviceOffset: Math.floor(-wordClock.date.getTimezoneOffset() / 30)
+            readonly property string deviceUTC: halfHoursOffsetToUTC(halfHoursDeviceOffset)
+            text: qsTr("Time Zone (UTC%1)").arg(details.utc)
+            Button {
+                text: qsTr("Reset")
+                enabled: parent.parent.details.value !== parent.parent.halfHoursDeviceOffset
+                onClicked: { parent.parent.details.value = parent.parent.halfHoursDeviceOffset; parent.parent.details.update() }
+            }
+            detailsComponent: Slider {
+                function update() {
+                    wordClock.deltaTime = (parent.parent.halfHoursDeviceOffset - value) * 30
+                }
+
+                value: parent.parent.halfHoursDeviceOffset
+                readonly property string utc: parent.parent.halfHoursOffsetToUTC(value)
+                from: -24
+                to: 28
+                stepSize: 1
+                onPressedChanged: if (!pressed) update()
+            }
+            //            detailsComponent: Controls.Details { text: qsTr("\
+            //This setting is not persistent, the time zone of the device is used each time the application is launched.\
+            //") }
         }
     }
     Controls.MenuSection {
@@ -380,9 +390,10 @@ allowing you to distinguish these different states.") }
             activatedLetterColorPicker.extraControls[3].setColor(alc)
             deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
         }
-        visible: Helpers.isDesktop || Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
-        text: qsTr("Advanced")
+        text: qsTr("Colors")
+        visible: Helpers.isDesktop || Helpers.isWebAssembly
         Component.onCompleted: wordClock.applyColors.connect(applyColors)
+
         Controls.MenuItem {
             id: backgroundColorPicker
             property color selected_color: extraControls[0].selected_color
@@ -514,7 +525,6 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             }
         }
     }
-
     Controls.MenuSection {
         text: qsTr("About")
         Controls.MenuItem {
@@ -647,18 +657,22 @@ you encounter them. But you can disable this feature to enter submarine mode.")
             extras: [
                 Button {
                     text: qsTr("Built with %1").arg("Qt")
+                    Layout.fillWidth: true
                     onClicked: openUrl("https://www.qt.io")
                 },
                 Button {
                     text: qsTr("Released with %1").arg("Fastlane")
+                    Layout.fillWidth: true
                     onClicked: openUrl("https://fastlane.tools")
                 },
                 Button {
                     text: qsTr("Icons from %1").arg("SVG Repo")
+                    Layout.fillWidth: true
                     onClicked: openUrl("https://www.svgrepo.com")
                 },
                 Button {
                     text: qsTr("Localization with %1").arg("Crowdin")
+                    Layout.fillWidth: true
                     onClicked: openUrl("https://crowdin.com")
                 }
             ]

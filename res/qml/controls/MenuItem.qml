@@ -31,6 +31,7 @@ GridLayout {
         horizontalAlignment: Title.AlignLeft
         heading: headings.h3
     }
+
     Component {
         id: extrasGrid
         GridLayout {

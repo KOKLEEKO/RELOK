@@ -31,7 +31,7 @@ ApplicationWindow {
 
     //Tips
     property var failedProduct: null
-    property string failedProductErrorSrting: ""
+    property string failedProductErrorString: ""
 
     property alias store: store
     property alias productTipBone: productTipBone
@@ -99,7 +99,7 @@ ApplicationWindow {
             if (transaction) {
                 transaction.finalize()
                 failedProduct = product
-                failedProductErrorSrting = transaction.errorString
+                failedProductErrorString = transaction.errorString
                 failTransactionPopup.open()
             } else
                 purchasing = false
@@ -107,7 +107,7 @@ ApplicationWindow {
         onPurchasingChanged: {
             if (!purchasing) {
                 failedProduct = null
-                failedProductErrorSrting = ""
+                failedProductErrorString = ""
             }
         }
 
@@ -310,7 +310,7 @@ ApplicationWindow {
         SettingsMenu { }
         BusyIndicator {
             anchors.centerIn: parent
-            running: store.purchasing
+            running: store.purchasing && !failTransactionPopup.opened
         }
     }
     Popup {
@@ -348,7 +348,9 @@ ApplicationWindow {
             horizontalAlignment: Label.Center
             width: parent.width
             wrapMode: Text.WordWrap
-            text: "%1.\n\n%2".arg(failedProductErrorSrting).arg(qsTr("Do you want to try again?"))
+            text: ("%1.\n\n%2".arg(failedProductErrorString ? failedProductErrorString
+                                                            : qsTr("Something went wrong..")))
+            /**/              .arg(qsTr("Do you want to try again?"))
         }
         standardButtons: Dialog.No | Dialog.Yes
         onAccepted: failedProduct.purchase()
