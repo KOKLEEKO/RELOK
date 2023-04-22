@@ -24,10 +24,10 @@ Controls.Menu {
 
     function greetings() {
         if (wordClock.is_AM)
-            return QT_TR_NOOP("Good morning")
+            return QT_TR_NOOP("Good Morning!")
         else if (parseInt(wordClock.hours_value) < 18) // 6:00 PM
-            return QT_TR_NOOP("Good afternoon")
-        return QT_TR_NOOP("Good evening")
+            return QT_TR_NOOP("Good Afternoon!")
+        return QT_TR_NOOP("Good Evening!")
     }
 
     anchors.fill: parent  // @disable-check M16  @disable-check M31
@@ -42,7 +42,15 @@ Controls.Menu {
         menuItems.flow: GridLayout.LeftToRight
 
         Controls.IconButton {
-            name: "bone-solid"
+            name: "ko-fi"
+            enabled: !store.purchasing && productTipCoffee.status === Product.Registered
+            visible: !Helpers.isPurchasing
+            tooltip: "Ko-fi"
+            onClicked: openUrl("https://ko-fi.com/johanremilien")
+        }
+
+        Controls.IconButton {
+            name: "tip-bone"
             enabled: !store.purchasing && productTipBone.status === Product.Registered
             visible: Helpers.isPurchasing
             tooltip: qsTr("Bone (for Denver)")
@@ -52,20 +60,19 @@ Controls.Menu {
             }
         }
         Controls.IconButton {
-            name: "mug-saucer-solid"
-            enabled: !Helpers.isPurchasing || (!store.purchasing && productTipCoffee.status === Product.Registered)
-            tooltip: Helpers.isPurchasing ? qsTr("Latte") : "Ko-fi"
+            name: "tip-latte"
+            enabled: !store.purchasing && productTipCoffee.status === Product.Registered
+            visible: Helpers.isPurchasing
+            tooltip: qsTr("Latte")
             onClicked: {
                 if (Helpers.isPurchasing) {
                     store.purchasing = true
                     productTipCoffee.purchase()
-                } else {
-                    openUrl("https://ko-fi.com/johanremilien")
                 }
             }
         }
         Controls.IconButton {
-            name: "cookie-solid"
+            name: "tip-cookie"
             enabled: !store.purchasing && productTipCookie.status === Product.Registered
             visible: Helpers.isPurchasing
             tooltip: qsTr("Cookie")
@@ -75,7 +82,7 @@ Controls.Menu {
             }
         }
         Controls.IconButton {
-            name: "ice-cream-solid"
+            name: "tip-ice-cream"
             enabled: !store.purchasing && productTipIceCream.status === Product.Registered
             visible: Helpers.isPurchasing
             tooltip: qsTr("Ice Cream")
@@ -85,7 +92,7 @@ Controls.Menu {
             }
         }
         Controls.IconButton {
-            name: "beer-mug-empty-solid"
+            name: "tip-beer"
             enabled: !store.purchasing && productTipBeer.status === Product.Registered
             visible: Helpers.isPurchasing
             tooltip: qsTr("Beer")
@@ -95,7 +102,7 @@ Controls.Menu {
             }
         }
         Controls.IconButton {
-            name: "burger-solid"
+            name: "tip-burger"
             enabled: !store.purchasing && productTipBurger.status === Product.Registered
             visible: Helpers.isPurchasing
             tooltip: qsTr("Burger")
@@ -105,7 +112,7 @@ Controls.Menu {
             }
         }
         Controls.IconButton {
-            name: "wine-bottle-solid"
+            name: "tip-wine"
             enabled: !store.purchasing && productTipWine.status === Product.Registered
             visible: Helpers.isPurchasing
             tooltip: qsTr("Wine Bottle")
@@ -148,9 +155,11 @@ If this option is enabled, the device's screen will remain active while the appl
             detailsComponent: Controls.Details {
                 text: qsTr("\
 '%1' feature will be automatically disabled when the battery level will reach this value,\
- unless the device is charging.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%1: %2%)"
-                                                                                .arg(qsTr("current battery level"))
-                                                                                .arg(DeviceAccess.batteryLevel) : "")
+ unless the device is charging.").arg(qsTr("Stay Awake")) +
+                      (Helpers.isMobile ? "\n(%1: %2%)"
+                                          .arg(qsTr("current battery level"))
+                                          .arg(DeviceAccess.batteryLevel)
+                                        : "")
             }
             Slider {
                 from: 20
@@ -199,7 +208,7 @@ If this option is enabled, the device's screen will remain active while the appl
                 }
             }
             detailsComponent: Controls.Details {
-                text: qsTr("This operation can be performed by a long press on the clock")
+                text: qsTr("This can also be done by a long press on the clock, when the settings menu is closed.")
             }
         }
         Controls.MenuItem {
@@ -244,8 +253,36 @@ If this option is enabled, the device's screen will remain active while the appl
             }
         }
         Controls.MenuItem {
+            function halfHoursOffsetToUTC(value) {
+                return String("%1%2:%3").arg(Math.sign(value) < 0 ? "-" : "+")
+                .arg(("0" + Math.abs(Math.trunc(value/2))).slice(-2))
+                .arg(value%2 ? "30" : "00")
+            }
+
+            readonly property int halfHoursDeviceOffset: Math.floor(-wordClock.date.getTimezoneOffset() / 30)
+            readonly property string deviceUTC: halfHoursOffsetToUTC(halfHoursDeviceOffset)
+            text: qsTr("Time Zone [UTC%1]").arg(details.utc)
+            Button {
+                text: qsTr("Reset")
+                enabled: parent.parent.details.value !== parent.parent.halfHoursDeviceOffset
+                onClicked: parent.parent.details.value = parent.parent.halfHoursDeviceOffset
+            }
+            detailsComponent: Slider {
+                value: parent.parent.halfHoursDeviceOffset
+                readonly property string utc: parent.parent.halfHoursOffsetToUTC(value)
+                from: -24
+                to: 28
+                stepSize: 1
+                onValueChanged: wordClock.deltaTime = (parent.parent.halfHoursDeviceOffset - value) * 30
+            }
+        }
+        Controls.MenuItem {
             text: qsTr("Clock Language")
-            Button { text: qsTr("Reset"); onClicked: wordClock.detectAndUseDeviceLanguage() }
+            Button {
+                text: qsTr("Reset")
+                enabled: wordClock.selected_language !== Qt.locale().name
+                onClicked: wordClock.detectAndUseDeviceLanguage()
+            }
             detailsComponent: ComboBox {
                 //palette.dark: systemPalette.text
                 //palette.text: systemPalette.text
@@ -311,7 +348,7 @@ If this option is enabled, the device's screen will remain active while the appl
             text: qsTr("Enable Special Message")
             detailsComponent: Controls.Details { text: qsTr("\
 Each grid contains a special message displayed in place of the hour for one minute at the \
-following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM).
+following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). \
 The minute indicator at the bottom of the panel will display 0, 1, or 2 lights, \
 allowing you to distinguish these different states.") }
             Switch {
@@ -331,7 +368,7 @@ allowing you to distinguish these different states.") }
                 checked: root.showWelcome
                 onCheckedChanged: DeviceAccess.setSettingsValue("Welcome/showPopup", checked)
             }
-            detailsComponent: Controls.Details { text: qsTr("Display at startup") }
+            detailsComponent: Controls.Details { text: qsTr("Display at startup.") }
         }
     }
     Controls.MenuSection {
@@ -351,7 +388,7 @@ allowing you to distinguish these different states.") }
             property color selected_color: extraControls[0].selected_color
             text: qsTr("Background Color")
             detailsComponent: Controls.Details { text: qsTr("\
-The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecimal format ") }
+The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecimal format.") }
             extras: [
                 Controls.ColorPicker {},
                 Controls.ColorFactorPicker {
@@ -486,7 +523,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                 text: qsTr("The source code is available on GitHub under the MIT license.")
             }
             Controls.IconButton {
-                name: "github-brands"
+                name: "github"
                 tooltip: "GitHub"
                 onClicked: openUrl("https://github.com/kokleeko/WordClock")
             }
@@ -497,8 +534,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             detailsComponent: Controls.Details {
                 text: qsTr("\
 We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
-you encounter them. But you can disable this feature to enter submarine mode.\
-            ")
+you encounter them. But you can disable this feature to enter submarine mode.")
             }
             Switch  {
                 checked: DeviceAccess.isBugTracking
@@ -507,7 +543,7 @@ you encounter them. But you can disable this feature to enter submarine mode.\
         }
         Controls.MenuItem {
             text: qsTr("Review")
-            detailsComponent: Controls.Details { text: qsTr("Rate us by clicking on the stars") }
+            detailsComponent: Controls.Details { text: qsTr("Rate us by clicking on the stars.") }
             Row {
                 spacing: 5
                 property int rating: DeviceAccess.settingsValue("About/rating", 0)
@@ -516,7 +552,7 @@ you encounter them. But you can disable this feature to enter submarine mode.\
                     model: 5
                     Button {
                         property bool isSelected: index <= parent.rating
-                        icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "solid" : "regular")
+                        icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "filled" : "empty")
                         //icon.color: systemPalette.windowText
                         display: Button.IconOnly
                         background: null
@@ -533,53 +569,73 @@ you encounter them. But you can disable this feature to enter submarine mode.\
             }
         }
         Controls.MenuItem {
-            text: qsTr("Contact")
-            detailsComponent: Controls.Details {
-                text: qsTr("\
-We would be very pleased to hear about your experience with this application")
-            }
+            text: qsTr("Also available on")
             extras: [
                 Controls.IconButton {
-                    name: "globe-solid"
+                    name: "webassembly"
                     visible: !Helpers.isWebAssembly
-                    tooltip: qsTr("Web Site")
+                    tooltip: qsTr("WebAssembly")
                     onClicked: openUrl("https://wordclock.kokleeko.io")
                 },
                 Controls.IconButton {
-                    name: "app-store-ios-brands"
-                    visible: !Helpers.isIos
+                    name: "app-store"
                     tooltip: "App Store"
                     onClicked: openUrl("https://testflight.apple.com/join/02s6IwG2")
                 },
                 Controls.IconButton {
-                    name: "google-play-brands"
-                    visible: !Helpers.isAndroid
+                    name: "google-play"
                     tooltip: "Google Play"
                 },
                 Controls.IconButton {
-                    name: "twitter-brands"
+                    name: "lg-store"
+                    visible: false
+                    tooltip: "LG Content store"
+                },
+                Controls.IconButton {
+                    name: "ms-store"
+                    visible: false
+                    tooltip: "Microsoft Store"
+                }
+            ]
+            detailsComponent: Controls.Details {
+                text: qsTr("The functionalities can be different depending on the platform used.")
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Contact")
+            detailsComponent: Controls.Details {
+                text: qsTr("We would be happy to receive your feedback.")
+            }
+            extras: [
+                Controls.IconButton {
+                    name: "twitter"
                     tooltip: "Twitter"
                     onClicked: openUrl("https://twitter.com/kokleeko_io")
                 },
                 Controls.IconButton {
-                    name: "instagram-brands"
-                    tooltip: "Instagram"
-                    onClicked: openUrl("https://instagram.com/kokleeko.io")
-                },
-                Controls.IconButton {
-                    name: "youtube-brands"
+                    name: "youtube"
                     tooltip: "YouTube"
                     onClicked: openUrl("https://youtube.com/channel/UCJ0QPsxjk_mxdIQtEZsIA6w")
                 },
                 Controls.IconButton {
-                    name: "linkedin-brands"
+                    name: "linkedin"
                     tooltip: "LinkedIn"
                     onClicked: openUrl("https://www.linkedin.com/in/johanremilien")
                 },
                 Controls.IconButton {
-                    name: "at-solid"
+                    name: "instagram"
+                    tooltip: "Instagram"
+                    onClicked: openUrl("https://instagram.com/kokleeko.io")
+                },
+                Controls.IconButton {
+                    name: "email"
                     tooltip: qsTr("Email")
                     onClicked: Qt.openUrlExternally("mailto:contact@kokleeko.io")
+                },
+                Controls.IconButton {
+                    name: "website"
+                    tooltip: qsTr("Website")
+                    onClicked: openUrl("https://www.kokleeko.io")
                 }
             ]
         }
@@ -590,19 +646,19 @@ We would be very pleased to hear about your experience with this application")
             }
             extras: [
                 Button {
-                    text: qsTr("Built with Qt")
+                    text: qsTr("Built with %1").arg("Qt")
                     onClicked: openUrl("https://www.qt.io")
                 },
                 Button {
-                    text: qsTr("Released with Fastlane")
+                    text: qsTr("Released with %1").arg("Fastlane")
                     onClicked: openUrl("https://fastlane.tools")
                 },
                 Button {
-                    text: qsTr("Icons from FontAwesome")
-                    onClicked: openUrl("https://fontawesome.com")
+                    text: qsTr("Icons from %1").arg("SVG Repo")
+                    onClicked: openUrl("https://www.svgrepo.com")
                 },
                 Button {
-                    text: qsTr("Localization with Crowdin")
+                    text: qsTr("Localization with %1").arg("Crowdin")
                     onClicked: openUrl("https://crowdin.com")
                 }
             ]
