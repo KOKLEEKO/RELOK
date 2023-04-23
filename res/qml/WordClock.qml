@@ -73,6 +73,11 @@ Rectangle {
         onoff_table = tmp_onoff_table
         onoff_dots = tmp_onoff_dots
     }
+    function offsetToGMT(value) {
+        return String("%1%2:%3").arg(Math.sign(value) < 0 ? "-" : "+")
+        /**/                    .arg(("0" + Math.abs(Math.trunc(value/2))).slice(-2))
+        /**/                    .arg(value%2 ? "30" : "00")
+    }
 
     signal applyColors()
 
@@ -84,6 +89,8 @@ Rectangle {
     property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
+    property int minuteIndicatorDisplayMode: 2
+    property int timeZoneDisplayMode: 2
 
     // Internal Settings
     property bool is_color_animation_enabled: true
@@ -91,8 +98,8 @@ Rectangle {
     property var languages: Object.keys(DeviceAccess.speechAvailableLocales).length ? DeviceAccess.speechAvailableLocales
                                                                                     : DeviceAccess.availableLocales
     property url language_url
-    readonly property real table_width: Math.min(height, width)*.9
-    readonly property real cell_width: table_width/columns
+    readonly property real table_width: Math.min(height, width)
+    readonly property real cell_width: table_width/(rows+2)
     readonly property real dot_size: cell_width/4
     readonly property var speech_frequencies: {
         "1" : QT_TR_NOOP("every minute"),
@@ -108,7 +115,10 @@ Rectangle {
     property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
     property Language language
     //onLanguageChanged: Helpers.missingLetters(language.table)
-    property date date
+    property var currentDate
+    property int deviceOffset: 0
+    readonly property string deviceGMT: "GMT+%1".arg(offsetToGMT(deviceOffset))
+    property string selectedGMT: "GMT+00:00"
     property int deltaTime: 0
     property string written_time
     property string time
@@ -180,6 +190,7 @@ Rectangle {
         else
             selectLanguage(selected_language)
     }
+
     Loader { source: language_url; onLoaded: language = item }
     Timer {
         property bool color_transition_finished: false
@@ -214,20 +225,22 @@ Rectangle {
                                                  parseInt(time_reference_list[0])*hour_to_ms +
                                                  parseInt(time_reference_list[1])*minute_to_ms +
                                                  parseInt(time_reference_list[2])*s_to_ms
-        interval: 1000
+        interval: 500
         repeat: true
         running: false
         triggeredOnStart: true
         onTriggered: {
             if (is_debug) {
-                date = new Date(time_reference_ms +
-                               (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
-                               fake_counter*minute_to_ms)
-                fake_counter++;
+                currentDate = new Date(time_reference_ms +
+                                       (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
+                                       fake_counter*minute_to_ms)
+                ++fake_counter
             } else {
-                date = new Date(Date.now() - deltaTime*minute_to_ms)
+                const now = new Date()
+                deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
+                currentDate = new Date(now.getTime() - deltaTime*minute_to_ms)
             }
-            time = date.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
+            time = currentDate.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
         }
     }
 
@@ -237,9 +250,39 @@ Rectangle {
         anchors.centerIn: parent
         width: table_width
         height: width
+        Item {
+            anchors.horizontalCenter: parent.horizontalCenter
+            height: cell_width
+            width: parent.width
+            Loader {
+                active: timeZoneDisplayMode === 0
+                anchors.centerIn: parent
+                sourceComponent: timeZone
+            }
+            Loader {
+                active: minuteIndicatorDisplayMode === 1
+                anchors.centerIn: parent
+                sourceComponent: dots
+            }
+            Loader {
+                active: minuteIndicatorDisplayMode === 0
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                onLoaded: item.index = 0
+                sourceComponent: dot
+            }
+            Loader {
+                active: minuteIndicatorDisplayMode === 0
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                onLoaded: item.index = 1
+                sourceComponent: dot
+            }
+        }
         Repeater {
             model: language ? language.table : []
             Row {
+                anchors.horizontalCenter: parent.horizontalCenter
                 Repeater {
                     id: repeater
                     property int row_index: index
@@ -258,26 +301,150 @@ Rectangle {
                         horizontalAlignment : Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.Fit
-                        minimumPointSize: 8
-                        font { pointSize: 72; kerning: false; preferShaping: false }
+                        minimumPointSize: 5
+                        font { pointSize: 80; kerning: false; preferShaping: false }
                     }
                 }
             }
         }
-        Row {
+        Item {
             anchors.horizontalCenter: parent.horizontalCenter
+            height: cell_width
+            width: parent.width
+            Loader {
+                active: timeZoneDisplayMode === 1
+                anchors.centerIn: parent
+                sourceComponent: timeZone
+            }
+            Loader {
+                active: minuteIndicatorDisplayMode === 2
+                anchors.centerIn: parent
+                sourceComponent: dots
+            }
+            Loader {
+                active: minuteIndicatorDisplayMode === 0
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                onLoaded: item.index = 2
+                sourceComponent: dot
+            }
+            Loader {
+                active: minuteIndicatorDisplayMode === 0
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                onLoaded: item.index = 3
+                sourceComponent: dot
+            }
+        }
+    }
+    Component {
+        id: dots
+        Row {
             spacing: cell_width - dot_size
             topPadding: spacing/2
             visible: ((language))
-            Repeater {
-                model: 4
-                Rectangle {
-                    color: (index+1 <= onoff_dots) ? on_color : off_color
-                    width: dot_size
-                    height: width
-                    radius: width/2
-                }
-            }
+            Repeater { model: 4; delegate: dot }
+        }
+    }
+    Component {
+        id: dot
+        Rectangle {
+            property int index: model.index
+            anchors.verticalCenter: parent ? parent.verticalCenter : undefined
+            color: (index+1 <= onoff_dots) ? on_color : off_color
+            height: width
+            radius: width/2
+            visible: ((language))
+            width: dot_size
+        }
+    }
+    Component {
+        id: date
+        Text {
+            text: currentDate.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
+            height: cell_width*.4
+            color: off_color
+            style: Text.Sunken
+            styleColor: Qt.darker(background_color, 1.1)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            fontSizeMode: Text.Fit
+            minimumPointSize: 2
+            font { pointSize: 32; kerning: false; preferShaping: false }
+        }
+    }
+    Component {
+        id: timeZone
+        Text {
+            text: selectedGMT
+            height: cell_width*.4
+            color: off_color
+            style: Text.Sunken
+            styleColor: Qt.darker(background_color, 1.1)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            fontSizeMode: Text.Fit
+            minimumPointSize: 2
+            font { pointSize: 32; kerning: false; preferShaping: false }
+        }
+    }
+    Component {
+        id: ampm
+        Text {
+            text: is_AM  ? "AM" : "PM"
+            height: cell_width*.4
+            color: on_color
+            style: Text.Outline
+            styleColor: Qt.lighter(on_color, 1.1)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            fontSizeMode: Text.Fit
+            minimumPointSize: 2
+            font { pointSize: 32; kerning: false; preferShaping: false }
+        }
+    }
+    Component {
+        id: seconds
+        Text {
+            text: currentDate.getSeconds()
+            height: cell_width*.4
+            color: on_color
+            style: Text.Outline
+            styleColor: Qt.lighter(on_color, 1.1)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            fontSizeMode: Text.Fit
+            minimumPointSize: 2
+            font { pointSize: 32; kerning: false; preferShaping: false }
+        }
+    }
+    Component {
+        id: weekNumber
+        Text {
+            height: cell_width*.4
+            color: on_color
+            style: Text.Outline
+            styleColor: Qt.lighter(on_color, 1.1)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            fontSizeMode: Text.Fit
+            minimumPointSize: 2
+            font { pointSize: 32; kerning: false; preferShaping: false }
+        }
+    }
+    Component {
+        id: outsideTemperature
+        Text {
+            text: "%1°%2".arg(28).arg(true ? "°C" : "°F")
+            height: cell_width*.4
+            color: on_color
+            style: Text.Outline
+            styleColor: Qt.lighter(on_color, 1.1)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            fontSizeMode: Text.Fit
+            minimumPointSize: 2
+            font { pointSize: 32; kerning: false; preferShaping: false }
         }
     }
 }

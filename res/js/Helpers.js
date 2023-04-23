@@ -137,7 +137,7 @@ function missingLetters(table) {
         for (var column = 0; column < columns; ++column) {
             const letter = table[row][column]
             if (letter === " ") {
-                availableSpot++
+                ++availableSpot
             } else {
                 const index = missingLetters.indexOf(letter);
                 if (index !== -1) {
