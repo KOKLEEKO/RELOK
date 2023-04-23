@@ -319,6 +319,9 @@ allowing you to distinguish these different states.") }
                         toggled()
                 }
             }
+            detailsComponent: Controls.Details {
+                text: qsTr("")
+            }
         }
         Controls.MenuItem {
             visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
@@ -332,6 +335,9 @@ allowing you to distinguish these different states.") }
                     root.opacity = value/100
                     DeviceAccess.setSettingsValue("Appearance/opacity", root.opacity)
                 }
+            }
+            detailsComponent: Controls.Details {
+                text: qsTr("")
             }
         }
         Controls.MenuItem {
@@ -348,37 +354,52 @@ allowing you to distinguish these different states.") }
                     settingPanel.close()
                 }
             }
+            detailsComponent: Controls.Details {
+                text: qsTr("")
+            }
         }
         Controls.MenuItem {
-            function halfHoursOffsetToUTC(value) {
-                return String("%1%2:%3").arg(Math.sign(value) < 0 ? "-" : "+")
-                /**/                    .arg(("0" + Math.abs(Math.trunc(value/2))).slice(-2))
-                /**/                    .arg(value%2 ? "30" : "00")
-            }
-
-            readonly property int halfHoursDeviceOffset: Math.floor(-wordClock.date.getTimezoneOffset() / 30)
-            readonly property string deviceUTC: halfHoursOffsetToUTC(halfHoursDeviceOffset)
-            text: qsTr("Time Zone (UTC%1)").arg(details.utc)
-            Button {
-                text: qsTr("Reset")
-                enabled: parent.parent.details.value !== parent.parent.halfHoursDeviceOffset
-                onClicked: { parent.parent.details.value = parent.parent.halfHoursDeviceOffset; parent.parent.details.update() }
-            }
-            detailsComponent: Slider {
-                function update() {
-                    wordClock.deltaTime = (parent.parent.halfHoursDeviceOffset - value) * 30
+            text: "Minutes indicator display mode"
+            Repeater {
+                model: [ QT_TR_NOOP("Around"), QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
+                onItemAdded: parent.parent.extras.push(item)
+                Button {
+                    text: qsTr(modelData)
+                    enabled: index === 3 || index-1 != wordClock.timeZoneDisplayMode
+                    checked: wordClock.minuteIndicatorDisplayMode === index
+                    onClicked: wordClock.minuteIndicatorDisplayMode = index
                 }
-
-                value: parent.parent.halfHoursDeviceOffset
-                readonly property string utc: parent.parent.halfHoursOffsetToUTC(value)
+            }
+        }
+        Controls.MenuItem {
+            text: "Time zone display mode"
+            Repeater {
+                model: [QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
+                onItemAdded: parent.parent.extras.push(item)
+                Button {
+                    text: qsTr(modelData)
+                    enabled: index === 2 || index+1 != wordClock.minuteIndicatorDisplayMode
+                    checked: wordClock.timeZoneDisplayMode === index
+                    onClicked: wordClock.timeZoneDisplayMode = index
+                }
+            }
+        }
+        Controls.MenuItem {
+            function update() {
+                wordClock.deltaTime = (wordClock.deviceOffset - control.value) * 30
+            }
+            text: qsTr("Selected time zone (%1)").arg(wordClock.selectedGMT)
+            Slider {
+                value: wordClock.deviceOffset
                 from: -24
                 to: 28
                 stepSize: 1
-                onPressedChanged: if (!pressed) update()
+                onPressedChanged: if (!pressed) parent.parent.update()
+                onValueChanged: wordClock.selectedGMT = "GMT%1".arg(wordClock.offsetToGMT(value))
             }
-            //            detailsComponent: Controls.Details { text: qsTr("\
-            //This setting is not persistent, the time zone of the device is used each time the application is launched.\
-            //") }
+            detailsComponent: Controls.Details {
+                text: qsTr("This setting is not persistent, the time zone of the device <b>(%1)\
+</b> is used each time the application is launched".arg(wordClock.deviceGMT)) }
         }
     }
     Controls.MenuSection {
