@@ -12,7 +12,7 @@ var isMobile = isEqual(Qt.platform.os, "android", "ios")
 var isDesktop = isEqual(Qt.platform.os, "linux", "osx", "unix", "windows")
 var isIos = Qt.platform.os === "ios"
 var isAndroid = Qt.platform.os === "android"
-var isWebAssembly = Qt.platform.os === "wasm"
+var isWasm = Qt.platform.os === "wasm"
 var isPurchasing = isEqual(Qt.platform.os, "android", "ios", "osx", "windows")
 
 function createStringArrayWithPadding (min, size, step, targetLength = 2, padString = '0') {

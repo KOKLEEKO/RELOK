@@ -89,8 +89,14 @@ Rectangle {
     property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
+    property int ampmDisplayMode: 6
+    property int batteryLevelDisplayMode: 6
+    property int dateDisplayMode: 2
     property int minuteIndicatorDisplayMode: 2
+    property int secondsDisplayMode: 6
     property int timeZoneDisplayMode: 2
+    property int weekNumberDisplayMode: 2
+    property int weekNumberAlignment: -1
 
     // Internal Settings
     property bool is_color_animation_enabled: true
@@ -115,9 +121,9 @@ Rectangle {
     property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
     property Language language
     //onLanguageChanged: Helpers.missingLetters(language.table)
-    property var currentDate
+    property var currentDateTime
     property int deviceOffset: 0
-    readonly property string deviceGMT: "GMT+%1".arg(offsetToGMT(deviceOffset))
+    readonly property string deviceGMT: "GMT%1".arg(offsetToGMT(deviceOffset))
     property string selectedGMT: "GMT+00:00"
     property int deltaTime: 0
     property string written_time
@@ -231,16 +237,16 @@ Rectangle {
         triggeredOnStart: true
         onTriggered: {
             if (is_debug) {
-                currentDate = new Date(time_reference_ms +
-                                       (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
-                                       fake_counter*minute_to_ms)
+                currentDateTime = new Date(time_reference_ms +
+                                           (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
+                                           fake_counter*minute_to_ms)
                 ++fake_counter
             } else {
                 const now = new Date()
                 deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
-                currentDate = new Date(now.getTime() - deltaTime*minute_to_ms)
+                currentDateTime = new Date(now.getTime() - deltaTime*minute_to_ms)
             }
-            time = currentDate.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
+            time = currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
         }
     }
 
@@ -255,28 +261,39 @@ Rectangle {
             height: cell_width
             width: parent.width
             Loader {
-                active: timeZoneDisplayMode === 0
                 anchors.centerIn: parent
-                sourceComponent: timeZone
+                sourceComponent: {
+                    if (timeZoneDisplayMode == 0)
+                        timeZone
+                    else if (minuteIndicatorDisplayMode == 1)
+                        dots
+                    else if (dateDisplayMode == 0)
+                        date
+                    else
+                        null
+                }
             }
             Loader {
-                active: minuteIndicatorDisplayMode === 1
-                anchors.centerIn: parent
-                sourceComponent: dots
-            }
-            Loader {
-                active: minuteIndicatorDisplayMode === 0
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 onLoaded: item.index = 0
-                sourceComponent: dot
+                sourceComponent: {
+                    if (minuteIndicatorDisplayMode === 0)
+                        dot
+                    else
+                        null
+                }
             }
             Loader {
-                active: minuteIndicatorDisplayMode === 0
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 onLoaded: item.index = 1
-                sourceComponent: dot
+                sourceComponent: {
+                    if (minuteIndicatorDisplayMode === 0)
+                        dot
+                    else
+                        null
+                }
             }
         }
         Repeater {
@@ -312,28 +329,40 @@ Rectangle {
             height: cell_width
             width: parent.width
             Loader {
-                active: timeZoneDisplayMode === 1
                 anchors.centerIn: parent
-                sourceComponent: timeZone
+                sourceComponent: {
+                    if (timeZoneDisplayMode === 1)
+                        timeZone
+                    else if (minuteIndicatorDisplayMode == 2)
+                        dots
+                    else if (dateDisplayMode == 1)
+                        date
+                    else
+                        null
+                }
             }
             Loader {
-                active: minuteIndicatorDisplayMode === 2
-                anchors.centerIn: parent
-                sourceComponent: dots
-            }
-            Loader {
-                active: minuteIndicatorDisplayMode === 0
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 onLoaded: item.index = 2
-                sourceComponent: dot
+                sourceComponent: {
+                    if (minuteIndicatorDisplayMode === 0)
+                        dot
+                    else
+                        null
+                }
             }
             Loader {
-                active: minuteIndicatorDisplayMode === 0
+
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 onLoaded: item.index = 3
-                sourceComponent: dot
+                sourceComponent: {
+                    if (minuteIndicatorDisplayMode === 0)
+                        dot
+                    else
+                        null
+                }
             }
         }
     }
@@ -361,7 +390,7 @@ Rectangle {
     Component {
         id: date
         Text {
-            text: currentDate.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
+            text: currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
             height: cell_width*.4
             color: off_color
             style: Text.Sunken
@@ -393,9 +422,9 @@ Rectangle {
         Text {
             text: is_AM  ? "AM" : "PM"
             height: cell_width*.4
-            color: on_color
-            style: Text.Outline
-            styleColor: Qt.lighter(on_color, 1.1)
+            color: off_color
+            style: Text.Sunken
+            styleColor: Qt.darker(background_color, 1.1)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             fontSizeMode: Text.Fit
@@ -406,7 +435,7 @@ Rectangle {
     Component {
         id: seconds
         Text {
-            text: currentDate.getSeconds()
+            text: currentDateTime.getSeconds()
             height: cell_width*.4
             color: on_color
             style: Text.Outline
@@ -422,9 +451,9 @@ Rectangle {
         id: weekNumber
         Text {
             height: cell_width*.4
-            color: on_color
-            style: Text.Outline
-            styleColor: Qt.lighter(on_color, 1.1)
+            color: off_color
+            style: Text.Sunken
+            styleColor: Qt.darker(background_color, 1.1)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             fontSizeMode: Text.Fit
@@ -433,13 +462,13 @@ Rectangle {
         }
     }
     Component {
-        id: outsideTemperature
+        id: batteryLevel
         Text {
-            text: "%1°%2".arg(28).arg(true ? "°C" : "°F")
+            text: "%1%".arg(DeviceAccess.batteryLevel)
             height: cell_width*.4
-            color: on_color
-            style: Text.Outline
-            styleColor: Qt.lighter(on_color, 1.1)
+            color: off_color
+            style: Text.Sunken
+            styleColor: Qt.darker(background_color, 1.1)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             fontSizeMode: Text.Fit

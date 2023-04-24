@@ -65,6 +65,8 @@ GridLayout {
     }
     Component.onCompleted: {
         in_line_implicit_width = Math.max(label.implicitWidth, label.Layout.minimumWidth) +
-                ( control ? control.implicitWidth : extraGrid ? extraGrid.implicitWidth : 0 )
+                ((control && control.implicitWidth !== 0) ? control.implicitWidth
+                                                          : extraGrid ? extraGrid.implicitWidth
+                                                                      : 0)
     }
 }

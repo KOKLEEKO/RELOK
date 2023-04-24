@@ -81,6 +81,14 @@ ApplicationWindow {
         if (Helpers.isAndroid)
             onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
 
+        if (isDebug) {
+            var paletteString = "\npalette {\n";
+            for (var prop in palette)
+                paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop])
+            paletteString +="}"
+            console.log(paletteString)
+        }
+
         //for (var prop in Qt.rgba(1,0,0,0))
         //  console.log(prop)
         //console.log(Qt.rgba(1,0,0,0).hslLightness)
@@ -314,12 +322,12 @@ ApplicationWindow {
         }
     }
     Popup {
-            id: purchasingPopup
-            width: 0
-            height: 0
-            modal: true
-            visible: store.purchasing
-            closePolicy: Popup.NoAutoClose
+        id: purchasingPopup
+        width: 0
+        height: 0
+        modal: true
+        visible: store.purchasing
+        closePolicy: Popup.NoAutoClose
     }
     Dialog {
         id: tipthanksPopup
@@ -352,64 +360,64 @@ ApplicationWindow {
                                                             : qsTr("Something went wrong..")))
             /**/              .arg(qsTr("Do you want to try again?"))
         }
-        standardButtons: Dialog.No | Dialog.Yes
-        onAccepted: failedProduct.purchase()
-        onRejected: store.purchasing = false
-    }
-    Dialog {
-        id: welcomePopup
-        anchors.centerIn: parent
-        background.opacity: .95
-        clip: true
-        implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
-        title: qsTr("Welcome to WordClock++")
-        z: 1
-        ColumnLayout {
-            anchors { fill: parent; margins: welcomePopup.margins }  // @disable-check M16  @disable-check M31
+            standardButtons: Dialog.No | Dialog.Yes
+            onAccepted: failedProduct.purchase()
+            onRejected: store.purchasing = false
+        }
+        Dialog {
+            id: welcomePopup
+            anchors.centerIn: parent
+            background.opacity: .95
+            clip: true
+            implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
+            title: qsTr("Welcome to WordClock++")
+            z: 1
+            ColumnLayout {
+                anchors { fill: parent; margins: welcomePopup.margins }  // @disable-check M16  @disable-check M31
+                Label {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    fontSizeMode: Label.Fit
+                    minimumPixelSize: 1
+                    wrapMode: Text.WordWrap
+                    text: "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use."))
+                    .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this pop-up window to close it and open the settings menu.")
+                    : qsTr("Please right-click outside this pop-up window to close it and open the settings menu."))
+                }
+                CheckBox {
+                    id: hidePopupCheckbox
+                    indicator.opacity: 0.5
+                    text: qsTr("Don't show this again")
+                }
+            }
+            Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
+            onClosed: root.showWelcome = !hidePopupCheckbox.checked
+            closePolicy: Dialog.NoAutoClose
+            Component.onCompleted: {
+                header.background.visible = false
+                if (!Helpers.isWasm && showWelcome)
+                    open()
+            }
+        }
+        Dialog {
+            id: badReviewPopup
+            anchors.centerIn: parent
+            clip: true
+            modal: true
+            title: qsTr("Thanks for your review")
+            width: Math.max(root.width/2, header.implicitWidth)
+            z: 1
             Label {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                fontSizeMode: Label.Fit
-                minimumPixelSize: 1
+                width: parent.width
                 wrapMode: Text.WordWrap
-                text: "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use."))
-                .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this pop-up window to close it and open the settings menu.")
-                : qsTr("Please right-click outside this pop-up window to close it and open the settings menu."))
-            }
-            CheckBox {
-                id: hidePopupCheckbox
-                indicator.opacity: 0.5
-                text: qsTr("Don't show this again")
-            }
-        }
-        Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
-        onClosed: root.showWelcome = !hidePopupCheckbox.checked
-        closePolicy: Dialog.NoAutoClose
-        Component.onCompleted: {
-            header.background.visible = false
-            if (!Helpers.isWebAssembly && showWelcome)
-                open()
-        }
-    }
-    Dialog {
-        id: badReviewPopup
-        anchors.centerIn: parent
-        clip: true
-        modal: true
-        title: qsTr("Thanks for your review")
-        width: Math.max(root.width/2, header.implicitWidth)
-        z: 1
-        Label {
-            width: parent.width
-            wrapMode: Text.WordWrap
-            text: qsTr("\
+                text: qsTr("\
 We are sorry to find out that you are not completely satisfied with this application...\
 But with your feedback, we can make it even better!\
 Your suggestions will be taken into account.")
+            }
+            onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1".arg(
+                                                 qsTr("Suggestions for WordClock")))
+            standardButtons: Dialog.Close | Dialog.Ok
         }
-        onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1".arg(
-                                             qsTr("Suggestions for WordClock")))
-        standardButtons: Dialog.Close | Dialog.Ok
+        Loader {active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
     }
-    Loader {active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
-}
