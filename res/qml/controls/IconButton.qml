@@ -2,7 +2,7 @@ import QtQuick.Controls 2.15
 
 Button {
     property string tooltip
-    required property string name
+    property string name: undefined
     display: Button.IconOnly
     flat: true
     icon.source: "qrc:/assets/%1.svg".arg(name)

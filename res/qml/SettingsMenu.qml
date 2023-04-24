@@ -16,7 +16,7 @@ import "qrc:/js/Helpers.js" as Helpers
 
 Controls.Menu {
     function openUrl(url) {
-        if (Helpers.isMobile)
+        if (Helpers.isMobile && url.split(":")[0] !== "mailto")
             webView.openUrl(url)
         else
             Qt.openUrlExternally(url)
@@ -125,7 +125,8 @@ Controls.Menu {
         detailsComponent: Controls.Details {
             horizontalAlignment: Label.Center
             font.bold: true
-            text: qsTr("These preceding items are representative of a bonus paid to the development team, with no benefit to you.")
+            text: qsTr("These preceding items are representative of a bonus paid to the development team, \
+with no benefit to you.")
         }
     }
 
@@ -181,9 +182,8 @@ If this option is enabled, the device's screen will remain active while the appl
                         DeviceAccess.requestBrightnessUpdate();
                 }
             }
-            detailsComponent: Controls.Details {
-                text: qsTr("High brightness levels cause the battery to discharge more faster.")
-            }
+            detailsComponent:
+                Controls.Details { text: qsTr("High brightness levels cause the battery to discharge more faster.") }
         }
     }
     Controls.MenuSection {
@@ -226,7 +226,8 @@ If this option is enabled, the device's screen will remain active while the appl
                 model: Object.values(wordClock.languages)
                 onModelChanged: {
                     if (Helpers.isAndroid)
-                        currentIndex = Qt.binding(() => Object.keys(wordClock.languages).indexOf(wordClock.selected_language))
+                        currentIndex = Qt.binding(() =>
+                                                  Object.keys(wordClock.languages).indexOf(wordClock.selected_language))
                 }
                 onActivated: (index) => {
                                  const language = Object.keys(wordClock.languages)[index]
@@ -240,8 +241,7 @@ If this option is enabled, the device's screen will remain active while the appl
             visible: Object.keys(DeviceAccess.speechAvailableLocales).length  // @disable-check M16  @disable-check M31
             Switch {
                 checked: wordClock.enable_speech
-                onToggled: DeviceAccess.setSettingsValue("Appearance/speech",
-                                                         wordClock.enable_speech = checked)
+                onToggled: DeviceAccess.setSettingsValue("Appearance/speech", wordClock.enable_speech = checked)
             }
             detailsComponent:
                 ComboBox {
@@ -301,7 +301,7 @@ allowing you to distinguish these different states.") }
         text: qsTr("Advanced")
         Controls.MenuItem {
             text: qsTr("Welcome popup")
-            visible: !Helpers.isWebAssembly  // @disable-check M16  @disable-check M31
+            visible: !Helpers.isWasm  // @disable-check M16  @disable-check M31
             Switch {
                 checked: root.showWelcome
                 onCheckedChanged: DeviceAccess.setSettingsValue("Welcome/showPopup", checked)
@@ -359,35 +359,129 @@ allowing you to distinguish these different states.") }
             }
         }
         Controls.MenuItem {
-            text: "Minutes indicator display mode"
+            text: qsTr("Week number display mode")
+            Repeater {
+                model: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
+                onItemAdded: parent.parent.extras.push(item)
+                Button {
+                    readonly property int buttonIndex: index
+                    text: qsTr(modelData)
+                    autoExclusive: false
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    background: Rectangle {
+                        color: (index == 2 && parent.checked) ? palette.dark : palette.button
+                        implicitWidth: 100
+                        implicitHeight: 40
+                    }
+                    contentItem: ColumnLayout {
+                        Text {
+                            color: (index == 2 && parent.parent.checked) ? palette.brightText : palette.buttonText
+                            text: parent.parent.text
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Loader {
+                            active: index !== 2
+                            Layout.fillWidth: true
+                            sourceComponent:
+                                RowLayout {
+                                Repeater {
+                                    model: [ QT_TR_NOOP("Left"), QT_TR_NOOP("Center"), QT_TR_NOOP("Right")]
+                                    RadioButton {
+                                        Layout.fillWidth: true
+                                        text: qsTr(modelData)
+                                        checked: (wordClock.weekNumberDisplayMode === buttonIndex &&
+                                                  wordClock.weekNumberAlignment === index)
+                                        onToggled: {
+                                            wordClock.weekNumberDisplayMode = buttonIndex
+                                            wordClock.weekNumberAlignment = index
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    checked: wordClock.weekNumberDisplayMode === buttonIndex
+                    onClicked: { if (index == 2) wordClock.weekNumberDisplayMode = buttonIndex }
+                }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("AM|PM indicator display mode")
+            Repeater {
+                model: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
+                onItemAdded: parent.parent.extras.push(item)
+                Button {
+                    text: qsTr(modelData)
+                    autoExclusive: true
+                    checked: wordClock.ampmDisplayMode === index
+                    onClicked: wordClock.ampmDisplayMode = index
+                }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Minutes indicator display mode")
             Repeater {
                 model: [ QT_TR_NOOP("Around"), QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
                 onItemAdded: parent.parent.extras.push(item)
                 Button {
                     text: qsTr(modelData)
-                    enabled: index === 3 || index-1 != wordClock.timeZoneDisplayMode
+                    autoExclusive: true
+                    enabled: index === 3 || !Helpers.isEqual(index,
+                                                             wordClock.timeZoneDisplayMode+1,
+                                                             wordClock.dateDisplayMode+1)
                     checked: wordClock.minuteIndicatorDisplayMode === index
                     onClicked: wordClock.minuteIndicatorDisplayMode = index
                 }
             }
         }
         Controls.MenuItem {
-            text: "Time zone display mode"
+            text: qsTr("Seconds display mode")
+            Repeater {
+                model: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
+                onItemAdded: parent.parent.extras.push(item)
+                Button {
+                    text: qsTr(modelData)
+                    autoExclusive: true
+                    checked: wordClock.secondsDisplayMode === index
+                    onClicked: wordClock.secondsDisplayMode = index
+                }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Date display mode")
             Repeater {
                 model: [QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
                 onItemAdded: parent.parent.extras.push(item)
                 Button {
                     text: qsTr(modelData)
-                    enabled: index === 2 || index+1 != wordClock.minuteIndicatorDisplayMode
+                    autoExclusive: true
+                    enabled: index === 2 || !Helpers.isEqual(index,
+                                                             wordClock.minuteIndicatorDisplayMode-1,
+                                                             wordClock.timeZoneDisplayMode)
+                    checked: wordClock.dateDisplayMode === index
+                    onClicked: wordClock.dateDisplayMode = index
+                }
+            }
+        }
+        Controls.MenuItem {
+            text: qsTr("Time zone display mode")
+            Repeater {
+                model: [QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
+                onItemAdded: parent.parent.extras.push(item)
+                Button {
+                    text: qsTr(modelData)
+                    autoExclusive: true
+                    enabled: index === 2 || !Helpers.isEqual(index,
+                                                             wordClock.minuteIndicatorDisplayMode-1,
+                                                             wordClock.dateDisplayMode)
                     checked: wordClock.timeZoneDisplayMode === index
                     onClicked: wordClock.timeZoneDisplayMode = index
                 }
             }
         }
         Controls.MenuItem {
-            function update() {
-                wordClock.deltaTime = (wordClock.deviceOffset - control.value) * 30
-            }
+            function update() { wordClock.deltaTime = (wordClock.deviceOffset - control.value) * 30 }
             text: qsTr("Selected time zone (%1)").arg(wordClock.selectedGMT)
             Slider {
                 value: wordClock.deviceOffset
@@ -397,22 +491,22 @@ allowing you to distinguish these different states.") }
                 onPressedChanged: if (!pressed) parent.parent.update()
                 onValueChanged: wordClock.selectedGMT = "GMT%1".arg(wordClock.offsetToGMT(value))
             }
-            detailsComponent: Controls.Details {
-                text: qsTr("This setting is not persistent, the time zone of the device <b>(%1)\
-</b> is used each time the application is launched".arg(wordClock.deviceGMT)) }
+            detailsComponent:
+                Controls.Details { text: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> \
+is used each time the application is launched".arg(wordClock.deviceGMT)) }
         }
     }
     Controls.MenuSection {
         function applyColors() {
-            let bc  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
-            let alc = DeviceAccess.settingsValue("Appearance/activatedLetterColor", "#FF0000")
-            let dlc = DeviceAccess.settingsValue("Appearance/deactivatedLetterColor", "#808080")
-            backgroundColorPicker.extraControls[3].setColor(bc)
-            activatedLetterColorPicker.extraControls[3].setColor(alc)
-            deactivatedLetterColorPicker.extraControls[3].setColor(dlc)
+            let backgroundColor  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
+            let activatedLetterColor = DeviceAccess.settingsValue("Appearance/activatedLetterColor", "#FF0000")
+            let deactivatedLetterColor = DeviceAccess.settingsValue("Appearance/deactivatedLetterColor", "#808080")
+            backgroundColorPicker.extraControls[3].setColor(backgroundColor)
+            activatedLetterColorPicker.extraControls[3].setColor(activatedLetterColor)
+            deactivatedLetterColorPicker.extraControls[3].setColor(deactivatedLetterColor)
         }
         text: qsTr("Colors")
-        visible: Helpers.isDesktop || Helpers.isWebAssembly
+        visible: Helpers.isDesktop || Helpers.isWasm
         Component.onCompleted: wordClock.applyColors.connect(applyColors)
 
         Controls.MenuItem {
@@ -427,19 +521,13 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
                     factorType: Controls.Picker.Factors.Saturation
-                    Component.onCompleted: {
-                        onMoved.connect(() => parent.children[0].saturation = value)
-                        moved()
-                    }
+                    Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
                 },
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
                     factorType: Controls.Picker.Factors.Lightness
-                    Component.onCompleted: {
-                        onMoved.connect(() => parent.children[0].lightness = value)
-                        moved()
-                    }
+                    Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
                 },
                 Controls.ColorHexField {
                     huePicker: parent.children[0]
@@ -449,11 +537,9 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             ]
             Component.onCompleted: {
                 selected_colorChanged.
-                connect(() => {
-                            wordClock.background_color = selected_color
-                            DeviceAccess.setSettingsValue("Appearance/backgroundColor",
-                                                          selected_color.toString().toUpperCase())
-                        })
+                connect(() => { wordClock.background_color = selected_color
+                            /**/DeviceAccess.setSettingsValue("Appearance/backgroundColor",
+                                                              selected_color.toString().toUpperCase()) })
             }
         }
         Controls.MenuItem {
@@ -466,19 +552,13 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
                     factorType: Controls.Picker.Factors.Saturation
-                    Component.onCompleted: {
-                        onMoved.connect(() => parent.children[0].saturation = value)
-                        moved()
-                    }
+                    Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
                 },
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
                     factorType: Controls.Picker.Factors.Lightness
-                    Component.onCompleted: {
-                        onMoved.connect(() => parent.children[0].lightness = value)
-                        moved()
-                    }
+                    Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
                 },
                 Controls.ColorHexField {
                     huePicker: parent.children[0]
@@ -488,11 +568,9 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             ]
             Component.onCompleted: {
                 selected_colorChanged.
-                connect(() => {
-                            wordClock.on_color = selected_color
-                            DeviceAccess.setSettingsValue("Appearance/activatedLetterColor",
-                                                          selected_color.toString().toUpperCase())
-                        })
+                connect(() => { wordClock.on_color = selected_color
+                            /**/DeviceAccess.setSettingsValue("Appearance/activatedLetterColor",
+                                                              selected_color.toString().toUpperCase()) })
             }
         }
         Controls.MenuItem {
@@ -505,19 +583,13 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
                     hue: parent.children[0].hue
                     lightness: parent.children[0].lightness
                     factorType: Controls.Picker.Factors.Saturation
-                    Component.onCompleted: {
-                        onMoved.connect(() => parent.children[0].saturation = value)
-                        moved()
-                    }
+                    Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
                 },
                 Controls.ColorFactorPicker {
                     hue: parent.children[0].hue
                     saturation: parent.children[0].saturation
                     factorType: Controls.Picker.Factors.Lightness
-                    Component.onCompleted: {
-                        onMoved.connect(() => parent.children[0].lightness = value)
-                        moved()
-                    }
+                    Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
                 },
                 Controls.ColorHexField {
                     huePicker: parent.children[0]
@@ -527,11 +599,9 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             ]
             Component.onCompleted: {
                 selected_colorChanged.
-                connect(() => {
-                            wordClock.off_color = selected_color
-                            DeviceAccess.setSettingsValue("Appearance/deactivatedLetterColor",
-                                                          selected_color.toString().toUpperCase())
-                        })
+                connect(() => { wordClock.off_color = selected_color
+                            /**/DeviceAccess.setSettingsValue("Appearance/deactivatedLetterColor",
+                                                              selected_color.toString().toUpperCase()) })
             }
         }
         Controls.MenuItem {
@@ -553,11 +623,7 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
             detailsComponent: Controls.Details {
                 text: qsTr("The source code is available on GitHub under the MIT license.")
             }
-            Controls.IconButton {
-                name: "github"
-                tooltip: "GitHub"
-                onClicked: openUrl("https://github.com/kokleeko/WordClock")
-            }
+            Controls.IconButton { name: "github"; onClicked: openUrl("https://github.com/kokleeko/WordClock") }
         }
         Controls.MenuItem {
             text: qsTr("Bug tracking")
@@ -567,18 +633,13 @@ The color can be set in HSL format (Hue, Saturation, Lightness) or in hexadecima
 We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as \
 you encounter them. But you can disable this feature to enter submarine mode.")
             }
-            Switch  {
-                checked: DeviceAccess.isBugTracking
-                onToggled: DeviceAccess.isBugTracking = checked
-            }
+            Switch  { checked: DeviceAccess.isBugTracking; onToggled: DeviceAccess.isBugTracking = checked }
         }
         Controls.MenuItem {
             text: qsTr("Review")
             detailsComponent: Controls.Details { text: qsTr("Rate us by clicking on the stars.") }
             Row {
-                spacing: 5
                 property int rating: DeviceAccess.settingsValue("About/rating", 0)
-
                 Repeater {
                     model: 5
                     Button {
@@ -588,8 +649,7 @@ you encounter them. But you can disable this feature to enter submarine mode.")
                         display: Button.IconOnly
                         background: null
                         onClicked: {
-                            DeviceAccess.setSettingsValue("About/rating",
-                                                          parent.rating = index)
+                            DeviceAccess.setSettingsValue("About/rating", parent.rating = index)
                             if (index >= 3)
                                 DeviceAccess.requestReview()
                             else
@@ -601,103 +661,50 @@ you encounter them. But you can disable this feature to enter submarine mode.")
         }
         Controls.MenuItem {
             text: qsTr("Also available on")
-            extras: [
+            Repeater {
+                model: [ { name: "webassembly", visbible: !Helpers.isWasm, link: "https://wordclock.kokleeko.io" },
+                    /**/ { name: "app-store", link: "https://testflight.apple.com/join/02s6IwG2" },
+                    /**/ { name: "google-play", visible: false, link: "" },
+                    /**/ { name: "lg-store", visible: false, link: "" },
+                    /**/ { name: "ms-store", visible: false, link: "" } ]
+                onItemAdded: parent.parent.extras.push(item)
                 Controls.IconButton {
-                    name: "webassembly"
-                    visible: !Helpers.isWebAssembly
-                    tooltip: qsTr("WebAssembly")
-                    onClicked: openUrl("https://wordclock.kokleeko.io")
-                },
-                Controls.IconButton {
-                    name: "app-store"
-                    tooltip: "App Store"
-                    onClicked: openUrl("https://testflight.apple.com/join/02s6IwG2")
-                },
-                Controls.IconButton {
-                    name: "google-play"
-                    tooltip: "Google Play"
-                },
-                Controls.IconButton {
-                    name: "lg-store"
-                    visible: false
-                    tooltip: "LG Content store"
-                },
-                Controls.IconButton {
-                    name: "ms-store"
-                    visible: false
-                    tooltip: "Microsoft Store"
+                    name: modelData.name
+                    visible: modelData.visible ?? true
+                    onClicked: openUrl(modelData.link)
                 }
-            ]
+            }
             detailsComponent: Controls.Details {
-                text: qsTr("The functionalities can be different depending on the platform used.")
+                text: qsTr("The application may be slightly different depending on the platform used.")
             }
         }
         Controls.MenuItem {
             text: qsTr("Contact")
-            detailsComponent: Controls.Details {
-                text: qsTr("We would be happy to receive your feedback.")
+            Repeater {
+                model: [ { name: "twitter", link: "https://twitter.com/kokleeko_io" },
+                    /**/ { name: "youtube", link: "https://youtube.com/channel/UCJ0QPsxjk_mxdIQtEZsIA6w" },
+                    /**/ { name: "linkedin", link: "https://www.linkedin.com/in/johanremilien" },
+                    /**/ { name: "instagram", link: "https://instagram.com/kokleeko.io" },
+                    /**/ { name: "email", link: "mailto:contact@kokleeko.io" },
+                    /**/ { name: "website", link: "https://www.kokleeko.io" } ]
+                onItemAdded: parent.parent.extras.push(item)
+                Controls.IconButton { name: modelData.name; onClicked: openUrl(modelData.link) }
             }
-            extras: [
-                Controls.IconButton {
-                    name: "twitter"
-                    tooltip: "Twitter"
-                    onClicked: openUrl("https://twitter.com/kokleeko_io")
-                },
-                Controls.IconButton {
-                    name: "youtube"
-                    tooltip: "YouTube"
-                    onClicked: openUrl("https://youtube.com/channel/UCJ0QPsxjk_mxdIQtEZsIA6w")
-                },
-                Controls.IconButton {
-                    name: "linkedin"
-                    tooltip: "LinkedIn"
-                    onClicked: openUrl("https://www.linkedin.com/in/johanremilien")
-                },
-                Controls.IconButton {
-                    name: "instagram"
-                    tooltip: "Instagram"
-                    onClicked: openUrl("https://instagram.com/kokleeko.io")
-                },
-                Controls.IconButton {
-                    name: "email"
-                    tooltip: qsTr("Email")
-                    onClicked: Qt.openUrlExternally("mailto:contact@kokleeko.io")
-                },
-                Controls.IconButton {
-                    name: "website"
-                    tooltip: qsTr("Website")
-                    onClicked: openUrl("https://www.kokleeko.io")
-                }
-            ]
+            detailsComponent: Controls.Details { text: qsTr("We would be happy to receive your feedback.") }
         }
         Controls.MenuItem {
             text: qsTr("Credits")
+            Repeater {
+                model: [ { name: QT_TR_NOOP("Built with %1").arg("Qt"),link: "https://www.qt.io" },
+                    /**/ { name: QT_TR_NOOP("Released with %1").arg("Fastlane"), link: "https://fastlane.tools" },
+                    /**/ { name: QT_TR_NOOP("Icons from %1").arg("SVG Repo"), link: "https://www.svgrepo.com" },
+                    /**/ { name: QT_TR_NOOP("Localization with %1").arg("Crowdin"), link: "https://crowdin.com" } ]
+                onItemAdded: parent.parent.extras.push(item)
+                Button { text: qsTr(modelData.name); Layout.fillWidth: true; onClicked: openUrl(modelData.link) }
+            }
             detailsComponent: Controls.Details {
                 text: qsTr("\nDeveloped with love by Johan Remilien and published by Denver.")
             }
-            extras: [
-                Button {
-                    text: qsTr("Built with %1").arg("Qt")
-                    Layout.fillWidth: true
-                    onClicked: openUrl("https://www.qt.io")
-                },
-                Button {
-                    text: qsTr("Released with %1").arg("Fastlane")
-                    Layout.fillWidth: true
-                    onClicked: openUrl("https://fastlane.tools")
-                },
-                Button {
-                    text: qsTr("Icons from %1").arg("SVG Repo")
-                    Layout.fillWidth: true
-                    onClicked: openUrl("https://www.svgrepo.com")
-                },
-                Button {
-                    text: qsTr("Localization with %1").arg("Crowdin")
-                    Layout.fillWidth: true
-                    onClicked: openUrl("https://crowdin.com")
-                }
-            ]
         }
-        Item { implicitHeight: 25 }
     }
 }
