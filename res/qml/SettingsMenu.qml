@@ -1,9 +1,9 @@
 /**************************************************************************************************
-**    Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
-**    All rights reserved.
-**    Licensed under the MIT license. See LICENSE file in the project root for
-**    details.
-**    Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
+**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
+**  All rights reserved.
+**  Licensed under the LGPL license. See LICENSE file in the project root for
+**  details.
+**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 import QtPurchasing 1.15
 import QtQuick 2.15
@@ -381,7 +381,7 @@ is used each time the application is launched".arg(wordClock.deviceGMT)) + Devic
                 title: qsTr("Open source") + DeviceAccess.emptyString
                 extras:
                     Controls.IconButton { name: "github"; onClicked: openUrl("https://github.com/kokleeko/WordClock") }
-                details: qsTr("The source code is available on GitHub under the MIT license.")
+                details: qsTr("The source code is available on GitHub under the LGPL license.")
                 /**/+ DeviceAccess.emptyString }
             Controls.MenuItem {
                 title: qsTr("Bug tracking") + DeviceAccess.emptyString

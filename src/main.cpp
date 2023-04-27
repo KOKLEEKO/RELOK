@@ -1,7 +1,7 @@
 /**************************************************************************************************
 **  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
 **  All rights reserved.
-**  Licensed under the MIT license. See LICENSE file in the project root for
+**  Licensed under the LGPL license. See LICENSE file in the project root for
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Kokleeko S.L.");
     app.setOrganizationDomain("kokleeko.io");
-    app.setApplicationName("WordClock");
+    app.setApplicationName("WordClock++");
     app.setApplicationVersion("1.0.0");
     QQmlApplicationEngine engine;
 
