@@ -48,77 +48,22 @@ Controls.Menu {
             tooltip: "Ko-fi"
             onClicked: openUrl("https://ko-fi.com/johanremilien")
         }
-
-        Controls.IconButton {
-            name: "tip-bone"
-            enabled: !store.purchasing && productTipBone.status === Product.Registered
-            visible: Helpers.isPurchasing
-            tooltip: qsTr("Bone (for Denver)")
-            onClicked: {
-                store.purchasing = true
-                productTipBone.purchase()
-            }
-        }
-        Controls.IconButton {
-            name: "tip-latte"
-            enabled: !store.purchasing && productTipCoffee.status === Product.Registered
-            visible: Helpers.isPurchasing
-            tooltip: qsTr("Latte")
-            onClicked: {
-                if (Helpers.isPurchasing) {
-                    store.purchasing = true
-                    productTipCoffee.purchase()
-                }
-            }
-        }
-        Controls.IconButton {
-            name: "tip-cookie"
-            enabled: !store.purchasing && productTipCookie.status === Product.Registered
-            visible: Helpers.isPurchasing
-            tooltip: qsTr("Cookie")
-            onClicked: {
-                store.purchasing = true
-                productTipCookie.purchase()
-            }
-        }
-        Controls.IconButton {
-            name: "tip-ice-cream"
-            enabled: !store.purchasing && productTipIceCream.status === Product.Registered
-            visible: Helpers.isPurchasing
-            tooltip: qsTr("Ice Cream")
-            onClicked: {
-                store.purchasing = true
-                productTipIceCream.purchase()
-            }
-        }
-        Controls.IconButton {
-            name: "tip-beer"
-            enabled: !store.purchasing && productTipBeer.status === Product.Registered
-            visible: Helpers.isPurchasing
-            tooltip: qsTr("Beer")
-            onClicked: {
-                store.purchasing = true
-                productTipBeer.purchase()
-            }
-        }
-        Controls.IconButton {
-            name: "tip-burger"
-            enabled: !store.purchasing && productTipBurger.status === Product.Registered
-            visible: Helpers.isPurchasing
-            tooltip: qsTr("Burger")
-            onClicked: {
-                store.purchasing = true
-                productTipBurger.purchase()
-            }
-        }
-        Controls.IconButton {
-            name: "tip-wine"
-            enabled: !store.purchasing && productTipWine.status === Product.Registered
-            visible: Helpers.isPurchasing
-            tooltip: qsTr("Wine Bottle")
-            onClicked: {
-                store.purchasing = true
-                productTipWine.purchase()
+        Repeater {
+            model: [ { name: "tip-bone", tooltip: QT_TR_NOOP("Tip me a Bone (for Denver)"), product: productTipBone },
+                /**/ { name: "tip-coffee", tooltip: QT_TR_NOOP("Tip me a Coffee"), product: productTipCoffee },
+                /**/ { name: "tip-cookie", tooltip: QT_TR_NOOP("Tip me a Cookie"), product: productTipCookie },
+                /**/ { name: "tip-ice-cream", tooltip: QT_TR_NOOP("Tip me an Ice Icream"), product: productTipIceCream },
+                /**/ { name: "tip-beer", tooltip: QT_TR_NOOP("Tip me a Beer"), product: productTipBeer },
+                /**/ { name: "tip-burger", tooltip: QT_TR_NOOP("Tip me a Burger"), product: productTipBurger },
+                /**/ { name: "tip-wine", tooltip: QT_TR_NOOP("Tip me a Wine Bottle"), product: productTipWine }
+            ]
+            Controls.IconButton {
+                name: modelData.name
+                Layout.fillWidth: true
+                enabled: !store.purchasing && modelData.product.status === Product.Registered
+                visible: Helpers.isPurchasing
+                tooltip: qsTr(modelData.tooltip)
+                onClicked: { store.purchasing = true; modelData.product.purchase() }
             }
         }
         show_detailsComponent: Helpers.isPurchasing
@@ -129,7 +74,6 @@ Controls.Menu {
 with no benefit to you.")
         }
     }
-
     Controls.MenuSection {
         visible: Helpers.isMobile  // @disable-check M16  @disable-check M31
         text: qsTr("Battery Saving")
@@ -157,10 +101,7 @@ If this option is enabled, the device's screen will remain active while the appl
                 text: qsTr("\
 '%1' feature will be automatically disabled when the battery level will reach this value,\
  unless the device is charging.").arg(qsTr("Stay Awake")) +
-                      (Helpers.isMobile ? "\n(%1: %2%)"
-                                          .arg(qsTr("current battery level"))
-                                          .arg(DeviceAccess.batteryLevel)
-                                        : "")
+                      (Helpers.isMobile ? "\n(%1: %2%)".arg(qsTr("battery level")).arg(DeviceAccess.batteryLevel) : "")
             }
             Slider {
                 from: 20
@@ -348,9 +289,7 @@ allowing you to distinguish these different states.") }
                 onClicked: {
                     root.visibility = Window.Maximized
                     root.opacity = Math.min(root.opacity, .85)
-                    root.flags = (Qt.WindowStaysOnTopHint |
-                                  Qt.WindowTransparentForInput |
-                                  Qt.FramelessWindowHint)
+                    root.flags = (Qt.WindowStaysOnTopHint | Qt.WindowTransparentForInput | Qt.FramelessWindowHint)
                     settingPanel.close()
                 }
             }
@@ -402,7 +341,7 @@ allowing you to distinguish these different states.") }
                         }
                     }
                     checked: wordClock.weekNumberDisplayMode === buttonIndex
-                    onClicked: { if (index == 2) wordClock.weekNumberDisplayMode = buttonIndex }
+                    onClicked: if (index == 2) { wordClock.weekNumberDisplayMode = buttonIndex }
                 }
             }
         }
@@ -674,7 +613,7 @@ you encounter them. But you can disable this feature to enter submarine mode.")
                     onClicked: openUrl(modelData.link)
                 }
             }
-            detailsComponent: Controls.Details {
+            detailsComponent:Controls.Details {
                 text: qsTr("The application may be slightly different depending on the platform used.")
             }
         }
@@ -702,9 +641,7 @@ you encounter them. But you can disable this feature to enter submarine mode.")
                 onItemAdded: parent.parent.extras.push(item)
                 Button { text: qsTr(modelData.name); Layout.fillWidth: true; onClicked: openUrl(modelData.link) }
             }
-            detailsComponent: Controls.Details {
-                text: qsTr("\nDeveloped with love by Johan Remilien and published by Denver.")
-            }
+            detailsComponent: Controls.Details { text: qsTr("\nDeveloped with love by Johan and published by Denver.") }
         }
     }
 }

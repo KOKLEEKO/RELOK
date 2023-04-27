@@ -14,13 +14,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Upload strings to Localazy
-      uses: localazy/upload@v1
-      with:
-        workdir: ${{ github.workspace }}/translations
-        read_key: ${{ secrets.LOCALAZY_READ_KEY }}
-        write_key: ${{ secrets.LOCALAZY_WRITE_KEY }}
-
     - name: Install Qt
       uses: johanremilien/install-qt-action@v3
       with:
