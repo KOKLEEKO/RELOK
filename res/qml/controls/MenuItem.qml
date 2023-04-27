@@ -20,12 +20,13 @@ GridLayout {
     property var extraGrid: null
     property alias text: label.text
     property real in_line_implicit_width: 0
+    readonly property bool isTopToBottom: flow === GridLayout.TopToBottom
+    readonly property bool isLeftToRight: flow === GridLayout.LeftToRight
 
     rowSpacing: 0
     Layout.rightMargin: 25
     columnSpacing: 0
-    flow: (in_line_implicit_width > scrollView.availableWidth) ? GridLayout.TopToBottom
-                                                               : GridLayout.LeftToRight
+    flow: (in_line_implicit_width > scrollView.availableWidth) ? GridLayout.TopToBottom : GridLayout.LeftToRight
     Title {
         id: label
         horizontalAlignment: Title.AlignLeft
@@ -44,14 +45,13 @@ GridLayout {
                         maximumWidth = childWidth
                 }
             }
-            columns: parent.parent.flow === GridLayout.TopToBottom ?
-                         Math.max(Math.floor(parent.parent.width/maximumWidth), 1) : -1
+            columns: isTopToBottom ? Math.max(Math.floor(parent.parent.width/maximumWidth), 1) : -1
         }
     }
     Loader {
         active: extras.length > 0
-        Layout.fillWidth: parent.flow === GridLayout.TopToBottom
-        Layout.alignment: parent.flow === GridLayout.LeftToRight ? Qt.AlignRight : Qt.AlignLeft
+        Layout.fillWidth: isTopToBottom
+        Layout.alignment: isLeftToRight ? Qt.AlignRight : Qt.AlignLeft
         sourceComponent: extrasGrid
         onLoaded: extraGrid = item
     }
@@ -59,14 +59,13 @@ GridLayout {
     Loader {
         sourceComponent: detailsComponent
         Layout.fillWidth: true
-        Layout.row: controlComponent && flow === GridLayout.LeftToRight ? 1 : 3
+        Layout.row: (controlComponent && isLeftToRight) ? 1 : 3
         Layout.columnSpan: 2
         onLoaded: details = item
     }
     Component.onCompleted: {
         in_line_implicit_width = Math.max(label.implicitWidth, label.Layout.minimumWidth) +
-                ((control && control.implicitWidth !== 0) ? control.implicitWidth
-                                                          : extraGrid ? extraGrid.implicitWidth
-                                                                      : 0)
+                ((control && control.implicitWidth !== 0) ? control.implicitWidth : extraGrid ? extraGrid.implicitWidth
+                                                                                              : 0)
     }
 }

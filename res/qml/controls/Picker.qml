@@ -15,7 +15,6 @@ Slider {
     property real lightness
     property color selected_color
     enum Factors { Saturation, Lightness }
-    function reset() {}
     from: 0
     to: 1
     handle: Rectangle {

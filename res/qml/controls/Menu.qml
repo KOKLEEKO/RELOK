@@ -28,18 +28,14 @@ ColumnLayout {
             mouseArea.enabled: true
             mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
         }
-        IconButton {
-            name: "close"
-            onClicked: settingPanel.close()
-        }
+        IconButton { name: "close"; onClicked: settingPanel.close() }
     }
     ScrollView {
         id: scrollView
         Layout.fillHeight: true
         Layout.fillWidth: true
-        ScrollBar.vertical.policy: (collapsed && !collapsed.is_collapsed && !collapsed.is_tipMe)
-                                   ? ScrollBar.AlwaysOn
-                                   : ScrollBar.AsNeeded
+        ScrollBar.vertical.policy: (collapsed && !collapsed.is_collapsed && !collapsed.is_tipMe) ? ScrollBar.AlwaysOn
+                                                                                                 : ScrollBar.AsNeeded
         clip: true
         //palette {
         //  /* tribute to Qt (https://brand.qt.io/design)*/
