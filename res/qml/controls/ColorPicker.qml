@@ -18,9 +18,8 @@ Picker {
     Component.onCompleted: {
         saturationChanged.connect(valueChanged)
         lightnessChanged.connect(valueChanged)
-        valueChanged.connect(() => { hue = value
-                                 /**/selected_color = Qt.hsla(hue, saturation, lightness, 1) })
-        valueChanged()
+        valueChanged.connect(() => { hue = value; selected_color = Qt.hsla(hue, saturation, lightness, 1) })
+        //valueChanged()
     }
     background: Rectangle {
         x: control.leftPadding

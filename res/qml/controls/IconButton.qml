@@ -7,6 +7,5 @@ Button {
     flat: true
     icon.source: "qrc:/assets/%1.svg".arg(name)
     implicitWidth: implicitHeight
-    ToolTip.visible: hovered && tooltip
-    ToolTip.text: tooltip
+    ToolTip { visible: hovered && tooltip; text: tooltip }
 }
