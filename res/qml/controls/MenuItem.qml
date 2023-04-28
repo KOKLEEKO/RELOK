@@ -9,63 +9,53 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-GridLayout {
+import "." as Controls
+
+ColumnLayout {
     id: gridLayout
-    property list<Item> extras
     default property Component controlComponent: null
-    property Component detailsComponent: null
+    property Component delegate: null
+    property list<Item> extras
+    property string details: ""
+    property string title: ""
+    property var model: []
+    readonly property bool isModelValid: Number.isInteger(model) ? model : !!model.length
+
     property var control: null
-    property var details: null
     property var extraControls: extraGrid ? extraGrid.children : null
     property var extraGrid: null
-    property alias text: label.text
-    property real in_line_implicit_width: 0
-    readonly property bool isTopToBottom: flow === GridLayout.TopToBottom
-    readonly property bool isLeftToRight: flow === GridLayout.LeftToRight
 
-    rowSpacing: 0
+    Layout.fillWidth: true
     Layout.rightMargin: 25
-    columnSpacing: 0
-    flow: (in_line_implicit_width > scrollView.availableWidth) ? GridLayout.TopToBottom : GridLayout.LeftToRight
-    Title {
-        id: label
-        horizontalAlignment: Title.AlignLeft
-        heading: headings.h3
-    }
+    spacing: 0
 
-    Component {
-        id: extrasGrid
-        GridLayout {
-            property real maximumWidth: 0
-            children: extras  // @disable-check M16 @disable-check M31
-            onChildrenChanged: {  // @disable-check M16 @disable-check M31
-                for (var index in children) {
-                    var childWidth = children[index].width
-                    if (maximumWidth < childWidth)
-                        maximumWidth = childWidth
+    GridLayout {
+        property real inLineWidth: 0
+        flow: (inLineWidth + parent.Layout.rightMargin > scrollView.availableWidth) ? GridLayout.TopToBottom
+                                                                                    : GridLayout.LeftToRight
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        Title { id: label; text: title; Layout.fillWidth: true; heading: headings.h3 }
+        Loader { sourceComponent: controlComponent; onLoaded: control = item }
+        Component.onCompleted: inLineWidth = label.implicitWidth + rowSpacing + (control ? control.implicitWidth: 0)
+    }
+    Loader {
+        Layout.fillWidth: true
+        Layout.preferredWidth: parent.width
+        active: isModelValid || !!extras.length
+        onLoaded: extraGrid = item
+        sourceComponent: Flow {
+            spacing: 5
+            Component.onCompleted: children = extras
+            Loader {
+                active: isModelValid
+                sourceComponent: Repeater {
+                    model: gridLayout.model
+                    delegate: gridLayout.delegate
+                    onItemAdded: extras.push(item)
                 }
             }
-            columns: isTopToBottom ? Math.max(Math.floor(parent.parent.width/maximumWidth), 1) : -1
         }
     }
-    Loader {
-        active: extras.length > 0
-        Layout.fillWidth: isTopToBottom
-        Layout.alignment: isLeftToRight ? Qt.AlignRight : Qt.AlignLeft
-        sourceComponent: extrasGrid
-        onLoaded: extraGrid = item
-    }
-    Loader { sourceComponent: controlComponent; onLoaded: control = item }
-    Loader {
-        sourceComponent: detailsComponent
-        Layout.fillWidth: true
-        Layout.row: (controlComponent && isLeftToRight) ? 1 : 3
-        Layout.columnSpan: 2
-        onLoaded: details = item
-    }
-    Component.onCompleted: {
-        in_line_implicit_width = Math.max(label.implicitWidth, label.Layout.minimumWidth) +
-                ((control && control.implicitWidth !== 0) ? control.implicitWidth : extraGrid ? extraGrid.implicitWidth
-                                                                                              : 0)
-    }
+    Loader { active: !!details.length; Layout.fillWidth: true; sourceComponent: Controls.Details { text: details } }
 }

@@ -13,7 +13,6 @@ Label {
     property alias mouseArea: mouseArea
     required property int heading
     Layout.fillWidth: true
-    Layout.minimumWidth: 200
     elide: Text.ElideRight
     font { bold: true; pointSize: heading }
     maximumLineCount: 2

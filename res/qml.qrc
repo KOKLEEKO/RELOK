@@ -20,5 +20,7 @@
         <file>qml/controls/IconButton.qml</file>
         <file>qml/languages/en_US.qml</file>
         <file>qml/languages/.fr_CA.qml</file>
+        <file>qml/controls/SmallPositionSelector.qml</file>
+        <file>qml/controls/LargePositionSelector.qml</file>
     </qresource>
 </RCC>

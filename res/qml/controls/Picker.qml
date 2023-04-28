@@ -15,6 +15,7 @@ Slider {
     property real lightness
     property color selected_color
     enum Factors { Saturation, Lightness }
+    ToolTip { visible: pressed; text: ("%1 %".arg((Math.round(value*1000)/10).toFixed(1))) }
     from: 0
     to: 1
     handle: Rectangle {
@@ -28,7 +29,7 @@ Slider {
         Rectangle {
             width: parent.width*.6
             height: width
-            color: control.selected_color
+            color: selected_color
             radius: width/2
             anchors.centerIn: parent
             border.color: parent.border.color

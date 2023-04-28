@@ -42,10 +42,12 @@ ApplicationWindow {
     property alias productTipBurger: productTipBurger
     property alias productTipWine: productTipWine
 
+    property int minimumSize: 287
+
     width: 640
     height: 480
-    minimumWidth: 300
-    minimumHeight: 300
+    minimumWidth: minimumSize
+    minimumHeight: minimumSize
     visible: true
     visibility: Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
     opacity: DeviceAccess.settingsValue("Appearance/opacity", 1)
@@ -82,7 +84,7 @@ ApplicationWindow {
             onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
 
         if (isDebug) {
-            var paletteString = "\npalette {\n";
+            var paletteString = "↓\npalette {\n";
             for (var prop in palette)
                 paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop])
             paletteString +="}"

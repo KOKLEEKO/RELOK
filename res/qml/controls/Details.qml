@@ -9,7 +9,6 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Label {
-    Layout.fillWidth: true
     color: palette.windowText
     maximumLineCount: Number.POSITIVE_INFINITY
     wrapMode: Label.WordWrap

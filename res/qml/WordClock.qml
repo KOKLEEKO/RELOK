@@ -6,16 +6,13 @@ import "qrc:/js/Helpers.js" as Helpers
 Rectangle {
     function selectLanguage(language, speech) {
         let fileBaseName = language
-        if (isDebug)
-            console.log(fileBaseName, supportedLanguages)
         if (!supportedLanguages.includes(fileBaseName)) {
-            if (supportedLanguages.includes(fileBaseName.substring(0,2)))
-                fileBaseName = language.substring(0,2)
-            else
-                fileBaseName = "en"
+            fileBaseName = (supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2) : "en"
         }
         DeviceAccess.setSpeechLanguage(language)
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
+        if (isDebug)
+            console.log(language, supportedLanguages, tmp_language_url)
         language_url = tmp_language_url
         selected_language = language
         if (enable_speech)
@@ -89,14 +86,7 @@ Rectangle {
     property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
-    property int ampmDisplayMode: 6
-    property int batteryLevelDisplayMode: 6
-    property int dateDisplayMode: 2
-    property int minuteIndicatorDisplayMode: 2
-    property int secondsDisplayMode: 6
-    property int timeZoneDisplayMode: 2
-    property int weekNumberDisplayMode: 2
-    property int weekNumberAlignment: -1
+    property var accessories: new Array(6).fill("")
 
     // Internal Settings
     property bool is_color_animation_enabled: true
@@ -172,14 +162,8 @@ Rectangle {
         ColorAnimation { duration: 1000; easing.type: animation_easing }
     }
 
-    Connections {
-        function onLanguageChanged() {
-            DeviceAccess.hideSplashScreen()
-            enabled = false
-        }
-    }
-
     color: background_color
+    onLanguageChanged: { DeviceAccess.hideSplashScreen(); enabled = false }
     Component.onCompleted: {
         selected_language = DeviceAccess.settingsValue("Appearance/clockLanguage", "")
         language_urlChanged.connect(
@@ -262,38 +246,19 @@ Rectangle {
             width: parent.width
             Loader {
                 anchors.centerIn: parent
-                sourceComponent: {
-                    if (timeZoneDisplayMode == 0)
-                        timeZone
-                    else if (minuteIndicatorDisplayMode == 1)
-                        dots
-                    else if (dateDisplayMode == 0)
-                        date
-                    else
-                        null
-                }
+                sourceComponent: { null }
             }
             Loader {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 onLoaded: item.index = 0
-                sourceComponent: {
-                    if (minuteIndicatorDisplayMode === 0)
-                        dot
-                    else
-                        null
-                }
+                sourceComponent: { null }
             }
             Loader {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 onLoaded: item.index = 1
-                sourceComponent: {
-                    if (minuteIndicatorDisplayMode === 0)
-                        dot
-                    else
-                        null
-                }
+                sourceComponent: { null }
             }
         }
         Repeater {
@@ -330,39 +295,19 @@ Rectangle {
             width: parent.width
             Loader {
                 anchors.centerIn: parent
-                sourceComponent: {
-                    if (timeZoneDisplayMode === 1)
-                        timeZone
-                    else if (minuteIndicatorDisplayMode == 2)
-                        dots
-                    else if (dateDisplayMode == 1)
-                        date
-                    else
-                        null
-                }
+                sourceComponent: { null }
             }
             Loader {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 onLoaded: item.index = 2
-                sourceComponent: {
-                    if (minuteIndicatorDisplayMode === 0)
-                        dot
-                    else
-                        null
-                }
+                sourceComponent: { null }
             }
             Loader {
-
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 onLoaded: item.index = 3
-                sourceComponent: {
-                    if (minuteIndicatorDisplayMode === 0)
-                        dot
-                    else
-                        null
-                }
+                sourceComponent: { null }
             }
         }
     }
