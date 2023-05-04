@@ -3,54 +3,61 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 import "." as Controls
+import "qrc:/js/Helpers.js" as Helpers
 
 Controls.MenuItem {
-    id: menuItem
+    function hide(notify = true) {
+        if (activatedPositionIndex !== -1 && wordClock.accessories[activatedPositionIndex] === name) {
+            wordClock.accessories[activatedPositionIndex] = ""
+            if (notify) {
+                wordClock.accessoriesChanged()
+                activatedPositionIndex = -1
+            }
+        }
+    }
     property string name
-    Switch {}
-    model: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom"), QT_TR_NOOP("Hide")]
+    property int activatedPositionIndex: -1
+    withRadioGroup: true
+    RadioButton {
+        text: qsTr("Hide")
+        checked: true
+        ButtonGroup.group: radioGroup
+        onClicked: hide()
+    }
+    model: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom") ]
     delegate:
-        Button {
+        Frame {
         readonly property int buttonIndex: index
-        readonly property bool isHide: buttonIndex === model.length -1
-        text: qsTr(modelData)
-        autoExclusive: false
+        readonly property string text: qsTr(modelData)
         Layout.fillHeight: true
         Layout.fillWidth: true
-        display: Button.TextOnly
-        background: Rectangle {
-            color: (index === 2 && parent.checked) ? palette.dark : palette.button
-            implicitWidth: 100
-            implicitHeight: 40
-        }
         contentItem: ColumnLayout {
             Text {
                 color: (index === 2 && parent.parent.checked) ? palette.brightText : palette.buttonText
                 text: parent.parent.text
                 Layout.alignment: Qt.AlignCenter
             }
-            Loader {
-                active: index !== 2
+            RowLayout {
                 Layout.fillWidth: true
-                sourceComponent:
-                    RowLayout {
-                    Repeater {
-                        model: [ QT_TR_NOOP("Left"), QT_TR_NOOP("Center"), QT_TR_NOOP("Right") ]
-                        RadioButton {
-                            //Layout.fillWidth: true
-                            text: qsTr(modelData)
-                            checked: (wordClock["%1DisplayMode".arg(name)] === buttonIndex &&
-                                      wordClock["%1Alignment".arg(name)] === index)
-                            onToggled: {
-                                wordClock["%1DisplayMode".arg(name)] = buttonIndex
-                                wordClock["%1Alignment".arg(name)] = index
+                Repeater {
+                    model: [ QT_TR_NOOP("Left"), QT_TR_NOOP("Center"), QT_TR_NOOP("Right") ]
+                    RadioButton {
+                        readonly property int positionIndex: index + 3 * buttonIndex
+                        enabled: Helpers.isWeaklyEqual(wordClock.accessories[positionIndex], "", name)
+                        text: qsTr(modelData)
+                        checked: wordClock.accessories[positionIndex] === name
+                        ButtonGroup.group: radioGroup
+                        onClicked: {
+                            if (activatedPositionIndex !== positionIndex) {
+                                hide(false)
+                                wordClock.accessories[positionIndex] = name
+                                wordClock.accessoriesChanged()
+                                activatedPositionIndex = positionIndex
                             }
                         }
                     }
                 }
             }
         }
-        checked: wordClock["%1DisplayMode".arg(name)] === buttonIndex
-        onClicked: if (index === 2) { wordClock["%1DisplayMode".arg(name)] = buttonIndex }
     }
 }

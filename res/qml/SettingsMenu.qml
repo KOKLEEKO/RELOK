@@ -220,7 +220,7 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
                 onToggled: {
                     DeviceAccess.setSettingsValue("Appearance/specialMessage",
                                                   wordClock.enable_special_message = checked)
-                    if(Helpers.isEqual(wordClock.time, "00:00:am", "11:11:am", "22:22:pm"))
+                    if(Helpers.isWeaklyEqual(wordClock.time, "00:00:am", "11:11:am", "22:22:pm"))
                         wordClock.updateTable()
                 }
             }
@@ -279,28 +279,27 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
             }
             details: qsTr("")
         }
-        //        Controls.SmallPositionSelector { title: qsTr("Battery level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }
-        //        Controls.SmallPositionSelector { title: qsTr("Week number display mode"); name: "weekNumber" }
-        //        Controls.SmallPositionSelector { title: qsTr("AM|PM indicator display mode"); name: "ampm" }
-        //        Controls.SmallPositionSelector { title: qsTr("Seconds display mode"); name: "seconds" }
-        //        Controls.LargePositionSelector { title: qsTr("4-dots display mode"); name: "minute" }
-        //        Controls.LargePositionSelector { title: qsTr("Date display mode"); name: "date"}
-        //        Controls.LargePositionSelector { title: qsTr("Time zone display mode"); name: "timeZone"}
-        //        Controls.MenuItem {
-        //            function update() { wordClock.deltaTime = (wordClock.deviceOffset - control.value) * 30 }
-        //            title: qsTr("Selected time zone (%1)").arg(wordClock.selectedGMT)
-        //            Slider {
-        //                value: wordClock.deviceOffset
-        //                from: -24
-        //                to: 28
-        //                stepSize: 1
-        //                onPressedChanged: if (!pressed) parent.parent.update()
-        //                onValueChanged: wordClock.selectedGMT = "GMT%1".arg(wordClock.offsetToGMT(value))
-        //            }
-        //            detailsComponent:
-        //                Controls.Details { text: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> \
-        //is used each time the application is launched".arg(wordClock.deviceGMT)) }
-        //        }
+        Controls.SmallPositionSelector { title: qsTr("Battery level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }
+        Controls.SmallPositionSelector { title: qsTr("Week number display mode"); name: "weekNumber" }
+        Controls.SmallPositionSelector { title: qsTr("AM|PM indicator display mode"); name: "ampm" }
+        Controls.SmallPositionSelector { title: qsTr("Seconds display mode"); name: "seconds" }
+        Controls.LargePositionSelector { title: qsTr("4-dots display mode"); name: "minutes" }
+        Controls.LargePositionSelector { title: qsTr("Date display mode"); name: "date" }
+        Controls.LargePositionSelector { title: qsTr("Time zone display mode"); name: "timeZone" }
+        Controls.MenuItem {
+            function update() { wordClock.deltaTime = (wordClock.deviceOffset - control.value) * 30 }
+            title: qsTr("Selected time zone (%1)").arg(wordClock.selectedGMT)
+            Slider {
+                value: wordClock.deviceOffset
+                from: -24
+                to: 28
+                stepSize: 1
+                onPressedChanged: if (!pressed) parent.parent.update()
+                onValueChanged: wordClock.selectedGMT = "GMT%1".arg(wordClock.offsetToGMT(value))
+            }
+            details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> \
+        is used each time the application is launched".arg(wordClock.deviceGMT))
+        }
     }
     Controls.MenuSection {
         function applyColors() {
@@ -346,7 +345,7 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
                             () => {
                                 wordClock.background_color = selected_color
                                 DeviceAccess.setSettingsValue("Appearance/backgroundColor",
-                                                                  selected_color.toString().toUpperCase())
+                                                              selected_color.toString().toUpperCase())
                             })
             }
         }
@@ -376,10 +375,8 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
                 }
             ]
             Component.onCompleted: {
-                console.log("alc1:", selected_color)
                 selected_colorChanged.connect(
                             () => {
-                                console.log("alc2:", selected_color)
                                 wordClock.on_color = selected_color
                                 DeviceAccess.setSettingsValue("Appearance/activatedLetterColor",
                                                               selected_color.toString().toUpperCase())

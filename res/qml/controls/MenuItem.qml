@@ -24,10 +24,14 @@ ColumnLayout {
     property var control: null
     property var extraControls: extraGrid ? extraGrid.children : null
     property var extraGrid: null
+    property bool withRadioGroup: false
+    property var radioGroup: null
 
     Layout.fillWidth: true
     Layout.rightMargin: 25
     spacing: 0
+
+    Loader { active: withRadioGroup; onLoaded: radioGroup = item; sourceComponent: ButtonGroup {} }
 
     GridLayout {
         property real inLineWidth: 0
