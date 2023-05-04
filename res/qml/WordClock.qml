@@ -75,6 +75,26 @@ Rectangle {
         /**/                    .arg(("0" + Math.abs(Math.trunc(value/2))).slice(-2))
         /**/                    .arg(value%2 ? "30" : "00")
     }
+    function accessory(index, isCorner = true) {
+        switch(accessories[index]) {
+        case "timeZone":
+            return isCorner ? null : timeZone
+        case "date":
+            return isCorner ? null : date
+        case "minutes":
+            return isCorner ? dot : dots
+        case "seconds":
+            return seconds
+        case "ampm":
+            return ampm
+        case "weekNumber":
+            return weekNumber
+        case "batteryLevel":
+            return batteryLevel
+        default:
+            return null
+        }
+    }
 
     signal applyColors()
 
@@ -232,9 +252,7 @@ Rectangle {
                 currentDateTime = new Date(now.getTime() - deltaTime*minute_to_ms)
             }
             let startDate = new Date(currentDateTime.getFullYear(), 0, 1)
-            let days = Math.floor((currentDateTime - startDate) / (24 * 60 * 60 * 1000))
-            weekNumber_value = Math.ceil(days / 7)
-
+            weekNumber_value = Math.ceil(Math.floor((currentDateTime - startDate) / (24 * 60 * 60 * 1000)) / 7) //days÷7
             time = currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
         }
     }
@@ -249,69 +267,15 @@ Rectangle {
             height: cell_width
             width: parent.width
             Loader {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
+                anchors { verticalCenter: parent.verticalCenter; left: parent.left }
+                sourceComponent: accessory(0)
                 onLoaded: if (accessories[0] === "minutes") item.index = 0
-                sourceComponent: {
-                    switch(accessories[0]) {
-                    case "minutes":
-                        return dot
-                    case "seconds":
-                        return seconds
-                    case "ampm":
-                        return ampm
-                    case "weekNumber":
-                        return weekNumber
-                    case "batteryLevel":
-                        return batteryLevel
-                    default:
-                        return null
-                    }
-                }
             }
+            Loader { anchors.centerIn: parent; sourceComponent: accessory(1, false) }
             Loader {
-                anchors.centerIn: parent
-                sourceComponent: {
-                    switch(accessories[1]) {
-                    case "timeZone":
-                        return timeZone
-                    case "date":
-                        return date
-                    case "minutes":
-                        return dots
-                    case "seconds":
-                        return seconds
-                    case "ampm":
-                        return ampm
-                    case "weekNumber":
-                        return weekNumber
-                    case "batteryLevel":
-                        return batteryLevel
-                    default:
-                        return null
-                    }
-                }
-            }
-            Loader {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
+                anchors { verticalCenter: parent.verticalCenter; right: parent.right }
+                sourceComponent: accessory(2)
                 onLoaded: if (accessories[2] === "minutes") item.index = 1
-                sourceComponent: {
-                    switch(accessories[2]) {
-                    case "minutes":
-                        return dot
-                    case "seconds":
-                        return seconds
-                    case "ampm":
-                        return ampm
-                    case "weekNumber":
-                        return weekNumber
-                    case "batteryLevel":
-                        return batteryLevel
-                    default:
-                        return null
-                    }
-                }
             }
         }
         Repeater {
@@ -331,8 +295,7 @@ Rectangle {
                         text: modelData
                         color: is_enabled ? on_color : off_color
                         style: is_enabled ? Text.Outline : Text.Sunken
-                        styleColor: is_enabled ? Qt.lighter(on_color, 1.1)
-                                               : Qt.darker(background_color, 1.1)
+                        styleColor: is_enabled ? Qt.lighter(on_color, 1.1) : Qt.darker(background_color, 1.1)
                         horizontalAlignment : Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.Fit
@@ -347,66 +310,14 @@ Rectangle {
             width: parent.width
             Loader {
                 anchors { verticalCenter: parent.verticalCenter; left: parent.left }
+                sourceComponent: accessory(3)
                 onLoaded: if (accessories[3] === "minutes") item.index = 3
-                sourceComponent: {
-                    switch(accessories[3]) {
-                    case "minutes":
-                        return dot
-                    case "seconds":
-                        return seconds
-                    case "ampm":
-                        return ampm
-                    case "weekNumber":
-                        return weekNumber
-                    case "batteryLevel":
-                        return batteryLevel
-                    default:
-                        return null
-                    }
-                }
             }
-            Loader {
-                anchors.centerIn: parent
-                sourceComponent: {
-                    switch(accessories[4]) {
-                    case "timeZone":
-                        return timeZone
-                    case "date":
-                        return date
-                    case "minutes":
-                        return dots
-                    case "seconds":
-                        return seconds
-                    case "ampm":
-                        return ampm
-                    case "weekNumber":
-                        return weekNumber
-                    case "batteryLevel":
-                        return batteryLevel
-                    default:
-                        return null
-                    }
-                }
-            }
+            Loader { anchors.centerIn: parent; sourceComponent: accessory(4, false) }
             Loader {
                 anchors { verticalCenter: parent.verticalCenter; right: parent.right }
+                sourceComponent: accessory(5)
                 onLoaded: if (accessories[5] === "minutes") item.index = 2
-                sourceComponent: {
-                    switch(accessories[5]) {
-                    case "minutes":
-                        return dot
-                    case "seconds":
-                        return seconds
-                    case "ampm":
-                        return ampm
-                    case "weekNumber":
-                        return weekNumber
-                    case "batteryLevel":
-                        return batteryLevel
-                    default:
-                        return null
-                    }
-                }
             }
         }
     }
