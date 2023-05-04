@@ -4,22 +4,22 @@
 <context>
     <name>LargePositionSelector</name>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="8"/>
+        <location filename="../res/qml/controls/LargePositionSelector.qml" line="38"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="8"/>
+        <location filename="../res/qml/controls/LargePositionSelector.qml" line="38"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="8"/>
+        <location filename="../res/qml/controls/LargePositionSelector.qml" line="41"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="14"/>
+        <location filename="../res/qml/controls/LargePositionSelector.qml" line="48"/>
         <source>Around</source>
         <translation type="unfinished"></translation>
     </message>
@@ -120,42 +120,42 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="432"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="429"/>
         <source>We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as you encounter them. But you can disable this feature to enter submarine mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="452"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="449"/>
         <source>Rate us by clicking on the stars.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="455"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="452"/>
         <source>Also available on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="477"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="474"/>
         <source>We would be happy to receive your feedback.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="481"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="478"/>
         <source>Built with %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="482"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="479"/>
         <source>Released with %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="483"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="480"/>
         <source>Icons from %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="484"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="481"/>
         <source>Localization with %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -270,72 +270,112 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="314"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="282"/>
+        <source>Battery level display mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="283"/>
+        <source>Week number display mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="284"/>
+        <source>AM|PM indicator display mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="285"/>
+        <source>Seconds display mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="286"/>
+        <source>4-dots display mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="287"/>
+        <source>Date display mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="288"/>
+        <source>Time zone display mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="291"/>
+        <source>Selected time zone (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="313"/>
         <source>Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="321"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="320"/>
         <source>Background Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="323"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="322"/>
         <source>The color can be set in HSL (Hue, Saturation, Lightness) or in hexadecimal format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="356"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="355"/>
         <source>Activated Letter Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="392"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="389"/>
         <source>Deactivated Letter Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="423"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="420"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="425"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="422"/>
         <source>Open source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="427"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="424"/>
         <source>The source code is available on GitHub under the MIT license.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="429"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="426"/>
         <source>Bug tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="436"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="433"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="466"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="463"/>
         <source>The application may be slightly different depending on the platform used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="469"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="466"/>
         <source>Contact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="480"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="477"/>
         <source>Credits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="486"/>
+        <location filename="../res/qml/SettingsMenu.qml" line="483"/>
         <source>
 Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
@@ -344,32 +384,32 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>SmallPositionSelector</name>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="11"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="27"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="11"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="27"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="11"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="22"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="38"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="43"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="38"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="43"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="38"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="43"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>

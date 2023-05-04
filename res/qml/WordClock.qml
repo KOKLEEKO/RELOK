@@ -123,6 +123,7 @@ Rectangle {
     property bool was_special: false
     property int onoff_dots: 0
     property string hours_value
+    property int weekNumber_value: 0
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
     readonly property int hours_array_step: 1
@@ -230,6 +231,10 @@ Rectangle {
                 deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
                 currentDateTime = new Date(now.getTime() - deltaTime*minute_to_ms)
             }
+            let startDate = new Date(currentDateTime.getFullYear(), 0, 1)
+            let days = Math.floor((currentDateTime - startDate) / (24 * 60 * 60 * 1000))
+            weekNumber_value = Math.ceil(days / 7)
+
             time = currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
         }
     }
@@ -241,24 +246,72 @@ Rectangle {
         width: table_width
         height: width
         Item {
-            anchors.horizontalCenter: parent.horizontalCenter
             height: cell_width
             width: parent.width
             Loader {
-                anchors.centerIn: parent
-                sourceComponent: { null }
-            }
-            Loader {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                onLoaded: item.index = 0
-                sourceComponent: { null }
+                onLoaded: if (accessories[0] === "minutes") item.index = 0
+                sourceComponent: {
+                    switch(accessories[0]) {
+                    case "minutes":
+                        return dot
+                    case "seconds":
+                        return seconds
+                    case "ampm":
+                        return ampm
+                    case "weekNumber":
+                        return weekNumber
+                    case "batteryLevel":
+                        return batteryLevel
+                    default:
+                        return null
+                    }
+                }
+            }
+            Loader {
+                anchors.centerIn: parent
+                sourceComponent: {
+                    switch(accessories[1]) {
+                    case "timeZone":
+                        return timeZone
+                    case "date":
+                        return date
+                    case "minutes":
+                        return dots
+                    case "seconds":
+                        return seconds
+                    case "ampm":
+                        return ampm
+                    case "weekNumber":
+                        return weekNumber
+                    case "batteryLevel":
+                        return batteryLevel
+                    default:
+                        return null
+                    }
+                }
             }
             Loader {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                onLoaded: item.index = 1
-                sourceComponent: { null }
+                onLoaded: if (accessories[2] === "minutes") item.index = 1
+                sourceComponent: {
+                    switch(accessories[2]) {
+                    case "minutes":
+                        return dot
+                    case "seconds":
+                        return seconds
+                    case "ampm":
+                        return ampm
+                    case "weekNumber":
+                        return weekNumber
+                    case "batteryLevel":
+                        return batteryLevel
+                    default:
+                        return null
+                    }
+                }
             }
         }
         Repeater {
@@ -290,24 +343,70 @@ Rectangle {
             }
         }
         Item {
-            anchors.horizontalCenter: parent.horizontalCenter
             height: cell_width
             width: parent.width
             Loader {
+                anchors { verticalCenter: parent.verticalCenter; left: parent.left }
+                onLoaded: if (accessories[3] === "minutes") item.index = 3
+                sourceComponent: {
+                    switch(accessories[3]) {
+                    case "minutes":
+                        return dot
+                    case "seconds":
+                        return seconds
+                    case "ampm":
+                        return ampm
+                    case "weekNumber":
+                        return weekNumber
+                    case "batteryLevel":
+                        return batteryLevel
+                    default:
+                        return null
+                    }
+                }
+            }
+            Loader {
                 anchors.centerIn: parent
-                sourceComponent: { null }
+                sourceComponent: {
+                    switch(accessories[4]) {
+                    case "timeZone":
+                        return timeZone
+                    case "date":
+                        return date
+                    case "minutes":
+                        return dots
+                    case "seconds":
+                        return seconds
+                    case "ampm":
+                        return ampm
+                    case "weekNumber":
+                        return weekNumber
+                    case "batteryLevel":
+                        return batteryLevel
+                    default:
+                        return null
+                    }
+                }
             }
             Loader {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                onLoaded: item.index = 2
-                sourceComponent: { null }
-            }
-            Loader {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                onLoaded: item.index = 3
-                sourceComponent: { null }
+                anchors { verticalCenter: parent.verticalCenter; right: parent.right }
+                onLoaded: if (accessories[5] === "minutes") item.index = 2
+                sourceComponent: {
+                    switch(accessories[5]) {
+                    case "minutes":
+                        return dot
+                    case "seconds":
+                        return seconds
+                    case "ampm":
+                        return ampm
+                    case "weekNumber":
+                        return weekNumber
+                    case "batteryLevel":
+                        return batteryLevel
+                    default:
+                        return null
+                    }
+                }
             }
         }
     }
@@ -380,7 +479,7 @@ Rectangle {
     Component {
         id: seconds
         Text {
-            text: currentDateTime.getSeconds()
+            text: ("0" + currentDateTime.getSeconds()).slice(-2)
             height: cell_width*.4
             color: on_color
             style: Text.Outline
@@ -395,6 +494,7 @@ Rectangle {
     Component {
         id: weekNumber
         Text {
+            text: weekNumber_value
             height: cell_width*.4
             color: off_color
             style: Text.Sunken

@@ -8,12 +8,12 @@
 .pragma library
 .import QtQuick.Window 2.15 as QtWindow
 
-var isMobile = isEqual(Qt.platform.os, "android", "ios")
-var isDesktop = isEqual(Qt.platform.os, "linux", "osx", "unix", "windows")
+var isMobile = isWeaklyEqual(Qt.platform.os, "android", "ios")
+var isDesktop = isWeaklyEqual(Qt.platform.os, "linux", "osx", "unix", "windows")
 var isIos = Qt.platform.os === "ios"
 var isAndroid = Qt.platform.os === "android"
 var isWasm = Qt.platform.os === "wasm"
-var isPurchasing = isEqual(Qt.platform.os, "android", "ios", "osx", "windows")
+var isPurchasing = isWeaklyEqual(Qt.platform.os, "android", "ios", "osx", "windows")
 
 function createStringArrayWithPadding (min, size, step, targetLength = 2, padString = '0') {
     return new Array(size).fill()
@@ -156,13 +156,22 @@ function toggle(object, propertyName, first, second) {
         console.error(`${object} doesn't contain a property named "${propertyName}"`)
 }
 
-function isEqual(value, ...args) {
+function isWeaklyEqual(value, ...args) {
     for (var arg of args) {
         if (value === arg) {
             return true
         }
     }
     return false
+}
+
+function isStrictlyEqual(value, ...args) {
+    for (var arg of args) {
+        if (value !== arg) {
+            return false
+        }
+    }
+    return true
 }
 
 //from https://css-tricks.com/converting-color-spaces-in-javascript/
