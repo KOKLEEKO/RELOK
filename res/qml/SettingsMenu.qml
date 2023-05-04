@@ -294,11 +294,11 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
                 from: -24
                 to: 28
                 stepSize: 1
-                onPressedChanged: if (!pressed) parent.parent.update()
+                onPressedChanged: if (!pressed) parent.parent.parent.update()
                 onValueChanged: wordClock.selectedGMT = "GMT%1".arg(wordClock.offsetToGMT(value))
             }
             details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> \
-        is used each time the application is launched".arg(wordClock.deviceGMT))
+is used each time the application is launched".arg(wordClock.deviceGMT))
         }
     }
     Controls.MenuSection {
