@@ -2,7 +2,7 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/controls/ColorFactorPicker.qml</file>
-        <file>qml/controls/ColorPicker.qml</file>
+        <file>qml/controls/ColorHuePicker.qml</file>
         <file>qml/controls/Details.qml</file>
         <file>qml/controls/Menu.qml</file>
         <file>qml/controls/MenuItem.qml</file>
@@ -22,5 +22,7 @@
         <file>qml/languages/.fr_CA.qml</file>
         <file>qml/controls/SmallPositionSelector.qml</file>
         <file>qml/controls/LargePositionSelector.qml</file>
+        <file>qml/controls/AccessoryText.qml</file>
+        <file>qml/controls/ColorPicker.qml</file>
     </qresource>
 </RCC>

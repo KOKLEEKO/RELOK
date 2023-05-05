@@ -279,13 +279,6 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
             }
             details: qsTr("")
         }
-        Controls.SmallPositionSelector { title: qsTr("Battery level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }
-        Controls.SmallPositionSelector { title: qsTr("Week number display mode"); name: "weekNumber" }
-        Controls.SmallPositionSelector { title: qsTr("AM|PM indicator display mode"); name: "ampm" }
-        Controls.SmallPositionSelector { title: qsTr("Seconds display mode"); name: "seconds" }
-        Controls.LargePositionSelector { title: qsTr("4-dots display mode"); name: "minutes" }
-        Controls.LargePositionSelector { title: qsTr("Date display mode"); name: "date" }
-        Controls.LargePositionSelector { title: qsTr("Time zone display mode"); name: "timeZone" }
         Controls.MenuItem {
             function update() { wordClock.deltaTime = (wordClock.deviceOffset - control.value) * 30 }
             title: qsTr("Selected time zone (%1)").arg(wordClock.selectedGMT)
@@ -300,120 +293,47 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
             details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> \
 is used each time the application is launched".arg(wordClock.deviceGMT))
         }
+        Controls.LargePositionSelector { title: qsTr("Time zone display mode"); name: "timeZone" }
+        Controls.LargePositionSelector { title: qsTr("Date display mode"); name: "date" }
+        Controls.LargePositionSelector { title: qsTr("4-dots display mode"); name: "minutes" }
+        Controls.SmallPositionSelector { title: qsTr("Seconds display mode"); name: "seconds" }
+        Controls.SmallPositionSelector { title: qsTr("AM|PM indicator display mode"); name: "ampm" }
+        Controls.SmallPositionSelector { title: qsTr("Week number display mode"); name: "weekNumber" }
+        Controls.SmallPositionSelector { title: qsTr("Battery level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }
     }
     Controls.MenuSection {
+        readonly property string defaultActivatedLetterColor: "#F00"
+        readonly property string defaultDeactivatedLetterColor: "#888"
+        readonly property string defaultBackgroundColor: "#000"
+
         function applyColors() {
-            let backgroundColor  = DeviceAccess.settingsValue("Appearance/backgroundColor", "#000000")
-            let activatedLetterColor = DeviceAccess.settingsValue("Appearance/activatedLetterColor", "#FF0000")
-            let deactivatedLetterColor = DeviceAccess.settingsValue("Appearance/deactivatedLetterColor", "#808080")
-            backgroundColorPicker.extraControls[3].setColor(backgroundColor)
-            activatedLetterColorPicker.extraControls[3].setColor(activatedLetterColor)
-            deactivatedLetterColorPicker.extraControls[3].setColor(deactivatedLetterColor)
+            const default_on_color = DeviceAccess.settingsValue("Appearance/on_color",
+                                                                    defaultActivatedLetterColor)
+            const default_off_color = DeviceAccess.settingsValue("Appearance/off_color",
+                                                                      defaultDeactivatedLetterColor)
+            const default_background_color  = DeviceAccess.settingsValue("Appearance/background_color",
+                                                                         defaultBackgroundColor)
+            activatedLetterColorPicker.extraControls[3].setColor(default_on_color)
+            deactivatedLetterColorPicker.extraControls[3].setColor(default_off_color)
+            backgroundColorPicker.extraControls[3].setColor(default_background_color)
         }
         text: qsTr("Colors")
-        visible: Helpers.isDesktop || Helpers.isWasm
         Component.onCompleted: wordClock.applyColors.connect(applyColors)
-
-        Controls.MenuItem {
-            id: backgroundColorPicker
-            property color selected_color: extraControls[0].selected_color
-            title: qsTr("Background Color")
-            Button { text: "Reset"; onClicked: backgroundColorPicker.extraControls[3].setColor("#000000") }
-            details: qsTr("The color can be set in HSL (Hue, Saturation, Lightness) or in hexadecimal format.")
-            extras: [
-                Controls.ColorPicker {},
-                Controls.ColorFactorPicker {
-                    hue: parent.children[0].hue
-                    lightness: parent.children[0].lightness
-                    factorType: Controls.Picker.Factors.Saturation
-                    Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
-                },
-                Controls.ColorFactorPicker {
-                    hue: parent.children[0].hue
-                    saturation: parent.children[0].saturation
-                    factorType: Controls.Picker.Factors.Lightness
-                    Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
-                },
-                Controls.ColorHexField {
-                    huePicker: parent.children[0]
-                    saturationPicker: parent.children[1]
-                    lightnessPicker: parent.children[2]
-                }
-            ]
-            Component.onCompleted: {
-                selected_colorChanged.connect(
-                            () => {
-                                wordClock.background_color = selected_color
-                                DeviceAccess.setSettingsValue("Appearance/backgroundColor",
-                                                              selected_color.toString().toUpperCase())
-                            })
-            }
-        }
-        Controls.MenuItem {
+        Controls.ColorPicker {
             id: activatedLetterColorPicker
-            property color selected_color: extraControls[0].selected_color
             title: qsTr("Activated Letter Color")
-            Button { text: "Reset"; onClicked: activatedLetterColorPicker.extraControls[3].setColor("#FF0000") }
-            extras: [
-                Controls.ColorPicker {},
-                Controls.ColorFactorPicker {
-                    hue: parent.children[0].hue
-                    lightness: parent.children[0].lightness
-                    factorType: Controls.Picker.Factors.Saturation
-                    Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
-                },
-                Controls.ColorFactorPicker {
-                    hue: parent.children[0].hue
-                    saturation: parent.children[0].saturation
-                    factorType: Controls.Picker.Factors.Lightness
-                    Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
-                },
-                Controls.ColorHexField {
-                    huePicker: parent.children[0]
-                    saturationPicker: parent.children[1]
-                    lightnessPicker: parent.children[2]
-                }
-            ]
-            Component.onCompleted: {
-                selected_colorChanged.connect(
-                            () => {
-                                wordClock.on_color = selected_color
-                                DeviceAccess.setSettingsValue("Appearance/activatedLetterColor",
-                                                              selected_color.toString().toUpperCase())
-                            })
-            }
+            name: "on_color"
+            details: qsTr("The color can be set in HSL (Hue, Saturation, Lightness) or in hexadecimal format.")
         }
-        Controls.MenuItem {
+        Controls.ColorPicker {
             id: deactivatedLetterColorPicker
-            property color selected_color: extraControls[0].selected_color
             title: qsTr("Deactivated Letter Color")
-            Button { text: "Reset"; onClicked: deactivatedLetterColorPicker.extraControls[3].setColor("#808080") }
-            extras: [
-                Controls.ColorPicker {},
-                Controls.ColorFactorPicker {
-                    hue: parent.children[0].hue
-                    lightness: parent.children[0].lightness
-                    factorType: Controls.Picker.Factors.Saturation
-                    Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
-                },
-                Controls.ColorFactorPicker {
-                    hue: parent.children[0].hue
-                    saturation: parent.children[0].saturation
-                    factorType: Controls.Picker.Factors.Lightness
-                    Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
-                },
-                Controls.ColorHexField {
-                    huePicker: parent.children[0]
-                    saturationPicker: parent.children[1]
-                    lightnessPicker: parent.children[2]
-                }
-            ]
-            Component.onCompleted: {
-                selected_colorChanged.
-                connect(() => { wordClock.off_color = selected_color
-                            /**/DeviceAccess.setSettingsValue("Appearance/deactivatedLetterColor",
-                                                              selected_color.toString().toUpperCase()) })
-            }
+            name: "off_color"
+        }
+        Controls.ColorPicker {
+            id: backgroundColorPicker
+            title: qsTr("Background Color")
+            name: "background_color"
         }
     }
     Controls.MenuSection {
