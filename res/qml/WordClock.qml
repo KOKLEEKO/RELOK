@@ -1,11 +1,12 @@
 import QtQuick 2.15
 
+import "qrc:/qml/controls" as Controls
 import "qrc:/qml/languages"
 import "qrc:/js/Helpers.js" as Helpers
 
 Rectangle {
     function selectLanguage(language, speech) {
-        let fileBaseName = language
+        var fileBaseName = language
         if (!supportedLanguages.includes(fileBaseName)) {
             fileBaseName = (supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2) : "en"
         }
@@ -143,7 +144,8 @@ Rectangle {
     property bool was_special: false
     property int onoff_dots: 0
     property string hours_value
-    property int weekNumber_value: 0
+    property int currentWeekNumber
+    property string currentDate
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
     readonly property int hours_array_step: 1
@@ -228,6 +230,7 @@ Rectangle {
         property bool jump_by_hour: false
         readonly property string time_reference: "00:00:00"
         //private
+        readonly property int day_to_ms: 86400000
         readonly property int hour_to_ms: 3600000
         readonly property int minute_to_ms:60000
         readonly property int s_to_ms: 1000
@@ -251,8 +254,9 @@ Rectangle {
                 deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
                 currentDateTime = new Date(now.getTime() - deltaTime*minute_to_ms)
             }
-            let startDate = new Date(currentDateTime.getFullYear(), 0, 1)
-            weekNumber_value = Math.ceil(Math.floor((currentDateTime - startDate) / (24 * 60 * 60 * 1000)) / 7) //days÷7
+            const startDate = new Date(currentDateTime.getFullYear(), 0, 1)
+            currentWeekNumber = Math.ceil(Math.floor((currentDateTime - startDate) / day_to_ms) / 7)
+            currentDate = currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
             time = currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
         }
     }
@@ -344,92 +348,26 @@ Rectangle {
     }
     Component {
         id: date
-        Text {
-            text: currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
-            height: cell_width*.4
-            color: off_color
-            style: Text.Sunken
-            styleColor: Qt.darker(background_color, 1.1)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            fontSizeMode: Text.Fit
-            minimumPointSize: 2
-            font { pointSize: 32; kerning: false; preferShaping: false }
-        }
+        Controls.AccessoryText { isOn: false; text: currentDate }
     }
     Component {
         id: timeZone
-        Text {
-            text: selectedGMT
-            height: cell_width*.4
-            color: off_color
-            style: Text.Sunken
-            styleColor: Qt.darker(background_color, 1.1)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            fontSizeMode: Text.Fit
-            minimumPointSize: 2
-            font { pointSize: 32; kerning: false; preferShaping: false }
-        }
+        Controls.AccessoryText { isOn: false; text: selectedGMT }
     }
     Component {
         id: ampm
-        Text {
-            text: is_AM  ? "AM" : "PM"
-            height: cell_width*.4
-            color: off_color
-            style: Text.Sunken
-            styleColor: Qt.darker(background_color, 1.1)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            fontSizeMode: Text.Fit
-            minimumPointSize: 2
-            font { pointSize: 32; kerning: false; preferShaping: false }
-        }
+        Controls.AccessoryText { isOn: true; text: is_AM  ? "AM" : "PM" }
     }
     Component {
         id: seconds
-        Text {
-            text: ("0" + currentDateTime.getSeconds()).slice(-2)
-            height: cell_width*.4
-            color: on_color
-            style: Text.Outline
-            styleColor: Qt.lighter(on_color, 1.1)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            fontSizeMode: Text.Fit
-            minimumPointSize: 2
-            font { pointSize: 32; kerning: false; preferShaping: false }
-        }
+        Controls.AccessoryText { isOn: true; text: ("0" + currentDateTime.getSeconds()).slice(-2) }
     }
     Component {
         id: weekNumber
-        Text {
-            text: weekNumber_value
-            height: cell_width*.4
-            color: off_color
-            style: Text.Sunken
-            styleColor: Qt.darker(background_color, 1.1)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            fontSizeMode: Text.Fit
-            minimumPointSize: 2
-            font { pointSize: 32; kerning: false; preferShaping: false }
-        }
+        Controls.AccessoryText { isOn: false; text: "W%1".arg(currentWeekNumber) }
     }
     Component {
         id: batteryLevel
-        Text {
-            text: "%1%".arg(DeviceAccess.batteryLevel)
-            height: cell_width*.4
-            color: off_color
-            style: Text.Sunken
-            styleColor: Qt.darker(background_color, 1.1)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            fontSizeMode: Text.Fit
-            minimumPointSize: 2
-            font { pointSize: 32; kerning: false; preferShaping: false }
-        }
+        Controls.AccessoryText { isOn: true; text: "%1%".arg(DeviceAccess.batteryLevel) }
     }
 }

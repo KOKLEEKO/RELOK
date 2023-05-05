@@ -215,37 +215,17 @@ ApplicationWindow {
         property bool isMenuOpened
         PropertyAction { targets: [wordClock, settingPanel]; property:"opacity"; value: 0 }
         ScriptAction {
-            script: {
-                viewConfigurationChangedSequence.isMenuOpened = settingPanel.opened
-                settingPanel.close()
-            }
+            script: { viewConfigurationChangedSequence.isMenuOpened = settingPanel.opened; settingPanel.close() }
         }
         PauseAnimation { duration: 500 }
-        PropertyAnimation {
-            targets: [wordClock, settingPanel]
-            property: "opacity"
-            duration: 500
-            from: 0
-            to: 1
-        }
-        ScriptAction {
-            script: {
-                if (viewConfigurationChangedSequence.isMenuOpened)
-                    settingPanel.open()
-            }
-        }
+        PropertyAnimation { targets: [wordClock, settingPanel]; property: "opacity"; duration: 500; from: 0; to: 1 }
+        ScriptAction { script: if (viewConfigurationChangedSequence.isMenuOpened) settingPanel.open() }
     }
     SequentialAnimation {
         id: visibilityChangedSequence
         alwaysRunToEnd: true
         PropertyAction { target: wordClock; property:"opacity"; value: 0 }
-        PropertyAnimation {
-            targets: wordClock
-            property: "opacity"
-            duration: 350
-            from: 0
-            to: 1
-        }
+        PropertyAnimation { targets: wordClock; property: "opacity"; duration: 350; from: 0; to: 1 }
     }
 
     MouseArea {
@@ -265,26 +245,19 @@ ApplicationWindow {
                                 Helpers.updateVisibility(root, DeviceAccess)
                             }
                         }
-        onClicked: (mouse) => {
-                       if (!Helpers.isDesktop || mouse.button === Qt.RightButton) {
-                           settingPanel.open()
-                       }
-                   }
+        onClicked: (mouse) => { if (!Helpers.isDesktop || mouse.button === Qt.RightButton) settingPanel.open() }
     }
 
     WordClock {
         id: wordClock
         anchors.verticalCenter: parent.verticalCenter
         x: DeviceAccess.safeInsetLeft
-        height: parent.height
-                - (isFullScreen ? 0
-                                : (Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
-                                   + Math.max(DeviceAccess.navigationBarHeight,
-                                              DeviceAccess.safeInsetBottom)))
+        height: parent.height - (isFullScreen ? 0
+                                              : (Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+                                                 + Math.max(DeviceAccess.navigationBarHeight,
+                                                            DeviceAccess.safeInsetBottom)))
         width: parent.width - (DeviceAccess.safeInsetLeft + DeviceAccess.safeInsetRight)
-               - (isLandScape ? settingPanel.position
-                                * (settingPanel.width - DeviceAccess.safeInsetRight)
-                              : 0)
+               - (isLandScape ? settingPanel.position * (settingPanel.width - DeviceAccess.safeInsetRight) : 0)
     }
 
     Drawer {
@@ -318,10 +291,7 @@ ApplicationWindow {
             }
         }
         SettingsMenu { }
-        BusyIndicator {
-            anchors.centerIn: parent
-            running: store.purchasing && !failTransactionPopup.opened
-        }
+        BusyIndicator { anchors.centerIn: parent; running: store.purchasing && !failTransactionPopup.opened }
     }
     Popup {
         id: purchasingPopup
@@ -382,24 +352,18 @@ ApplicationWindow {
                     fontSizeMode: Label.Fit
                     minimumPixelSize: 1
                     wrapMode: Text.WordWrap
-                    text: "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use."))
-                    .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this pop-up window to close it and open the settings menu.")
-                    : qsTr("Please right-click outside this pop-up window to close it and open the settings menu."))
+                    text:
+                        "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use."))
+                    /**/             .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this pop-up window \
+to close it and open the settings menu.")                  : qsTr("Please right-click outside this pop-up window to \
+close it and open the settings menu."))
                 }
-                CheckBox {
-                    id: hidePopupCheckbox
-                    indicator.opacity: 0.5
-                    text: qsTr("Don't show this again")
-                }
+                CheckBox { id: hidePopupCheckbox; indicator.opacity: 0.5; text: qsTr("Don't show this again") }
             }
             Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
             onClosed: root.showWelcome = !hidePopupCheckbox.checked
             closePolicy: Dialog.NoAutoClose
-            Component.onCompleted: {
-                header.background.visible = false
-                if (!Helpers.isWasm && showWelcome)
-                    open()
-            }
+            Component.onCompleted: { header.background.visible = false; if (!Helpers.isWasm && showWelcome) open() }
         }
         Dialog {
             id: badReviewPopup
@@ -412,14 +376,12 @@ ApplicationWindow {
             Label {
                 width: parent.width
                 wrapMode: Text.WordWrap
-                text: qsTr("\
-We are sorry to find out that you are not completely satisfied with this application...\
-But with your feedback, we can make it even better!\
-Your suggestions will be taken into account.")
+                text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
+But with your feedback, we can make it even better!\nYour suggestions will be taken into account.")
             }
-            onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1".arg(
-                                                 qsTr("Suggestions for WordClock")))
+            onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
+                                             .arg(qsTr("Suggestions for WordClock")))
             standardButtons: Dialog.Close | Dialog.Ok
         }
-        Loader {active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
+        Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
     }

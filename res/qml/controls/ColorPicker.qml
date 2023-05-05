@@ -1,40 +1,41 @@
-/**************************************************************************************************
-**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
-**  All rights reserved.
-**  Licensed under the MIT license. See LICENSE file in the project root for
-**  details.
-**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
-**************************************************************************************************/
-import QtQml.Models 2.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import "qrc:/js/Helpers.js" as Helpers
+import "qrc:/qml/controls" as Controls
 
-Picker {
-    id: control
-    readonly property int steps: 15
-    property var stops: []
+Controls.MenuItem {
+    function reset() { extraControls[3].setColor(parent.parent["default_%1".arg(name)]) }
+    property color selected_color: extraControls[0].selected_color
+    required property string name
+    //title: qsTr("Activated Letter Color")
+    Button { text: qsTr("Reset") }
+    //details: qsTr("The color can be set in HSL (Hue, Saturation, Lightness) or in hexadecimal format.")
+    extras: [
+        Controls.ColorHuePicker {},
+        Controls.ColorFactorPicker {
+            hue: parent.children[0].hue
+            lightness: parent.children[0].lightness
+            factorType: Controls.Picker.Factors.Saturation
+            Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
+        },
+        Controls.ColorFactorPicker {
+            hue: parent.children[0].hue
+            saturation: parent.children[0].saturation
+            factorType: Controls.Picker.Factors.Lightness
+            Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
+        },
+        Controls.ColorHexField {
+            huePicker: parent.children[0]
+            saturationPicker: parent.children[1]
+            lightnessPicker: parent.children[2]
+        }
+    ]
     Component.onCompleted: {
-        saturationChanged.connect(valueChanged)
-        lightnessChanged.connect(valueChanged)
-        valueChanged.connect(() => { hue = value; selected_color = Qt.hsla(hue, saturation, lightness, 1) })
-        //valueChanged()
-    }
-    background: Rectangle {
-        x: control.leftPadding
-        y: control.topPadding + control.availableHeight/2 - height/2
-        implicitWidth: 200
-        implicitHeight: 8
-        width: control.availableWidth
-        height: implicitHeight
-        radius: implicitWidth/2
-        border.color: visualFocus ? palette.highlight : enabled ? palette.mid : palette.midlight
-        gradient: Gradient { orientation: Gradient.Horizontal; stops: control.stops }
-    }
-    Instantiator {
-        model: steps
-        delegate: GradientStop { position: index/(control.steps-1) }
-        onObjectAdded: { object.color = Qt.hsla(object.position,1,.5,1); control.stops.push(object) }
+        control.clicked.connect(reset)
+        selected_colorChanged.connect(() => {
+                                          wordClock[name] = selected_color
+                                          DeviceAccess.setSettingsValue("Appearance/%1".arg(name),
+                                                                        selected_color.toString().toUpperCase())
+                                      })
     }
 }

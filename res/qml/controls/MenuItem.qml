@@ -23,9 +23,9 @@ ColumnLayout {
 
     property var control: null
     property var extraControls: extraGrid ? extraGrid.children : null
-    property var extraGrid: null
+    property Flow extraGrid: null
     property bool withRadioGroup: false
-    property var radioGroup: null
+    property ButtonGroup radioGroup: null
 
     Layout.fillWidth: true
     Layout.rightMargin: 25
