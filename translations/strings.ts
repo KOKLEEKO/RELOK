@@ -22,12 +22,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="41"/>
+        <location filename="../res/qml/controls/LargePositionSelector.qml" line="40"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="48"/>
+        <location filename="../res/qml/controls/LargePositionSelector.qml" line="41"/>
         <source>Around</source>
         <translation type="unfinished"></translation>
     </message>
@@ -253,11 +253,6 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="293"/>
-        <source>AM|PM indicator display mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/SettingsMenu.qml" line="292"/>
         <source>Seconds display mode</source>
         <translation type="unfinished"></translation>
@@ -295,6 +290,11 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     <message>
         <location filename="../res/qml/SettingsMenu.qml" line="319"/>
         <source>The color can be set in HSL (Hue, Saturation, Lightness) or in hexadecimal format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="293"/>
+        <source>AM|PM display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -357,32 +357,32 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>SmallPositionSelector</name>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="27"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="31"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="27"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="31"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="22"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="30"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="43"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="47"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="43"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="47"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="43"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="47"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>

@@ -37,17 +37,8 @@ Controls.MenuItem {
     property int activatedPositionIndex: -1
     property var positions: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom") ]
     withRadioGroup: true
-    RadioButton {
-        text: qsTr("Hide")
-        checked: activatedPositionIndex == -1
-        ButtonGroup.group: radioGroup
-        onClicked: hide()
-    }
-    Component.onCompleted: {
-        if (isMinutes)
-            positions.unshift(QT_TR_NOOP("Around"))
-        model = positions
-    }
+    RadioButton { text: qsTr("Hide"); checked: true; ButtonGroup.group: radioGroup; onClicked: hide() }
+    Component.onCompleted: { if (isMinutes) { positions.unshift(QT_TR_NOOP("Around")) } model = positions }
     delegate:
         RadioButton {
         readonly property int positionIndex: isMinutes ? Math.floor(Math.pow(4, index - 1)) : Math.pow(4, index)
