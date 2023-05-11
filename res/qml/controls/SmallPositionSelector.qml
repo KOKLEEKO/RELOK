@@ -15,15 +15,19 @@ Controls.MenuItem {
             }
         }
     }
-    property string name
+    function activate(positionIndex) {
+        if (activatedPositionIndex !== positionIndex) {
+            hide(false)
+            wordClock.accessories[positionIndex] = name
+            wordClock.accessoriesChanged()
+            activatedPositionIndex = positionIndex
+        }
+    }
+
+    required property string name
     property int activatedPositionIndex: -1
     withRadioGroup: true
-    RadioButton {
-        text: qsTr("Hide")
-        checked: true
-        ButtonGroup.group: radioGroup
-        onClicked: hide()
-    }
+    RadioButton { text: qsTr("Hide"); checked: true; ButtonGroup.group: radioGroup; onClicked: hide() }
     model: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom") ]
     delegate:
         Frame {
@@ -47,14 +51,7 @@ Controls.MenuItem {
                         text: qsTr(modelData)
                         checked: wordClock.accessories[positionIndex] === name
                         ButtonGroup.group: radioGroup
-                        onClicked: {
-                            if (activatedPositionIndex !== positionIndex) {
-                                hide(false)
-                                wordClock.accessories[positionIndex] = name
-                                wordClock.accessoriesChanged()
-                                activatedPositionIndex = positionIndex
-                            }
-                        }
+                        onClicked: activate(positionIndex)
                     }
                 }
             }
