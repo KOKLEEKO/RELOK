@@ -32,15 +32,16 @@ ApplicationWindow {
     //Tips
     property var failedProduct: null
     property string failedProductErrorString: ""
-
     property alias store: store
-    property alias productTipBone: productTipBone
-    property alias productTipCoffee: productTipCoffee
-    property alias productTipCookie: productTipCookie
-    property alias productTipIceCream: productTipIceCream
-    property alias productTipBeer: productTipBeer
-    property alias productTipBurger: productTipBurger
-    property alias productTipWine: productTipWine
+    property var products: ({})
+    readonly property var tipsModel: [ { name: "bone", tooltip: QT_TR_NOOP("Tip me a Bone (for Denver)") },
+        /**/                           { name: "coffee", tooltip: QT_TR_NOOP("Tip me a Coffee") },
+        /**/                           { name: "cookie", tooltip: QT_TR_NOOP("Tip me a Cookie")},
+        /**/                           { name: "icecream", tooltip: QT_TR_NOOP("Tip me an Ice Cream")},
+        /**/                           { name: "beer", tooltip: QT_TR_NOOP("Tip me a Beer") },
+        /**/                           { name: "burger", tooltip: QT_TR_NOOP("Tip me a Burger") },
+        /**/                           { name: "wine", tooltip: QT_TR_NOOP("Tip me a Wine Bottle") }
+    ]
 
     property int minimumSize: 287
 
@@ -80,13 +81,11 @@ ApplicationWindow {
     onVisibilityChanged: if (Helpers.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
         console.info("pixelDensity", Screen.pixelDensity)
-        if (Helpers.isAndroid)
-            onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
+        if (Helpers.isAndroid) onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
 
         if (isDebug) {
             var paletteString = "↓\npalette {\n";
-            for (var prop in palette)
-                paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop])
+            for (var prop in palette) paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop])
             paletteString +="}"
             console.log(paletteString)
         }
@@ -96,12 +95,21 @@ ApplicationWindow {
         //console.log(Qt.rgba(1,0,0,0).hslLightness)
     }
 
+    Instantiator {
+        model: tipsModel
+        onObjectAdded: { store.products.push(object); products[model[index].name] = object; productsChanged() }
+        Product {
+            identifier: "io.kokleeko.wordclock.tip.%1".arg(modelData.name)
+            type: Product.Consumable
+            onPurchaseSucceeded: (transaction) => store.success(transaction)
+            onPurchaseFailed: (transaction) => store.failed(transaction, this)
+        }
+    }
     Store {
         id: store
         property bool purchasing: false
         function success(transaction) {
-            if (transaction)
-                transaction.finalize()
+            if (transaction) transaction.finalize()
             tipthanksPopup.open()
             purchasing = false
         }
@@ -114,62 +122,7 @@ ApplicationWindow {
             } else
                 purchasing = false
         }
-        onPurchasingChanged: {
-            if (!purchasing) {
-                failedProduct = null
-                failedProductErrorString = ""
-            }
-        }
-
-        Product {
-            id: productTipBone
-            identifier: "io.kokleeko.wordclock.tip.bone"
-            type: Product.Consumable
-            onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction, productTipBone)
-        }
-        Product {
-            id: productTipCoffee
-            identifier: "io.kokleeko.wordclock.tip.coffee"
-            type: Product.Consumable
-            onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction, productTipCoffee)
-        }
-        Product {
-            id: productTipCookie
-            identifier: "io.kokleeko.wordclock.tip.cookie"
-            type: Product.Consumable
-            onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction, productTipCookie)
-        }
-        Product {
-            id: productTipIceCream
-            identifier: "io.kokleeko.wordclock.tip.icecream"
-            type: Product.Consumable
-            onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction, productTipIceCream)
-        }
-        Product {
-            id: productTipBeer
-            identifier: "io.kokleeko.wordclock.tip.beer"
-            type: Product.Consumable
-            onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction, productTipBeer)
-        }
-        Product {
-            id: productTipBurger
-            identifier: "io.kokleeko.wordclock.tip.burger"
-            type: Product.Consumable
-            onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction, productTipBurger)
-        }
-        Product {
-            id: productTipWine
-            identifier: "io.kokleeko.wordclock.tip.wine"
-            type: Product.Consumable
-            onPurchaseSucceeded: (transaction) => store.success(transaction)
-            onPurchaseFailed: (transaction) => store.failed(transaction. productTipWine)
-        }
+        onPurchasingChanged: if (!purchasing) { failedProduct = null; failedProductErrorString = "" }
     }
 
     QtObject {

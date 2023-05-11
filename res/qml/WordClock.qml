@@ -7,21 +7,16 @@ import "qrc:/js/Helpers.js" as Helpers
 Rectangle {
     function selectLanguage(language, speech) {
         var fileBaseName = language
-        if (!supportedLanguages.includes(fileBaseName)) {
+        if (!supportedLanguages.includes(fileBaseName))
             fileBaseName = (supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2) : "en"
-        }
         DeviceAccess.setSpeechLanguage(language)
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
-        if (isDebug)
-            console.log(language, supportedLanguages, tmp_language_url)
+        if (isDebug) console.log(language, supportedLanguages, tmp_language_url)
         language_url = tmp_language_url
         selected_language = language
-        if (enable_speech)
-            DeviceAccess.say(written_time)
+        if (enable_speech) DeviceAccess.say(written_time)
     }
-    function detectAndUseDeviceLanguage() {
-        selectLanguage(Qt.locale().name)
-    }
+    function detectAndUseDeviceLanguage() { selectLanguage(Qt.locale().name) }
     function updateTable() {
         const split_time = time.split(':')
         hours_value = split_time[0]
@@ -30,22 +25,16 @@ Rectangle {
         const is_special = enable_special_message &&
                          (hours_value[0] === hours_value[1]) &&
                          (hours_value === minutes_value)
-        if (minutes_value >= 35) {
-            if (++hours_value % 12 == 0)
-                isAM ^= true
-        }
+        if (minutes_value >= 35 && (++hours_value % 12 == 0)) isAM ^= true
         hours_array_index = hours_value % 12
         minutes_array_index = Math.floor(minutes_value/5)
         const tmp_onoff_dots = minutes_value % 5
-        written_time = language.written_time(hours_array_index, minutes_array_index, isAM)
-                + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : "")
-        if (isDebug)
-            console.debug(time, written_time)
-        if (enable_speech && (minutes_value % parseInt(speech_frequency) == 0)) {
+        written_time = language.written_time(hours_array_index, minutes_array_index, isAM) +
+                (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : "")
+        if (isDebug) console.debug(time, written_time)
+        if (enable_speech && (minutes_value % parseInt(speech_frequency) == 0))
             DeviceAccess.say(written_time.toLowerCase())
-        }
-        if (was_special)
-            language.special_message(false)
+        if (was_special) language.special_message(false)
         if (previous_hours_array_index !== hours_array_index || is_special || was_special) {
             if (previous_hours_array_index !== -1)
                 language["hours_" + hours_array[previous_hours_array_index]](false, was_AM)
@@ -63,8 +52,7 @@ Rectangle {
                 previous_minutes_array_index = minutes_array_index
             }
         }
-        if (is_special)
-            language.special_message(true)
+        if (is_special) language.special_message(true)
         was_special = is_special
 
         //update table and dots at the same time
@@ -128,7 +116,6 @@ Rectangle {
         "60": QT_TR_NOOP("every hour")
     }
     readonly property var supportedLanguages: DeviceAccess.supportedLanguages
-
     property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
     property Language language
     //onLanguageChanged: Helpers.missingLetters(language.table)
@@ -151,8 +138,7 @@ Rectangle {
     readonly property int hours_array_step: 1
     readonly property int hours_array_min: 0
     readonly property int hours_array_max: 11
-    readonly property int hours_array_size: ((hours_array_max - hours_array_min)/
-                                             hours_array_step) + 1
+    readonly property int hours_array_size: ((hours_array_max - hours_array_min) / hours_array_step) + 1
     readonly property var hours_array: Helpers.createStringArrayWithPadding(hours_array_min,
                                                                             hours_array_size,
                                                                             hours_array_step)
@@ -198,10 +184,7 @@ Rectangle {
                         }
                     })
         timeChanged.connect(updateTable)
-        if (selected_language === "")
-            detectAndUseDeviceLanguage()
-        else
-            selectLanguage(selected_language)
+        if (selected_language === "") { detectAndUseDeviceLanguage() } else { selectLanguage(selected_language) }
     }
 
     Loader { source: language_url; onLoaded: language = item }
@@ -346,28 +329,10 @@ Rectangle {
             width: dot_size
         }
     }
-    Component {
-        id: date
-        Controls.AccessoryText { isOn: false; text: currentDate }
-    }
-    Component {
-        id: timeZone
-        Controls.AccessoryText { isOn: false; text: selectedGMT }
-    }
-    Component {
-        id: ampm
-        Controls.AccessoryText { isOn: true; text: is_AM  ? "AM" : "PM" }
-    }
-    Component {
-        id: seconds
-        Controls.AccessoryText { isOn: true; text: ("0" + currentDateTime.getSeconds()).slice(-2) }
-    }
-    Component {
-        id: weekNumber
-        Controls.AccessoryText { isOn: false; text: "W%1".arg(currentWeekNumber) }
-    }
-    Component {
-        id: batteryLevel
-        Controls.AccessoryText { isOn: true; text: "%1%".arg(DeviceAccess.batteryLevel) }
-    }
+    Component { id: date; Controls.AccessoryText { isOn: false; text: currentDate } }
+    Component { id: timeZone; Controls.AccessoryText { isOn: false; text: selectedGMT } }
+    Component { id: ampm; Controls.AccessoryText { isOn: true; text: is_AM  ? "AM" : "PM" } }
+    Component { id: seconds; Controls.AccessoryText { isOn: true; text: ("0"+currentDateTime.getSeconds()).slice(-2) } }
+    Component { id: weekNumber; Controls.AccessoryText { isOn: false; text: "W%1".arg(currentWeekNumber) } }
+    Component { id: batteryLevel; Controls.AccessoryText { isOn: false; text: "%1%".arg(DeviceAccess.batteryLevel) } }
 }

@@ -43,27 +43,20 @@ Controls.Menu {
 
         Controls.IconButton {
             name: "ko-fi"
-            enabled: !store.purchasing && productTipCoffee.status === Product.Registered
             visible: !Helpers.isPurchasing
             tooltip: "Ko-fi"
             onClicked: openUrl("https://ko-fi.com/johanremilien")
         }
         Repeater {
-            model: [ { name: "tip-bone", tooltip: QT_TR_NOOP("Tip me a Bone (for Denver)"), product: productTipBone },
-                /**/ { name: "tip-coffee", tooltip: QT_TR_NOOP("Tip me a Coffee"), product: productTipCoffee },
-                /**/ { name: "tip-cookie", tooltip: QT_TR_NOOP("Tip me a Cookie"), product: productTipCookie },
-                /**/ { name: "tip-ice-cream", tooltip: QT_TR_NOOP("Tip me an Ice Icream"), product: productTipIceCream },
-                /**/ { name: "tip-beer", tooltip: QT_TR_NOOP("Tip me a Beer"), product: productTipBeer },
-                /**/ { name: "tip-burger", tooltip: QT_TR_NOOP("Tip me a Burger"), product: productTipBurger },
-                /**/ { name: "tip-wine", tooltip: QT_TR_NOOP("Tip me a Wine Bottle"), product: productTipWine }
-            ]
+            model: tipsModel
             Controls.IconButton {
-                name: modelData.name
+                readonly property Product product: products[modelData.name]
+                name: "tip-" + modelData.name
                 Layout.fillWidth: true
-                enabled: !store.purchasing && modelData.product.status === Product.Registered
-                visible: Helpers.isPurchasing
+                enabled: !store.purchasing && product.status === Product.Registered
                 tooltip: qsTr(modelData.tooltip)
-                onClicked: { store.purchasing = true; modelData.product.purchase() }
+                visible: Helpers.isPurchasing
+                onClicked: { store.purchasing = true; product.purchase() }
             }
         }
         show_detailsComponent: Helpers.isPurchasing
@@ -334,6 +327,7 @@ is used each time the application is launched".arg(wordClock.deviceGMT))
             id: backgroundColorPicker
             title: qsTr("Background Color")
             name: "background_color"
+            visible: Helpers.isDesktop || Helpers.isWasm
         }
     }
     Controls.MenuSection {
