@@ -25,9 +25,12 @@ Rectangle {
     }
     function detectAndUseDeviceLanguage() { selectLanguage(Qt.locale().name) }
     function updateTable() {
+        const startDate = new Date(currentDateTime.getFullYear(), 0, 1)
+        currentWeekNumber = Math.ceil(Math.floor((currentDateTime - startDate) / timer.day_to_ms) / 7)
+        currentDate = currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
         const split_time = time.split(':')
         hours_value = split_time[0]
-        const minutes_value = split_time[1]
+        minutes_value = split_time[1]
         var isAM = is_AM = (split_time[2] === "am")
         const is_special = enable_special_message &&
                          (hours_value[0] === hours_value[1]) &&
@@ -35,7 +38,7 @@ Rectangle {
         if (minutes_value >= 35 && (++hours_value % 12 == 0)) isAM ^= true
         hours_array_index = hours_value % 12
         minutes_array_index = Math.floor(minutes_value/5)
-        const tmp_onoff_dots = minutes_value % 5
+        const tmp_onoff_dots = minutes_value%5
         written_time = language.written_time(hours_array_index, minutes_array_index, isAM) +
                 (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : "")
         if (isDebug) console.debug(time, written_time)
@@ -137,7 +140,8 @@ Rectangle {
     property bool was_AM
     property bool was_special: false
     property int onoff_dots: 0
-    property string hours_value
+    property int hours_value
+    property int minutes_value
     property int currentWeekNumber
     property string currentDate
     property int previous_hours_array_index: -1
@@ -229,7 +233,7 @@ Rectangle {
                                                  parseInt(time_reference_list[0])*hour_to_ms +
                                                  parseInt(time_reference_list[1])*minute_to_ms +
                                                  parseInt(time_reference_list[2])*s_to_ms
-        interval: 500
+        interval: 5
         repeat: true
         running: false
         triggeredOnStart: true
@@ -244,9 +248,6 @@ Rectangle {
                 deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
                 currentDateTime = new Date(now.getTime() - deltaTime*minute_to_ms)
             }
-            const startDate = new Date(currentDateTime.getFullYear(), 0, 1)
-            currentWeekNumber = Math.ceil(Math.floor((currentDateTime - startDate) / day_to_ms) / 7)
-            currentDate = currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
             time = currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
         }
     }
