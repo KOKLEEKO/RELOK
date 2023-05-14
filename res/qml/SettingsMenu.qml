@@ -298,7 +298,7 @@ is used each time the application is launched".arg(wordClock.deviceGMT))
         Controls.LargePositionSelector { title: qsTr("Time zone display mode"); name: "timeZone" }
         Controls.LargePositionSelector { title: qsTr("Date display mode"); name: "date" }
         Controls.LargePositionSelector { title: qsTr("4-dots display mode"); name: "minutes" }
-        Controls.SmallPositionSelector { title: qsTr("Seconds display mode"); name: "seconds"; visible: false }
+        Controls.SmallPositionSelector { title: qsTr("Seconds display mode"); name: "seconds" }
         Controls.SmallPositionSelector { title: qsTr("AM|PM display mode"); name: "ampm" }
         Controls.SmallPositionSelector { title: qsTr("Week number display mode"); name: "weekNumber" }
         Controls.SmallPositionSelector { title: qsTr("Battery level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }

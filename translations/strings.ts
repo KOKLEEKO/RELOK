@@ -389,37 +389,37 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>WordClock</name>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="117"/>
+        <location filename="../res/qml/WordClock.qml" line="120"/>
         <source>every minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="118"/>
+        <location filename="../res/qml/WordClock.qml" line="121"/>
         <source>every 5 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="119"/>
+        <location filename="../res/qml/WordClock.qml" line="122"/>
         <source>every 10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="120"/>
+        <location filename="../res/qml/WordClock.qml" line="123"/>
         <source>every 15 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="121"/>
+        <location filename="../res/qml/WordClock.qml" line="124"/>
         <source>every 20 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="122"/>
+        <location filename="../res/qml/WordClock.qml" line="125"/>
         <source>every 30 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="123"/>
+        <location filename="../res/qml/WordClock.qml" line="126"/>
         <source>every hour</source>
         <translation type="unfinished"></translation>
     </message>
