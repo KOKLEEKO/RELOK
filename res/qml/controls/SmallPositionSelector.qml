@@ -1,34 +1,17 @@
+/**************************************************************************************************
+**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
+**  All rights reserved.
+**  Licensed under the MIT license. See LICENSE file in the project root for
+**  details.
+**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
+**************************************************************************************************/
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-import "." as Controls
 import "qrc:/js/Helpers.js" as Helpers
 
-Controls.MenuItem {
-    function hide(notify = true) {
-        if (activatedPositionIndex !== -1 && wordClock.accessories[activatedPositionIndex] === name) {
-            wordClock.accessories[activatedPositionIndex] = ""
-            if (notify) {
-                wordClock.accessoriesChanged()
-                activatedPositionIndex = -1
-            }
-        }
-    }
-    function activate(positionIndex) {
-        if (activatedPositionIndex !== positionIndex) {
-            hide(false)
-            wordClock.accessories[positionIndex] = name
-            wordClock.accessoriesChanged()
-            activatedPositionIndex = positionIndex
-        }
-    }
-
-    required property string name
-    property int activatedPositionIndex: -1
-    withRadioGroup: true
-    RadioButton { text: qsTr("Hide"); checked: true; ButtonGroup.group: radioGroup; onClicked: hide() }
-    model: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom") ]
+PositionSelector {
     delegate:
         Frame {
         readonly property int buttonIndex: index

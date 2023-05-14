@@ -21,8 +21,9 @@
         <file>qml/languages/en_US.qml</file>
         <file>qml/languages/.fr_CA.qml</file>
         <file>qml/controls/SmallPositionSelector.qml</file>
-        <file>qml/controls/LargePositionSelector.qml</file>
+        <file>qml/controls/PositionSelector.qml</file>
         <file>qml/controls/AccessoryText.qml</file>
         <file>qml/controls/ColorPicker.qml</file>
+        <file>qml/controls/LargePositionSelector.qml</file>
     </qresource>
 </RCC>
