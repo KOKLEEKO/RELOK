@@ -16,7 +16,6 @@ Controls.MenuItem {
     required property string name
     //title: qsTr("Activated Letter Color")
     Button { text: qsTr("Reset") }
-    //details: qsTr("The color can be set in HSL (Hue, Saturation, Lightness) or in hexadecimal format.")
     extras: [
         Controls.ColorHuePicker {},
         Controls.ColorFactorPicker {

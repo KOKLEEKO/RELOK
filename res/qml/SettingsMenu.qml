@@ -273,9 +273,18 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
             details: qsTr("")
         }
         Controls.MenuItem {
-            function update() { wordClock.deltaTime = (wordClock.deviceOffset - control.value) * 30 }
-            title: qsTr("Selected time zone (%1)").arg(wordClock.selectedGMT)
-            Slider {
+            function update() { wordClock.deltaTime = (wordClock.deviceOffset - extraControls[0].value) * 30 }
+            title: qsTr("Time Zone (%1)").arg(wordClock.selectedGMT)
+            Button {
+                text: qsTr("Reset")
+                enabled: wordClock.selectedGMT !== wordClock.deviceGMT
+                onClicked: {
+                    parent.parent.parent.extraControls[0].value = wordClock.deviceOffset
+                    parent.parent.parent.update()
+                }
+            }
+            extras:
+                Slider {
                 value: wordClock.deviceOffset
                 from: -24
                 to: 28
@@ -295,20 +304,20 @@ is used each time the application is launched".arg(wordClock.deviceGMT))
         Controls.SmallPositionSelector { title: qsTr("Battery level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }
     }
     Controls.MenuSection {
-        readonly property string defaultActivatedLetterColor: "#F00"
-        readonly property string defaultDeactivatedLetterColor: "#888"
-        readonly property string defaultBackgroundColor: "#000"
+        readonly property string default_on_color: "#F00"
+        readonly property string default_off_color: "#888"
+        readonly property string default_background_color: "#000"
 
         function applyColors() {
-            const default_on_color = DeviceAccess.settingsValue("Appearance/on_color",
-                                                                    defaultActivatedLetterColor)
-            const default_off_color = DeviceAccess.settingsValue("Appearance/off_color",
-                                                                      defaultDeactivatedLetterColor)
-            const default_background_color  = DeviceAccess.settingsValue("Appearance/background_color",
-                                                                         defaultBackgroundColor)
-            activatedLetterColorPicker.extraControls[3].setColor(default_on_color)
-            deactivatedLetterColorPicker.extraControls[3].setColor(default_off_color)
-            backgroundColorPicker.extraControls[3].setColor(default_background_color)
+            const on_color = DeviceAccess.settingsValue("Appearance/on_color",
+                                                                default_on_color)
+            const off_color = DeviceAccess.settingsValue("Appearance/off_color",
+                                                                 default_off_color)
+            const background_color  = DeviceAccess.settingsValue("Appearance/background_color",
+                                                                         default_background_color)
+            activatedLetterColorPicker.extraControls[3].setColor(on_color)
+            deactivatedLetterColorPicker.extraControls[3].setColor(off_color)
+            backgroundColorPicker.extraControls[3].setColor(background_color)
         }
         text: qsTr("Colors")
         Component.onCompleted: wordClock.applyColors.connect(applyColors)

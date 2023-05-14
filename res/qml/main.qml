@@ -45,8 +45,8 @@ ApplicationWindow {
 
     property int minimumSize: 287
 
-    width: 640
-    height: 480
+    width: DeviceAccess.settingsValue("Appearance/width", 640)
+    height: DeviceAccess.settingsValue("Appearance/height", 480)
     minimumWidth: minimumSize
     minimumHeight: minimumSize
     visible: true
@@ -56,10 +56,9 @@ ApplicationWindow {
 
     onClosing: {
         aboutToQuit = true
-        if (Helpers.isAndroid) {
-            close.accepted = false
-            DeviceAccess.moveTaskToBack()
-        }
+        if (Helpers.isAndroid) { close.accepted = false; DeviceAccess.moveTaskToBack() }
+        DeviceAccess.setSettingsValue("Appearance/width", width)
+        DeviceAccess.setSettingsValue("Appearance/height", height)
     }
     onIsFullScreenChanged: {
         if (!aboutToQuit) {
