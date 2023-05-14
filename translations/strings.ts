@@ -4,30 +4,30 @@
 <context>
     <name>ColorPicker</name>
     <message>
-        <location filename="../res/qml/controls/ColorPicker.qml" line="11"/>
+        <location filename="../res/qml/controls/ColorPicker.qml" line="18"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>LargePositionSelector</name>
+    <name>PositionSelector</name>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="38"/>
+        <location filename="../res/qml/controls/PositionSelector.qml" line="46"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="38"/>
+        <location filename="../res/qml/controls/PositionSelector.qml" line="46"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="40"/>
+        <location filename="../res/qml/controls/PositionSelector.qml" line="48"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/LargePositionSelector.qml" line="41"/>
+        <location filename="../res/qml/controls/PositionSelector.qml" line="49"/>
         <source>Around</source>
         <translation type="unfinished"></translation>
     </message>
@@ -357,32 +357,17 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>SmallPositionSelector</name>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="31"/>
-        <source>Top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="31"/>
-        <source>Bottom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/controls/SmallPositionSelector.qml" line="30"/>
-        <source>Hide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="47"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="47"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="30"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="47"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="30"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
@@ -390,12 +375,12 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="../res/qml/WebAccess.qml" line="79"/>
+        <location filename="../res/qml/WebAccess.qml" line="86"/>
         <source>Loading...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WebAccess.qml" line="85"/>
+        <location filename="../res/qml/WebAccess.qml" line="92"/>
         <source>Houston, we have a problem</source>
         <translation type="unfinished"></translation>
     </message>
@@ -403,37 +388,37 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>WordClock</name>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="110"/>
+        <location filename="../res/qml/WordClock.qml" line="117"/>
         <source>every minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="111"/>
+        <location filename="../res/qml/WordClock.qml" line="118"/>
         <source>every 5 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="112"/>
+        <location filename="../res/qml/WordClock.qml" line="119"/>
         <source>every 10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="113"/>
+        <location filename="../res/qml/WordClock.qml" line="120"/>
         <source>every 15 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="114"/>
+        <location filename="../res/qml/WordClock.qml" line="121"/>
         <source>every 20 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="115"/>
+        <location filename="../res/qml/WordClock.qml" line="122"/>
         <source>every 30 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="116"/>
+        <location filename="../res/qml/WordClock.qml" line="123"/>
         <source>every hour</source>
         <translation type="unfinished"></translation>
     </message>
