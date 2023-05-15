@@ -13,7 +13,7 @@ import "." as Controls
 import "qrc:/js/Helpers.js" as Helpers
 
 Controls.MenuItem {
-    function hide(notify = true) {
+    function hide(shouldNotify = true) {
         if (activatedPositionIndex !== -1 && wordClock.accessories[activatedPositionIndex] === name) {
             wordClock.accessories[activatedPositionIndex] = ""
             if (isMinutes && activatedPositionIndex === 0) {
@@ -21,13 +21,10 @@ Controls.MenuItem {
                 wordClock.accessories[3] = ""
                 wordClock.accessories[5] = ""
             }
-            if (notify) {
-                wordClock.accessoriesChanged()
-                activatedPositionIndex = -1
-            }
+            if (shouldNotify) notify(-1)
         }
     }
-    function activate(positionIndex, isMinutes) {
+    function activate(positionIndex) {
         if (activatedPositionIndex !== positionIndex) {
             hide(false)
             wordClock.accessories[positionIndex] = name
@@ -36,15 +33,25 @@ Controls.MenuItem {
                 wordClock.accessories[3] = name
                 wordClock.accessories[5] = name
             }
-            wordClock.accessoriesChanged()
-            activatedPositionIndex = positionIndex
+            notify(positionIndex)
         }
     }
+    function notify(positionIndex) {
+        wordClock.accessoriesChanged()
+        activatedPositionIndex = positionIndex
+        DeviceAccess.setSettingsValue("Accessories/%1".arg(name), positionIndex)
+    }
+
     readonly property bool isMinutes: name === "minutes"
     required property string name
     property int activatedPositionIndex: -1
     property var positions: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom") ]
     withRadioGroup: true
     RadioButton { text: qsTr("Hide"); checked: true; ButtonGroup.group: radioGroup; onClicked: hide() }
-    Component.onCompleted: { if (isMinutes) { positions.unshift(QT_TR_NOOP("Around")) } model = positions }
+    Component.onCompleted: {
+        if (isMinutes) positions.unshift(QT_TR_NOOP("Around"))
+        model = positions
+        const positionIndex = DeviceAccess.settingsValue("Accessories/%1".arg(name), isMinutes ? 5 : -1)
+        if (positionIndex !== -1) activate(positionIndex)
+    }
 }

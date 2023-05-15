@@ -94,6 +94,7 @@ Rectangle {
             return null
         }
     }
+    function showAccessories() { accessoriesOpacity = 1 }
 
     signal applyColors()
 
@@ -105,7 +106,6 @@ Rectangle {
     property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
-    property var accessories: new Array(6).fill("")
 
     // Internal Settings
     property bool is_color_animation_enabled: true
@@ -140,8 +140,9 @@ Rectangle {
     property bool was_AM
     property bool was_special: false
     property int onoff_dots: 0
-    property int hours_value
-    property int minutes_value
+    property int hours_value: 0
+    property int minutes_value: 0
+    property int seconds_value: 0
     property int currentWeekNumber
     property string currentDate
     property int previous_hours_array_index: -1
@@ -168,6 +169,8 @@ Rectangle {
     readonly property int rows: 10
     property var onoff_table: Helpers.createWelcomeTable()
     property var tmp_onoff_table: Helpers.createTable(rows, columns, false)
+    property var accessories: new Array(6).fill("")
+    property real accessoriesOpacity: .0
 
     Behavior on background_color {
         enabled: is_color_animation_enabled
@@ -181,6 +184,7 @@ Rectangle {
         enabled: is_color_animation_enabled
         ColorAnimation { duration: 1000; easing.type: animation_easing }
     }
+    Behavior on accessoriesOpacity { PropertyAnimation { duration: 1000; easing.type: animation_easing } }
 
     color: background_color
     onLanguageChanged: { DeviceAccess.hideSplashScreen(); enabled = false }
@@ -195,7 +199,7 @@ Rectangle {
                         }
                     })
         timeChanged.connect(updateTable)
-        if (selected_language === "") { detectAndUseDeviceLanguage() } else { selectLanguage(selected_language) }
+        if (selected_language === "") { detectAndUseDeviceLanguage() } else { selectLanguage(selected_language) }
     }
 
     Loader { source: language_url; onLoaded: language = item }
@@ -211,6 +215,7 @@ Rectangle {
             } else {
                 timer.start()
                 applyColors()
+                showAccessories()
                 color_transition_finished = true
             }
     }
@@ -248,6 +253,7 @@ Rectangle {
                 deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
                 currentDateTime = new Date(now.getTime() - deltaTime*minute_to_ms)
             }
+            seconds_value = currentDateTime.getSeconds()
             time = currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
         }
     }
@@ -337,10 +343,52 @@ Rectangle {
             width: dot_size
         }
     }
-    Component { id: date; Controls.AccessoryText { isOn: false; text: currentDate } }
-    Component { id: timeZone; Controls.AccessoryText { isOn: false; text: selectedGMT } }
-    Component { id: ampm; Controls.AccessoryText { isOn: true; text: is_AM  ? "AM" : "PM" } }
-    Component { id: seconds; Controls.AccessoryText { isOn: true; text: ("0"+currentDateTime.getSeconds()).slice(-2) } }
-    Component { id: weekNumber; Controls.AccessoryText { isOn: false; text: "W%1".arg(currentWeekNumber) } }
-    Component { id: batteryLevel; Controls.AccessoryText { isOn: false; text: "%1%".arg(DeviceAccess.batteryLevel) } }
+    Component {
+        id: date
+        Controls.AccessoryText {
+            opacity: accessoriesOpacity
+            isOn: false
+            text: currentDate
+        }
+    }
+    Component {
+        id: timeZone
+        Controls.AccessoryText {
+            opacity: accessoriesOpacity
+            isOn: false
+            text: selectedGMT
+        }
+    }
+    Component {
+        id: ampm
+        Controls.AccessoryText {
+            opacity: accessoriesOpacity
+            isOn: true
+            text: is_AM  ? "AM" : "PM"
+        }
+    }
+    Component {
+        id: seconds
+        Controls.AccessoryText {
+            opacity: accessoriesOpacity
+            isOn: true
+            text: ("0" + seconds_value).slice(-2)
+        }
+    }
+    Component {
+        id: weekNumber
+        Controls.AccessoryText {
+            opacity: accessoriesOpacity
+            isOn: false
+            text: "W%1".arg(currentWeekNumber)
+        }
+    }
+    Component {
+        id: batteryLevel
+        Controls.AccessoryText {
+            opacity: accessoriesOpacity
+            isOn: false
+            text: "%1%".arg(DeviceAccess.batteryLevel)
+        }
+    }
 }

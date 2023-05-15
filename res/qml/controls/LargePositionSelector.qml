@@ -21,6 +21,6 @@ PositionSelector {
         text: qsTr(modelData)
         checked: wordClock.accessories[positionIndex] === name
         ButtonGroup.group: radioGroup
-        onClicked: activate(positionIndex, isMinutes)
+        onClicked: activate(positionIndex)
     }
 }

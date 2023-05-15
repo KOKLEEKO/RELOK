@@ -12,22 +12,22 @@
 <context>
     <name>PositionSelector</name>
     <message>
-        <location filename="../res/qml/controls/PositionSelector.qml" line="46"/>
+        <location filename="../res/qml/controls/PositionSelector.qml" line="48"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/PositionSelector.qml" line="46"/>
+        <location filename="../res/qml/controls/PositionSelector.qml" line="48"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/PositionSelector.qml" line="48"/>
+        <location filename="../res/qml/controls/PositionSelector.qml" line="50"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/PositionSelector.qml" line="49"/>
+        <location filename="../res/qml/controls/PositionSelector.qml" line="52"/>
         <source>Around</source>
         <translation type="unfinished"></translation>
     </message>
@@ -462,69 +462,69 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="261"/>
+        <location filename="../res/qml/main.qml" line="260"/>
         <source>Thank you for your support!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="268"/>
+        <location filename="../res/qml/main.qml" line="267"/>
         <source>It means a lot to us.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="276"/>
+        <location filename="../res/qml/main.qml" line="275"/>
         <source>Oops...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="284"/>
+        <location filename="../res/qml/main.qml" line="283"/>
         <source>Something went wrong..</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="285"/>
+        <location filename="../res/qml/main.qml" line="284"/>
         <source>Do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="297"/>
+        <location filename="../res/qml/main.qml" line="296"/>
         <source>Welcome to WordClock++</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="308"/>
+        <location filename="../res/qml/main.qml" line="307"/>
         <source>We thank you for downloading this application and wish you good use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="309"/>
+        <location filename="../res/qml/main.qml" line="308"/>
         <source>Please touch the screen outside this pop-up window to close it and open the settings menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="310"/>
+        <location filename="../res/qml/main.qml" line="309"/>
         <source>Please right-click outside this pop-up window to close it and open the settings menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="313"/>
+        <location filename="../res/qml/main.qml" line="312"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="325"/>
+        <location filename="../res/qml/main.qml" line="324"/>
         <source>Thanks for your review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="331"/>
+        <location filename="../res/qml/main.qml" line="330"/>
         <source>We are sorry to find out that you are not completely satisfied with this application...
 But with your feedback, we can make it even better!
 Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="335"/>
+        <location filename="../res/qml/main.qml" line="334"/>
         <source>Suggestions for WordClock</source>
         <translation type="unfinished"></translation>
     </message>
