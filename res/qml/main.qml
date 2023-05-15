@@ -57,8 +57,10 @@ ApplicationWindow {
     onClosing: {
         aboutToQuit = true
         if (Helpers.isAndroid) { close.accepted = false; DeviceAccess.moveTaskToBack() }
-        DeviceAccess.setSettingsValue("Appearance/width", width)
-        DeviceAccess.setSettingsValue("Appearance/height", height)
+        if (!isFullScreen) {
+            DeviceAccess.setSettingsValue("Appearance/width", width)
+            DeviceAccess.setSettingsValue("Appearance/height", height)
+        }
     }
     onIsFullScreenChanged: {
         if (!aboutToQuit) {
@@ -73,10 +75,7 @@ ApplicationWindow {
             }
         }
     }
-    onIsWidgetChanged: {
-        if (Helpers.isDesktop)
-            DeviceAccess.setSettingsValue("Appearance/widget", isWidget)
-    }
+    onIsWidgetChanged: if (Helpers.isDesktop) DeviceAccess.setSettingsValue("Appearance/widget", isWidget)
     onVisibilityChanged: if (Helpers.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
         console.info("pixelDensity", Screen.pixelDensity)
@@ -85,7 +84,7 @@ ApplicationWindow {
         if (isDebug) {
             var paletteString = "↓\npalette {\n";
             for (var prop in palette) paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop])
-            paletteString +="}"
+            paletteString += "}"
             console.log(paletteString)
         }
 
