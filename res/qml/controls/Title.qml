@@ -14,7 +14,7 @@ Label {
     required property int heading
     Layout.fillWidth: true
     elide: Text.ElideRight
-    font { bold: true; pointSize: heading }
+    font { bold: true; pointSize: heading; family: TitleFont }
     maximumLineCount: 2
     wrapMode: Text.WordWrap
     verticalAlignment: Text.AlignVCenter

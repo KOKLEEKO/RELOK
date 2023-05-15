@@ -30,18 +30,24 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("isDebug", false);
 #endif
     using namespace kokleeko::device;
-    engine.rootContext()->setContextProperty("DeviceAccess",
-                                             &DeviceAccess::instance());
+
+    const QMetaEnum &systemFontMetaEnum = QMetaEnum::fromType<QFontDatabase::SystemFont>();
+    const int systemFontKeyCount = systemFontMetaEnum.keyCount();
+    for (int index = 0; index < systemFontKeyCount; ++index) {
+        const QFontDatabase::SystemFont value = static_cast<QFontDatabase::SystemFont>(systemFontMetaEnum.value(index));
+        const QFont font = QFontDatabase::systemFont(value);
+        const QString systemFontName = systemFontMetaEnum.key(index);
+        engine.rootContext()->setContextProperty(systemFontName, font);
+        qDebug() << systemFontName << font;
+    }
+
+    engine.rootContext()->setContextProperty("DeviceAccess", &DeviceAccess::instance());
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
-    QObject::connect(
-                &engine, &QQmlApplicationEngine::objectCreated, &app,
-                [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl) QCoreApplication::exit(-1);
-    },
-    Qt::QueuedConnection);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url == objUrl) QCoreApplication::exit(-1);
+        }, Qt::QueuedConnection);
 #ifdef Q_OS_WASM
-    QObject::connect(&DeviceAccess::instance(), &DeviceAccess::settingsReady,
-                     &app, [url, &engine]() {
+    QObject::connect(&DeviceAccess::instance(), &DeviceAccess::settingsReady, &app, [url, &engine]() {
 #endif
         engine.load(url);
 #ifdef Q_OS_WASM
