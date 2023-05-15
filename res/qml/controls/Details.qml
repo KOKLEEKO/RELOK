@@ -12,5 +12,5 @@ Label {
     color: palette.windowText
     maximumLineCount: Number.POSITIVE_INFINITY
     wrapMode: Label.WordWrap
-    font.pointSize: headings.p1
+    font { family: SmallestReadableFont; pointSize: headings.p1 }
 }

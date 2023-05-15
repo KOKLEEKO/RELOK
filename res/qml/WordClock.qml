@@ -301,7 +301,7 @@ Rectangle {
                         verticalAlignment: Text.AlignVCenter
                         fontSizeMode: Text.Fit
                         minimumPointSize: 5
-                        font { pointSize: 80; kerning: false; preferShaping: false }
+                        font { pointSize: 80; kerning: false; preferShaping: false; family: GeneralFont }
                     }
                 }
             }
@@ -371,6 +371,7 @@ Rectangle {
         id: seconds
         Controls.AccessoryText {
             opacity: accessoriesOpacity
+            font.family: FixedFont
             isOn: true
             text: ("0" + seconds_value).slice(-2)
         }
@@ -380,13 +381,14 @@ Rectangle {
         Controls.AccessoryText {
             opacity: accessoriesOpacity
             isOn: false
-            text: "W%1".arg(currentWeekNumber)
+            text: currentWeekNumber
         }
     }
     Component {
         id: batteryLevel
         Controls.AccessoryText {
             opacity: accessoriesOpacity
+            font.family: FixedFont
             isOn: false
             text: "%1%".arg(DeviceAccess.batteryLevel)
         }
