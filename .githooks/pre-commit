@@ -1,4 +1,5 @@
 #!/bin/sh
 
 lupdate *.pro -source-language en_US -ts translations/strings.ts -no-obsolete
+crowdin upload sources
 git add translations/strings.ts

@@ -70,3 +70,6 @@ compile_commands.json
 
 #Fastlane
 fastlane/report.xml
+
+#Crowdin
+crowdin.yml

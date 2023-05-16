@@ -257,7 +257,7 @@ ApplicationWindow {
         anchors.centerIn: parent
         clip: true
         modal: true
-        title: qsTr("Thank you for your support!")
+        title: qsTr("Thank you for being so supportive!")
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1
         Label {
@@ -280,7 +280,7 @@ ApplicationWindow {
             width: parent.width
             wrapMode: Text.WordWrap
             text: ("%1.\n\n%2".arg(failedProductErrorString ? failedProductErrorString
-                                                            : qsTr("Something went wrong..")))
+                                                            : qsTr("Something went wrong...")))
             /**/              .arg(qsTr("Do you want to try again?"))
         }
             standardButtons: Dialog.No | Dialog.Yes
@@ -328,10 +328,12 @@ close it and open the settings menu."))
                 width: parent.width
                 wrapMode: Text.WordWrap
                 text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
-But with your feedback, we can make it even better!\nYour suggestions will be taken into account.")
+With your feedback, we can make it even better!
+
+Your suggestions will be taken into account.")
             }
             onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                             .arg(qsTr("Suggestions for WordClock")))
+                                             .arg(qsTr("Suggestions for WordClock++")))
             standardButtons: Dialog.Close | Dialog.Ok
         }
         Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
