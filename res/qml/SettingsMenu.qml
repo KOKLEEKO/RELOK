@@ -115,7 +115,6 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
         text: qsTr("Appearance")
         Controls.MenuItem {
             title: qsTr("Language")
-            visible: false
             extras: ComboBox {
                 //palette.dark: systemPalette.text
                 //palette.text: systemPalette.text

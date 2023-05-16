@@ -34,7 +34,7 @@ DISTFILES += \
              src/README.md \
              fastlane/*
 
-TRANSLATIONS = translations/[^strings]*.ts
+TRANSLATIONS = $$system("ls translations/[^strings]*.ts")
 OTHER_FILES += translations/strings.ts
 
 macx | ios {
