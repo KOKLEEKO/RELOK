@@ -206,8 +206,8 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
         Controls.MenuItem {
             title: qsTr("Enable Special Message")
             details: qsTr("Each grid contains a special message displayed in place of the hour for one minute at the \
-following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The minute indicator at the bottom of the \
-panel will display 0, 1, or 2 lights, allowing you to distinguish these different states.")
+following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dots) minute indicator will display \
+0, 1, or 2 lights, allowing you to distinguish these different states.")
             Switch {
                 checked: wordClock.enable_special_message
                 onToggled: {
@@ -241,7 +241,6 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
                         toggled()
                 }
             }
-            details: qsTr("")
         }
         Controls.MenuItem {
             visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
@@ -256,7 +255,6 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
                     DeviceAccess.setSettingsValue("Appearance/opacity", root.opacity)
                 }
             }
-            details: qsTr("")
         }
         Controls.MenuItem {
             title: qsTr("Display as watermark")
@@ -270,7 +268,6 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
                     settingPanel.close()
                 }
             }
-            details: qsTr("")
         }
         Controls.MenuItem {
             function update() { wordClock.deltaTime = (wordClock.deviceOffset - extraControls[0].value) * 30 }
@@ -295,13 +292,13 @@ panel will display 0, 1, or 2 lights, allowing you to distinguish these differen
             details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> \
 is used each time the application is launched".arg(wordClock.deviceGMT))
         }
-        Controls.LargePositionSelector { title: qsTr("Time zone display mode"); name: "timeZone" }
+        Controls.LargePositionSelector { title: qsTr("Time Zone display mode"); name: "timeZone" }
         Controls.LargePositionSelector { title: qsTr("Date display mode"); name: "date" }
-        Controls.LargePositionSelector { title: qsTr("4-dots display mode"); name: "minutes" }
+        Controls.LargePositionSelector { title: qsTr("4-Dots display mode"); name: "minutes" }
         Controls.SmallPositionSelector { title: qsTr("Seconds display mode"); name: "seconds" }
         Controls.SmallPositionSelector { title: qsTr("AM|PM display mode"); name: "ampm" }
-        Controls.SmallPositionSelector { title: qsTr("Week number display mode"); name: "weekNumber" }
-        Controls.SmallPositionSelector { title: qsTr("Battery level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }
+        Controls.SmallPositionSelector { title: qsTr("Week Number display mode"); name: "weekNumber" }
+        Controls.SmallPositionSelector { title: qsTr("Battery Level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }
     }
     Controls.MenuSection {
         readonly property string default_on_color: "#F00"
