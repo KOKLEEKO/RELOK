@@ -87,8 +87,8 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
         }
         Controls.MenuItem {
             title: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString())
-            details: qsTr("'%1' feature will be automatically disabled when the battery level will reach this value,\
- unless the device is charging.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%1: %2%)"
+            details: qsTr("'%1' feature will be automatically disabled when the battery level reaches this value unless\
+ the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%1: %2%)"
                                                                                 .arg(qsTr("battery level"))
                                                                                 .arg(DeviceAccess.batteryLevel) : "")
             extras: Slider {
@@ -108,7 +108,7 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
                 onMoved: DeviceAccess.brightnessRequested = value/100
                 Component.onCompleted: if (Helpers.isAndroid) DeviceAccess.requestBrightnessUpdate();
             }
-            details: qsTr("High brightness levels cause the battery to discharge more faster.")
+            details: qsTr("High brightness levels cause the battery to discharge faster.")
         }
     }
     Controls.MenuSection {
@@ -132,7 +132,7 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
                         toggled()
                 }
             }
-            details: qsTr("This can also be done by a long press on the clock, when the settings menu is closed.")
+            details: qsTr("When the settings menu is closed, this can also be done by a long press on the clock.")
         }
         Controls.MenuItem {
             title: qsTr("Clock Language")
@@ -206,8 +206,8 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
         Controls.MenuItem {
             title: qsTr("Enable Special Message")
             details: qsTr("Each grid contains a special message displayed in place of the hour for one minute at the \
-following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dots) minute indicator will display \
-0, 1, or 2 lights, allowing you to distinguish these different states.")
+following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display \
+0, 1, or 2 lights, allowing you to distinguish these different times.")
             Switch {
                 checked: wordClock.enable_special_message
                 onToggled: {
@@ -294,7 +294,7 @@ is used each time the application is launched".arg(wordClock.deviceGMT))
         }
         Controls.LargePositionSelector { title: qsTr("Time Zone display mode"); name: "timeZone" }
         Controls.LargePositionSelector { title: qsTr("Date display mode"); name: "date" }
-        Controls.LargePositionSelector { title: qsTr("4-Dots display mode"); name: "minutes" }
+        Controls.LargePositionSelector { title: qsTr("4-Dot display mode"); name: "minutes" }
         Controls.SmallPositionSelector { title: qsTr("Seconds display mode"); name: "seconds" }
         Controls.SmallPositionSelector { title: qsTr("AM|PM display mode"); name: "ampm" }
         Controls.SmallPositionSelector { title: qsTr("Week Number display mode"); name: "weekNumber" }
@@ -346,7 +346,7 @@ is used each time the application is launched".arg(wordClock.deviceGMT))
             title: qsTr("Bug tracking")
             visible: false  // @disable-check M16  @disable-check M31
             Switch  { checked: DeviceAccess.isBugTracking; onToggled: DeviceAccess.isBugTracking = checked }
-            details: qsTr("We anonymously track the appearance of bugs in Firebase in order to correct them almost as \
+            details: qsTr("We anonymously track the appearance of bugs with Firebase in order to correct them almost as \
 soon as you encounter them. But you can disable this feature to enter submarine mode.")
         }
         Controls.MenuItem {

@@ -16,8 +16,8 @@ ColumnLayout {
     default property Component controlComponent: null
     property Component delegate: null
     property list<Item> extras
-    property string details: ""
-    property string title: ""
+    property string details
+    property string title
     property var model: []
     readonly property bool isModelValid: Number.isInteger(model) ? model : !!model.length
 

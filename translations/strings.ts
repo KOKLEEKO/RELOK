@@ -78,18 +78,8 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="90"/>
-        <source>&apos;%1&apos; feature will be automatically disabled when the battery level will reach this value, unless the device is charging.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/SettingsMenu.qml" line="103"/>
         <source>Brightness Level</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="111"/>
-        <source>High brightness levels cause the battery to discharge more faster.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -121,11 +111,6 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <location filename="../res/qml/SettingsMenu.qml" line="323"/>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="349"/>
-        <source>We anonymously track the appearance of bugs in Firebase in order to correct them almost as soon as you encounter them. But you can disable this feature to enter submarine mode.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/SettingsMenu.qml" line="369"/>
@@ -183,6 +168,26 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="90"/>
+        <source>&apos;%1&apos; feature will be automatically disabled when the battery level reaches this value unless the device charges.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="111"/>
+        <source>High brightness levels cause the battery to discharge faster.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="135"/>
+        <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="208"/>
+        <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../res/qml/SettingsMenu.qml" line="248"/>
         <source>Opacity</source>
         <translation type="unfinished"></translation>
@@ -201,11 +206,6 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <location filename="../res/qml/SettingsMenu.qml" line="140"/>
         <location filename="../res/qml/SettingsMenu.qml" line="276"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="135"/>
-        <source>This can also be done by a long press on the clock, when the settings menu is closed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -239,6 +239,11 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="297"/>
+        <source>4-Dot display mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../res/qml/SettingsMenu.qml" line="298"/>
         <source>Seconds display mode</source>
         <translation type="unfinished"></translation>
@@ -264,11 +269,6 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="208"/>
-        <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dots) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different states.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/SettingsMenu.qml" line="274"/>
         <source>Time Zone (%1)</source>
         <translation type="unfinished"></translation>
@@ -276,11 +276,6 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     <message>
         <location filename="../res/qml/SettingsMenu.qml" line="295"/>
         <source>Time Zone display mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="297"/>
-        <source>4-Dots display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -326,6 +321,11 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     <message>
         <location filename="../res/qml/SettingsMenu.qml" line="346"/>
         <source>Bug tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="349"/>
+        <source>We anonymously track the appearance of bugs with Firebase in order to correct them almost as soon as you encounter them. But you can disable this feature to enter submarine mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -463,7 +463,20 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/main.qml" line="260"/>
-        <source>Thank you for your support!</source>
+        <source>Thank you for being so supportive!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/main.qml" line="283"/>
+        <source>Something went wrong...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/main.qml" line="330"/>
+        <source>We are sorry to find out that you are not completely satisfied with this application...
+With your feedback, we can make it even better!
+
+Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -474,11 +487,6 @@ Developed with love by Johan and published by Denver.</source>
     <message>
         <location filename="../res/qml/main.qml" line="275"/>
         <source>Oops...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/main.qml" line="283"/>
-        <source>Something went wrong..</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -517,15 +525,8 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="330"/>
-        <source>We are sorry to find out that you are not completely satisfied with this application...
-But with your feedback, we can make it even better!
-Your suggestions will be taken into account.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/main.qml" line="334"/>
-        <source>Suggestions for WordClock</source>
+        <location filename="../res/qml/main.qml" line="336"/>
+        <source>Suggestions for WordClock++</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
