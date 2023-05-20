@@ -27,7 +27,6 @@ Rectangle {
     function updateTable() {
         const startDate = new Date(currentDateTime.getFullYear(), 0, 1)
         currentWeekNumber = Math.ceil(Math.floor((currentDateTime - startDate) / timer.day_to_ms) / 7)
-        currentDate = currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
         const split_time = time.split(':')
         hours_value = split_time[0]
         minutes_value = split_time[1]
@@ -144,7 +143,9 @@ Rectangle {
     property int minutes_value: 0
     property int seconds_value: 0
     property int currentWeekNumber
-    property string currentDate
+    readonly property string currentDate: currentDateTime
+                                          ? currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
+                                          : ""
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
     readonly property int hours_array_step: 1

@@ -17,7 +17,7 @@ echo_vars TRANSLATIONS_DIR \
 cd $PROJECT_DIR
 
 echo_bold "Fetch TS from Crowdin"
-echo_exec crowdin download
+echo_exec crowdin download --verbose
 
 echo_bold "Generate QM from TS"
 echo_exec lrelease *.pro
