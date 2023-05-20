@@ -11,6 +11,8 @@ QT += quick core webview svg texttospeech purchasing
 
 CONFIG += \
     c++1z \
+    lrelease \
+    embed_translations \
     sdk_no_version_check
 
 HEADERS += src/DeviceAccess.h
