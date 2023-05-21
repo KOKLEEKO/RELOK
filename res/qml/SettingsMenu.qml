@@ -114,13 +114,6 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
     Controls.MenuSection {
         text: qsTr("Appearance")
         Controls.MenuItem {
-            title: qsTr("Language")
-            extras: ComboBox {
-                //palette.dark: systemPalette.text
-                //palette.text: systemPalette.text
-            }
-        }
-        Controls.MenuItem {
             title: Helpers.isIos ? qsTr("Hide Status Bar") : qsTr("FullScreen")
             visible: Helpers.isDesktop || Helpers.isMobile  // @disable-check M16  @disable-check M31
             Switch {
@@ -132,6 +125,19 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
                 }
             }
             details: qsTr("When the settings menu is closed, this can also be done by a long press on the clock.")
+        }
+        Controls.MenuItem {
+            title: qsTr("Application Language")
+            extras: ComboBox {
+                //palette.dark: systemPalette.text
+                //palette.text: systemPalette.text
+                model: Object.values(DeviceAccess.availableTranslations)
+                onActivated: (index) => {
+                                 const language = Object.keys(DeviceAccess.availableTranslations)[index]
+                                 DeviceAccess.switchLanguage(language)
+                                 DeviceAccess.setSettingsValue("Appearance/uiLanguage", language)
+                             }
+            }
         }
         Controls.MenuItem {
             title: qsTr("Clock Language")
@@ -221,15 +227,6 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
     Controls.MenuSection {
         text: qsTr("Advanced")
         Controls.MenuItem {
-            title: qsTr("Welcome popup")
-            visible: !Helpers.isWasm  // @disable-check M16  @disable-check M31
-            Switch {
-                checked: root.showWelcome
-                onCheckedChanged: DeviceAccess.setSettingsValue("Welcome/showPopup", checked)
-            }
-            details: qsTr("Display at startup.")
-        }
-        Controls.MenuItem {
             title: qsTr("Display as widget")
             visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
             Switch {
@@ -298,6 +295,15 @@ is used each time the application is launched".arg(wordClock.deviceGMT))
         Controls.SmallPositionSelector { title: qsTr("AM|PM display mode"); name: "ampm" }
         Controls.SmallPositionSelector { title: qsTr("Week Number display mode"); name: "weekNumber" }
         Controls.SmallPositionSelector { title: qsTr("Battery Level display mode"); name: "batteryLevel"; visible: Helpers.isMobile }
+        Controls.MenuItem {
+            title: qsTr("Welcome popup")
+            visible: !Helpers.isWasm  // @disable-check M16  @disable-check M31
+            Switch {
+                checked: root.showWelcome
+                onCheckedChanged: DeviceAccess.setSettingsValue("Welcome/showPopup", checked)
+            }
+            details: qsTr("Display at startup.")
+        }
     }
     Controls.MenuSection {
         readonly property string default_on_color: "#F00"

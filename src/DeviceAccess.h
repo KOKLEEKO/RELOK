@@ -27,72 +27,31 @@ class DeviceAccess : public QObject {
     Q_OBJECT
 
     // About
-    Q_PROPERTY(bool isBugTracking
-                   READ isBugTracking
-                       WRITE setIsBugTracking
-                           NOTIFY isBugTrackingChanged)
+    Q_PROPERTY(bool isBugTracking READ isBugTracking WRITE setIsBugTracking NOTIFY isBugTrackingChanged)
     // Appearance
-    Q_PROPERTY(float safeInsetBottom
-                   MEMBER m_safeInsetBottom
-                       NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float safeInsetLeft
-                   MEMBER m_safeInsetLeft
-                       NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float safeInsetRight
-                   MEMBER m_safeInsetRight
-                       NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float safeInsetTop
-                   MEMBER m_safeInsetTop
-                       NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float statusBarHeight
-                   MEMBER m_statusBarHeight
-                       NOTIFY safeInsetsChanged)
-    Q_PROPERTY(float navigationBarHeight
-                   MEMBER m_navigationBarHeight
-                       NOTIFY safeInsetsChanged)
-    Q_PROPERTY(bool prefersStatusBarHidden
-                   READ prefersStatusBarHidden
-                       NOTIFY prefersStatusBarHiddenChanged)
-    Q_PROPERTY(QVariantMap availableLocales
-                   MEMBER m_availableLocales
-                       CONSTANT)
-    Q_PROPERTY(QVariantMap speechAvailableLocales
-                   MEMBER m_speechAvailableLocales
-                       NOTIFY speechAvailableLocalesChanged)
-    Q_PROPERTY(QVariantMap speechAvailableVoices
-                   MEMBER m_speechAvailableVoices
-                       NOTIFY speechAvailableVoicesChanged)
-    Q_PROPERTY(QStringList supportedLanguages
-                   MEMBER m_supportedLanguages
-                       CONSTANT)
+    Q_PROPERTY(float safeInsetBottom MEMBER m_safeInsetBottom NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetLeft MEMBER m_safeInsetLeft NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetRight MEMBER m_safeInsetRight NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float safeInsetTop MEMBER m_safeInsetTop NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float statusBarHeight MEMBER m_statusBarHeight NOTIFY safeInsetsChanged)
+    Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight NOTIFY safeInsetsChanged)
+    Q_PROPERTY(bool prefersStatusBarHidden READ prefersStatusBarHidden NOTIFY prefersStatusBarHiddenChanged)
+    Q_PROPERTY(QVariantMap availableLocales MEMBER m_availableLocales CONSTANT)
+    Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales NOTIFY speechAvailableLocalesChanged)
+    Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
+    Q_PROPERTY(QStringList supportedLanguages MEMBER m_supportedLanguages CONSTANT)
+    Q_PROPERTY(QVariantMap availableTranslations MEMBER m_availableTranslations CONSTANT)
     // BatterySaving
-    Q_PROPERTY(float brightness
-                   READ brightness
-                       NOTIFY brightnessChanged)
-    Q_PROPERTY(float brightnessRequested
-                   WRITE setBrightnessRequested
-                       MEMBER m_brightnessRequested)
-    Q_PROPERTY(int minimumBatteryLevel
-                   READ minimumBatteryLevel
-                       WRITE setMinimumBatteryLevel
-                           NOTIFY minimumBatteryLevelChanged)
-    Q_PROPERTY(int batteryLevel
-                   READ batteryLevel
-                       NOTIFY batteryLevelChanged)
-    Q_PROPERTY(bool isAutoLockRequested
-                   READ isAutoLockRequested
-                       WRITE requestAutoLock
-                           NOTIFY isAutoLockRequestedChanged)
-    Q_PROPERTY(bool isAutoLockDisabled
-                   READ isAutoLockDisabled
-                       NOTIFY isAutoLockDisabledChanged)
+    Q_PROPERTY(float brightness READ brightness NOTIFY brightnessChanged)
+    Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
+    Q_PROPERTY(int minimumBatteryLevel READ minimumBatteryLevel WRITE setMinimumBatteryLevel NOTIFY minimumBatteryLevelChanged)
+    Q_PROPERTY(bool isPlugged READ isPlugged NOTIFY isPluggedChanged)
+    Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
+    Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
+    Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
 
 public:
-    static DeviceAccess& instance() {
-        static DeviceAccess instance;
-        return instance;
-    }
-
+    static DeviceAccess& instance() { static DeviceAccess instance; return instance; }
     Q_INVOKABLE void hideSplashScreen();
 
 #ifdef Q_OS_ANDROID
@@ -106,6 +65,17 @@ public:
     bool isBugTracking() const { return m_isBugTracking; }
     Q_INVOKABLE void requestReview();
     // Appearance
+    Q_INVOKABLE void switchLanguage(QString language) {
+        qDebug(lc) << __func__ << language;
+        if (m_availableLocales.contains(language)) {
+            QCoreApplication::removeTranslator(&m_translator);
+            if (m_translator.load(QLocale(language),
+                                  QLatin1String("wordclock"),
+                                  QLatin1String("_"),
+                                  QLatin1String(":/i18n")))
+                QCoreApplication::installTranslator(&m_translator);
+        }
+    }
     Q_INVOKABLE void updateSafeAreaInsets();
     bool prefersStatusBarHidden() const { return m_prefersStatusBarHidden; }
     // Battery Saving
@@ -275,17 +245,26 @@ private:
                 endOfSpeech();
         });
 
+        QFileInfoList applicationLanguages = QDir(":/i18n").entryInfoList({"*.qm"});
+        m_availableTranslations.insert("", "English");
+        for (const auto & fileInfo : applicationLanguages) {
+            const QString baseName(fileInfo.baseName().split("_")[1]);
+            const QLocale locale(baseName);
+            m_availableTranslations.insert(baseName, QT_TR_NOOP(QLocale::languageToString(locale.language())));
+        }
+        switchLanguage(QLocale().bcp47Name().left(2));
+
         specificInitializationSteps();
         qCDebug(lc) << "Settings file:" << m_settings.fileName();
 
         qCDebug(lc) << "Available TTS engines:" << QTextToSpeech::availableEngines();
         QFileInfoList wordClockLanguages = QDir(":/qml/languages").entryInfoList({"[^.]*.qml"});
         for (const auto & fileInfo : wordClockLanguages) {
-            QString baseName(fileInfo.baseName());
+            const QString baseName(fileInfo.baseName());
             if (baseName != QStringLiteral("Language")) {
                 const QLocale locale(baseName);
                 m_supportedLanguages.append(baseName);
-                bool hasCountryCode = (baseName.split("_").length() == 2);
+                const bool hasCountryCode = (baseName.split("_").length() == 2);
                 if (!hasCountryCode)
                     m_speechFilter.append(baseName);
 
@@ -318,6 +297,7 @@ private:
         }
     }
 
+    QVariantMap m_availableTranslations;
     QVariantMap m_availableLocales;
     QVariantMap m_speechAvailableLocales;
     QVariantMap m_speechAvailableVoices;
@@ -325,6 +305,8 @@ private:
     QStringList m_supportedLanguages;
     QTextToSpeech m_speech = QTextToSpeech();
     QSettings m_settings = QSettings();
+    QTranslator m_translator;
+    QTranslator m_translatorQt;
     float m_brightness = .0;
     float m_safeInsetBottom = .0;
     float m_safeInsetLeft = .0;
