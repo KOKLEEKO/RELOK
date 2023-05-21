@@ -139,9 +139,9 @@ Rectangle {
     property bool was_AM
     property bool was_special: false
     property int onoff_dots: 0
-    property int hours_value: 0
-    property int minutes_value: 0
-    property int seconds_value: 0
+    property string hours_value
+    property string minutes_value
+    property string seconds_value
     property int currentWeekNumber
     readonly property string currentDate: currentDateTime
                                           ? currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
@@ -391,7 +391,7 @@ Rectangle {
             opacity: accessoriesOpacity
             font.family: FixedFont
             isOn: false
-            text: "%1%".arg(DeviceAccess.batteryLevel)
+            text: "%1%".arg(DeviceAccess.batteryLevel) + (DeviceAccess.isPlugged ? " ⚡" : "")
         }
     }
 }
