@@ -15,7 +15,10 @@ Slider {
     property real lightness
     property color selected_color
     enum Factors { Saturation, Lightness }
-    ToolTip { visible: pressed; text: qsTr("%L1 %").arg((Math.round(value*1000)/10).toFixed(1)) }
+    ToolTip {
+        visible: pressed
+        text: qsTr("%L1 %").arg((Math.round(value*1000)/10).toFixed(1)) + DeviceAccess.emptyString
+    }
     from: 0
     to: 1
     handle: Rectangle {

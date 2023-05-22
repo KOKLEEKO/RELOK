@@ -42,6 +42,7 @@ class DeviceAccess : public QObject {
     Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
     Q_PROPERTY(QStringList supportedLanguages MEMBER m_supportedLanguages CONSTANT)
     Q_PROPERTY(QVariantMap availableTranslations MEMBER m_availableTranslations CONSTANT)
+    Q_PROPERTY(QString emptyString READ emptyString NOTIFY retranslate)
     // BatterySaving
     Q_PROPERTY(float brightness READ brightness NOTIFY brightnessChanged)
     Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
@@ -76,8 +77,9 @@ public:
                                       QLatin1String("_"),
                                       QLatin1String(":/i18n")))
                     qGuiApp->installTranslator(&m_translator);
+                //http://code.qt.io/cgit/qt/qttranslations.git/tree/translations
                 if (m_translatorQt.load(QLocale(language),
-                                        QLatin1String("qt"),
+                                        QLatin1String("qtbase"),
                                         QLatin1String("_"),
                                         QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
                     qGuiApp->installTranslator(&m_translatorQt);
@@ -86,6 +88,7 @@ public:
         }
     }
     Q_INVOKABLE void updateSafeAreaInsets();
+    QString emptyString() const {return m_emptyString; }
     bool prefersStatusBarHidden() const { return m_prefersStatusBarHidden; }
     // Battery Saving
     void batterySaving() {
@@ -176,8 +179,8 @@ public:
                     if (uiLanguage.split("-").count() == 2) iso = QString(uiLanguage).replace("-","_");
 #endif
                 const QString name = QString("%1 (%2)").arg(QLocale::languageToString(locale.language()),
-                                                            QLocale::countryToString(locale.country()));
-                m_speechAvailableLocales.insert(iso, QT_TR_NOOP(name));
+                                                            locale.nativeCountryName());
+                m_speechAvailableLocales.insert(iso, name);
             }
         }
 #ifdef Q_OS_ANDROID
@@ -239,15 +242,6 @@ private:
             if (state == QTextToSpeech::Ready) endOfSpeech();
         });
 
-        QFileInfoList applicationLanguages = QDir(":/i18n").entryInfoList({"*.qm"});
-        m_availableTranslations.insert("en", "English");
-        for (const auto & fileInfo : applicationLanguages) {
-            const QString baseName(fileInfo.baseName().split("_")[1]);
-            const QLocale locale(baseName);
-            m_availableTranslations.insert(baseName, QT_TR_NOOP(QLocale::languageToString(locale.language())));
-        }
-        switchLanguage(settingsValue("Appearance/uiLanguage", QLocale().bcp47Name().left(2)).toString());
-
         specificInitializationSteps();
         qCDebug(lc) << "Settings file:" << m_settings.fileName();
 
@@ -261,17 +255,24 @@ private:
                 const bool hasCountryCode = (baseName.split("_").length() == 2);
                 if (!hasCountryCode)
                     m_speechFilter.append(baseName);
-
                 if (QTextToSpeech::availableEngines().length() == 0) {
                     QString name = QLocale::languageToString(locale.language());
                     if (hasCountryCode)
-                        name.append(QString(" (%1)").arg(QLocale::countryToString(locale.country())));
-                    m_availableLocales.insert(baseName, QT_TR_NOOP(name));
+                        name.append(QString(" (%1)").arg(locale.nativeCountryName()));
+                    m_availableLocales.insert(baseName, name);
                 }
             }
         }
-
         initlocales();
+
+        QFileInfoList applicationLanguages = QDir(":/i18n").entryInfoList({"*.qm"});
+        m_availableTranslations.insert("en", "English");
+        for (const auto & fileInfo : applicationLanguages) {
+            const QString baseName(fileInfo.baseName().split("_")[1]);
+            m_availableTranslations.insert(baseName, QLocale::languageToString(QLocale(baseName).language()));
+        }
+        switchLanguage(settingsValue("Appearance/uiLanguage", QLocale().bcp47Name().left(2)).toString());
+
 #ifdef Q_OS_WASM
         startTimer(10);
 #endif
@@ -297,10 +298,11 @@ private:
     QVariantMap m_speechAvailableVoices;
     QStringList m_speechFilter;
     QStringList m_supportedLanguages;
-    QTextToSpeech m_speech = QTextToSpeech();
-    QSettings m_settings = QSettings();
+    QTextToSpeech m_speech{};
+    QSettings m_settings{};
     QTranslator m_translator;
     QTranslator m_translatorQt;
+    QString m_emptyString{};
     float m_brightness = .0;
     float m_safeInsetBottom = .0;
     float m_safeInsetLeft = .0;

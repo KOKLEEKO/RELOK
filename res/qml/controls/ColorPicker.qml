@@ -14,8 +14,7 @@ Controls.MenuItem {
     function reset() { extraControls[3].setColor(parent.parent["default_%1".arg(name)]) }
     property color selected_color: extraControls[0].selected_color
     required property string name
-    //title: qsTr("Activated Letter Color")
-    Button { text: qsTr("Reset") }
+    Button { text: qsTr("Reset") + DeviceAccess.emptyString }
     extras: [
         Controls.ColorHuePicker {},
         Controls.ColorFactorPicker {

@@ -17,6 +17,7 @@ ColumnLayout {
     property Component delegate: null
     property list<Item> extras
     property string details
+    property alias label: label
     property string title
     property var model: []
     readonly property bool isModelValid: Number.isInteger(model) ? model : !!model.length
@@ -61,5 +62,8 @@ ColumnLayout {
             }
         }
     }
-    Loader { active: !!details.length; Layout.fillWidth: true; sourceComponent: Controls.Details { text: details } }
+    Loader {
+        active: !!details.length
+        Layout.fillWidth: true
+        sourceComponent: Controls.Details { text: details } }
 }
