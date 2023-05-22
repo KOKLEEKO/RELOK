@@ -116,13 +116,13 @@ Rectangle {
     readonly property real cell_width: table_width/(rows+2)
     readonly property real dot_size: cell_width/4
     readonly property var speech_frequencies: {
-        "1" : QT_TR_NOOP("every minute"),
-        "5" : QT_TR_NOOP("every 5 minutes"),
-        "10": QT_TR_NOOP("every 10 minutes"),
-        "15": QT_TR_NOOP("every 15 minutes"),
-        "20": QT_TR_NOOP("every 20 minutes"),
-        "30": QT_TR_NOOP("every 30 minutes"),
-        "60": QT_TR_NOOP("every hour")
+        "1" : qsTr("every minute"),
+        "5" : qsTr("every 5 minutes"),
+        "10": qsTr("every 10 minutes"),
+        "15": qsTr("every 15 minutes"),
+        "20": qsTr("every 20 minutes"),
+        "30": qsTr("every 30 minutes"),
+        "60": qsTr("every hour")
     }
     readonly property var supportedLanguages: DeviceAccess.supportedLanguages
     property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")

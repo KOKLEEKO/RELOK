@@ -45,11 +45,11 @@ Controls.MenuItem {
     readonly property bool isMinutes: name === "minutes"
     required property string name
     property int activatedPositionIndex: -1
-    property var positions: [ QT_TR_NOOP("Top"), QT_TR_NOOP("Bottom") ]
+    property var positions: [  QT_TRANSLATE_NOOP("PositionSelector","Top"),  QT_TRANSLATE_NOOP("PositionSelector","Bottom") ]
     withRadioGroup: true
     RadioButton { text: qsTr("Hide"); checked: true; ButtonGroup.group: radioGroup; onClicked: hide() }
     Component.onCompleted: {
-        if (isMinutes) positions.unshift(QT_TR_NOOP("Around"))
+        if (isMinutes) positions.unshift(QT_TRANSLATE_NOOP("PositionSelector","Around"))
         model = positions
         const positionIndex = DeviceAccess.settingsValue("Accessories/%1".arg(name), isMinutes ? 5 : -1)
         if (positionIndex !== -1) activate(positionIndex)
