@@ -83,13 +83,13 @@ Drawer {
                     status = loadRequest.status
                     switch (status) {
                     case WebView.LoadStartedStatus:
-                        webView.title = qsTr("Loading...")
+                        webView.title = qsTr("Loading...") + DeviceAccess.emptyString
                         break;
                     case WebView.LoadSucceededStatus:
                         runJavaScript("document.title", (title) => webView.title = title)
                         break;
                     case WebView.LoadFailedStatus:
-                        webView.title = qsTr("Houston, we have a problem")
+                        webView.title = qsTr("Houston, we have a problem") + DeviceAccess.emptyString
                         webView.error_string = loadRequest.errorString
                         break;
                     }

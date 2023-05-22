@@ -12,11 +12,11 @@ import QtQuick.Layouts 1.15
 ColumnLayout {
     property Component detailsComponent: null
     property var details: null
-    property string text
+    property alias label: label
+    property string title
     property url icon
     default property alias contentItem: menuItems.children
     property alias menuItems: menuItems
-    property alias title: title
     property bool is_collapsable: true
     property bool is_collapsed: is_collapsable
     property bool is_tipMe: false
@@ -24,15 +24,15 @@ ColumnLayout {
 
     spacing: 20
     Title {
-        id: title
-        text: (is_collapsed ? "▷": "▽") + " " + parent.text
+        id: label
+        text: (is_collapsed ? "▷": "▽") + " " + title
         horizontalAlignment: Title.AlignLeft
         heading: headings.h2
         mouseArea.enabled: is_collapsable
         mouseArea.onClicked: {
             if (is_collapsed) {
                 collapsed ? collapsed.is_collapsed = true : { }
-                collapsed = title.parent
+                collapsed = label.parent
             }
             is_collapsed ^= true
         }

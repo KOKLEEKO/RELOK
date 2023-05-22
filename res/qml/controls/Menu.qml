@@ -12,7 +12,8 @@ import QtQuick.Layouts 1.15
 import "qrc:/qml/controls" as Controls
 
 ColumnLayout {
-    property alias text: title.text
+    property alias label: label
+    property string title
     default property alias contentItem: menuSections.children
     property url icon
     property MenuSection collapsed: null
@@ -21,7 +22,8 @@ ColumnLayout {
     RowLayout {
         Layout.rightMargin: 20
         Title {
-            id: title
+            id: label
+            text: title
             horizontalAlignment: Title.AlignHCenter
             heading: headings.h1
             Layout.alignment: Qt.AlignTop

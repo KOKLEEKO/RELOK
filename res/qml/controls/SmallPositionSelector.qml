@@ -15,7 +15,7 @@ PositionSelector {
     delegate:
         Frame {
         readonly property int buttonIndex: index
-        readonly property string text: qsTranslate("PositionSelector", modelData)
+        readonly property string text: qsTranslate("PositionSelector", modelData) + DeviceAccess.emptyString
         Layout.fillHeight: true
         Layout.fillWidth: true
         contentItem: ColumnLayout {
@@ -31,7 +31,7 @@ PositionSelector {
                     RadioButton {
                         readonly property int positionIndex: index + 3 * buttonIndex
                         enabled: Helpers.isWeaklyEqual(wordClock.accessories[positionIndex], "", name)
-                        text: qsTr(modelData)
+                        text: qsTr(modelData) + DeviceAccess.emptyString
                         checked: wordClock.accessories[positionIndex] === name
                         ButtonGroup.group: radioGroup
                         onClicked: activate(positionIndex)

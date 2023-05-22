@@ -257,14 +257,14 @@ ApplicationWindow {
         anchors.centerIn: parent
         clip: true
         modal: true
-        title: qsTr("Thank you for being so supportive!")
+        title: qsTr("Thank you for being so supportive!") + DeviceAccess.emptyString
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1
         Label {
             horizontalAlignment: Label.Center
             width: parent.width
             wrapMode: Text.WordWrap
-            text: "❤\n\n%1".arg(qsTr("It means a lot to us."))
+            text: "❤\n\n%1".arg(qsTr("It means a lot to us.")) + DeviceAccess.emptyString
         }
     }
     Dialog {
@@ -272,7 +272,7 @@ ApplicationWindow {
         anchors.centerIn: parent
         clip: true
         modal: true
-        title: qsTr("Oops...")
+        title: qsTr("Oops...") + DeviceAccess.emptyString
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1
         Label {
@@ -281,11 +281,17 @@ ApplicationWindow {
             wrapMode: Text.WordWrap
             text: ("%1.\n\n%2".arg(failedProductErrorString ? failedProductErrorString
                                                             : qsTr("Something went wrong...")))
-            /**/              .arg(qsTr("Do you want to try again?"))
+            /**/              .arg(qsTr("Do you want to try again?")) + DeviceAccess.emptyString
         }
             standardButtons: Dialog.No | Dialog.Yes
             onAccepted: failedProduct.purchase()
             onRejected: store.purchasing = false
+            Component.onCompleted: {
+                standardButton(Dialog.No).text = Qt.binding(() => qsTranslate("QPlatformTheme", "No")
+                                                            + DeviceAccess.emptyString)
+                standardButton(Dialog.Yes).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Yes")
+                                                              + DeviceAccess.emptyString)
+            }
         }
         Dialog {
             id: welcomePopup
@@ -293,7 +299,7 @@ ApplicationWindow {
             background.opacity: .95
             clip: true
             implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
-            title: qsTr("Welcome to WordClock++")
+            title: qsTr("Welcome to WordClock++") + DeviceAccess.emptyString
             z: 1
             ColumnLayout {
                 anchors { fill: parent; margins: welcomePopup.margins }  // @disable-check M16  @disable-check M31
@@ -307,9 +313,13 @@ ApplicationWindow {
                         "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use."))
                     /**/             .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this pop-up window \
 to close it and open the settings menu.")                  : qsTr("Please right-click outside this pop-up window to \
-close it and open the settings menu."))
+close it and open the settings menu.")) + DeviceAccess.emptyString
                 }
-                CheckBox { id: hidePopupCheckbox; indicator.opacity: 0.5; text: qsTr("Don't show this again") }
+                CheckBox {
+                    id: hidePopupCheckbox
+                    indicator.opacity: 0.5
+                    text: qsTr("Don't show this again") + DeviceAccess.emptyString
+                }
             }
             Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
             onClosed: root.showWelcome = !hidePopupCheckbox.checked
@@ -321,7 +331,7 @@ close it and open the settings menu."))
             anchors.centerIn: parent
             clip: true
             modal: true
-            title: qsTr("Thanks for your review")
+            title: qsTr("Thanks for your review") + DeviceAccess.emptyString
             width: Math.max(root.width/2, header.implicitWidth)
             z: 1
             Label {
@@ -330,11 +340,17 @@ close it and open the settings menu."))
                 text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
-Your suggestions will be taken into account.")
+Your suggestions will be taken into account.") + DeviceAccess.emptyString
             }
             onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                             .arg(qsTr("Suggestions for WordClock++")))
+                                             .arg(qsTr("Suggestions for WordClock++"))) + DeviceAccess.emptyString
             standardButtons: Dialog.Close | Dialog.Ok
+            Component.onCompleted: {
+                standardButton(Dialog.Close).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close")
+                                                               + DeviceAccess.emptyString)
+                standardButton(Dialog.Ok).text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK")
+                                                            + DeviceAccess.emptyString)
+            }
         }
         Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
     }
