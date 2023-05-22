@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
     }
 
     engine.rootContext()->setContextProperty("DeviceAccess", &DeviceAccess::instance());
+    QObject::connect(&DeviceAccess::instance(), &DeviceAccess::retranslate, &engine, &QQmlApplicationEngine::retranslate);
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl) QCoreApplication::exit(-1);

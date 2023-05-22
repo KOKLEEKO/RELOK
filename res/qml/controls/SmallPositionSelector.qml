@@ -15,7 +15,7 @@ PositionSelector {
     delegate:
         Frame {
         readonly property int buttonIndex: index
-        readonly property string text: qsTr(modelData)
+        readonly property string text: qsTranslate("PositionSelector", modelData)
         Layout.fillHeight: true
         Layout.fillWidth: true
         contentItem: ColumnLayout {

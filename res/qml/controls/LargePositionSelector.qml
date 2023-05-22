@@ -18,7 +18,7 @@ PositionSelector {
                                                                               wordClock.accessories[3],
                                                                               wordClock.accessories[5])
                                                  : Helpers.isWeaklyEqual(wordClock.accessories[positionIndex], "", name)
-        text: qsTr(modelData)
+        text: qsTranslate("PositionSelector", modelData)
         checked: wordClock.accessories[positionIndex] === name
         ButtonGroup.group: radioGroup
         onClicked: activate(positionIndex)

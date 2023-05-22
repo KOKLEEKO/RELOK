@@ -53,8 +53,8 @@ Controls.Menu {
                 readonly property Product product: products[modelData.name]
                 name: "tip-" + modelData.name
                 Layout.fillWidth: true
-                enabled: !store.purchasing && product.status === Product.Registered
-                tooltip: qsTr(modelData.tooltip)
+                //enabled: !store.purchasing && product.status === Product.Registered
+                tooltip: qsTranslate("Tips", modelData.tooltip)
                 visible: Helpers.isPurchasing
                 onClicked: { store.purchasing = true; product.purchase() }
             }
@@ -89,8 +89,8 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
             title: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString())
             details: qsTr("'%1' feature will be automatically disabled when the battery level reaches this value unless\
  the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%1: %2%)"
-                                                                                .arg(qsTr("battery level"))
-                                                                                .arg(DeviceAccess.batteryLevel) : "")
+                                                                     .arg(qsTr("battery level"))
+                                                                     .arg(DeviceAccess.batteryLevel) : "")
             extras: Slider {
                 from: 20
                 to: 50
@@ -128,14 +128,27 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
         }
         Controls.MenuItem {
             title: qsTr("Application Language")
+            readonly property string defaultLanguage: Qt.locale().name.substr(0,2)
+            function switchLanguage(language) {
+                DeviceAccess.switchLanguage(language)
+                DeviceAccess.setSettingsValue("Appearance/uiLanguage", language)
+            }
+
+            Button {
+                text: qsTr("Reset")
+                enabled: Object.keys(DeviceAccess.availableTranslations)[parent.parent.parent.extraControls[0].currentIndex] !== parent.parent.parent.defaultLanguage
+                onClicked: { console.log(parent.parent.parent.extraControls[0].currentIndex); parent.parent.parent.switchLanguage(parent.parent.parent.defaultLanguage) }
+            }
             extras: ComboBox {
                 //palette.dark: systemPalette.text
                 //palette.text: systemPalette.text
+                width: parent.width
+                displayText: qsTr(currentText)
+                currentIndex: Object.keys(DeviceAccess.availableTranslations)
+                .indexOf(DeviceAccess.settingsValue("Appearance/uiLanguage", parent.parent.parent.defaultLanguage))
                 model: Object.values(DeviceAccess.availableTranslations)
                 onActivated: (index) => {
-                                 const language = Object.keys(DeviceAccess.availableTranslations)[index]
-                                 DeviceAccess.switchLanguage(language)
-                                 DeviceAccess.setSettingsValue("Appearance/uiLanguage", language)
+                                 parent.parent.parent.switchLanguage(Object.keys(DeviceAccess.availableTranslations)[index])
                              }
             }
         }
@@ -176,11 +189,9 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
                 //palette.dark: systemPalette.text
                 //palette.text: systemPalette.text
                 width: parent.width
-                displayText: qsTr(currentText)
                 currentIndex: Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
                 model: Object.values(wordClock.speech_frequencies)
-                onActivated: (index) =>
-                             {
+                onActivated: (index) => {
                                  const speech_frequency = Object.keys(wordClock.speech_frequencies)[index]
                                  wordClock.speech_frequency = speech_frequency
                                  DeviceAccess.setSettingsValue("Appearance/speech_frequency", speech_frequency)
@@ -195,8 +206,7 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
                 //palette.text: systemPalette.text
                 function setSpeechVoice(index) {
                     DeviceAccess.setSpeechVoice(index)
-                    if (wordClock.enable_speech)
-                        DeviceAccess.say(wordClock.written_time)
+                    if (wordClock.enable_speech) DeviceAccess.say(wordClock.written_time)
                     DeviceAccess.setSettingsValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
                 }
                 width: parent.width
@@ -216,10 +226,8 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
             Switch {
                 checked: wordClock.enable_special_message
                 onToggled: {
-                    DeviceAccess.setSettingsValue("Appearance/specialMessage",
-                                                  wordClock.enable_special_message = checked)
-                    if(Helpers.isWeaklyEqual(wordClock.time, "00:00:am", "11:11:am", "22:22:pm"))
-                        wordClock.updateTable()
+                    DeviceAccess.setSettingsValue("Appearance/specialMessage", wordClock.enable_special_message = checked)
+                    if(Helpers.isWeaklyEqual(wordClock.time, "00:00:am", "11:11:am", "22:22:pm")) wordClock.updateTable()
                 }
             }
         }
@@ -256,7 +264,7 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
             title: qsTr("Display as watermark")
             visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
             Button {
-                text: "Activate"
+                text: qsTr("Activate")
                 onClicked: {
                     root.visibility = Window.Maximized
                     root.opacity = Math.min(root.opacity, .85)
@@ -311,12 +319,9 @@ is used each time the application is launched".arg(wordClock.deviceGMT))
         readonly property string default_background_color: "#000"
 
         function applyColors() {
-            const on_color = DeviceAccess.settingsValue("Appearance/on_color",
-                                                                default_on_color)
-            const off_color = DeviceAccess.settingsValue("Appearance/off_color",
-                                                                 default_off_color)
-            const background_color  = DeviceAccess.settingsValue("Appearance/background_color",
-                                                                         default_background_color)
+            const on_color = DeviceAccess.settingsValue("Appearance/on_color", default_on_color)
+            const off_color = DeviceAccess.settingsValue("Appearance/off_color", default_off_color)
+            const background_color = DeviceAccess.settingsValue("Appearance/background_color", default_background_color)
             activatedLetterColorPicker.extraControls[3].setColor(on_color)
             deactivatedLetterColorPicker.extraControls[3].setColor(off_color)
             backgroundColorPicker.extraControls[3].setColor(background_color)
@@ -400,10 +405,10 @@ soon as you encounter them. But you can disable this feature to enter submarine 
         }
         Controls.MenuItem {
             title: qsTr("Credits")
-            model: [ { name: QT_TR_NOOP("Built with %1").arg("Qt"),link: "https://www.qt.io" },
-                /**/ { name: QT_TR_NOOP("Released with %1").arg("Fastlane"), link: "https://fastlane.tools" },
-                /**/ { name: QT_TR_NOOP("Icons from %1").arg("SVG Repo"), link: "https://www.svgrepo.com" },
-                /**/ { name: QT_TR_NOOP("Localization with %1").arg("Crowdin"), link: "https://crowdin.com" } ]
+            model: [ { name: QT_TR_NOOP("Built with Qt"), link: "https://www.qt.io" },
+                /**/ { name: QT_TR_NOOP("Released with Fastlane"), link: "https://fastlane.tools" },
+                /**/ { name: QT_TR_NOOP("Icons from SVG Repo"), link: "https://www.svgrepo.com" },
+                /**/ { name: QT_TR_NOOP("Localization with Crowdin"), link: "https://crowdin.com" } ]
             delegate: Button { text: qsTr(modelData.name); Layout.fillWidth: true; onClicked: openUrl(modelData.link) }
             details: qsTr("\nDeveloped with love by Johan and published by Denver.")
         }
