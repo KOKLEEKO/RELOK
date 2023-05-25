@@ -1,6 +1,6 @@
 ###################################################################################################
 ##  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors. All rights reserved.
-##  Licensed under the MIT license. See LICENSE file in the project root for details.
+##  Licensed under the LGPL license. See LICENSE file in the project root for details.
 ##  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 ###################################################################################################
 
@@ -78,6 +78,6 @@ macx | ios {
         android/src/io/kokleeko/wordclock/MyActivity.java
     SOURCES += src/DeviceAccess_android.cpp
 } else {
-  SOURCES += src/DeviceAccess.cpp
+    SOURCES += src/DeviceAccess.cpp
 }
 

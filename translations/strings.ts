@@ -134,6 +134,11 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="384"/>
+        <source>The source code is available on GitHub under the LGPL license.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../res/qml/SettingsMenu.qml" line="323"/>
         <source></source>
         <translation></translation>
@@ -328,11 +333,6 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     <message>
         <location filename="../res/qml/SettingsMenu.qml" line="381"/>
         <source>Open source</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/SettingsMenu.qml" line="384"/>
-        <source>The source code is available on GitHub under the MIT license.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

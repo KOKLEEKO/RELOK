@@ -1,7 +1,7 @@
 /**************************************************************************************************
 **  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
 **  All rights reserved.
-**  Licensed under the MIT license. See LICENSE file in the project root for
+**  Licensed under the LGPL license. See LICENSE file in the project root for
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
@@ -70,7 +70,7 @@ public:
     Q_INVOKABLE void switchLanguage(QString language) {
         if (language != m_translator.language()) {
             qGuiApp->removeTranslator(&m_translator);
-            qGuiApp->removeTranslator(&m_translatorQt);
+            //qGuiApp->removeTranslator(&m_translatorQt);
             if (language != QLatin1String("en") && m_availableTranslations.contains(language)) {
                 if (m_translator.load(QLocale(language),
                                       QLatin1String("wordclock"),
@@ -78,11 +78,11 @@ public:
                                       QLatin1String(":/i18n")))
                     qGuiApp->installTranslator(&m_translator);
                 //http://code.qt.io/cgit/qt/qttranslations.git/tree/translations
-                if (m_translatorQt.load(QLocale(language),
-                                        QLatin1String("qtbase"),
-                                        QLatin1String("_"),
-                                        QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-                    qGuiApp->installTranslator(&m_translatorQt);
+                //if (m_translatorQt.load(QLocale(language),
+                //                        QLatin1String("qtbase"),
+                //                        QLatin1String("_"),
+                //                        QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+                //    qGuiApp->installTranslator(&m_translatorQt);
             }
             emit retranslate();
         }
@@ -301,7 +301,7 @@ private:
     QTextToSpeech m_speech{};
     QSettings m_settings{};
     QTranslator m_translator;
-    QTranslator m_translatorQt;
+    //QTranslator m_translatorQt;
     QString m_emptyString{};
     float m_brightness = .0;
     float m_safeInsetBottom = .0;

@@ -1,7 +1,7 @@
-<details><summary>Licensed under the MIT license</summary><p>
+<details><summary>Licensed under the LGPL license</summary><p>
 
 Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All rights reserved.
-<br>Licensed under the MIT license. See [LICENSE](LICENSE) file in the project root for details.
+<br>Licensed under the LGPL license. See [LICENSE](LICENSE) file in the project root for details.
 </p></details>
 
 # WordClock
