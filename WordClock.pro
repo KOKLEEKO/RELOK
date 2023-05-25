@@ -51,8 +51,8 @@ macx | ios {
     LIBS += -framework StoreKit
     DISTFILES += Gemfile
     macx {
-       QMAKE_INFO_PLIST = apple/macx/Info.plist
-       OBJECTIVE_SOURCES += src/DeviceAccess_macx.mm
+        QMAKE_INFO_PLIST = apple/macx/Info.plist
+        OBJECTIVE_SOURCES += src/DeviceAccess_macx.mm
     } else:ios {
         CONFIG(iphonesimulator, iphoneos|iphonesimulator): CONFIG -= embed_translations
         QMAKE_INFO_PLIST = apple/ios/Info.plist
