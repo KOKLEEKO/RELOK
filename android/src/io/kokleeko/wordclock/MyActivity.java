@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.DisplayCutout;
 import android.view.Window;
 import android.view.WindowManager;
-import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 import org.qtproject.qt5.android.bindings.QtActivity;
@@ -53,13 +52,9 @@ public class MyActivity extends QtActivity
                 .build();
         }
 
-    public void requestAudioFocus() {
-        audioManager.requestAudioFocus(audioFocusRequest);
-    }
+    public void requestAudioFocus() { audioManager.requestAudioFocus(audioFocusRequest); }
 
-    public void abandonAudioFocus() {
-        audioManager.abandonAudioFocusRequest(audioFocusRequest);
-    }
+    public void abandonAudioFocus() { audioManager.abandonAudioFocusRequest(audioFocusRequest); }
 
     public RectF safeAreaInsets() {
         final RectF safeAreaInsets = new RectF();
@@ -105,7 +100,5 @@ public class MyActivity extends QtActivity
         return result;
     }
 
-    public void requestReview() {
-        reviewManager.requestReviewFlow();
-    }
+    public void requestReview() { reviewManager.requestReviewFlow(); }
 }
