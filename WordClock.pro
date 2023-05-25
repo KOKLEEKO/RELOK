@@ -15,6 +15,8 @@ CONFIG += \
     embed_translations \
     sdk_no_version_check
 
+CONFIG -= qtquickcompiler
+
 HEADERS += src/DeviceAccess.h
 
 SOURCES += src/main.cpp
@@ -54,7 +56,6 @@ macx | ios {
         QMAKE_INFO_PLIST = apple/macx/Info.plist
         OBJECTIVE_SOURCES += src/DeviceAccess_macx.mm
     } else:ios {
-        CONFIG(iphonesimulator, iphoneos|iphonesimulator): CONFIG -= embed_translations
         QMAKE_INFO_PLIST = apple/ios/Info.plist
         OBJECTIVE_SOURCES += src/DeviceAccess_ios.mm
         OTHER_FILES += apple/ios/Launch.storyboard

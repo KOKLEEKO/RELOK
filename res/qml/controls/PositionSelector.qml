@@ -56,7 +56,7 @@ Controls.MenuItem {
     Component.onCompleted: {
         if (isMinutes) positions.unshift(QT_TRANSLATE_NOOP("PositionSelector","Around"))
         model = positions
-        const positionIndex = DeviceAccess.settingsValue("Accessories/%1".arg(name), isMinutes ? 5 : -1)
+        const positionIndex = DeviceAccess.settingsValue("Accessories/%1".arg(name), isMinutes ? 4 : -1)
         if (positionIndex !== -1) activate(positionIndex)
     }
 }
