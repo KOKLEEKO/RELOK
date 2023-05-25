@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtDigitalAdvertising 1.1
+//import QtDigitalAdvertising 1.1
 import QtPurchasing 1.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
