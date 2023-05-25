@@ -26,6 +26,9 @@ ColumnLayout {
             text: title
             horizontalAlignment: Title.AlignHCenter
             heading: headings.h1
+            minimumPointSize: heading.h2 + 1
+            fontSizeMode: Title.HorizontalFit
+            Layout.fillWidth: true
             Layout.alignment: Qt.AlignTop
             mouseArea.enabled: true
             mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }

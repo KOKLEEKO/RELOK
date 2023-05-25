@@ -18,6 +18,7 @@ Drawer {
     edge: Qt.RightEdge
     y: root.isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
     width: root.isLandScape ? Math.max(parent.width*.65, 300) : parent.width
+    z: 1
     height: parent.height
             - (isFullScreen ? 0
                             : (Math.max(DeviceAccess.statusBarHeight,

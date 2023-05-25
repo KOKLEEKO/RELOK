@@ -19,13 +19,14 @@ PositionSelector {
         Layout.fillHeight: true
         Layout.fillWidth: true
         contentItem: ColumnLayout {
+            Layout.fillWidth: true
             Text {
                 color: (index === 2 && parent.parent.checked) ? palette.brightText : palette.buttonText
                 text: parent.parent.text
                 Layout.alignment: Qt.AlignCenter
             }
-            RowLayout {
-                Layout.fillWidth: true
+            Flow {
+                width: parent.parent.parent.width
                 Repeater {
                     model: [ QT_TR_NOOP("Left"), QT_TR_NOOP("Center"), QT_TR_NOOP("Right") ]
                     RadioButton {
