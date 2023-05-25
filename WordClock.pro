@@ -78,6 +78,6 @@ macx | ios {
         android/src/io/kokleeko/wordclock/MyActivity.java
     SOURCES += src/DeviceAccess_android.cpp
 } else {
-  SOURCES += src/DeviceAccess.cpp
+    SOURCES += src/DeviceAccess.cpp
 }
 
