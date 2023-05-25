@@ -249,6 +249,7 @@ ApplicationWindow {
         width: 0
         height: 0
         modal: true
+        z: 1
         visible: store.purchasing
         closePolicy: Popup.NoAutoClose
     }
