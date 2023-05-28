@@ -418,8 +418,8 @@ soon as you encounter them. But you can disable this feature to enter submarine 
             Controls.MenuItem {
                 title: qsTr("Also available on") + DeviceAccess.emptyString
                 model: [ { name: "webassembly", visbible: !Helpers.isWasm, link: "https://wordclock.kokleeko.io" },
-                    /**/ { name: "app-store", link: "https://testflight.apple.com/join/02s6IwG2" },
-                    /**/ { name: "google-play", visible: false, link: "" },
+                    /**/ { name: "app-store", link: "http://wordclock-ios.kokleeko.io" },
+                    /**/ { name: "google-play", link: "http://wordclock-android.kokleeko.io" },
                     /**/ { name: "lg-store", visible: false, link: "" },
                     /**/ { name: "ms-store", visible: false, link: "" } ]
                 delegate: Controls.IconButton {

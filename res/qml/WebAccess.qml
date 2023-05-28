@@ -16,8 +16,8 @@ Drawer {
     id: popup
     property alias webView: webView
     edge: Qt.RightEdge
-    y: root.isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
-    width: root.isLandScape ? Math.max(parent.width*.65, 300) : parent.width
+    y: isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+    width: parent.width
     z: 1
     height: parent.height
             - (isFullScreen ? 0
@@ -31,6 +31,9 @@ Drawer {
         anchors.fill: parent  // @disable-check M16 @disable-check M31
         spacing: 0
         ToolBar {
+            topPadding: DeviceAccess.safeInsetTop
+            leftPadding: DeviceAccess.safeInsetLeft
+            rightPadding: DeviceAccess.safeInsetRight
             Layout.fillWidth: true
             RowLayout {
                 anchors.fill: parent  // @disable-check M16 @disable-check M31

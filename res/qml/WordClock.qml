@@ -239,7 +239,7 @@ Rectangle {
                                                  parseInt(time_reference_list[0])*hour_to_ms +
                                                  parseInt(time_reference_list[1])*minute_to_ms +
                                                  parseInt(time_reference_list[2])*s_to_ms
-        interval: 5
+        interval: is_debug ? 5000 : 5
         repeat: true
         running: false
         triggeredOnStart: true
