@@ -451,12 +451,12 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="../res/qml/WebAccess.qml" line="87"/>
+        <location filename="../res/qml/WebAccess.qml" line="90"/>
         <source>Loading...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WebAccess.qml" line="93"/>
+        <location filename="../res/qml/WebAccess.qml" line="96"/>
         <source>Houston, we have a problem</source>
         <translation type="unfinished"></translation>
     </message>
