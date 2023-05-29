@@ -130,37 +130,32 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
       <translation>Pantalla completa</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="341"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="347"/>
       <source>Display at startup.</source>
       <translation>Mostrar al inicio.</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="384"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="390"/>
       <source>The source code is available on GitHub under the LGPL license.</source>
       <translation>El código fuente está disponible en GitHub bajo la licencia LGPL.</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="323"/>
-      <source/>
-      <translation type="unfinished"/>
-    </message>
-    <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="410"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="416"/>
       <source>Rate us by clicking on the stars.</source>
       <translation>Puntúanos haciendo clic en las estrellas.</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="413"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="419"/>
       <source>Also available on</source>
       <translation>Disponible también en</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="436"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="442"/>
       <source>We would be happy to receive your feedback.</source>
       <translation>Estaremos encantados de recibir sus comentarios.</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="245"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="251"/>
       <source>Display as widget</source>
       <translation>Mostrar como widget</translation>
     </message>
@@ -195,17 +190,17 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
       <translation>Cuando el menú de configuración está cerrado, esto también se puede hacer con una pulsación prolongada en el reloj.</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="230"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="236"/>
       <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
       <translation>Cada cuadrícula contiene un mensaje especial que aparece en lugar de la hora durante un minuto en los siguientes momentos: 00:00 (12:00 AM), 11:11 (11:11 AM) y 22:22 (10:22 PM). El indicador de minutos (4 puntos) mostrará 0, 1 o 2 luces, lo que le permitirá distinguir estas diferentes horas.</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="258"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="264"/>
       <source>Opacity</source>
       <translation>Opacidad</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="270"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="276"/>
       <source>Display as watermark</source>
       <translation>Mostrar como filigrana digital</translation>
     </message>
@@ -217,7 +212,7 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
     <message>
       <location filename="../res/qml/SettingsMenu.qml" line="142"/>
       <location filename="../res/qml/SettingsMenu.qml" line="166"/>
-      <location filename="../res/qml/SettingsMenu.qml" line="286"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="292"/>
       <source>Reset</source>
       <translation>Reiniciar</translation>
     </message>
@@ -227,22 +222,22 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
       <translation>Síntesis de voz</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="209"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="215"/>
       <source>Voice</source>
       <translation>Voz</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="229"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="235"/>
       <source>Enable Special Message</source>
       <translation>Activar mensaje especial</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="335"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="341"/>
       <source>Welcome popup</source>
       <translation>Ventana de bienvenida</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="243"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="249"/>
       <source>Advanced</source>
       <translation>Avanzado</translation>
     </message>
@@ -252,32 +247,32 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
       <translation>nivel de la batería</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="314"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="320"/>
       <source>4-Dot display mode</source>
       <translation>Visualización de los 4 puntos</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="318"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="324"/>
       <source>Seconds display mode</source>
       <translation>Visualización de los segundos</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="310"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="316"/>
       <source>Date display mode</source>
       <translation>Visualización de la fecha</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="357"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="363"/>
       <source>Colors</source>
       <translation>Colores</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="373"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="379"/>
       <source>Background Color</source>
       <translation>Color de fondo</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="363"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="369"/>
       <source>The color can be set in HSL (Hue, Saturation, Lightness) or in hexadecimal format.</source>
       <translation>El color puede establecerse en TSL (Tono, Saturación, Luminosidad) o en formato hexadecimal.</translation>
     </message>
@@ -287,107 +282,112 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
       <translation>Idioma de la aplicación</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="273"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="279"/>
       <source>Activate</source>
       <translation>Activar</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="284"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="290"/>
       <source>Time Zone (%1)</source>
       <translation>Zona horaria (%1)</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="306"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="308"/>
+      <source>This setting is not persistent, the time zone of the device &lt;b&gt;(%1)&lt;/b&gt; is used each time the application is launched</source>
+      <translation>Este ajuste no es persistente, la zona horaria del dispositivo &lt;b>(%1)&lt;/b> se utiliza cada vez que se inicia la aplicación</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/SettingsMenu.qml" line="312"/>
       <source>Time Zone display mode</source>
       <translation>Visualización zona horaria</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="322"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="328"/>
       <source>AM|PM display mode</source>
       <translation>Visualización AM|MP</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="326"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="332"/>
       <source>Week Number display mode</source>
       <translation>Visualización de números de semana</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="330"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="336"/>
       <source>Battery Level display mode</source>
       <translation>Visualización de nivel de batería</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="361"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="367"/>
       <source>Activated Letter Color</source>
       <translation>Color de las letras activadas</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="368"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="374"/>
       <source>Deactivated Letter Color</source>
       <translation>Color de las letras desactivadas</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="379"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="385"/>
       <source>About</source>
       <translation>Quién es</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="381"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="387"/>
       <source>Open source</source>
       <translation>Código abierto</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="387"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="393"/>
       <source>Bug tracking</source>
       <translation>Seguimiento de errores</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="390"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="396"/>
       <source>We anonymously track the appearance of bugs with Firebase in order to correct them almost as soon as you encounter them. But you can disable this feature to enter submarine mode.</source>
       <translation>Hacemos un seguimiento anónimo de la aparición de errores en Firebase para corregirlos casi tan pronto como los encuentres. Pero puedes desactivar esta función para entrar en modo submarino.</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="394"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="400"/>
       <source>Review</source>
       <translation>Reseña</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="424"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="430"/>
       <source>The application may be slightly different depending on the platform used.</source>
       <translation>La aplicación puede ser ligeramente diferente en función de la plataforma utilizada.</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="428"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="434"/>
       <source>Contact</source>
       <translation>Contacto</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="439"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="445"/>
       <source>Credits</source>
       <translation>Créditos</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="440"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="446"/>
       <source>Built with Qt</source>
       <translation>Desarrollada con Qt</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="441"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="447"/>
       <source>Released with Fastlane</source>
       <translation>Publicada con Fastlane</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="442"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="448"/>
       <source>Icons from SVG Repo</source>
       <translation>Iconos de SVG Repo</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="443"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="449"/>
       <source>Localization with Crowdin</source>
       <translation>Localización con Crowdin</translation>
     </message>
     <message>
-      <location filename="../res/qml/SettingsMenu.qml" line="449"/>
+      <location filename="../res/qml/SettingsMenu.qml" line="455"/>
       <source>
 Developed with love by Johan and published by Denver.</source>
       <translation>
@@ -442,7 +442,7 @@ Desarrollada con amor por Johan y publicada por Denver.</translation>
     <message>
       <location filename="../res/qml/main.qml" line="42"/>
       <source>Tip me a Burger</source>
-      <translation>Regálame una Hamburguesa</translation>
+      <translation>Regálame una Burger</translation>
     </message>
     <message>
       <location filename="../res/qml/main.qml" line="43"/>

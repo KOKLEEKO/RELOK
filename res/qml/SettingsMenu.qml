@@ -195,14 +195,20 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                 extras: ComboBox {
                     //palette.dark: systemPalette.text
                     //palette.text: systemPalette.text
+                    function updateCurrentIndex () {
+                        currentIndex = Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
+                    }
                     width: parent.width
-                    currentIndex: Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
                     model: Object.values(wordClock.speech_frequencies)
                     onActivated: (index) => {
                                      const speech_frequency = Object.keys(wordClock.speech_frequencies)[index]
                                      wordClock.speech_frequency = speech_frequency
                                      DeviceAccess.setSettingsValue("Appearance/speech_frequency", speech_frequency)
                                  }
+                    Component.onCompleted: {
+                        updateCurrentIndex()
+                        modelChanged.connect(updateCurrentIndex)
+                    }
                 }
             }
             Controls.MenuItem {
@@ -299,8 +305,8 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
                     onPressedChanged: if (!pressed) parent.parent.parent.update()
                     onValueChanged: wordClock.selectedGMT = "GMT%1".arg(wordClock.offsetToGMT(value))
                 }
-                details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> \
-is used each time the application is launched".arg(wordClock.deviceGMT)) + DeviceAccess.emptyString
+                details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> is used each \
+time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.emptyString
             }
             Controls.LargePositionSelector {
                 title: qsTr("Time Zone display mode") + DeviceAccess.emptyString
@@ -412,8 +418,8 @@ soon as you encounter them. But you can disable this feature to enter submarine 
             Controls.MenuItem {
                 title: qsTr("Also available on") + DeviceAccess.emptyString
                 model: [ { name: "webassembly", visbible: !Helpers.isWasm, link: "https://wordclock.kokleeko.io" },
-                    /**/ { name: "app-store", link: "https://testflight.apple.com/join/02s6IwG2" },
-                    /**/ { name: "google-play", visible: false, link: "" },
+                    /**/ { name: "app-store", link: "http://wordclock-ios.kokleeko.io" },
+                    /**/ { name: "google-play", link: "http://wordclock-android.kokleeko.io" },
                     /**/ { name: "lg-store", visible: false, link: "" },
                     /**/ { name: "ms-store", visible: false, link: "" } ]
                 delegate: Controls.IconButton {
