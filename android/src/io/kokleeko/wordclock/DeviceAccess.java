@@ -47,7 +47,7 @@ public class DeviceAccess {
         }
     };
 
-    private static native void updateIsPlugged(boolean isPlugged);
+    public static native void updateIsPlugged(boolean isPlugged);
 
     private static native void updateBatteryLevel(float batteryLevel);
 

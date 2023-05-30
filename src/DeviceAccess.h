@@ -140,7 +140,10 @@ public:
         m_speech.stop();
         m_speech.say(text.toLower());
     }
-    Q_INVOKABLE void setSpeechVoice(int index) { m_speech.setVoice(m_speech.availableVoices().at(index)); }
+    Q_INVOKABLE void setSpeechVoice(int index) {
+        if (m_speech.availableVoices().size() > index)
+            m_speech.setVoice(m_speech.availableVoices().at(index));
+    }
     Q_INVOKABLE void setSpeechLanguage(QString iso)
     {
         m_speech.setLocale({iso});
@@ -252,12 +255,10 @@ private:
                 const bool hasCountryCode = (baseName.split("_").length() == 2);
                 if (!hasCountryCode)
                     m_speechFilter.append(baseName);
-                if (QTextToSpeech::availableEngines().length() == 0) {
-                    QString name = QLocale::languageToString(locale.language());
-                    if (hasCountryCode)
-                        name.append(QString(" (%1)").arg(locale.nativeCountryName()));
-                    m_availableLocales.insert(baseName, name);
-                }
+                QString name = QLocale::languageToString(locale.language());
+                if (hasCountryCode)
+                    name.append(QString(" (%1)").arg(locale.nativeCountryName()));
+                m_availableLocales.insert(baseName, name);
             }
         }
         initlocales();
