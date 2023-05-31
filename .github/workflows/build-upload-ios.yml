@@ -56,6 +56,11 @@ jobs:
           p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
           p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
 
+      - name: Dummy fix for WWDR
+        run: |
+          tmpfile=$(mktemp /tmp/wwdr-cert.cer)
+          curl -f -o $tmpfile https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer && security import $tmpfile /Users/runner/Library/Keychains/login.keychain-db
+
       - name: Build iOS binary
         run: bundle exec fastlane ios deploy
         env:
