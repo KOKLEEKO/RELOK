@@ -390,8 +390,8 @@ Rectangle {
         Controls.AccessoryText {
             opacity: accessoriesOpacity
             font.family: FixedFont
-            isOn: false
-            text: "%1%".arg(DeviceAccess.batteryLevel) + (DeviceAccess.isPlugged ? " ⚡" : "")
+            isOn: DeviceAccess.isPlugged
+            text: "%1 %".arg(DeviceAccess.batteryLevel)
         }
     }
 }
