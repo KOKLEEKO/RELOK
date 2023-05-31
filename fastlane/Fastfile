@@ -70,6 +70,12 @@
      app_id = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
      api_key = lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]
      profile_name = "App Provisioning Profile"
+     download(url: "https://www.apple.com/certificateauthority/AppleWWDRCAG6.cer")
+     import_certificate(
+        certificate_path: 'AppleWDRCA.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
      cert(
          api_key: api_key,
          keychain_path: ENV["KEYCHAIN_PATH"]
