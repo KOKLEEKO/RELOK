@@ -246,10 +246,9 @@ ApplicationWindow {
     }
     Popup {
         id: purchasingPopup
-        width: 0
-        height: 0
         modal: true
         z: 1
+        background: null
         visible: store.purchasing
         closePolicy: Popup.NoAutoClose
     }
@@ -259,7 +258,7 @@ ApplicationWindow {
         clip: true
         modal: true
         title: qsTr("Thank you for being so supportive!") + DeviceAccess.emptyString
-        width: Math.max(root.width/2, header.implicitWidth)
+        width: header.implicitWidth
         z: 1
         Label {
             horizontalAlignment: Label.Center

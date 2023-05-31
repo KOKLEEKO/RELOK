@@ -34,7 +34,7 @@ public class DeviceAccess {
     static BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
 
         @Override
-        public void onReceive( Context context, Intent intent )
+        public void onReceive(Context context, Intent intent)
         {
             int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
@@ -47,7 +47,7 @@ public class DeviceAccess {
         }
     };
 
-    public static native void updateIsPlugged(boolean isPlugged);
+    private static native void updateIsPlugged(boolean isPlugged);
 
     private static native void updateBatteryLevel(float batteryLevel);
 
