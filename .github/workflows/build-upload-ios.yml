@@ -4,8 +4,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches:
-      - 'releases/**'
+    branches: [ main ]
 
 jobs:
   build:
@@ -50,16 +49,16 @@ jobs:
       - name: make (generate qrc_ and moc_ files)
         run: make -j$(sysctl -n hw.physicalcpu) -i
 
-      - name: Import Code-Signing Certificates
-        uses: Apple-Actions/import-codesign-certs@v1
-        with:
-          p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
-          p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
-
       - name: Dummy fix for WWDR
         run: |
           tmpfile=$(mktemp /tmp/wwdr-cert.cer)
           curl -f -o $tmpfile https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer && security import $tmpfile /Users/runner/Library/Keychains/login.keychain-db
+
+      - name: Decode signing certificate into a file
+        env:
+         CERTIFICATE_BASE64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
+        run: |
+          echo $CERTIFICATE_BASE64 | base64 --decode > signing-cert.p12
 
       - name: Build iOS binary
         run: bundle exec fastlane ios deploy
@@ -67,8 +66,8 @@ jobs:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
-          TEAM_ID: ${{ secrets.TEAM_ID }}
-          KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
+          SIGNING_KEY_PASSWORD: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
+          SIGNING_KEY_FILE_PATH: signing-cert.p12
 
       - name: Upload IPA
         if: always()
