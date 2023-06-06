@@ -23,7 +23,7 @@ SOURCES += src/main.cpp
 
 RESOURCES += $$files(res/*.qrc)
 
-VERSION = 1.0.1
+VERSION=1.0.1
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
