@@ -6,6 +6,7 @@
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 //import QtDigitalAdvertising 1.1
+import Qt.labs.platform 1.1 as Labs
 import QtPurchasing 1.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
@@ -91,6 +92,19 @@ ApplicationWindow {
         //for (var prop in Qt.rgba(1,0,0,0))
         //  console.log(prop)
         //console.log(Qt.rgba(1,0,0,0).hslLightness)
+    }
+
+    Labs.SystemTrayIcon {
+        visible: true
+        icon.source: "qrc:/assets/system-tray-icon.svg"
+        onActivated: (reason) => {
+                         if (reason === Labs.SystemTrayIcon.DoubleClick)
+                         Helpers.updateVisibility(root, DeviceAccess)
+                         else return
+                         root.raise()
+                         root.requestActivate()
+                     }
+        menu: Labs.Menu { Labs.MenuItem { text: qsTr("Quit") + DeviceAccess.emptyString; onTriggered: Qt.quit() } }
     }
 
     Instantiator {
@@ -287,10 +301,14 @@ ApplicationWindow {
             onAccepted: failedProduct.purchase()
             onRejected: store.purchasing = false
             Component.onCompleted: {
-                standardButton(Dialog.No).text = Qt.binding(() => qsTranslate("QPlatformTheme", "No")
-                                                            + DeviceAccess.emptyString)
-                standardButton(Dialog.Yes).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Yes")
-                                                              + DeviceAccess.emptyString)
+                var noButton = standardButton(Dialog.No)
+                var yesButton = standardButton(Dialog.Yes)
+                if (noButton)
+                    noButton.text = Qt.binding(() => qsTranslate("QPlatformTheme", "No")
+                                               + DeviceAccess.emptyString)
+                if (yesButton)
+                    yesButton.text = Qt.binding(() => qsTranslate("QPlatformTheme", "Yes")
+                                                + DeviceAccess.emptyString)
             }
         }
         Dialog {
@@ -315,42 +333,46 @@ ApplicationWindow {
 to close it and open the settings menu.")                  : qsTr("Please right-click outside this pop-up window to \
 close it and open the settings menu.")) + DeviceAccess.emptyString
                 }
-                CheckBox {
-                    id: hidePopupCheckbox
-                    indicator.opacity: 0.5
-                    text: qsTr("Don't show this again") + DeviceAccess.emptyString
+                    CheckBox {
+                        id: hidePopupCheckbox
+                        indicator.opacity: 0.5
+                        text: qsTr("Don't show this again") + DeviceAccess.emptyString
+                    }
                 }
+                Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
+                onClosed: root.showWelcome = !hidePopupCheckbox.checked
+                closePolicy: Dialog.NoAutoClose
+                Component.onCompleted: { header.background.visible = false; if (!Helpers.isWasm && showWelcome) open() }
             }
-            Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
-            onClosed: root.showWelcome = !hidePopupCheckbox.checked
-            closePolicy: Dialog.NoAutoClose
-            Component.onCompleted: { header.background.visible = false; if (!Helpers.isWasm && showWelcome) open() }
-        }
-        Dialog {
-            id: badReviewPopup
-            anchors.centerIn: parent
-            clip: true
-            modal: true
-            title: qsTr("Thanks for your review") + DeviceAccess.emptyString
-            width: Math.max(root.width/2, header.implicitWidth)
-            z: 1
-            Label {
-                width: parent.width
-                wrapMode: Text.WordWrap
-                text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
+            Dialog {
+                id: badReviewPopup
+                anchors.centerIn: parent
+                clip: true
+                modal: true
+                title: qsTr("Thanks for your review") + DeviceAccess.emptyString
+                width: Math.max(root.width/2, header.implicitWidth)
+                z: 1
+                Label {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
 Your suggestions will be taken into account.") + DeviceAccess.emptyString
+                }
+                onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
+                                                 .arg(qsTr("Suggestions for WordClock++"))) + DeviceAccess.emptyString
+                standardButtons: Dialog.Close | Dialog.Ok
+                Component.onCompleted: {
+                    var closeButton = standardButton(Dialog.Close)
+                    var okButton = standardButton(Dialog.Ok)
+                    if (closeButton)
+                        closeButton.text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close")
+                                                      + DeviceAccess.emptyString)
+                    if (okButton)
+                        okButton.text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK")
+                                                   + DeviceAccess.emptyString)
+                }
             }
-            onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                             .arg(qsTr("Suggestions for WordClock++"))) + DeviceAccess.emptyString
-            standardButtons: Dialog.Close | Dialog.Ok
-            Component.onCompleted: {
-                standardButton(Dialog.Close).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close")
-                                                               + DeviceAccess.emptyString)
-                standardButton(Dialog.Ok).text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK")
-                                                            + DeviceAccess.emptyString)
-            }
+            Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
         }
-        Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
-    }

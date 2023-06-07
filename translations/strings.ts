@@ -43,22 +43,22 @@
 <context>
     <name>QPlatformTheme</name>
     <message>
-        <location filename="../res/qml/main.qml" line="290"/>
+        <location filename="../res/qml/main.qml" line="307"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="292"/>
+        <location filename="../res/qml/main.qml" line="310"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="349"/>
+        <location filename="../res/qml/main.qml" line="370"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="351"/>
+        <location filename="../res/qml/main.qml" line="373"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -413,37 +413,37 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>Tips</name>
     <message>
-        <location filename="../res/qml/main.qml" line="37"/>
+        <location filename="../res/qml/main.qml" line="38"/>
         <source>Tip me a Bone (for Denver)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="38"/>
+        <location filename="../res/qml/main.qml" line="39"/>
         <source>Tip me a Coffee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="39"/>
+        <location filename="../res/qml/main.qml" line="40"/>
         <source>Tip me a Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="40"/>
+        <location filename="../res/qml/main.qml" line="41"/>
         <source>Tip me an Ice Cream</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="41"/>
+        <location filename="../res/qml/main.qml" line="42"/>
         <source>Tip me a Beer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="42"/>
+        <location filename="../res/qml/main.qml" line="43"/>
         <source>Tip me a Burger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="43"/>
+        <location filename="../res/qml/main.qml" line="44"/>
         <source>Tip me a Wine Bottle</source>
         <translation type="unfinished"></translation>
     </message>
@@ -502,17 +502,17 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../res/qml/main.qml" line="260"/>
+        <location filename="../res/qml/main.qml" line="274"/>
         <source>Thank you for being so supportive!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="283"/>
+        <location filename="../res/qml/main.qml" line="297"/>
         <source>Something went wrong...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="340"/>
+        <location filename="../res/qml/main.qml" line="358"/>
         <source>We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
@@ -520,52 +520,57 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="267"/>
+        <location filename="../res/qml/main.qml" line="281"/>
         <source>It means a lot to us.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="275"/>
+        <location filename="../res/qml/main.qml" line="107"/>
+        <source>Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/main.qml" line="289"/>
         <source>Oops...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="284"/>
+        <location filename="../res/qml/main.qml" line="298"/>
         <source>Do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="302"/>
+        <location filename="../res/qml/main.qml" line="320"/>
         <source>Welcome to WordClock++</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="313"/>
+        <location filename="../res/qml/main.qml" line="331"/>
         <source>We thank you for downloading this application and wish you good use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="314"/>
+        <location filename="../res/qml/main.qml" line="332"/>
         <source>Please touch the screen outside this pop-up window to close it and open the settings menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="315"/>
+        <location filename="../res/qml/main.qml" line="333"/>
         <source>Please right-click outside this pop-up window to close it and open the settings menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="321"/>
+        <location filename="../res/qml/main.qml" line="339"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="334"/>
+        <location filename="../res/qml/main.qml" line="352"/>
         <source>Thanks for your review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="346"/>
+        <location filename="../res/qml/main.qml" line="364"/>
         <source>Suggestions for WordClock++</source>
         <translation type="unfinished"></translation>
     </message>

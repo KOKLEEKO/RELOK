@@ -26,5 +26,6 @@
         <file>assets/youtube.svg</file>
         <file>assets/lg-store.svg</file>
         <file>assets/ms-store.svg</file>
+        <file>assets/system-tray-icon.svg</file>
     </qresource>
 </RCC>
