@@ -45,7 +45,10 @@ void DeviceAccess::requestReview() {
         // Fallback on earlier versions
     }
 }
-void DeviceAccess::specificInitializationSteps() {}
+void DeviceAccess::specificInitializationSteps() {
+    NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+    qCDebug(lc) << "versionName" << [infoDict objectForKey:@"CFBundleVersion"];
+}
 
 void DeviceAccess::endOfSpeech(){}
 

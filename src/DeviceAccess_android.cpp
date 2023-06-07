@@ -49,8 +49,12 @@ void DeviceAccess::disableAutoLock(bool disable) {
 }
 
 void DeviceAccess::specificInitializationSteps() {
+    qCDebug(lc) << "versionName:"
+                << QAndroidJniObject::getStaticObjectField<jstring>("io/kokleeko/wordclock/BuildConfig",
+                                                                    "VERSION_NAME").toString();
     registerListeners();
     updateSafeAreaInsets();
+
 }
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
