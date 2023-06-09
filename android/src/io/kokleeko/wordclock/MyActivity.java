@@ -27,17 +27,15 @@ import org.qtproject.qt5.android.bindings.QtActivity;
 
 public class MyActivity extends QtActivity
 {
-    private static final String TAG = "MyActivity";
-    private static AudioManager audioManager;
-    private static AudioFocusRequest audioFocusRequest;
-    private static ReviewManager reviewManager;
+    private final String TAG = "MyActivity";
+    private AudioManager audioManager;
+    private AudioFocusRequest audioFocusRequest;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setCustomStatusAndNavBar();
       initAudioManager();
-      reviewManager = ReviewManagerFactory.create(this);
     }
 
     void setCustomStatusAndNavBar() {
@@ -94,7 +92,6 @@ public class MyActivity extends QtActivity
         if (resourceId > 0) {
             result = getResources().getDimension(resourceId);
         }
-
         Log.i(TAG, "statusBarHeight: " + result);
         return result;
     }
@@ -102,14 +99,20 @@ public class MyActivity extends QtActivity
     public double navigationBarHeight() {
         double result = 0;
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0) {
+        if (resourceId > 0)
             result = getResources().getDimension(resourceId);
-        }
         Log.i(TAG, "navigationBarHeight: " + result);
         return result;
     }
 
     public void requestReview() {
-        @SuppressWarnings("unused") Task<ReviewInfo> request = reviewManager.requestReviewFlow();
+        ReviewManager manager = ReviewManagerFactory.create(this);
+        Task<ReviewInfo> request = manager.requestReviewFlow();
+        request.addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                ReviewInfo reviewInfo = task.getResult();
+                @SuppressWarnings("unused") Task<Void> flow = manager.launchReviewFlow(this, reviewInfo);
+            }
+        });
     }
 }

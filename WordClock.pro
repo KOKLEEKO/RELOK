@@ -25,6 +25,8 @@ RESOURCES += $$files(res/*.qrc)
 
 VERSION = 1.1.0
 
+DEFINES += VERSION=\"\\\"$${VERSION}\\\"\"
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

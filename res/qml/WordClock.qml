@@ -7,9 +7,9 @@
 **************************************************************************************************/
 import QtQuick 2.15
 
+import "qrc:/js/Helpers.js" as Helpers
 import "qrc:/qml/controls" as Controls
 import "qrc:/qml/languages"
-import "qrc:/js/Helpers.js" as Helpers
 
 Rectangle {
     function selectLanguage(language, speech) {

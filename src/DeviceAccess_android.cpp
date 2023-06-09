@@ -12,8 +12,7 @@ using namespace kokleeko::device;
 Q_LOGGING_CATEGORY(lc, "Device-android")
 
 void DeviceAccess::security(bool value) {
-    QtAndroid::androidActivity().callMethod<void>(
-        value ? "startLockTask" : "stopLockTask", "()V");
+    QtAndroid::androidActivity().callMethod<void>(value ? "startLockTask" : "stopLockTask", "()V");
 }
 
 void DeviceAccess::requestReview() {
@@ -25,20 +24,17 @@ void DeviceAccess::disableAutoLock(bool disable) {
     QtAndroid::runOnAndroidThread([disable] {
         QAndroidJniObject activity = QtAndroid::androidActivity();
         if (activity.isValid()) {
-            QAndroidJniObject window =
-                activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
+            QAndroidJniObject window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
             if (window.isValid()) {
                 const int FLAG_KEEP_SCREEN_ON = QAndroidJniObject::getStaticField<jint>(
                     "android/view/WindowManager$LayoutParams", "FLAG_KEEP_SCREEN_ON");
-                window.callMethod<void>(disable ? "addFlags" : "clearFlags", "(I)V",
-                                        FLAG_KEEP_SCREEN_ON);
-                QAndroidJniObject layoutParams = window.callObjectMethod(
-                    "getAttributes", "()Landroid/view/WindowManager$LayoutParams;");
+                window.callMethod<void>(disable ? "addFlags" : "clearFlags", "(I)V", FLAG_KEEP_SCREEN_ON);
+                QAndroidJniObject layoutParams = window.callObjectMethod("getAttributes",
+                                                                         "()Landroid/view/WindowManager$LayoutParams;");
                 qDebug() << layoutParams.isValid();
                 if (layoutParams.isValid()) {
                     const int flags = layoutParams.getField<jint>("flags");
-                    qCDebug(lc) << "R autoLockDisabled:"
-                                << !!(flags & FLAG_KEEP_SCREEN_ON);
+                    qCDebug(lc) << "R autoLockDisabled:" << !!(flags & FLAG_KEEP_SCREEN_ON);
                 }
             }
         }
@@ -54,7 +50,6 @@ void DeviceAccess::specificInitializationSteps() {
                                                                     "VERSION_NAME").toString();
     registerListeners();
     updateSafeAreaInsets();
-
 }
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
@@ -85,8 +80,7 @@ static void notifyViewConfigurationChanged() {
     emit deviceAccess.viewConfigurationChanged();
 }
 
-JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* /*reserved*/)
-{
+JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* /*reserved*/) {
     jint jni_version = JNI_VERSION_1_6;
     JNIEnv* env;
     if (vm->GetEnv(reinterpret_cast<void**>(&env), jni_version) != JNI_OK)
@@ -116,8 +110,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* /*reserved*/)
 
 void DeviceAccess::updateSafeAreaInsets() {
     QAndroidJniObject activity = QtAndroid::androidActivity();
-    QAndroidJniObject safeAreaInsets = activity.callObjectMethod("safeAreaInsets",
-                                                                 "()Landroid/graphics/RectF;");
+    QAndroidJniObject safeAreaInsets = activity.callObjectMethod("safeAreaInsets", "()Landroid/graphics/RectF;");
     m_safeInsetBottom = safeAreaInsets.getField<float>("bottom");
     m_safeInsetLeft = safeAreaInsets.getField<float>("left");
     m_safeInsetRight = safeAreaInsets.getField<float>("right");
@@ -145,5 +138,3 @@ void DeviceAccess::endOfSpeech() {
 }
 
 void DeviceAccess::hideSplashScreen() { QtAndroid::hideSplashScreen(); }
-
-void DeviceAccess::toggleFullScreen() {}
