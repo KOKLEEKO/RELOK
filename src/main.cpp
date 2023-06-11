@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Kokleeko S.L.");
     app.setOrganizationDomain("kokleeko.io");
-    app.setApplicationName("WordClock++");
+    app.setApplicationName(TARGET);
     app.setApplicationVersion(VERSION);
     QQmlApplicationEngine engine;
 
