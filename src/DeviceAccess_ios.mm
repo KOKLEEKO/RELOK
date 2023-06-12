@@ -5,16 +5,33 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
+#import <AVFoundation/AVFoundation.h>
+#import <FirebaseCore/FirebaseCore.h>
 #import <Foundation/NSNotification.h>
 #import <StoreKit/StoreKit.h>
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
 
 #import "DeviceAccess.h"
 
 Q_LOGGING_CATEGORY(lc, "Device-ios")
 
 using namespace kokleeko::device;
+
+@interface QIOSApplicationDelegate
+@end
+
+@interface QIOSApplicationDelegate (ApplicationDelegate)
+@end
+
+@implementation QIOSApplicationDelegate (ApplicationDelegate)
+
+- (BOOL)application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  [FIRApp configure];
+
+  return YES;
+}
+@end
 
 @interface QIOSViewController
 @end

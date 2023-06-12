@@ -2,10 +2,12 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.0'
+        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
 
@@ -15,11 +17,15 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation "com.android.billingclient:billing:5.2.0"
     implementation "com.google.android.play:review:2.0.1"
+    implementation platform('com.google.firebase:firebase-bom:31.3.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics'
 }
 
 android {
