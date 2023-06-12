@@ -23,8 +23,7 @@ SOURCES += src/main.cpp
 
 RESOURCES += $$files(res/*.qrc)
 
-TARGET = WordClock++
-
+TARGET = WordClock
 VERSION = 1.1.0
 
 DEFINES += VERSION=\"\\\"$${VERSION}\\\"\" \
@@ -47,7 +46,7 @@ TRANSLATIONS = $$system("ls translations/[^strings]*.ts")
 OTHER_FILES += translations/strings.ts
 
 macx | ios {
-    QMAKE_TARGET_BUNDLE_PREFIX = "io.kokleeko"
+    QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
     Q_ENABLE_BITCODE.name = ENABLE_BITCODE
     Q_ENABLE_BITCODE.value = NO
     QMAKE_MAC_XCODE_SETTINGS += Q_ENABLE_BITCODE

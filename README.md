@@ -4,7 +4,7 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 <br>Licensed under the LGPL license. See [LICENSE](LICENSE) file in the project root for details.
 </p></details>
 
-# WordClock
+# WordClock++
 [![Qt](https://img.shields.io/badge/Qt-5.15%20LTS-green)](https://doc.qt.io/qt-5)
 ![ViewCount](https://views.whatilearened.today/views/github/kokleeko/WordClock.svg)
 

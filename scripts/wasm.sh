@@ -5,10 +5,10 @@ source ~/.zshrc
 
 local totaltime
 
-SCRIPT_DIR=$(realpath $(dirname "$0"))
-PROJECT_DIR=$(realpath $SCRIPT_DIR/..)
-PROJECT_NAME=$(basename $PROJECT_DIR)
-BUILD_DIR=$PROJECT_DIR/wasm/build
+export SCRIPT_DIR=$(realpath $(dirname "$0"))
+export PROJECT_DIR=$(realpath $SCRIPT_DIR/..)
+export PROJECT_NAME=$(basename $PROJECT_DIR)
+export BUILD_DIR=$PROJECT_DIR/wasm/build
 
 echo_bold "env:"
 echo_vars SCRIPT_DIR \

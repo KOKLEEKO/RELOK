@@ -5,16 +5,15 @@ source ~/.zshrc
 
 local totaltime
 
-echo_bold "env"
 export SCRIPT_DIR=$(realpath $(dirname "$0"))
 export PROJECT_DIR=$(realpath $SCRIPT_DIR/..)
 export PROJECT_NAME=$(basename $PROJECT_DIR)
 export BUILD_DIR=$PROJECT_DIR/android/build
-
 export ANDROID_BUILD_DIR=$BUILD_DIR/android-build
 export ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/21.3.6528147
 export ANDROID_NDK_PLATFORM=android-33
 
+echo_bold "env:"
 echo_vars ANDROID_ABIS 						\
 		  ANDROID_API_VERSION 				\
 		  ANDROID_DEPLOYMENT_DEPENDENCIES 	\
