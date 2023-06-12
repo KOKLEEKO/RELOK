@@ -43,22 +43,22 @@
   <context>
     <name>QPlatformTheme</name>
     <message>
-      <location filename="../res/qml/main.qml" line="291"/>
+      <location filename="../res/qml/main.qml" line="290"/>
       <source>No</source>
       <translation>Non</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="293"/>
+      <location filename="../res/qml/main.qml" line="292"/>
       <source>Yes</source>
       <translation>Oui</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="350"/>
+      <location filename="../res/qml/main.qml" line="349"/>
       <source>Close</source>
       <translation>Fermer</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="352"/>
+      <location filename="../res/qml/main.qml" line="351"/>
       <source>OK</source>
       <translation>Ok</translation>
     </message>
@@ -453,12 +453,12 @@ Développée avec amour par Johan et publiée par Denver.</translation>
   <context>
     <name>WebAccess</name>
     <message>
-      <location filename="../res/qml/WebAccess.qml" line="87"/>
+      <location filename="../res/qml/WebAccess.qml" line="90"/>
       <source>Loading...</source>
       <translation>Chargement en cours...</translation>
     </message>
     <message>
-      <location filename="../res/qml/WebAccess.qml" line="93"/>
+      <location filename="../res/qml/WebAccess.qml" line="96"/>
       <source>Houston, we have a problem</source>
       <translation>Houston, nous avons un problème</translation>
     </message>
@@ -504,17 +504,17 @@ Développée avec amour par Johan et publiée par Denver.</translation>
   <context>
     <name>main</name>
     <message>
-      <location filename="../res/qml/main.qml" line="261"/>
+      <location filename="../res/qml/main.qml" line="260"/>
       <source>Thank you for being so supportive!</source>
       <translation>Merci pour votre soutien !</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="284"/>
+      <location filename="../res/qml/main.qml" line="283"/>
       <source>Something went wrong...</source>
       <translation>Une erreur s'est produite...</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="341"/>
+      <location filename="../res/qml/main.qml" line="340"/>
       <source>We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
@@ -524,52 +524,52 @@ Grâce à vos commentaires, nous pourrons la rendre encore meilleure !
 Vos suggestions seront prises en compte.</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="268"/>
+      <location filename="../res/qml/main.qml" line="267"/>
       <source>It means a lot to us.</source>
       <translation>Cela signifie beaucoup pour nous.</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="276"/>
+      <location filename="../res/qml/main.qml" line="275"/>
       <source>Oops...</source>
       <translation>Oups...</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="285"/>
+      <location filename="../res/qml/main.qml" line="284"/>
       <source>Do you want to try again?</source>
       <translation>Voulez-vous essayer à nouveau ?</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="303"/>
+      <location filename="../res/qml/main.qml" line="302"/>
       <source>Welcome to WordClock++</source>
       <translation>Bienvenue dans WordClock++</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="314"/>
+      <location filename="../res/qml/main.qml" line="313"/>
       <source>We thank you for downloading this application and wish you good use.</source>
       <translation>Merci d'avoir téléchargé cette application, nous vous souhaitons une agréable utilisation.</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="315"/>
+      <location filename="../res/qml/main.qml" line="314"/>
       <source>Please touch the screen outside this pop-up window to close it and open the settings menu.</source>
       <translation>Veuillez toucher l'écran en dehors de cette fenêtre pour la fermer et ouvrir le menu des paramètres.</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="316"/>
+      <location filename="../res/qml/main.qml" line="315"/>
       <source>Please right-click outside this pop-up window to close it and open the settings menu.</source>
       <translation>Cliquez avec le bouton droit de la souris en dehors de cette fenêtre pour la fermer et ouvrir le menu des paramètres.</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="322"/>
+      <location filename="../res/qml/main.qml" line="321"/>
       <source>Don&apos;t show this again</source>
       <translation>Ne plus afficher</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="335"/>
+      <location filename="../res/qml/main.qml" line="334"/>
       <source>Thanks for your review</source>
       <translation>Merci d'avoir partagé votre avis</translation>
     </message>
     <message>
-      <location filename="../res/qml/main.qml" line="347"/>
+      <location filename="../res/qml/main.qml" line="346"/>
       <source>Suggestions for WordClock++</source>
       <translation>Suggestions pour WordClock++</translation>
     </message>

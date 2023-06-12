@@ -9,6 +9,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QtWebView>
+
 #include <memory>
 
 #include "DeviceAccess.h"
@@ -20,8 +21,8 @@ int main(int argc, char *argv[]) {
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Kokleeko S.L.");
     app.setOrganizationDomain("kokleeko.io");
-    app.setApplicationName("WordClock++");
-    app.setApplicationVersion("1.0.0");
+    app.setApplicationName(TARGET);
+    app.setApplicationVersion(VERSION);
     QQmlApplicationEngine engine;
 
 #ifdef QT_DEBUG
@@ -29,6 +30,7 @@ int main(int argc, char *argv[]) {
 #else
     engine.rootContext()->setContextProperty("isDebug", false);
 #endif
+
     using namespace kokleeko::device;
 
     const QMetaEnum &systemFontMetaEnum = QMetaEnum::fromType<QFontDatabase::SystemFont>();

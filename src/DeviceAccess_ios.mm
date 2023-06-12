@@ -134,6 +134,8 @@ void DeviceAccess::toggleFullScreen() {
 void DeviceAccess::security(bool /*value*/) {}
 
 void DeviceAccess::specificInitializationSteps() {
+    NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+    qCDebug(lc) << "versionName" << [infoDict objectForKey:@"CFBundleVersion"];
     // enable speech in silent mode
     [[AVAudioSession sharedInstance]
             setCategory:AVAudioSessionCategoryPlayback
@@ -142,7 +144,7 @@ void DeviceAccess::specificInitializationSteps() {
                         | AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers
                         error:nil];
 }
-void DeviceAccess::endOfSpeech(){
+void DeviceAccess::endOfSpeech() {
     [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil] ;
 }
 

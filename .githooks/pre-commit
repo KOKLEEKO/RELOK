@@ -1,7 +1,11 @@
 #!/bin/sh
 
 lupdate *.pro -source-language en_US -ts translations/strings.ts -no-obsolete
-crowdin upload sources
 git add translations/strings.ts
 bundle update fastlane
 git add Gemfile.lock
+if [[ $(git rev-parse --abbrev-ref HEAD) == "dev" ]]; then
+	crowdin upload sources
+	translations/update.sh
+	git add translations/[^strings]*.ts
+fi

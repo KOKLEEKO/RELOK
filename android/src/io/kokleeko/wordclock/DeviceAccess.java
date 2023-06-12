@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.provider.Settings;
@@ -20,15 +19,11 @@ import android.provider.Settings;
 public class DeviceAccess {
 
     public static Context context;
-    public static AudioManager audioManager;
 
     static ContentObserver brightnessContentObserver = new ContentObserver(null)
     {
         @Override
-        public void onChange(boolean selfChange)
-        {
-           getBrightness();
-        }
+        public void onChange(boolean selfChange) { getBrightness(); }
     };
 
     static BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
@@ -79,9 +74,7 @@ public class DeviceAccess {
             Settings.System.putInt(context.getContentResolver(),
                                    Settings.System.SCREEN_BRIGHTNESS,
                                    brightness);
-        } else {
-            openAndroidPermissionsMenu();
-        }
+        } else openAndroidPermissionsMenu();
     }
 
     private static void openAndroidPermissionsMenu()

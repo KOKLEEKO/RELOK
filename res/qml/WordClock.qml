@@ -7,9 +7,9 @@
 **************************************************************************************************/
 import QtQuick 2.15
 
+import "qrc:/js/Helpers.js" as Helpers
 import "qrc:/qml/controls" as Controls
 import "qrc:/qml/languages"
-import "qrc:/js/Helpers.js" as Helpers
 
 Rectangle {
     function selectLanguage(language, speech) {
@@ -125,7 +125,7 @@ Rectangle {
         "60": qsTr("every hour") + DeviceAccess.emptyString
     }
     readonly property var supportedLanguages: DeviceAccess.supportedLanguages
-    property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "1")
+    property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "15")
     property Language language
     //onLanguageChanged: Helpers.missingLetters(language.table)
     property var currentDateTime

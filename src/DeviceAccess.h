@@ -61,7 +61,9 @@ public:
     Q_INVOKABLE void requestBrightnessUpdate();
 #endif
 
+#ifdef Q_OS_IOS
     Q_INVOKABLE void toggleFullScreen();
+#endif
 
     // About
     bool isBugTracking() const { return m_isBugTracking; }

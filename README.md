@@ -4,8 +4,9 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 <br>Licensed under the LGPL license. See [LICENSE](LICENSE) file in the project root for details.
 </p></details>
 
-# WordClock
+# WordClock++
 [![Qt](https://img.shields.io/badge/Qt-5.15%20LTS-green)](https://doc.qt.io/qt-5)
+![ViewCount](https://views.whatilearened.today/views/github/kokleeko/WordClock.svg)
 
 [![Android](https://github.com/kokleeko/WordClock/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/build-upload-android.yml)
 [![iOS](https://github.com/kokleeko/WordClock/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/build-upload-ios.yml)
@@ -18,13 +19,25 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/52b97f63c7374ead9f582e8631cef76a)](https://www.codacy.com/gh/kokleeko/WordClock/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kokleeko/WordClock&amp;utm_campaign=Badge_Grade)
 [![Crowdin](https://badges.crowdin.net/wordclock/localized.svg)](https://crowdin.com/project/wordclock)
 
-![ViewCount](https://views.whatilearened.today/views/github/kokleeko/WordClock.svg)
+<p float="left">
+  <a href="https://apps.apple.com/app/wordclock/id1626068981">
+    <img src="https://github.com/kokleeko/WordClock/assets/15193153/9364ee0d-8a6d-4534-9938-4fd215286d4c" alt="App Store" width="180">
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=io.kokleeko.wordclock">
+    <img src="https://github.com/kokleeko/WordClock/assets/15193153/190a9bdc-be5b-4f9b-809b-4ebf8a4819f4" alt="Google Play" width="180">
+  </a>
+  <a href="https://wordclock.kokleeko.io">
+    <img src="https://github.com/kokleeko/WordClock/assets/15193153/0422fc2f-5828-47c0-b78f-c270a084f942" alt="WebAssembly" width="180">
+  </a>
+</p>
 
-Supported languages: 🇺🇸  🇬🇧  🇪🇸  🇫🇷
+Languages currently supported: 
+- American English (🇺🇸)
+- British English (🇬🇧)
+- French (Français)
+- Spanish (Español)
 
-Bêta version is available on  [(iOS) TestFlight 📲](https://testflight.apple.com/join/02s6IwG2) and also as a [web application 🌐](https://wordclock.kokleeko.io)
-
-🗣 [WordClock](https://github.com/kokleeko/WordClock) will use the language defined in the preferences of your device
+🗣 [WordClock++](https://github.com/kokleeko/WordClock) will use the language defined in the preferences of your device
 (_if this language is not yet supported, English will be used by default_).
 
 <details>
@@ -33,6 +46,7 @@ Bêta version is available on  [(iOS) TestFlight 📲](https://testflight.apple.
 The minute indicator at the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between these different states.
 This feature can be deactivated
 </details>
+
 
 ## 🗽 English version:
 
