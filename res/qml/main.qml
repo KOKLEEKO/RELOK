@@ -290,7 +290,7 @@ ApplicationWindow {
                 standardButton(Dialog.No).text = Qt.binding(() => qsTranslate("QPlatformTheme", "No")
                                                             + DeviceAccess.emptyString)
                 standardButton(Dialog.Yes).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Yes")
-                                                              + DeviceAccess.emptyString)
+                                                             + DeviceAccess.emptyString)
             }
         }
         Dialog {
@@ -299,7 +299,7 @@ ApplicationWindow {
             background.opacity: .95
             clip: true
             implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
-            title: qsTr("Welcome to WordClock++") + DeviceAccess.emptyString
+            title: qsTr("Welcome to %1").arg(Qt.application.name) + DeviceAccess.emptyString
             z: 1
             ColumnLayout {
                 anchors { fill: parent; margins: welcomePopup.margins }  // @disable-check M16  @disable-check M31
@@ -315,42 +315,43 @@ ApplicationWindow {
 to close it and open the settings menu.")                  : qsTr("Please right-click outside this pop-up window to \
 close it and open the settings menu.")) + DeviceAccess.emptyString
                 }
-                CheckBox {
-                    id: hidePopupCheckbox
-                    indicator.opacity: 0.5
-                    text: qsTr("Don't show this again") + DeviceAccess.emptyString
+                    CheckBox {
+                        id: hidePopupCheckbox
+                        indicator.opacity: 0.5
+                        text: qsTr("Don't show this again") + DeviceAccess.emptyString
+                    }
                 }
+                Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
+                onClosed: root.showWelcome = !hidePopupCheckbox.checked
+                closePolicy: Dialog.NoAutoClose
+                Component.onCompleted: { header.background.visible = false; if (!Helpers.isWasm && showWelcome) open() }
             }
-            Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
-            onClosed: root.showWelcome = !hidePopupCheckbox.checked
-            closePolicy: Dialog.NoAutoClose
-            Component.onCompleted: { header.background.visible = false; if (!Helpers.isWasm && showWelcome) open() }
-        }
-        Dialog {
-            id: badReviewPopup
-            anchors.centerIn: parent
-            clip: true
-            modal: true
-            title: qsTr("Thanks for your review") + DeviceAccess.emptyString
-            width: Math.max(root.width/2, header.implicitWidth)
-            z: 1
-            Label {
-                width: parent.width
-                wrapMode: Text.WordWrap
-                text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
+            Dialog {
+                id: badReviewPopup
+                anchors.centerIn: parent
+                clip: true
+                modal: true
+                title: qsTr("Thanks for your review") + DeviceAccess.emptyString
+                width: Math.max(root.width/2, header.implicitWidth)
+                z: 1
+                Label {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
 Your suggestions will be taken into account.") + DeviceAccess.emptyString
+                }
+                onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
+                                                 .arg(qsTr("Suggestions for %1").arg(Qt.application.name)))
+                            + DeviceAccess.emptyString
+                standardButtons: Dialog.Close | Dialog.Ok
+                Component.onCompleted: {
+                    standardButton(Dialog.Close).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close")
+                                                                   + DeviceAccess.emptyString)
+                    standardButton(Dialog.Ok).text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK")
+                                                                + DeviceAccess.emptyString)
+                }
             }
-            onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                             .arg(qsTr("Suggestions for WordClock++"))) + DeviceAccess.emptyString
-            standardButtons: Dialog.Close | Dialog.Ok
-            Component.onCompleted: {
-                standardButton(Dialog.Close).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close")
-                                                               + DeviceAccess.emptyString)
-                standardButton(Dialog.Ok).text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK")
-                                                            + DeviceAccess.emptyString)
-            }
+            Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
         }
-        Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
-    }

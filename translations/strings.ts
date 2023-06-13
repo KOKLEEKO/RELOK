@@ -53,12 +53,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="349"/>
+        <location filename="../res/qml/main.qml" line="350"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="351"/>
+        <location filename="../res/qml/main.qml" line="352"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -391,6 +391,11 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
 Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../res/qml/SettingsMenu.qml" line="457"/>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SmallPositionSelector</name>
@@ -512,6 +517,11 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../res/qml/main.qml" line="302"/>
+        <source>Welcome to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../res/qml/main.qml" line="340"/>
         <source>We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
@@ -532,11 +542,6 @@ Your suggestions will be taken into account.</source>
     <message>
         <location filename="../res/qml/main.qml" line="284"/>
         <source>Do you want to try again?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/main.qml" line="302"/>
-        <source>Welcome to WordClock++</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -566,7 +571,7 @@ Your suggestions will be taken into account.</source>
     </message>
     <message>
         <location filename="../res/qml/main.qml" line="346"/>
-        <source>Suggestions for WordClock++</source>
+        <source>Suggestions for %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

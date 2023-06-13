@@ -454,5 +454,6 @@ soon as you encounter them. But you can disable this feature to enter submarine 
                 }
                 details: qsTr("\nDeveloped with love by Johan and published by Denver.") + DeviceAccess.emptyString
             }
+            Controls.MenuItem { title: qsTr("Version"); Label { text: Qt.application.version } }
         }
     }
