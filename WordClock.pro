@@ -23,8 +23,7 @@ SOURCES += src/main.cpp
 
 RESOURCES += $$files(res/*.qrc)
 
-TARGET = WordClock
-VERSION = 1.1.0
+VERSION = 1.2.0
 
 DEFINES += VERSION=\"\\\"$${VERSION}\\\"\" \
            TARGET=\"\\\"$${TARGET}\\\"\"
