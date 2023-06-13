@@ -37,7 +37,7 @@ Controls.Menu {
         is_tipMe: true
         label.heading: headings.h3
         label.horizontalAlignment: Label.AlignHCenter
-        label.text: (is_collapsed ? "☞" : "♥").concat(" ", qsTr("Tip me")).concat(" ", is_collapsed ? "☜":"♥")
+        label.text: (is_collapsed ? "☞" : "♥").concat(" ", qsTr("Tip Jar")).concat(" ", is_collapsed ? "☜":"♥")
         /**/            + DeviceAccess.emptyString
         Layout.alignment: Qt.AlignBottom
         menuItems.flow: GridLayout.LeftToRight
@@ -335,7 +335,7 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.empty
             Controls.SmallPositionSelector {
                 title: qsTr("Battery Level display mode") + DeviceAccess.emptyString
                 name: "batteryLevel"
-                visible: Helpers.isMobile
+                visible: Helpers.isMobile  // @disable-check M16  @disable-check M31
             }
             Controls.MenuItem {
                 title: qsTr("Welcome popup") + DeviceAccess.emptyString
@@ -378,7 +378,7 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.empty
                 id: backgroundColorPicker
                 title: qsTr("Background Color") + DeviceAccess.emptyString
                 name: "background_color"
-                visible: Helpers.isDesktop || Helpers.isWasm
+                visible: Helpers.isDesktop || Helpers.isWasm  // @disable-check M16  @disable-check M31
             }
         }
         Controls.MenuSection {

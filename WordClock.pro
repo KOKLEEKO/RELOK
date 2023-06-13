@@ -84,4 +84,3 @@ macx | ios {
 } else {
     SOURCES += src/DeviceAccess.cpp
 }
-
