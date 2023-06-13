@@ -26,5 +26,12 @@
         <file>assets/youtube.svg</file>
         <file>assets/lg-store.svg</file>
         <file>assets/ms-store.svg</file>
+        <file>assets/fullscreen_off.svg</file>
+        <file>assets/fullscreen_on.svg</file>
+        <file>assets/settings.svg</file>
+        <file>assets/speech.svg</file>
+        <file>assets/share.svg</file>
+        <file>assets/notify_off.svg</file>
+        <file>assets/notify_on.svg</file>
     </qresource>
 </RCC>
