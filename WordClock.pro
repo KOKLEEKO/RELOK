@@ -17,9 +17,21 @@ CONFIG += \
 
 CONFIG -= qtquickcompiler
 
-HEADERS += src/DeviceAccess.h
+HEADERS += \
+    src/DeviceAccess.h \
+    src/itf/AutoLockManagerInterface.h \
+    src/itf/BatteryManagerInterface.h \
+    src/itf/ClockLanguageManagerInterface.h \
+    src/itf/DeviceAccessInterface.h \
+    src/itf/EnergySavingManagerInterface.h \
+    src/itf/PersistenceManagerInterface.h \
+    src/itf/ScreenConfigurationManagerInterface.h \
+    src/itf/ShareContentManagerInterface.h \
+    src/itf/SpeechManagerInterface.h \
+    src/itf/TranslationManagerInterface.h
 
-SOURCES += src/main.cpp
+SOURCES += \
+    src/main.cpp
 
 RESOURCES += $$files(res/*.qrc)
 

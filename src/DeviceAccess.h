@@ -27,9 +27,9 @@ namespace kokleeko::device {
 class DeviceAccess : public QObject {
     Q_OBJECT
 
-    // About
+    // BugTracking
     Q_PROPERTY(bool isBugTracking READ isBugTracking WRITE setIsBugTracking NOTIFY isBugTrackingChanged)
-    // Appearance
+    // SafeInset
     Q_PROPERTY(float safeInsetBottom MEMBER m_safeInsetBottom NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetLeft MEMBER m_safeInsetLeft NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetRight MEMBER m_safeInsetRight NOTIFY safeInsetsChanged)
@@ -37,18 +37,21 @@ class DeviceAccess : public QObject {
     Q_PROPERTY(float statusBarHeight MEMBER m_statusBarHeight NOTIFY safeInsetsChanged)
     Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight NOTIFY safeInsetsChanged)
     Q_PROPERTY(bool prefersStatusBarHidden READ prefersStatusBarHidden NOTIFY prefersStatusBarHiddenChanged)
+    // Locales
     Q_PROPERTY(QVariantMap availableLocales MEMBER m_availableLocales CONSTANT)
     Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales NOTIFY speechAvailableLocalesChanged)
     Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
     Q_PROPERTY(QStringList supportedLanguages MEMBER m_supportedLanguages CONSTANT)
     Q_PROPERTY(QVariantMap availableTranslations MEMBER m_availableTranslations CONSTANT)
     Q_PROPERTY(QString emptyString READ emptyString NOTIFY retranslate)
-    // BatterySaving
+    // Brigthness
     Q_PROPERTY(float brightness READ brightness NOTIFY brightnessChanged)
     Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
+    // Battery
     Q_PROPERTY(int minimumBatteryLevel READ minimumBatteryLevel WRITE setMinimumBatteryLevel NOTIFY minimumBatteryLevelChanged)
     Q_PROPERTY(bool isPlugged READ isPlugged NOTIFY isPluggedChanged)
     Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
+    // AutoLock (iOS/Android)
     Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
     Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
 
