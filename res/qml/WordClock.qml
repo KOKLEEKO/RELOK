@@ -110,7 +110,7 @@ Rectangle {
     property bool is_color_animation_enabled: true
     readonly property int animation_easing: Easing.Linear
     property var languages: Object.keys(DeviceAccess.speechAvailableLocales).length ? DeviceAccess.speechAvailableLocales
-                                                                                    : DeviceAccess.availableLocales
+                                                                                    : DeviceAccess.clockAvailableLocales
     property url language_url
     readonly property real table_width: Math.min(height, width)
     readonly property real cell_width: table_width/(rows+2)
@@ -124,7 +124,7 @@ Rectangle {
         "30": qsTr("every 30 minutes") + DeviceAccess.emptyString,
         "60": qsTr("every hour") + DeviceAccess.emptyString
     }
-    readonly property var supportedLanguages: DeviceAccess.supportedLanguages
+    readonly property var supportedLanguages: Object.keys(DeviceAccess.clockAvailableLocales)
     property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "15")
     property Language language
     //onLanguageChanged: Helpers.missingLetters(language.table)

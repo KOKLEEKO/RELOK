@@ -43,22 +43,22 @@
 <context>
     <name>QPlatformTheme</name>
     <message>
-        <location filename="../res/qml/main.qml" line="290"/>
+        <location filename="../res/qml/main.qml" line="291"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="292"/>
+        <location filename="../res/qml/main.qml" line="293"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="350"/>
+        <location filename="../res/qml/main.qml" line="351"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="352"/>
+        <location filename="../res/qml/main.qml" line="353"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -507,22 +507,22 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../res/qml/main.qml" line="260"/>
+        <location filename="../res/qml/main.qml" line="261"/>
         <source>Thank you for being so supportive!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="283"/>
+        <location filename="../res/qml/main.qml" line="284"/>
         <source>Something went wrong...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="302"/>
+        <location filename="../res/qml/main.qml" line="303"/>
         <source>Welcome to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="340"/>
+        <location filename="../res/qml/main.qml" line="341"/>
         <source>We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
@@ -530,47 +530,47 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="267"/>
+        <location filename="../res/qml/main.qml" line="268"/>
         <source>It means a lot to us.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="275"/>
+        <location filename="../res/qml/main.qml" line="276"/>
         <source>Oops...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="284"/>
+        <location filename="../res/qml/main.qml" line="285"/>
         <source>Do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="313"/>
+        <location filename="../res/qml/main.qml" line="314"/>
         <source>We thank you for downloading this application and wish you good use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="314"/>
+        <location filename="../res/qml/main.qml" line="315"/>
         <source>Please touch the screen outside this pop-up window to close it and open the settings menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="315"/>
+        <location filename="../res/qml/main.qml" line="316"/>
         <source>Please right-click outside this pop-up window to close it and open the settings menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="321"/>
+        <location filename="../res/qml/main.qml" line="322"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="334"/>
+        <location filename="../res/qml/main.qml" line="335"/>
         <source>Thanks for your review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/main.qml" line="346"/>
+        <location filename="../res/qml/main.qml" line="347"/>
         <source>Suggestions for %1</source>
         <translation type="unfinished"></translation>
     </message>

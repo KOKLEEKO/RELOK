@@ -78,6 +78,7 @@ ApplicationWindow {
     onIsWidgetChanged: if (Helpers.isDesktop) DeviceAccess.setSettingsValue("Appearance/widget", isWidget)
     onVisibilityChanged: if (Helpers.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
+        DeviceAccessBase.managers.persistence.setValue("ok", -1)
         console.info("pixelDensity", Screen.pixelDensity)
         if (Helpers.isAndroid) onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
 

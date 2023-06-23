@@ -14,6 +14,9 @@
 
 #include "DeviceAccess.h"
 
+#include "DeviceAccessBase.h"
+#include "PersistenceManagerBase.h"
+
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
@@ -31,14 +34,22 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("isDebug", false);
 #endif
 
+    std::shared_ptr<PersistenceManagerBase> persistenceBase = std::make_shared<PersistenceManagerBase>();
+
+    DeviceAccessBase::instance().addManager(persistenceBase);
+
     using namespace kokleeko::device;
+
+    //qmlRegisterSingletonInstance("DA", 1, 0, "DeviceAccessBase", &DeviceAccessBase::instance());
+
+    engine.rootContext()->setContextProperty("DeviceAccessBase", &DeviceAccessBase::instance());
 
     const QMetaEnum &systemFontMetaEnum = QMetaEnum::fromType<QFontDatabase::SystemFont>();
     const int systemFontKeyCount = systemFontMetaEnum.keyCount();
     for (int index = 0; index < systemFontKeyCount; ++index) {
-        const QFontDatabase::SystemFont value = static_cast<QFontDatabase::SystemFont>(systemFontMetaEnum.value(index));
-        const QFont font = QFontDatabase::systemFont(value);
-        const QString systemFontName = systemFontMetaEnum.key(index);
+        QFontDatabase::SystemFont value = static_cast<QFontDatabase::SystemFont>(systemFontMetaEnum.value(index));
+        QFont font = QFontDatabase::systemFont(value);
+        QString systemFontName = systemFontMetaEnum.key(index);
         engine.rootContext()->setContextProperty(systemFontName, font);
         qDebug() << systemFontName << font;
     }

@@ -9,52 +9,86 @@ QT += quick core webview svg texttospeech purchasing
 
 #include(webos.pri)
 
-CONFIG += \
-    c++1z \
-    lrelease \
-    embed_translations \
+CONFIG +=                                                   \
+    c++1z                                                   \
+    lrelease                                                \
+    embed_translations                                      \
     sdk_no_version_check
 
 CONFIG -= qtquickcompiler
 
-HEADERS += \
-    src/DeviceAccess.h \
-    src/itf/AutoLockManagerInterface.h \
-    src/itf/BatteryManagerInterface.h \
-    src/itf/ClockLanguageManagerInterface.h \
-    src/itf/DeviceAccessInterface.h \
-    src/itf/EnergySavingManagerInterface.h \
-    src/itf/PersistenceManagerInterface.h \
-    src/itf/ScreenConfigurationManagerInterface.h \
-    src/itf/ShareContentManagerInterface.h \
-    src/itf/SpeechManagerInterface.h \
-    src/itf/TranslationManagerInterface.h
+INCLUDEPATH +=                                              \
+    src                                                     \
+    src/base
+
+HEADERS +=                                                 \
+    src/DeviceAccess.h                                     \
+    src/base/AdvertisingManagerBase.h                      \
+    src/base/AutoLockManagerBase.h                         \
+    src/base/BatteryManagerBase.h                          \
+    src/base/ClockLanguageManagerBase.h                    \
+    src/base/DeviceAccessBase.h                            \
+    src/base/EnergySavingManagerBase.h                     \
+    src/base/ManagerBase.h                                 \
+    src/base/PersistenceCapability.h \
+    src/base/PersistenceManagerBase.h                      \
+    src/base/ReviewManagerBase.h                           \
+    src/base/ScreenBrightnessManagerBase.h                 \
+    src/base/ScreenSizeManagerBase.h                       \
+    src/base/ShareContentManagerBase.h                     \
+    src/base/SpeechManagerBase.h                           \
+    src/base/SplashScreenManagerBase.h                     \
+    src/base/TrackingManagerBase.h                         \
+    src/base/TranslationManagerBase.h
 
 SOURCES += \
+    src/base/AdvertisingManagerBase.cpp \
+    src/base/AutoLockManagerBase.cpp                       \
+    src/base/BatteryManagerBase.cpp                        \
+    src/base/ClockLanguageManagerBase.cpp                  \
+    src/base/DeviceAccessBase.cpp                          \
+    src/base/EnergySavingManagerBase.cpp                   \
+    src/base/PersistenceCapability.cpp \
+    src/base/PersistenceManagerBase.cpp                    \
+    src/base/ReviewManagerBase.cpp                         \
+    src/base/ScreenBrightnessManagerBase.cpp               \
+    src/base/ScreenSizeManagerBase.cpp                     \
+    src/base/ShareContentManagerBase.cpp                   \
+    src/base/SpeechManagerBase.cpp                         \
+    src/base/SplashScreenManagerBase.cpp                   \
+    src/base/TrackingManagerBase.cpp                       \
+    src/base/TranslationManagerBase.cpp                    \
     src/main.cpp
 
 RESOURCES += $$files(res/*.qrc)
 
 VERSION = 1.2.0
 
-DEFINES += VERSION=\"\\\"$${VERSION}\\\"\" \
-           TARGET=\"\\\"$${TARGET}\\\"\"
+DEFINES +=                                                  \
+    TARGET=\"\\\"$${TARGET}\\\"\"                           \
+    VERSION=\"\\\"$${VERSION}\\\"\"
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+qnx {
+    target.path = /tmp/$${TARGET}/bin
+} else {
+    unix:!android: target.path = /opt/$${TARGET}/bin
+}
+
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-             LICENSE \
-             README.md \
-             .github/PULL_REQUEST_TEMPLATE \
-             .github/workflows/* \
-             src/README.md \
-             fastlane/*
+DISTFILES +=                                                \
+    .github/PULL_REQUEST_TEMPLATE                           \
+    .github/workflows/*                                     \
+    LICENSE                                                 \
+    README.md                                               \
+    fastlane/*                                              \
+    src/README.md
 
 TRANSLATIONS = $$system("ls translations/[^strings]*.ts")
 OTHER_FILES += translations/strings.ts
+
+message($$QMAKE_PLATFORM)
 
 macx | ios {
     QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
@@ -81,15 +115,15 @@ macx | ios {
     QT += androidextras
     ANDROID_VERSION_NAME = $$VERSION
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-    DISTFILES += \
-        android/AndroidManifest.xml \
-        android/build.gradle \
-        android/gradle.properties \
-        android/gradle/wrapper/gradle-wrapper.jar \
-        android/gradle/wrapper/gradle-wrapper.properties \
-        android/gradlew \
-        android/gradlew.bat \
-        android/res/values/libs.xml \
+    DISTFILES +=                                            \
+        android/AndroidManifest.xml                         \
+        android/build.gradle                                \
+        android/gradle.properties                           \
+        android/gradle/wrapper/gradle-wrapper.jar           \
+        android/gradle/wrapper/gradle-wrapper.properties    \
+        android/gradlew                                     \
+        android/gradlew.bat                                 \
+        android/res/values/libs.xml                         \
         android/src/io/kokleeko/wordclock/DeviceAccess.java \
         android/src/io/kokleeko/wordclock/MyActivity.java
     SOURCES += src/DeviceAccess_android.cpp

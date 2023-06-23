@@ -24,11 +24,12 @@ Q_DECLARE_LOGGING_CATEGORY(lc)
 
 namespace kokleeko::device {
 
-class DeviceAccess : public QObject {
+class DeviceAccess : public QObject
+{
     Q_OBJECT
 
     // BugTracking
-    Q_PROPERTY(bool isBugTracking READ isBugTracking WRITE setIsBugTracking NOTIFY isBugTrackingChanged)
+    Q_PROPERTY(bool isBugTracking MEMBER m_isBugTracking WRITE setIsBugTracking NOTIFY isBugTrackingChanged)
     // SafeInset
     Q_PROPERTY(float safeInsetBottom MEMBER m_safeInsetBottom NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetLeft MEMBER m_safeInsetLeft NOTIFY safeInsetsChanged)
@@ -36,27 +37,32 @@ class DeviceAccess : public QObject {
     Q_PROPERTY(float safeInsetTop MEMBER m_safeInsetTop NOTIFY safeInsetsChanged)
     Q_PROPERTY(float statusBarHeight MEMBER m_statusBarHeight NOTIFY safeInsetsChanged)
     Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight NOTIFY safeInsetsChanged)
-    Q_PROPERTY(bool prefersStatusBarHidden READ prefersStatusBarHidden NOTIFY prefersStatusBarHiddenChanged)
+    Q_PROPERTY(bool prefersStatusBarHidden MEMBER m_prefersStatusBarHidden NOTIFY prefersStatusBarHiddenChanged)
     // Locales
-    Q_PROPERTY(QVariantMap availableLocales MEMBER m_availableLocales CONSTANT)
+    Q_PROPERTY(QVariantMap clockAvailableLocales MEMBER m_clockAvailableLocales CONSTANT)
     Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales NOTIFY speechAvailableLocalesChanged)
     Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
-    Q_PROPERTY(QStringList supportedLanguages MEMBER m_supportedLanguages CONSTANT)
     Q_PROPERTY(QVariantMap availableTranslations MEMBER m_availableTranslations CONSTANT)
-    Q_PROPERTY(QString emptyString READ emptyString NOTIFY retranslate)
+    Q_PROPERTY(QString emptyString MEMBER m_emptyString NOTIFY retranslate)
     // Brigthness
-    Q_PROPERTY(float brightness READ brightness NOTIFY brightnessChanged)
+    Q_PROPERTY(float brightness MEMBER m_brightness NOTIFY brightnessChanged)
     Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
     // Battery
-    Q_PROPERTY(int minimumBatteryLevel READ minimumBatteryLevel WRITE setMinimumBatteryLevel NOTIFY minimumBatteryLevelChanged)
-    Q_PROPERTY(bool isPlugged READ isPlugged NOTIFY isPluggedChanged)
-    Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
+    Q_PROPERTY(int minimumBatteryLevel MEMBER m_minimumBatteryLevel WRITE setMinimumBatteryLevel NOTIFY
+                   minimumBatteryLevelChanged)
+    Q_PROPERTY(bool isPlugged MEMBER m_isPlugged NOTIFY isPluggedChanged)
+    Q_PROPERTY(int batteryLevel MEMBER m_batteryLevel NOTIFY batteryLevelChanged)
     // AutoLock (iOS/Android)
-    Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
-    Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
+    Q_PROPERTY(
+        bool isAutoLockRequested MEMBER m_isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
+    Q_PROPERTY(bool isAutoLockDisabled MEMBER m_isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
 
 public:
-    static DeviceAccess& instance() { static DeviceAccess instance; return instance; }
+    static DeviceAccess &instance()
+    {
+        static DeviceAccess instance;
+        return instance;
+    }
     Q_INVOKABLE void hideSplashScreen();
 
 #ifdef Q_OS_ANDROID
@@ -69,10 +75,10 @@ public:
 #endif
 
     // About
-    bool isBugTracking() const { return m_isBugTracking; }
     Q_INVOKABLE void requestReview();
     // Appearance
-    Q_INVOKABLE void switchLanguage(QString language) {
+    Q_INVOKABLE void switchLanguage(QString language)
+    {
         if (language != m_translator.language()) {
             qGuiApp->removeTranslator(&m_translator);
             //qGuiApp->removeTranslator(&m_translatorQt);
@@ -93,34 +99,29 @@ public:
         }
     }
     Q_INVOKABLE void updateSafeAreaInsets();
-    QString emptyString() const {return m_emptyString; }
-    bool prefersStatusBarHidden() const { return m_prefersStatusBarHidden; }
     // Battery Saving
-    void batterySaving() {
-        qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged
-                    << m_batteryLevel << m_minimumBatteryLevel;
-        bool disable = !m_isAutoLockRequested &&
-                       (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
+    void batterySaving()
+    {
+        qCDebug(lc) << __func__ << m_isAutoLockRequested << m_isPlugged << m_batteryLevel << m_minimumBatteryLevel;
+        bool disable = !m_isAutoLockRequested && (m_isPlugged || m_batteryLevel > m_minimumBatteryLevel);
         disableAutoLock(disable);
     }
-    int minimumBatteryLevel() const { return m_minimumBatteryLevel; }
-    bool isPlugged() const { return m_isPlugged; }
-    bool isAutoLockRequested() const { return m_isAutoLockRequested; }
-    bool isAutoLockDisabled() const { return m_isAutoLockDisabled; }
-    float brightness() const { return m_brightness; }
-    void updateIsPlugged(bool isPlugged) {
-        if (m_isPlugged == isPlugged) return;
+    void updateIsPlugged(bool isPlugged)
+    {
+        if (m_isPlugged == isPlugged)
+            return;
         m_isPlugged = isPlugged;
         qCDebug(lc) << "R isPlugged:" << m_isPlugged;
         emit isPluggedChanged();
     }
-    void updateBatteryLevel(float batteryLevel) {
+    void updateBatteryLevel(float batteryLevel)
+    {
         m_batteryLevel = qRound(batteryLevel * 100);
         qCDebug(lc) << "R batteryLevel:" << m_batteryLevel;
         emit batteryLevelChanged();
     }
-    int batteryLevel() const { return m_batteryLevel; }
-    void updateBrightness(float brightness) {
+    void updateBrightness(float brightness)
+    {
         m_brightness = qRound(brightness * 100);
         qCDebug(lc) << "R brightness:" << m_brightness;
         emit brightnessChanged();
@@ -128,13 +129,16 @@ public:
     void disableAutoLock(bool disable);
     Q_INVOKABLE void security(bool value);
     // Settings
-    Q_INVOKABLE void setSettingsValue(const QString& key, const QVariant& value) { m_settings.setValue(key, value); }
-    Q_INVOKABLE QVariant
-    settingsValue(const QString& key, const QVariant& defaultValue = QVariant()) {
+    Q_INVOKABLE void setSettingsValue(const QString &key, const QVariant &value) { m_settings.setValue(key, value); }
+    Q_INVOKABLE QVariant settingsValue(const QString &key, const QVariant &defaultValue = QVariant())
+    {
         QVariant value = m_settings.value(key, defaultValue);
-        if (value == "true")  return true;
-        else if (value == "false") return false;
-        else return m_settings.value(key, defaultValue);
+        if (value == "true")
+            return true;
+        else if (value == "false")
+            return false;
+        else
+            return m_settings.value(key, defaultValue);
     }
     // Speech
     Q_INVOKABLE void say(QString text)
@@ -145,7 +149,8 @@ public:
         m_speech.stop();
         m_speech.say(text.toLower());
     }
-    Q_INVOKABLE void setSpeechVoice(int index) {
+    Q_INVOKABLE void setSpeechVoice(int index)
+    {
         if (m_speech.availableVoices().size() > index)
             m_speech.setVoice(m_speech.availableVoices().at(index));
     }
@@ -154,11 +159,12 @@ public:
         m_speech.setLocale({iso});
 #ifdef Q_OS_ANDROID
         if (m_speechAvailableLocales.empty())
-            initlocales();
+            initSpeechLocales();
 #else
         if (!m_speechAvailableVoices.contains(iso)) {
             const QVector<QVoice> &availableVoices = m_speech.availableVoices();
-            if (availableVoices.empty()) return;
+            if (availableVoices.empty())
+                return;
             QStringList voicesNames;
             for (const auto &voice : availableVoices)
                 voicesNames << voice.name().split(" ")[0];
@@ -166,7 +172,8 @@ public:
             const QString settingName = QString("Appearance/%1_voice").arg(iso);
             if (m_settings.value(settingName, -1).toInt() == -1) {
                 int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(" ")[0]);
-                if (iso == "fr_FR" && m_speechAvailableVoices[iso].toStringList().size() > 9) defaultIndex = 9;
+                if (iso == "fr_FR" && m_speechAvailableVoices[iso].toStringList().size() > 9)
+                    defaultIndex = 9;
                 m_settings.setValue(QString("Appearance/%1_voice").arg(iso), defaultIndex == -1 ? 0 : defaultIndex);
             }
             emit speechAvailableVoicesChanged();
@@ -174,7 +181,8 @@ public:
 #endif
     }
 
-    Q_INVOKABLE void initlocales() {
+    void initSpeechLocales()
+    {
         const QVector<QLocale> &locales = m_speech.availableLocales();
         for (const auto &locale : locales) {
             if (m_speechFilter.contains(locale.bcp47Name().left(2))) {
@@ -183,8 +191,9 @@ public:
 #else
                 QString iso;
                 const QList uiLanguages{locale.uiLanguages()};
-                for(const auto &uiLanguage : uiLanguages)
-                    if (uiLanguage.split("-").count() == 2) iso = QString(uiLanguage).replace("-","_");
+                for (const auto &uiLanguage : uiLanguages)
+                    if (uiLanguage.split("-").count() == 2)
+                        iso = QString(uiLanguage).replace("-", "_");
 #endif
                 const QString name = QString("%1 (%2)").arg(QLocale::languageToString(locale.language()),
                                                             locale.nativeCountryName());
@@ -203,19 +212,25 @@ public:
 
 public slots:
     // About
-    void setIsBugTracking(bool isBugTracking) {
-        if (m_isBugTracking == isBugTracking) return;
+    void setIsBugTracking(bool isBugTracking)
+    {
+        if (m_isBugTracking == isBugTracking)
+            return;
         m_settings.setValue("About/isBugTracking", m_isBugTracking = isBugTracking);
         emit isBugTrackingChanged();
     }
     // BatterySaving
-    void requestAutoLock(bool isAutoLockRequested) {
-        if (m_isAutoLockRequested == isAutoLockRequested) return;
+    void requestAutoLock(bool isAutoLockRequested)
+    {
+        if (m_isAutoLockRequested == isAutoLockRequested)
+            return;
         m_settings.setValue("BatterySaving/isAutoLockRequested", m_isAutoLockRequested = isAutoLockRequested);
         emit isAutoLockRequestedChanged();
     }
-    void setMinimumBatteryLevel(int minimumBatteryLevel) {
-        if (m_minimumBatteryLevel == minimumBatteryLevel) return;
+    void setMinimumBatteryLevel(int minimumBatteryLevel)
+    {
+        if (m_minimumBatteryLevel == minimumBatteryLevel)
+            return;
         m_settings.setValue("BatterySaving/minimumBatteryLevel", m_minimumBatteryLevel = minimumBatteryLevel);
         emit minimumBatteryLevelChanged();
     }
@@ -241,35 +256,39 @@ signals:
     void speechAvailableVoicesChanged();
 
 private:
-    DeviceAccess(QObject* parent = nullptr) : QObject(parent) {
+    DeviceAccess(QObject *parent = nullptr)
+        : QObject(parent)
+    {
         connect(this, &DeviceAccess::batteryLevelChanged, this, &DeviceAccess::batterySaving);
         connect(this, &DeviceAccess::isPluggedChanged, this, &DeviceAccess::batterySaving);
         connect(this, &DeviceAccess::isAutoLockRequestedChanged, this, &DeviceAccess::batterySaving);
         connect(&m_speech, &QTextToSpeech::stateChanged, this, [=](QTextToSpeech::State state) {
-            if (state == QTextToSpeech::Ready) endOfSpeech();
+            if (state == QTextToSpeech::Ready)
+                endOfSpeech();
         });
         specificInitializationSteps();
         qCDebug(lc) << "Settings file:" << m_settings.fileName();
         qCDebug(lc) << "Available TTS engines:" << QTextToSpeech::availableEngines();
+        //clockLanguages
         QFileInfoList wordClockLanguages = QDir(":/qml/languages").entryInfoList({"[^.]*.qml"});
-        for (const auto & fileInfo : wordClockLanguages) {
+        for (const auto &fileInfo : wordClockLanguages) {
             const QString baseName(fileInfo.baseName());
             if (baseName != QStringLiteral("Language")) {
                 const QLocale locale(baseName);
-                m_supportedLanguages.append(baseName);
                 const bool hasCountryCode = (baseName.split("_").length() == 2);
                 if (!hasCountryCode)
                     m_speechFilter.append(baseName);
                 QString name = QLocale::languageToString(locale.language());
                 if (hasCountryCode)
                     name.append(QString(" (%1)").arg(locale.nativeCountryName()));
-                m_availableLocales.insert(baseName, name);
+                m_clockAvailableLocales.insert(baseName, name);
             }
         }
-        initlocales();
+        initSpeechLocales();
+        //translations
         QFileInfoList applicationLanguages = QDir(":/i18n").entryInfoList({"*.qm"});
         m_availableTranslations.insert("en", "English");
-        for (const auto & fileInfo : applicationLanguages) {
+        for (const auto &fileInfo : applicationLanguages) {
             const QString baseName(fileInfo.baseName().split("_")[1]);
             m_availableTranslations.insert(baseName, QLocale::languageToString(QLocale(baseName).language()));
         }
@@ -283,10 +302,11 @@ private:
     void registerListeners();
 #endif
     ~DeviceAccess() = default;
-    DeviceAccess(const DeviceAccess&) = delete;
-    DeviceAccess& operator=(const DeviceAccess&) = delete;
+    DeviceAccess(const DeviceAccess &) = delete;
+    DeviceAccess &operator=(const DeviceAccess &) = delete;
     void specificInitializationSteps();
-    void timerEvent(QTimerEvent* event) {
+    void timerEvent(QTimerEvent *event)
+    {
         if (m_settings.status() != QSettings::AccessError) {
             killTimer(event->timerId());
             qCDebug(lc) << "settings ready";
@@ -295,23 +315,22 @@ private:
     }
 
     QVariantMap m_availableTranslations;
-    QVariantMap m_availableLocales;
+    QVariantMap m_clockAvailableLocales;
     QVariantMap m_speechAvailableLocales;
     QVariantMap m_speechAvailableVoices;
     QStringList m_speechFilter;
-    QStringList m_supportedLanguages;
     QTextToSpeech m_speech{};
     QSettings m_settings{};
     QTranslator m_translator;
     //QTranslator m_translatorQt;
     QString m_emptyString{};
-    float m_brightness = .0;
     float m_safeInsetBottom = .0;
     float m_safeInsetLeft = .0;
     float m_safeInsetRight = .0;
     float m_safeInsetTop = .0;
     float m_statusBarHeight = .0;
     float m_navigationBarHeight = .0;
+    float m_brightness = .0;
     float m_brightnessRequested = .0;
     int m_minimumBatteryLevel = m_settings.value("BatterySaving/minimumBatteryLevel", 50).toInt();
     int m_batteryLevel = 0;
@@ -321,4 +340,4 @@ private:
     bool m_isBugTracking = m_settings.value("About/isBugTracking", true).toBool();
     bool m_prefersStatusBarHidden = m_settings.value("Appearance/fullScreen", true).toBool();
 };
-}  // namespace kokleeko::device
+} // namespace kokleeko::device
