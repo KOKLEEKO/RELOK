@@ -1,4 +1,11 @@
-#include "BatteryManagerBase.h"
+/**************************************************************************************************
+**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
+**  All rights reserved.
+**  Licensed under the LGPL license. See LICENSE file in the project root for
+**  details.
+**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
+**************************************************************************************************/
+#include <BatteryManagerBase.h>
 
 template<>
 QString ManagerBase<BatteryManagerBase>::m_name{"battery"};
@@ -21,14 +28,4 @@ void BatteryManagerBase::updateIsPlugged(bool isPlugged)
     m_isPlugged = isPlugged;
     qCDebug(lc) << "R isPlugged:" << m_isPlugged;
     emit isPluggedChanged();
-}
-
-bool BatteryManagerBase::isPlugged() const
-{
-    return m_isPlugged;
-}
-
-int BatteryManagerBase::batteryLevel() const
-{
-    return m_batteryLevel;
 }

@@ -1,4 +1,11 @@
-#include "AdvertisingManagerBase.h"
+/**************************************************************************************************
+**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
+**  All rights reserved.
+**  Licensed under the LGPL license. See LICENSE file in the project root for
+**  details.
+**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
+**************************************************************************************************/
+#include <AdvertisingManagerBase.h>
 
 template<>
 QString ManagerBase<AdvertisingManagerBase>::m_name{"advertising"};
@@ -15,16 +22,6 @@ void AdvertisingManagerBase::requestAdvertising(bool isAdvertisingRequested)
         return;
     persistenceManager()->setValue("Advanced/isAdvertisingRequested", m_isAdvertisingRequested = isAdvertisingRequested);
     emit isAdvertisingRequestedChanged();
-}
-
-bool AdvertisingManagerBase::isAdvertisingEnabled() const
-{
-    return m_isAdvertisingEnabled;
-}
-
-bool AdvertisingManagerBase::isAdvertisingRequested() const
-{
-    return m_isAdvertisingRequested;
 }
 
 void AdvertisingManagerBase::enableAdvertising(bool /*enable*/) {}

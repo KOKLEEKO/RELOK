@@ -1,4 +1,11 @@
-#include "ClockLanguageManagerBase.h"
+/**************************************************************************************************
+**  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
+**  All rights reserved.
+**  Licensed under the LGPL license. See LICENSE file in the project root for
+**  details.
+**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
+**************************************************************************************************/
+#include <ClockLanguageManagerBase.h>
 
 #include <QDir>
 #include <QFileInfo>
@@ -26,9 +33,4 @@ ClockLanguageManagerBase::ClockLanguageManagerBase(QObject *parent)
     : ManagerBase<ClockLanguageManagerBase>(parent)
 {
     detectClockAvailableLocales();
-}
-
-QVariantMap ClockLanguageManagerBase::clockAvailableLocales() const
-{
-    return m_clockAvailableLocales;
 }

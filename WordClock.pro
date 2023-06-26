@@ -19,45 +19,52 @@ CONFIG -= qtquickcompiler
 
 INCLUDEPATH +=                                              \
     src                                                     \
-    src/base
+    src/base                                                \
+    src/base/capability                                     \
+    src/common
 
-HEADERS +=                                                 \
-    src/DeviceAccess.h                                     \
-    src/base/AdvertisingManagerBase.h                      \
-    src/base/AutoLockManagerBase.h                         \
-    src/base/BatteryManagerBase.h                          \
-    src/base/ClockLanguageManagerBase.h                    \
-    src/base/DeviceAccessBase.h                            \
-    src/base/EnergySavingManagerBase.h                     \
-    src/base/ManagerBase.h                                 \
-    src/base/PersistenceCapability.h \
-    src/base/PersistenceManagerBase.h                      \
-    src/base/ReviewManagerBase.h                           \
-    src/base/ScreenBrightnessManagerBase.h                 \
-    src/base/ScreenSizeManagerBase.h                       \
-    src/base/ShareContentManagerBase.h                     \
-    src/base/SpeechManagerBase.h                           \
-    src/base/SplashScreenManagerBase.h                     \
-    src/base/TrackingManagerBase.h                         \
-    src/base/TranslationManagerBase.h
+HEADERS +=                                                  \
+    src/base/AdvertisingManagerBase.h                       \
+    src/base/AutoLockManagerBase.h                          \
+    src/base/BatteryManagerBase.h                           \
+    src/base/ClockLanguageManagerBase.h                     \
+    src/base/DeviceAccessBase.h                             \
+    src/base/EnergySavingManagerBase.h                      \
+    src/base/ManagerBase.h                                  \
+    src/base/PersistenceManagerBase.h                       \
+    src/base/ReviewManagerBase.h                            \
+    src/base/ScreenBrightnessManagerBase.h                  \
+    src/base/ScreenSizeManagerBase.h                        \
+    src/base/ShareContentManagerBase.h                      \
+    src/base/SpeechManagerBase.h                            \
+    src/base/SplashScreenManagerBase.h                      \
+    src/base/TrackingManagerBase.h                          \
+    src/base/TranslationManagerBase.h                       \
+    src/base/capability/PersistenceCapability.h             \
+    src/common/ClockLanguageManager.h                     \
+    src/common/PersistenceManager.h                         \
+    src/common/TranslationManager.h
 
-SOURCES += \
-    src/base/AdvertisingManagerBase.cpp \
-    src/base/AutoLockManagerBase.cpp                       \
-    src/base/BatteryManagerBase.cpp                        \
-    src/base/ClockLanguageManagerBase.cpp                  \
-    src/base/DeviceAccessBase.cpp                          \
-    src/base/EnergySavingManagerBase.cpp                   \
-    src/base/PersistenceCapability.cpp \
-    src/base/PersistenceManagerBase.cpp                    \
-    src/base/ReviewManagerBase.cpp                         \
-    src/base/ScreenBrightnessManagerBase.cpp               \
-    src/base/ScreenSizeManagerBase.cpp                     \
-    src/base/ShareContentManagerBase.cpp                   \
-    src/base/SpeechManagerBase.cpp                         \
-    src/base/SplashScreenManagerBase.cpp                   \
-    src/base/TrackingManagerBase.cpp                       \
-    src/base/TranslationManagerBase.cpp                    \
+SOURCES +=                                                  \
+    src/base/AdvertisingManagerBase.cpp                     \
+    src/base/AutoLockManagerBase.cpp                        \
+    src/base/BatteryManagerBase.cpp                         \
+    src/base/ClockLanguageManagerBase.cpp                   \
+    src/base/DeviceAccessBase.cpp                           \
+    src/base/EnergySavingManagerBase.cpp                    \
+    src/base/PersistenceManagerBase.cpp                     \
+    src/base/ReviewManagerBase.cpp                          \
+    src/base/ScreenBrightnessManagerBase.cpp                \
+    src/base/ScreenSizeManagerBase.cpp                      \
+    src/base/ShareContentManagerBase.cpp                    \
+    src/base/SpeechManagerBase.cpp                          \
+    src/base/SplashScreenManagerBase.cpp                    \
+    src/base/TrackingManagerBase.cpp                        \
+    src/base/TranslationManagerBase.cpp                     \
+    src/base/capability/PersistenceCapability.cpp           \
+    src/common/ClockLanguageManager.cpp                     \
+    src/common/PersistenceManager.cpp                       \
+    src/common/TranslationManager.cpp
     src/main.cpp
 
 RESOURCES += $$files(res/*.qrc)
@@ -102,9 +109,37 @@ macx | ios {
     LIBS += -framework StoreKit
     DISTFILES += Gemfile
     macx {
+        INCLUDEPATH += src/macx
+        HEADERS +=                                          \
+            src/default/SpeechManager.h                     \
+            src/macx/DeviceAccess.h
+        SOURCES +=                                          \
+            src/default/SpeechManager.cpp                   \
+            src/macx/DeviceAccess.mm
         QMAKE_INFO_PLIST = apple/macx/Info.plist
         OBJECTIVE_SOURCES += src/DeviceAccess_macx.mm
     } else:ios {
+        INCLUDEPATH += src/ios
+        HEADERS +=                                          \
+            src/ios/AutoLockManager.h                       \
+            src/ios/BatteryManager.h                        \
+            src/ios/DeviceAccess.h                          \
+            src/ios/EnergySavingManager.h                   \
+            src/ios/ReviewManager.h                         \
+            src/ios/ScreenBrightnessManager.h               \
+            src/ios/ScreenSizeManager.h                     \
+            src/ios/ShareContentManager.h                   \
+            src/ios/SpeechManager.h
+        SOURCES +=                                          \
+            src/ios/AutoLockManager.mm                      \
+            src/ios/BatteryManager.mm                       \
+            src/ios/DeviceAccess.mm                         \
+            src/ios/EnergySavingManager.mm                  \
+            src/ios/ReviewManager.mm                        \
+            src/ios/ScreenBrightnessManager.mm              \
+            src/ios/ScreenSizeManager.mm                    \
+            src/ios/ShareContentManager.mm                  \
+            src/ios/SpeechManager.mm
         QMAKE_INFO_PLIST = apple/ios/Info.plist
         OBJECTIVE_SOURCES += src/DeviceAccess_ios.mm
         OTHER_FILES += apple/ios/Launch.storyboard
@@ -113,20 +148,58 @@ macx | ios {
     }
 } else:android {
     QT += androidextras
+    INCLUDEPATH += src/android
+    HEADERS +=                                                  \
+        src/android/AutoLockManager.h                           \
+        src/android/BatteryManager.h                            \
+        src/android/DeviceAccess.h                              \
+        src/android/EnergySavingManager.h                       \
+        src/android/ReviewManager.h                             \
+        src/android/ScreenBrightnessManager.h                   \
+        src/android/ScreenSizeManager.h                         \
+        src/android/ShareContentManager.h                       \
+        src/android/SpeechManager.h                             \
+        src/android/SplashScreenManager.h
+    SOURCES +=                                                  \
+        src/android/AutoLockManager.cpp                         \
+        src/android/BatteryManager.cpp                          \
+        src/android/DeviceAccess.cpp                            \
+        src/android/EnergySavingManager.cpp                     \
+        src/android/ReviewManager.cpp                           \
+        src/android/ScreenBrightnessManager.cpp                 \
+        src/android/ScreenSizeManager.cpp                       \
+        src/android/ShareContentManager.cpp                     \
+        src/android/SpeechManager.cpp                           \
+        src/android/SplashScreenManager.cpp
     ANDROID_VERSION_NAME = $$VERSION
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-    DISTFILES +=                                            \
-        android/AndroidManifest.xml                         \
-        android/build.gradle                                \
-        android/gradle.properties                           \
-        android/gradle/wrapper/gradle-wrapper.jar           \
-        android/gradle/wrapper/gradle-wrapper.properties    \
-        android/gradlew                                     \
-        android/gradlew.bat                                 \
-        android/res/values/libs.xml                         \
-        android/src/io/kokleeko/wordclock/DeviceAccess.java \
+    DISTFILES +=                                                \
+        android/AndroidManifest.xml                             \
+        android/build.gradle                                    \
+        android/gradle.properties                               \
+        android/gradle/wrapper/gradle-wrapper.jar               \
+        android/gradle/wrapper/gradle-wrapper.properties        \
+        android/gradlew                                         \
+        android/gradlew.bat                                     \
+        android/res/values/libs.xml                             \
+        android/src/io/kokleeko/wordclock/DeviceAccess.java     \
         android/src/io/kokleeko/wordclock/MyActivity.java
     SOURCES += src/DeviceAccess_android.cpp
+} else:wasm {
+    INCLUDEPATH += src/wasm
+    HEADERS +=                                                  \
+        src/wasm/DeviceAccess.h
+    SOURCES +=                                                  \
+        src/wasm/DeviceAccess.cpp
 } else {
-    SOURCES += src/DeviceAccess.cpp
+    INCLUDEPATH += src/default
+    HEADERS +=                                                  \
+        src/default/DeviceAcess.h                               \
+        src/default/SpeechManager.h
+    SOURCES +=                                                  \
+        src/default/DeviceAcess.cpp                             \
+        src/default/SpeechManager.cpp
 }
+
+HEADERS += src/DeviceAccess.h
+SOURCES += src/DeviceAccess.cpp
