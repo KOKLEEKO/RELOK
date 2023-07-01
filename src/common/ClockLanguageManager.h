@@ -11,6 +11,8 @@
 
 class ClockLanguageManager : public ClockLanguageManagerBase
 {
+    Q_OBJECT
+
 public:
     explicit ClockLanguageManager(QObject *parent = nullptr);
 };

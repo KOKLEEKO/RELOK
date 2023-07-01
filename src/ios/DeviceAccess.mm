@@ -7,6 +7,20 @@
 **************************************************************************************************/
 #include "DeviceAccess.h"
 
+#include "AutoLockManager.h"
+#include "BatteryManager.h"
+#include "EnergySavingManager.h"
+#include "ReviewManager.h"
+#include "ScreenBrightnessManager.h"
+#include "ScreenSizeManager.h"
+#include "ShareContentManager.h"
+#include "SpeechManager.h"
+#include <ClockLanguageManager.h>
+#include <PersistenceManager.h>
+#include <TranslationManager.h>
+
+Q_LOGGING_CATEGORY(lc, "Device-ios")
+
 DeviceAccess::DeviceAccess(QObject *parent)
     : DeviceAccessBase{parent}
 {}

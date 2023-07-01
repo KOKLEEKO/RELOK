@@ -11,6 +11,8 @@
 
 class TranslationManager : public TranslationManagerBase
 {
+    Q_OBJECT
+
 public:
     explicit TranslationManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                 QObject *parent = nullptr);

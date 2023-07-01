@@ -17,6 +17,7 @@ Q_DECLARE_LOGGING_CATEGORY(lc)
 template<typename ManagerImpl>
 class ManagerBase : public QObject
 {
+    Q_PROPERTY(bool isEnabled MEMBER m_isEnabled CONSTANT)
 public:
     ManagerBase(QObject *parent = nullptr)
         : QObject(parent)
@@ -26,4 +27,5 @@ public:
 
 protected:
     static QString m_name; //CRTP
+    bool m_isEnabled = false;
 };

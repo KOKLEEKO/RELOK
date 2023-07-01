@@ -16,24 +16,24 @@ Drawer {
     id: popup
     property alias webView: webView
     edge: Qt.RightEdge
-    y: isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+    y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
     width: parent.width
     z: 1
     height: parent.height
             - (isFullScreen ? 0
-                            : (Math.max(DeviceAccess.statusBarHeight,
-                                        DeviceAccess.safeInsetTop)
+                            : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                        DeviceAccess.managers.screenSize.safeInsetTop)
                                + (Helpers.isIos ? 0
-                                                : Math.max(DeviceAccess.navigationBarHeight,
-                                                           DeviceAccess.safeInsetBottom))))
+                                                : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                           DeviceAccess.managers.screenSize.safeInsetBottom))))
     interactive: opened
     ColumnLayout {
         anchors.fill: parent  // @disable-check M16 @disable-check M31
         spacing: 0
         ToolBar {
-            topPadding: DeviceAccess.safeInsetTop
-            leftPadding: DeviceAccess.safeInsetLeft
-            rightPadding: DeviceAccess.safeInsetRight
+            topPadding: DeviceAccess.managers.screenSize.safeInsetTop
+            leftPadding: DeviceAccess.managers.screenSize.safeInsetLeft
+            rightPadding: DeviceAccess.managers.screenSize.safeInsetRight
             Layout.fillWidth: true
             RowLayout {
                 anchors.fill: parent  // @disable-check M16 @disable-check M31
@@ -87,13 +87,13 @@ Drawer {
                     status = loadRequest.status
                     switch (status) {
                     case WebView.LoadStartedStatus:
-                        webView.title = qsTr("Loading...") + DeviceAccess.emptyString
+                        webView.title = qsTr("Loading...") + DeviceAccess.managers.translation.emptyString
                         break;
                     case WebView.LoadSucceededStatus:
                         runJavaScript("document.title", (title) => webView.title = title)
                         break;
                     case WebView.LoadFailedStatus:
-                        webView.title = qsTr("Houston, we have a problem") + DeviceAccess.emptyString
+                        webView.title = qsTr("Houston, we have a problem") + DeviceAccess.managers.translation.emptyString
                         webView.error_string = loadRequest.errorString
                         break;
                     }

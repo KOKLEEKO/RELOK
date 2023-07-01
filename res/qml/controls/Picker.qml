@@ -17,7 +17,7 @@ Slider {
     enum Factors { Saturation, Lightness }
     ToolTip {
         visible: pressed
-        text: qsTr("%L1 %").arg((Math.round(value*1000)/10).toFixed(1)) + DeviceAccess.emptyString
+        text: qsTr("%L1 %").arg((Math.round(value*1000)/10).toFixed(1)) + DeviceAccess.managers.translation.emptyString
     }
     from: 0
     to: 1

@@ -11,7 +11,7 @@ template<>
 QString ManagerBase<ShareContentManagerBase>::m_name{"shareContent"};
 
 ShareContentManagerBase::ShareContentManagerBase(QObject *parent)
-    : ManagerBase<ShareContentManagerBase>(parent)
+    : ManagerBase(parent)
 {}
 
 void ShareContentManagerBase::share(QVariant /*content*/){};

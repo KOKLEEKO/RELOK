@@ -10,5 +10,5 @@
 DeviceAccess::DeviceAccess(QObject *parent)
     : DeviceAccessBase{parent}
 {
-
+    
 }

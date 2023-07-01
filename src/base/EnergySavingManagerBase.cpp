@@ -14,7 +14,7 @@ EnergySavingManagerBase::EnergySavingManagerBase(const std::shared_ptr<AutoLockM
                                                  const std::shared_ptr<BatteryManagerBase> &batteryManager,
                                                  const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                                  QObject *parent)
-    : ManagerBase<EnergySavingManagerBase>(parent)
+    : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
     , m_autoLockManager(autoLockManager)
     , m_batteryManager(batteryManager)

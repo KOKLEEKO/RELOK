@@ -16,12 +16,12 @@ Rectangle {
         var fileBaseName = language
         if (!supportedLanguages.includes(fileBaseName))
             fileBaseName = (supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2) : "en"
-        DeviceAccess.setSpeechLanguage(language)
+        DeviceAccess.managers.speech.setSpeechLanguage(language)
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
         if (isDebug) console.log(language, supportedLanguages, tmp_language_url)
         language_url = tmp_language_url
         selected_language = language
-        if (enable_speech) DeviceAccess.say(written_time)
+        if (enable_speech) DeviceAccess.managers.speech.say(written_time)
     }
     function detectAndUseDeviceLanguage() { selectLanguage(Qt.locale().name) }
     function updateTable() {
@@ -42,7 +42,7 @@ Rectangle {
                 (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : "")
         if (isDebug) console.debug(time, written_time)
         if (enable_speech && (minutes_value % parseInt(speech_frequency) == 0))
-            DeviceAccess.say(written_time.toLowerCase())
+            DeviceAccess.managers.speech.say(written_time.toLowerCase())
         if (was_special) language.special_message(false)
         if (previous_hours_array_index !== hours_array_index || is_special || was_special) {
             if (previous_hours_array_index !== -1)
@@ -99,8 +99,8 @@ Rectangle {
 
     // User-facing Settings
     property string selected_language
-    property bool enable_speech: DeviceAccess.settingsValue("Appearance/speech", true)
-    property bool enable_special_message: DeviceAccess.settingsValue("Appearance/specialMessage", true)
+    property bool enable_speech: DeviceAccess.managers.persistence.value("Appearance/speech", true)
+    property bool enable_special_message: DeviceAccess.managers.persistence.value("Appearance/specialMessage", true)
     property color background_color: "black"
     property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
@@ -109,23 +109,23 @@ Rectangle {
     // Internal Settings
     property bool is_color_animation_enabled: true
     readonly property int animation_easing: Easing.Linear
-    property var languages: Object.keys(DeviceAccess.speechAvailableLocales).length ? DeviceAccess.speechAvailableLocales
-                                                                                    : DeviceAccess.clockAvailableLocales
+    property var languages: Object.keys(DeviceAccess.managers.speech.speechAvailableLocales).length ? DeviceAccess.managers.speech.speechAvailableLocales
+                                                                                    : DeviceAccess.managers.clockLanguage.clockAvailableLocales
     property url language_url
     readonly property real table_width: Math.min(height, width)
     readonly property real cell_width: table_width/(rows+2)
     readonly property real dot_size: cell_width/4
     readonly property var speech_frequencies: {
-        "1" : qsTr("every minute") + DeviceAccess.emptyString,
-        "5" : qsTr("every 5 minutes") + DeviceAccess.emptyString,
-        "10": qsTr("every 10 minutes") + DeviceAccess.emptyString,
-        "15": qsTr("every 15 minutes") + DeviceAccess.emptyString,
-        "20": qsTr("every 20 minutes") + DeviceAccess.emptyString,
-        "30": qsTr("every 30 minutes") + DeviceAccess.emptyString,
-        "60": qsTr("every hour") + DeviceAccess.emptyString
+        "1" : qsTr("every minute") + DeviceAccess.managers.translation.emptyString,
+        "5" : qsTr("every 5 minutes") + DeviceAccess.managers.translation.emptyString,
+        "10": qsTr("every 10 minutes") + DeviceAccess.managers.translation.emptyString,
+        "15": qsTr("every 15 minutes") + DeviceAccess.managers.translation.emptyString,
+        "20": qsTr("every 20 minutes") + DeviceAccess.managers.translation.emptyString,
+        "30": qsTr("every 30 minutes") + DeviceAccess.managers.translation.emptyString,
+        "60": qsTr("every hour") + DeviceAccess.managers.translation.emptyString
     }
-    readonly property var supportedLanguages: Object.keys(DeviceAccess.clockAvailableLocales)
-    property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "15")
+    readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
+    property string speech_frequency: DeviceAccess.managers.persistence.value("Appearance/speech_frequency", "15")
     property Language language
     //onLanguageChanged: Helpers.missingLetters(language.table)
     property var currentDateTime
@@ -188,9 +188,9 @@ Rectangle {
     Behavior on accessoriesOpacity { PropertyAnimation { duration: 1000; easing.type: animation_easing } }
 
     color: background_color
-    onLanguageChanged: { DeviceAccess.hideSplashScreen(); enabled = false }
+    onLanguageChanged: { DeviceAccess.managers.splashScreen.hideSplashScreen(); enabled = false }
     Component.onCompleted: {
-        selected_language = DeviceAccess.settingsValue("Appearance/clockLanguage", "")
+        selected_language = DeviceAccess.managers.persistence.value("Appearance/clockLanguage", "")
         language_urlChanged.connect(
                     () => { if (time) {
                             previous_hours_array_index = -1

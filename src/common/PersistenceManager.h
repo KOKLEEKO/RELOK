@@ -9,9 +9,18 @@
 
 #include <PersistenceManagerBase.h>
 
+#include <QSettings>
+
 class PersistenceManager : public PersistenceManagerBase
 {
+    Q_OBJECT
+
 public:
     explicit PersistenceManager(QObject *parent = nullptr);
-};
+    ~PersistenceManager() { qDebug() << m_name << "deleted"; }
+    QVariant value(QString key, QVariant defaultValue) const override;
+    void setValue(QString key, QVariant value) override;
 
+private:
+    QSettings m_settings;
+};

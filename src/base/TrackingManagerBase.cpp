@@ -12,7 +12,7 @@ QString ManagerBase<TrackingManagerBase>::m_name{"tracking"};
 
 TrackingManagerBase::TrackingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                          QObject *parent)
-    : ManagerBase<TrackingManagerBase>(parent)
+    : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
 {}
 

@@ -12,7 +12,7 @@ QString ManagerBase<ScreenSizeManagerBase>::m_name{"screenSize"};
 
 ScreenSizeManagerBase::ScreenSizeManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                              QObject *parent)
-    : ManagerBase<ScreenSizeManagerBase>(parent)
+    : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
 {}
 

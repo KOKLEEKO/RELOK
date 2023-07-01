@@ -11,6 +11,8 @@
 
 class SpeechManager : public SpeechManagerBase
 {
+    Q_OBJECT
+
 public:
     explicit SpeechManager(const std::shared_ptr<ClockLanguageManagerBase> &clockLanguageManager,
                            const std::shared_ptr<PersistenceManagerBase> &persistenceManager,

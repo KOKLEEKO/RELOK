@@ -12,7 +12,7 @@ QString ManagerBase<ScreenBrightnessManagerBase>::m_name{"screenBrightness"};
 
 ScreenBrightnessManagerBase::ScreenBrightnessManagerBase(
     const std::shared_ptr<PersistenceManagerBase> &persistenceManager, QObject *parent)
-    : ManagerBase<ScreenBrightnessManagerBase>(parent)
+    : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
 {}
 

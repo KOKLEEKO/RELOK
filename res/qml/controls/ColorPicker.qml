@@ -14,7 +14,7 @@ Controls.MenuItem {
     function reset() { extraControls[3].setColor(parent.parent["default_%1".arg(name)]) }
     property color selected_color: extraControls[0].selected_color
     required property string name
-    Button { text: qsTr("Reset") + DeviceAccess.emptyString }
+    Button { text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString }
     extras: [
         Controls.ColorHuePicker {},
         Controls.ColorFactorPicker {
@@ -39,7 +39,7 @@ Controls.MenuItem {
         control.clicked.connect(reset)
         selected_colorChanged.connect(() => {
                                           wordClock[name] = selected_color
-                                          DeviceAccess.setSettingsValue("Appearance/%1".arg(name),
+                                          DeviceAccess.managers.persistence.setValue("Appearance/%1".arg(name),
                                                                         selected_color.toString().toUpperCase())
                                       })
     }

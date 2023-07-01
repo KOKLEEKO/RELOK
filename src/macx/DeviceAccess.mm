@@ -7,8 +7,13 @@
 **************************************************************************************************/
 #include "DeviceAccess.h"
 
+#include "src/default/SpeechManager.h"
+#include <ClockLanguageManager.h>
+#include <PersistenceManager.h>
+#include <TranslationManager.h>
+
+Q_LOGGING_CATEGORY(lc, "Device-macx")
+
 DeviceAccess::DeviceAccess(QObject *parent)
     : DeviceAccessBase{parent}
-{
-
-}
+{}

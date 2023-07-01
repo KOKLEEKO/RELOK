@@ -10,5 +10,5 @@
 ClockLanguageManager::ClockLanguageManager(QObject *parent)
     : ClockLanguageManagerBase{parent}
 {
-
+    m_isEnabled = true;
 }

@@ -29,6 +29,7 @@ public:
 signals:
     void prefersStatusBarHiddenChanged();
     void safeInsetsChanged();
+    void viewConfigurationChanged();
 
 private:
     bool m_prefersStatusBarHidden = false;

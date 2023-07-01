@@ -17,6 +17,7 @@
 class TranslationManagerBase : public ManagerBase<TranslationManagerBase>, public PersistenceCapability
 {
     Q_OBJECT
+    Q_PROPERTY(QVariantMap availableTranslations MEMBER m_availableTranslations CONSTANT)
     Q_PROPERTY(QString emptyString MEMBER m_emptyString NOTIFY retranslate)
 
 public:

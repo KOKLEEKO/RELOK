@@ -13,7 +13,7 @@ QString ManagerBase<SpeechManagerBase>::m_name{"speech"};
 SpeechManagerBase::SpeechManagerBase(const std::shared_ptr<ClockLanguageManagerBase> &clockLanguageManager,
                                      const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                      QObject *parent)
-    : ManagerBase<SpeechManagerBase>(parent)
+    : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
     , m_clockLanguageManager(clockLanguageManager)
 {

@@ -39,7 +39,7 @@ Controls.MenuItem {
     function notify(positionIndex) {
         wordClock.accessoriesChanged()
         activatedPositionIndex = positionIndex
-        DeviceAccess.setSettingsValue("Accessories/%1".arg(name), positionIndex)
+        DeviceAccess.managers.persistence.setValue("Accessories/%1".arg(name), positionIndex)
     }
 
     readonly property bool isMinutes: name === "minutes"
@@ -48,7 +48,7 @@ Controls.MenuItem {
     property var positions: [  QT_TRANSLATE_NOOP("PositionSelector","Top"),  QT_TRANSLATE_NOOP("PositionSelector","Bottom") ]
     withRadioGroup: true
     RadioButton {
-        text: qsTr("Hide") + DeviceAccess.emptyString
+        text: qsTr("Hide") + DeviceAccess.managers.translation.emptyString
         checked: true
         ButtonGroup.group: radioGroup
         onClicked: hide()
@@ -56,7 +56,7 @@ Controls.MenuItem {
     Component.onCompleted: {
         if (isMinutes) positions.unshift(QT_TRANSLATE_NOOP("PositionSelector","Around"))
         model = positions
-        const positionIndex = DeviceAccess.settingsValue("Accessories/%1".arg(name), isMinutes ? 4 : -1)
+        const positionIndex = DeviceAccess.managers.persistence.value("Accessories/%1".arg(name), isMinutes ? 4 : -1)
         if (positionIndex !== -1) activate(positionIndex)
     }
 }

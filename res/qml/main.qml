@@ -26,7 +26,7 @@ ApplicationWindow {
     readonly property bool isFullScreen: Helpers.isIos ? DeviceAccess.prefersStatusBarHidden
                                                        : visibility === Window.FullScreen
     property bool isWidget: false
-    property bool showWelcome: DeviceAccess.settingsValue("Welcome/showPopup", true)
+    property bool showWelcome: DeviceAccess.managers.persistence.value("Welcome/showPopup", true)
     property real tmpOpacity: root.opacity
 
     //Tips
@@ -45,26 +45,26 @@ ApplicationWindow {
 
     property int minimumSize: 287
 
-    width: DeviceAccess.settingsValue("Appearance/width", 640)
-    height: DeviceAccess.settingsValue("Appearance/height", 480)
+    width: DeviceAccess.managers.persistence.value("Appearance/width", 640)
+    height: DeviceAccess.managers.persistence.value("Appearance/height", 480)
     minimumWidth: minimumSize
     minimumHeight: minimumSize
     visible: true
     visibility: Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
-    opacity: DeviceAccess.settingsValue("Appearance/opacity", 1)
+    opacity: DeviceAccess.managers.persistence.value("Appearance/opacity", 1)
     color: wordClock.background_color
 
     onClosing: {
         aboutToQuit = true
         if (Helpers.isAndroid) { close.accepted = false; DeviceAccess.moveTaskToBack() }
         if (!isFullScreen) {
-            DeviceAccess.setSettingsValue("Appearance/width", width)
-            DeviceAccess.setSettingsValue("Appearance/height", height)
+            DeviceAccess.managers.persistence.setValue("Appearance/width", width)
+            DeviceAccess.managers.persistence.setValue("Appearance/height", height)
         }
     }
     onIsFullScreenChanged: {
         if (!aboutToQuit) {
-            DeviceAccess.setSettingsValue("Appearance/fullScreen", isFullScreen)
+            DeviceAccess.managers.persistence.setValue("Appearance/fullScreen", isFullScreen)
             if (Helpers.isDesktop) {
                 if (isFullScreen) {
                     tmpOpacity = root.opacity
@@ -75,10 +75,9 @@ ApplicationWindow {
             }
         }
     }
-    onIsWidgetChanged: if (Helpers.isDesktop) DeviceAccess.setSettingsValue("Appearance/widget", isWidget)
+    onIsWidgetChanged: if (Helpers.isDesktop) DeviceAccess.managers.persistence.setValue("Appearance/widget", isWidget)
     onVisibilityChanged: if (Helpers.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
-        DeviceAccessBase.managers.persistence.setValue("ok", -1)
         console.info("pixelDensity", Screen.pixelDensity)
         if (Helpers.isAndroid) onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
 
@@ -158,7 +157,7 @@ ApplicationWindow {
     //}
 
     Connections {
-        target: DeviceAccess
+        target: DeviceAccess.managers.screenSize
         function onViewConfigurationChanged() { viewConfigurationChangedSequence.start() }
     }
     SequentialAnimation {
@@ -203,18 +202,18 @@ ApplicationWindow {
     WordClock {
         id: wordClock
         anchors.verticalCenter: parent.verticalCenter
-        x: DeviceAccess.safeInsetLeft
+        x: DeviceAccess.managers.screenSize.safeInsetLeft
         height: parent.height - (isFullScreen ? 0
-                                              : (Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
-                                                 + Math.max(DeviceAccess.navigationBarHeight,
-                                                            DeviceAccess.safeInsetBottom)))
-        width: parent.width - (DeviceAccess.safeInsetLeft + DeviceAccess.safeInsetRight)
-               - (isLandScape ? settingPanel.position * (settingPanel.width - DeviceAccess.safeInsetRight) : 0)
+                                              : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
+                                                 + Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                            DeviceAccess.managers.screenSize.safeInsetBottom)))
+        width: parent.width - (DeviceAccess.managers.screenSize.safeInsetLeft + DeviceAccess.managers.screenSize.safeInsetRight)
+               - (isLandScape ? settingPanel.position * (settingPanel.width - DeviceAccess.managers.screenSize.safeInsetRight) : 0)
     }
 
     Drawer {
         id: settingPanel
-        y: isFullScreen ? 0 : Math.max(DeviceAccess.statusBarHeight, DeviceAccess.safeInsetTop)
+        y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
         Behavior on bottomPadding { NumberAnimation {duration: 100 } }
         Behavior on height { NumberAnimation {duration: 100 } }
         Behavior on topPadding { NumberAnimation {duration: 100 } }
@@ -222,17 +221,17 @@ ApplicationWindow {
         width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
         height: parent.height
                 - (isFullScreen ? 0
-                                : (Math.max(DeviceAccess.statusBarHeight,
-                                            DeviceAccess.safeInsetTop)
+                                : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                            DeviceAccess.managers.screenSize.safeInsetTop)
                                    + (Helpers.isIos ? 0
-                                                    : Math.max(DeviceAccess.navigationBarHeight,
-                                                               DeviceAccess.safeInsetBottom))))
+                                                    : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                               DeviceAccess.managers.screenSize.safeInsetBottom))))
         edge: Qt.RightEdge
         dim: false
-        bottomPadding: 20 + isFullScreen ? DeviceAccess.safeInsetBottom : 0
-        leftPadding: isLandScape ? 20 : Math.max(20, DeviceAccess.safeInsetLeft)
-        rightPadding: Math.max(20, DeviceAccess.safeInsetRight)
-        topPadding: isFullScreen ? Math.max(20, DeviceAccess.safeInsetTop) : 20
+        bottomPadding: 20 + isFullScreen ? DeviceAccess.managers.screenSize.safeInsetBottom : 0
+        leftPadding: isLandScape ? 20 : Math.max(20, DeviceAccess.managers.screenSize.safeInsetLeft)
+        rightPadding: Math.max(20, DeviceAccess.managers.screenSize.safeInsetRight)
+        topPadding: isFullScreen ? Math.max(20, DeviceAccess.managers.screenSize.safeInsetTop) : 20
         background: Item {
             clip: true
             opacity: isLandScape ? 1 : .925
@@ -258,14 +257,14 @@ ApplicationWindow {
         anchors.centerIn: parent
         clip: true
         modal: true
-        title: qsTr("Thank you for being so supportive!") + DeviceAccess.emptyString
+        title: qsTr("Thank you for being so supportive!") + DeviceAccess.managers.translation.emptyString
         width: header.implicitWidth
         z: 1
         Label {
             horizontalAlignment: Label.Center
             width: parent.width
             wrapMode: Text.WordWrap
-            text: "❤\n\n%1".arg(qsTr("It means a lot to us.")) + DeviceAccess.emptyString
+            text: "❤\n\n%1".arg(qsTr("It means a lot to us.")) + DeviceAccess.managers.translation.emptyString
         }
     }
     Dialog {
@@ -273,7 +272,7 @@ ApplicationWindow {
         anchors.centerIn: parent
         clip: true
         modal: true
-        title: qsTr("Oops...") + DeviceAccess.emptyString
+        title: qsTr("Oops...") + DeviceAccess.managers.translation.emptyString
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1
         Label {
@@ -282,16 +281,16 @@ ApplicationWindow {
             wrapMode: Text.WordWrap
             text: ("%1.\n\n%2".arg(failedProductErrorString ? failedProductErrorString
                                                             : qsTr("Something went wrong...")))
-            /**/              .arg(qsTr("Do you want to try again?")) + DeviceAccess.emptyString
+            /**/              .arg(qsTr("Do you want to try again?")) + DeviceAccess.managers.translation.emptyString
         }
             standardButtons: Dialog.No | Dialog.Yes
             onAccepted: failedProduct.purchase()
             onRejected: store.purchasing = false
             Component.onCompleted: {
                 standardButton(Dialog.No).text = Qt.binding(() => qsTranslate("QPlatformTheme", "No")
-                                                            + DeviceAccess.emptyString)
+                                                            + DeviceAccess.managers.translation.emptyString)
                 standardButton(Dialog.Yes).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Yes")
-                                                             + DeviceAccess.emptyString)
+                                                             + DeviceAccess.managers.translation.emptyString)
             }
         }
         Dialog {
@@ -300,7 +299,7 @@ ApplicationWindow {
             background.opacity: .95
             clip: true
             implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
-            title: qsTr("Welcome to %1").arg(Qt.application.name) + DeviceAccess.emptyString
+            title: qsTr("Welcome to %1").arg(Qt.application.name) + DeviceAccess.managers.translation.emptyString
             z: 1
             ColumnLayout {
                 anchors { fill: parent; margins: welcomePopup.margins }  // @disable-check M16  @disable-check M31
@@ -314,12 +313,12 @@ ApplicationWindow {
                         "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use."))
                     /**/             .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this pop-up window \
 to close it and open the settings menu.")                  : qsTr("Please right-click outside this pop-up window to \
-close it and open the settings menu.")) + DeviceAccess.emptyString
+close it and open the settings menu.")) + DeviceAccess.managers.translation.emptyString
                 }
                     CheckBox {
                         id: hidePopupCheckbox
                         indicator.opacity: 0.5
-                        text: qsTr("Don't show this again") + DeviceAccess.emptyString
+                        text: qsTr("Don't show this again") + DeviceAccess.managers.translation.emptyString
                     }
                 }
                 Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
@@ -332,7 +331,7 @@ close it and open the settings menu.")) + DeviceAccess.emptyString
                 anchors.centerIn: parent
                 clip: true
                 modal: true
-                title: qsTr("Thanks for your review") + DeviceAccess.emptyString
+                title: qsTr("Thanks for your review") + DeviceAccess.managers.translation.emptyString
                 width: Math.max(root.width/2, header.implicitWidth)
                 z: 1
                 Label {
@@ -341,17 +340,17 @@ close it and open the settings menu.")) + DeviceAccess.emptyString
                     text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
-Your suggestions will be taken into account.") + DeviceAccess.emptyString
+Your suggestions will be taken into account.") + DeviceAccess.managers.translation.emptyString
                 }
                 onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
                                                  .arg(qsTr("Suggestions for %1").arg(Qt.application.name)))
-                            + DeviceAccess.emptyString
+                            + DeviceAccess.managers.translation.emptyString
                 standardButtons: Dialog.Close | Dialog.Ok
                 Component.onCompleted: {
                     standardButton(Dialog.Close).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close")
-                                                                   + DeviceAccess.emptyString)
+                                                                   + DeviceAccess.managers.translation.emptyString)
                     standardButton(Dialog.Ok).text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK")
-                                                                + DeviceAccess.emptyString)
+                                                                + DeviceAccess.managers.translation.emptyString)
                 }
             }
             Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }

@@ -12,7 +12,7 @@ QString ManagerBase<AdvertisingManagerBase>::m_name{"advertising"};
 
 AdvertisingManagerBase::AdvertisingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                                QObject *parent)
-    : ManagerBase<AdvertisingManagerBase>(parent)
+    : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
 {}
 

@@ -16,7 +16,7 @@ QString ManagerBase<TranslationManagerBase>::m_name{"translation"};
 
 TranslationManagerBase::TranslationManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                                QObject *parent)
-    : ManagerBase<TranslationManagerBase>(parent)
+    : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
 {}
 

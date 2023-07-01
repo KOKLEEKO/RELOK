@@ -30,7 +30,7 @@ void ClockLanguageManagerBase::detectClockAvailableLocales()
 }
 
 ClockLanguageManagerBase::ClockLanguageManagerBase(QObject *parent)
-    : ManagerBase<ClockLanguageManagerBase>(parent)
+    : ManagerBase(parent)
 {
     detectClockAvailableLocales();
 }

@@ -24,6 +24,6 @@ void AutoLockManagerBase::security(bool /*value*/){};
 
 AutoLockManagerBase::AutoLockManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                          QObject *parent)
-    : ManagerBase<AutoLockManagerBase>(parent)
+    : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
 {}

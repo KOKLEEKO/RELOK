@@ -12,10 +12,7 @@
 
 #include <memory>
 
-#include "DeviceAccess.h"
-
-#include "DeviceAccessBase.h"
-#include "PersistenceManagerBase.h"
+#include <DeviceAccessFactory.h>
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -34,15 +31,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("isDebug", false);
 #endif
 
-    std::shared_ptr<PersistenceManagerBase> persistenceBase = std::make_shared<PersistenceManagerBase>();
-
-    DeviceAccessBase::instance().addManager(persistenceBase);
-
-    using namespace kokleeko::device;
-
-    //qmlRegisterSingletonInstance("DA", 1, 0, "DeviceAccessBase", &DeviceAccessBase::instance());
-
-    engine.rootContext()->setContextProperty("DeviceAccessBase", &DeviceAccessBase::instance());
+    ///using namespace kokleeko::device;
 
     const QMetaEnum &systemFontMetaEnum = QMetaEnum::fromType<QFontDatabase::SystemFont>();
     const int systemFontKeyCount = systemFontMetaEnum.keyCount();
@@ -54,7 +43,12 @@ int main(int argc, char *argv[]) {
         qDebug() << systemFontName << font;
     }
 
-    engine.rootContext()->setContextProperty("DeviceAccess", &DeviceAccess::instance());
+    engine.rootContext()->setContextProperty("DeviceAccess", DeviceAccessFactory::create());
+    //    qmlRegisterSingletonInstance("DA",
+    //                                 1,
+    //                                 0,
+    //                                 "DeviceAccessBase",
+    //                                 static_cast<DeviceAccess *>(DeviceAccess::instance())->complete());
     /* Qt% limitation
      * QQmlApplicationEngine::retranslate()
      * This function refreshes all the engine's bindings, not only those that use strings marked for translation.

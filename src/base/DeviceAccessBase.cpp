@@ -7,22 +7,38 @@
 **************************************************************************************************/
 #include <DeviceAccessBase.h>
 
+#include "AdvertisingManagerBase.h"
+#include "AutoLockManagerBase.h"
+#include "BatteryManagerBase.h"
+#include "ClockLanguageManagerBase.h"
+#include "EnergySavingManagerBase.h"
+#include "PersistenceManagerBase.h"
+#include "ReviewManagerBase.h"
+#include "ScreenBrightnessManagerBase.h"
+#include "ScreenSizeManagerBase.h"
+#include "ShareContentManagerBase.h"
+#include "SpeechManagerBase.h"
+#include "SplashScreenManagerBase.h"
+#include "TrackingManagerBase.h"
+#include "TranslationManagerBase.h"
+
 DeviceAccessBase::DeviceAccessBase(QObject *parent)
     : QObject(parent)
-{}
-
-DeviceAccessBase &DeviceAccessBase::instance()
 {
-    static DeviceAccessBase deviceAccessBase;
-    return deviceAccessBase;
-}
+    auto persistence = addManager(std::make_shared<PersistenceManagerBase>(parent));
 
-bool DeviceAccessBase::isCompleted() const
-{
-    return m_isCompleted;
-}
+    auto autoLock = addManager(std::make_shared<AutoLockManagerBase>(persistence, parent));
+    auto battery = addManager(std::make_shared<BatteryManagerBase>(parent));
+    auto clockLanguage = addManager(std::make_shared<ClockLanguageManagerBase>(parent));
 
-void DeviceAccessBase::complete()
-{
-    m_isCompleted = true;
+    addManager(std::make_shared<AdvertisingManagerBase>(persistence, parent));
+    addManager(std::make_shared<EnergySavingManagerBase>(autoLock, battery, persistence, parent));
+    addManager(std::make_shared<ReviewManagerBase>(parent));
+    addManager(std::make_shared<ScreenBrightnessManagerBase>(persistence, parent));
+    addManager(std::make_shared<ScreenSizeManagerBase>(persistence, parent));
+    addManager(std::make_shared<ShareContentManagerBase>(parent));
+    addManager(std::make_shared<SpeechManagerBase>(clockLanguage, persistence, parent));
+    addManager(std::make_shared<SplashScreenManagerBase>(parent));
+    addManager(std::make_shared<TrackingManagerBase>(persistence, parent));
+    addManager(std::make_shared<TranslationManagerBase>(persistence, parent));
 }

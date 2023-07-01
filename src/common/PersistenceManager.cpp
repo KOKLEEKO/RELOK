@@ -10,5 +10,15 @@
 PersistenceManager::PersistenceManager(QObject *parent)
     : PersistenceManagerBase{parent}
 {
+    m_isEnabled = true;
+}
 
+QVariant PersistenceManager::value(QString key, QVariant defaultValue) const
+{
+    return m_settings.value(key, defaultValue);
+}
+
+void PersistenceManager::setValue(QString key, QVariant value)
+{
+    m_settings.setValue(key, value);
 }

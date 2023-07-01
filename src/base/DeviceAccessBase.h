@@ -12,7 +12,6 @@
 #include <QHash>
 #include <QLoggingCategory>
 #include <QObject>
-#include <QtQml/qqml.h>
 
 Q_DECLARE_LOGGING_CATEGORY(lc)
 
@@ -26,31 +25,33 @@ class DeviceAccessBase : public QObject
     DeviceAccessBase &operator=(const DeviceAccessBase &) = delete;
 
 public:
-    static DeviceAccessBase &instance();
-    inline bool isCompleted() const;
-
-    virtual void complete();
+    template<class DeviceAccessImpl>
+    static DeviceAccessImpl *instance()
+    {
+        static DeviceAccessImpl *deviceAccessImpl = new DeviceAccessImpl();
+        return deviceAccessImpl;
+    };
 
     template<class ManagerImpl>
     ManagerImpl *manager(QString name) const
     {
-        if (m_isCompleted && m_managers.contains(name) && m_managers[name].isValid())
+        if (m_managers.contains(name) && m_managers[name].isValid())
             return qvariant_cast<ManagerImpl *>(m_managers[name]);
         return nullptr;
+    }
+
+    template<class ManagerImpl>
+    std::shared_ptr<ManagerImpl> addManager(const std::shared_ptr<ManagerImpl> &manager)
+    {
+        m_sharedPointers.insert(manager.get()->name(), manager);
+        m_managers.insert(manager.get()->name(), QVariant::fromValue(manager.get()));
+        return std::move(manager);
     }
 
 protected:
     DeviceAccessBase(QObject *parent = nullptr);
 
-    template<class ManagerImpl>
-    void addManager(const std::shared_ptr<ManagerImpl> &manager)
-    {
-        m_managers.insert(manager.get()->name(), QVariant::fromValue(manager.get()));
-    }
-
 private:
     QVariantMap m_managers{};
-    bool m_isCompleted = false;
+    QMap<QString, std::shared_ptr<void> > m_sharedPointers;
 };
-
-QML_DECLARE_TYPE(DeviceAccessBase)
