@@ -201,10 +201,10 @@ macx | ios {
 } else {
     INCLUDEPATH += src/default
     HEADERS +=                                                  \
-        src/default/DeviceAcess.h                               \
+        src/default/DeviceAccess.h                              \
         src/default/SpeechManager.h
     SOURCES +=                                                  \
-        src/default/DeviceAcess.cpp                             \
+        src/default/DeviceAccess.cpp                            \
         src/default/SpeechManager.cpp
 }
 
