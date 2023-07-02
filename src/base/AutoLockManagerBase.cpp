@@ -8,7 +8,7 @@
 #include <AutoLockManagerBase.h>
 
 template<>
-QString ManagerBase<AutoLockManagerBase>::m_name{"autolock"};
+QString ManagerBase<AutoLockManagerBase>::m_name{"autoLock"};
 
 void AutoLockManagerBase::disableAutoLock(bool /*disable*/) {}
 
@@ -18,9 +18,9 @@ void AutoLockManagerBase::requestAutoLock(bool isAutoLockRequested)
         return;
     persistenceManager()->setValue("BatterySaving/isAutoLockRequested", m_isAutoLockRequested = isAutoLockRequested);
     emit isAutoLockRequestedChanged();
-};
+}
 
-void AutoLockManagerBase::security(bool /*value*/){};
+void AutoLockManagerBase::security(bool /*value*/) {}
 
 AutoLockManagerBase::AutoLockManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                          QObject *parent)

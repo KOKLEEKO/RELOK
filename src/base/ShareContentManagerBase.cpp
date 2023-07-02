@@ -14,4 +14,4 @@ ShareContentManagerBase::ShareContentManagerBase(QObject *parent)
     : ManagerBase(parent)
 {}
 
-void ShareContentManagerBase::share(QVariant /*content*/){};
+void ShareContentManagerBase::share(QVariant /*content*/) {}

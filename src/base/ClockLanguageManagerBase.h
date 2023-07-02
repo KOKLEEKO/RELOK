@@ -16,14 +16,13 @@ class ClockLanguageManagerBase : public ManagerBase<ClockLanguageManagerBase>
     Q_OBJECT
     Q_PROPERTY(QVariantMap clockAvailableLocales READ clockAvailableLocales CONSTANT)
 
-    void detectClockAvailableLocales();
+    virtual void detectClockAvailableLocales();
 
 public:
     ClockLanguageManagerBase(QObject *parent = nullptr);
 
     QVariantMap clockAvailableLocales() const { return m_clockAvailableLocales; }
 
-private:
+protected:
     QVariantMap m_clockAvailableLocales;
 };
-

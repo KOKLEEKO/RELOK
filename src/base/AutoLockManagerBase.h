@@ -17,7 +17,8 @@ class AutoLockManagerBase : public ManagerBase<AutoLockManagerBase>, public Pers
     Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
 
 public:
-    AutoLockManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager, QObject *parent = nullptr);
+    explicit AutoLockManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
+                                 QObject *parent = nullptr);
 
     bool isAutoLockDisabled() const { return m_isAutoLockDisabled; }
     bool isAutoLockRequested() const { return m_isAutoLockRequested; }

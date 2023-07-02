@@ -26,6 +26,6 @@ void BatteryManagerBase::updateIsPlugged(bool isPlugged)
     if (m_isPlugged == isPlugged)
         return;
     m_isPlugged = isPlugged;
-    qCDebug(lc) << "R isPlugged:" << m_isPlugged;
+    qCDebug(lc) << "[R] isPlugged:" << m_isPlugged;
     emit isPluggedChanged();
 }

@@ -16,7 +16,7 @@ PersistenceManagerBase::PersistenceManagerBase(QObject *parent)
 
 QVariant PersistenceManagerBase::value(QString /*key*/, QVariant /*defaultValue*/) const
 {
-    return {};
-};
+    return {QVariant::String};
+}
 
-void PersistenceManagerBase::setValue(QString /*key*/, QVariant /*value*/){};
+void PersistenceManagerBase::setValue(QString /*key*/, QVariant /*value*/) {}

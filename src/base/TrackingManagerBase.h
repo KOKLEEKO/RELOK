@@ -17,7 +17,8 @@ class TrackingManagerBase : public ManagerBase<TrackingManagerBase>, public Pers
     Q_PROPERTY(bool isUsageTracking MEMBER m_isUsageTracking WRITE requestUsageTracking NOTIFY isUsageTrackingChanged)
 
 public:
-    TrackingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager, QObject *parent = nullptr);
+    explicit TrackingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
+                                 QObject *parent = nullptr);
 
     Q_INVOKABLE virtual void requestBugTracking(bool value);
     Q_INVOKABLE virtual void requestUsageTracking(bool value);

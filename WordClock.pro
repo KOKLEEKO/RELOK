@@ -113,11 +113,15 @@ macx | ios {
         INCLUDEPATH +=                                          \
             src/macx                                            \
             src/default
+
+        HEADERS +=                                              \
+            src/default/SpeechManager.h
+        SOURCES +=                                              \
+            src/default/SpeechManager.cpp
+
         OBJECTIVE_HEADERS +=                                    \
-            src/default/SpeechManager.h                         \
             src/macx/DeviceAccess.h
         OBJECTIVE_SOURCES +=                                    \
-            src/default/SpeechManager.cpp                       \
             src/macx/DeviceAccess.mm
         QMAKE_INFO_PLIST = apple/macx/Info.plist
         DISTFILES += src/DeviceAccess_macx.mm

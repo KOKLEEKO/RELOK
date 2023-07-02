@@ -14,4 +14,4 @@ ReviewManagerBase::ReviewManagerBase(QObject *parent)
     : ManagerBase(parent)
 {}
 
-void ReviewManagerBase::requestReview(){};
+void ReviewManagerBase::requestReview() {}

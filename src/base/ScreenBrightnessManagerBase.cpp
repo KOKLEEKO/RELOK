@@ -21,6 +21,6 @@ void ScreenBrightnessManagerBase::setBrightnessRequested(float /*brightness*/) {
 void ScreenBrightnessManagerBase::updateBrightness(float brightness)
 {
     m_brightness = qRound(brightness * 100);
-    qCDebug(lc) << "R brightness:" << m_brightness;
+    qCDebug(lc) << "[R] brightness:" << m_brightness;
     emit brightnessChanged();
 }

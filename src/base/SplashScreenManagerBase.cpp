@@ -14,4 +14,4 @@ SplashScreenManagerBase::SplashScreenManagerBase(QObject *parent)
     : ManagerBase(parent)
 {}
 
-void SplashScreenManagerBase::hideSplashScreen(){};
+void SplashScreenManagerBase::hideSplashScreen() {}

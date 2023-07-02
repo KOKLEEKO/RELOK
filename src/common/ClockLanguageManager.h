@@ -15,5 +15,7 @@ class ClockLanguageManager : public ClockLanguageManagerBase
 
 public:
     explicit ClockLanguageManager(QObject *parent = nullptr);
+
+    void detectClockAvailableLocales() override final;
 };
 

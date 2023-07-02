@@ -181,7 +181,7 @@ function listProperties(name, object) {
 
 function updateVisibility(window, DeviceAccess) {
     if (isIos) {
-        DeviceAccess.toggleFullScreen()
+        DeviceAccess.managers.screenSize.toggleFullScreen()
     } else {
         toggle(window, "visibility", QtWindow.Window.FullScreen, QtWindow.Window.AutomaticVisibility)
     }

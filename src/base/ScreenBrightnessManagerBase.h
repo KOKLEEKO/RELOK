@@ -17,8 +17,8 @@ class ScreenBrightnessManagerBase : public ManagerBase<ScreenBrightnessManagerBa
     Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
 
 public:
-    ScreenBrightnessManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                QObject *parent = nullptr);
+    explicit ScreenBrightnessManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
+                                         QObject *parent = nullptr);
 
     virtual void setBrightnessRequested(float brightness);
     void updateBrightness(float brightness);

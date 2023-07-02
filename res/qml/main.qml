@@ -23,7 +23,7 @@ ApplicationWindow {
     property alias headings: headings
     property alias badReviewPopup: badReviewPopup
     readonly property bool isLandScape: width > height
-    readonly property bool isFullScreen: Helpers.isIos ? DeviceAccess.prefersStatusBarHidden
+    readonly property bool isFullScreen: Helpers.isIos ? DeviceAccess.managers.screenSize.prefersStatusBarHidden
                                                        : visibility === Window.FullScreen
     property bool isWidget: false
     property bool showWelcome: DeviceAccess.managers.persistence.value("Welcome/showPopup", true)
@@ -78,8 +78,9 @@ ApplicationWindow {
     onIsWidgetChanged: if (Helpers.isDesktop) DeviceAccess.managers.persistence.setValue("Appearance/widget", isWidget)
     onVisibilityChanged: if (Helpers.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
+        console.log(Object.keys(DeviceAccess.managers))
         console.info("pixelDensity", Screen.pixelDensity)
-        if (Helpers.isAndroid) onSizeChanged.connect(DeviceAccess.updateSafeAreaInsets)
+        if (Helpers.isAndroid) onSizeChanged.connect(DeviceAccess.managers.screenSize.updateSafeAreaInsets)
 
         if (isDebug) {
             var paletteString = "↓\npalette {\n";

@@ -22,21 +22,3 @@ SpeechManagerBase::SpeechManagerBase(const std::shared_ptr<ClockLanguageManagerB
             endOfSpeech();
     });
 }
-
-void SpeechManagerBase::endOfSpeech() const {};
-
-void SpeechManagerBase::initSpeechLocales(){};
-
-void SpeechManagerBase::say(QString text)
-{
-    m_speech.stop();
-    m_speech.say(text.toLower());
-};
-
-void SpeechManagerBase::setSpeechLanguage(QString /*iso*/){};
-
-void SpeechManagerBase::setSpeechVoice(int index)
-{
-    if (m_speech.availableVoices().size() > index)
-        m_speech.setVoice(m_speech.availableVoices().at(index));
-};

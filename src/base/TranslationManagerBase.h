@@ -21,17 +21,20 @@ class TranslationManagerBase : public ManagerBase<TranslationManagerBase>, publi
     Q_PROPERTY(QString emptyString MEMBER m_emptyString NOTIFY retranslate)
 
 public:
-    TranslationManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager, QObject *parent = nullptr);
+    explicit TranslationManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
+                                    QObject *parent = nullptr);
 
-    void getAvailableTransalations();
-    Q_INVOKABLE void switchLanguage(QString language);
+    virtual void getAvailableTransalations() {}
+    Q_INVOKABLE virtual void switchLanguage(QString /*language*/) {}
 
 signals:
     void retranslate();
 
-private:
+protected:
     QVariantMap m_availableTranslations;
     //QTranslator m_translatorQt;
     QTranslator m_translator;
+
+private:
     QString m_emptyString{};
 };

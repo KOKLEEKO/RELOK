@@ -16,5 +16,8 @@ class TranslationManager : public TranslationManagerBase
 public:
     explicit TranslationManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                 QObject *parent = nullptr);
+
+    void getAvailableTransalations() override final;
+    void switchLanguage(QString language) override final;
 };
 

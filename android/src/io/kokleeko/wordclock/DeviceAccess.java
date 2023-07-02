@@ -24,7 +24,7 @@ public class DeviceAccess {
     {
         @Override
         public void onChange(boolean selfChange) { getBrightness(); }
-    };
+    }
 
     static BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
 
@@ -40,7 +40,7 @@ public class DeviceAccess {
             float batteryLevel = level / (float)scale;
             updateBatteryLevel(batteryLevel);
         }
-    };
+    }
 
     private static native void updateIsPlugged(boolean isPlugged);
 

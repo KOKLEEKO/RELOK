@@ -90,8 +90,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* /*reserved*/) {
     if (!deviceAccessClass || !activityObjectClass)
         return JNI_ERR;
     JNINativeMethod activityObjectMethods[]{
-        {"configurationChanged", "()V", reinterpret_cast<void *>(::notifyViewConfigurationChanged)}
-    };
+        {"configurationChanged", "()V", reinterpret_cast<void *>(::notifyViewConfigurationChanged)}};
     JNINativeMethod deviceAccessMethods[] {
         {"updateBrightness", "(I)V", reinterpret_cast<void *>(::updateBrightness)},
         {"updateIsPlugged", "(Z)V", reinterpret_cast<void *>(::updateIsPlugged)},

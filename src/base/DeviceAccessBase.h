@@ -30,7 +30,7 @@ public:
     {
         static DeviceAccessImpl *deviceAccessImpl = new DeviceAccessImpl();
         return deviceAccessImpl;
-    };
+    }
 
     template<class ManagerImpl>
     ManagerImpl *manager(QString name) const

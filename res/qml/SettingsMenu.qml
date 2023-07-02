@@ -78,13 +78,13 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
             .arg(Helpers.isAndroid ? qsTr("App pinning") : qsTr("Guided Access")) + DeviceAccess.managers.translation.emptyString
         }
             Switch {
-                checked: !DeviceAccess.isAutoLockRequested
-                onToggled: DeviceAccess.isAutoLockRequested = !checked
+                checked: !DeviceAccess.managers.autoLock.isAutoLockRequested
+                onToggled: DeviceAccess.managers.autoLock.isAutoLockRequested = !checked
             }
             Controls.MenuItem {
                 title: qsTr("App pinning") + DeviceAccess.managers.translation.emptyString
                 visible: Helpers.isAndroid  // @disable-check M16  @disable-check M31
-                Switch { onToggled: DeviceAccess.security(checked) }
+                Switch { onToggled: DeviceAccess.managers.autoLock.security(checked) }
             }
             Controls.MenuItem {
                 title: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString())
@@ -92,7 +92,7 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
                 details: qsTr("'%1' feature will be automatically disabled when the battery level reaches this value \
 unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%1: %2%)"
                                                                            .arg(qsTr("battery level"))
-                                                                           .arg(DeviceAccess.batteryLevel) : "")
+                                                                           .arg(DeviceAccess.managers.battery.batteryLevel) : "")
                 /**/       + DeviceAccess.managers.translation.emptyString
                 extras: Slider {
                     from: 20
@@ -137,7 +137,7 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                 title: qsTr("Application Language") + DeviceAccess.managers.translation.emptyString
                 readonly property string defaultLanguage: Qt.locale().name.substr(0,2)
                 function switchLanguage(language) {
-                    DeviceAccess.switchLanguage(language)
+                    DeviceAccess.managers.translation.switchLanguage(language)
                     DeviceAccess.managers.persistence.setValue("Appearance/uiLanguage", language)
                 }
 
@@ -221,7 +221,7 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                     //palette.dark: systemPalette.text
                     //palette.text: systemPalette.text
                     function setSpeechVoice(index) {
-                        DeviceAccess.setSpeechVoice(index)
+                        DeviceAccess.managers.speech.setSpeechVoice(index)
                         if (wordClock.enable_speech) DeviceAccess.managers.speech.say(wordClock.written_time)
                         DeviceAccess.managers.persistence.setValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
                     }
@@ -229,7 +229,7 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                     model: Helpers.isAndroid ? [] : DeviceAccess.managers.speech.speechAvailableVoices[wordClock.selected_language]
                     onModelChanged: {
                         currentIndex = DeviceAccess.managers.persistence.value("Appearance/%1_voice".arg(wordClock.selected_language), 0)
-                        DeviceAccess.setSpeechVoice(currentIndex)
+                        DeviceAccess.managers.speech.setSpeechVoice(currentIndex)
                     }
                     onActivated: (index) => setSpeechVoice(index)
                 }
@@ -414,7 +414,7 @@ soon as you encounter them. But you can disable this feature to enter submarine 
                     onClicked: {
                         DeviceAccess.managers.persistence.setValue("About/rating", parent.parent.parent.rating = index)
                         if (index >= 3)
-                            DeviceAccess.requestReview()
+                            DeviceAccess.managers.review.requestReview()
                         else
                             badReviewPopup.open()
                     }

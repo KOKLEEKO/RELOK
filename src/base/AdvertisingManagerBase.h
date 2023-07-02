@@ -18,7 +18,8 @@ class AdvertisingManagerBase : public ManagerBase<AdvertisingManagerBase>, publi
                    isAdvertisingRequestedChanged)
 
 public:
-    AdvertisingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager, QObject *parent = nullptr);
+    explicit AdvertisingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
+                                    QObject *parent = nullptr);
 
     bool isAdvertisingEnabled() const { return m_isAdvertisingEnabled; }
     bool isAdvertisingRequested() const { return m_isAdvertisingRequested; }

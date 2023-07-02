@@ -16,4 +16,4 @@ ScreenSizeManagerBase::ScreenSizeManagerBase(const std::shared_ptr<PersistenceMa
     , PersistenceCapability(persistenceManager)
 {}
 
-void ScreenSizeManagerBase::updateSafeAreaInsets(){};
+void ScreenSizeManagerBase::updateSafeAreaInsets() {}
