@@ -17,8 +17,10 @@ class PersistenceManager : public PersistenceManagerBase
 
 public:
     explicit PersistenceManager(QObject *parent = nullptr);
+
     QVariant value(QString key, QVariant defaultValue) const override;
     void setValue(QString key, QVariant value) override;
+    void timerEvent(QTimerEvent *event);
 
 private:
     QSettings m_settings;

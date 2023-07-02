@@ -13,6 +13,7 @@
 #include <memory>
 
 #include <DeviceAccessFactory.h>
+#include <PersistenceManagerBase.h>
 
 int main(int argc, char *argv[]) {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -43,12 +44,15 @@ int main(int argc, char *argv[]) {
         qDebug() << systemFontName << font;
     }
 
-    engine.rootContext()->setContextProperty("DeviceAccess", DeviceAccessFactory::create());
+    DeviceAccess *deviceAccess = DeviceAccessFactory::create();
+    engine.rootContext()->setContextProperty("DeviceAccess", deviceAccess);
+
     //    qmlRegisterSingletonInstance("DA",
     //                                 1,
     //                                 0,
     //                                 "DeviceAccessBase",
     //                                 static_cast<DeviceAccess *>(DeviceAccess::instance())->complete());
+
     /* Qt% limitation
      * QQmlApplicationEngine::retranslate()
      * This function refreshes all the engine's bindings, not only those that use strings marked for translation.
@@ -58,12 +62,9 @@ int main(int argc, char *argv[]) {
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl) QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
-#ifdef Q_OS_WASM
-    QObject::connect(&DeviceAccess::instance(), &DeviceAccess::settingsReady, &app, [url, &engine]() {
-#endif
-        engine.load(url);
-#ifdef Q_OS_WASM
-    });
-#endif
+    QObject::connect(deviceAccess->manager<PersistenceManagerBase>(PersistenceManagerBase::name()),
+                     &PersistenceManagerBase::settingsReady,
+                     &app,
+                     [url, &engine]() { engine.load(url); });
     return app.exec();
 }

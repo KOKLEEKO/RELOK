@@ -7,10 +7,13 @@
 **************************************************************************************************/
 #include "PersistenceManager.h"
 
+#include <QTimerEvent>
+
 PersistenceManager::PersistenceManager(QObject *parent)
     : PersistenceManagerBase{parent}
 {
     m_isEnabled = true;
+    startTimer(0);
 }
 
 QVariant PersistenceManager::value(QString key, QVariant defaultValue) const
@@ -21,4 +24,13 @@ QVariant PersistenceManager::value(QString key, QVariant defaultValue) const
 void PersistenceManager::setValue(QString key, QVariant value)
 {
     m_settings.setValue(key, value);
+}
+
+void PersistenceManager::timerEvent(QTimerEvent *event)
+{
+    if (m_settings.status() != QSettings::AccessError) {
+        killTimer(event->timerId());
+        qCDebug(lc) << "settings ready";
+        emit settingsReady();
+    }
 }
