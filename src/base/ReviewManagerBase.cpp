@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <ReviewManagerBase.h>
+#include "ReviewManagerBase.h"
 
 template<>
 QString ManagerBase<ReviewManagerBase>::m_name{"review"};
@@ -13,5 +13,3 @@ QString ManagerBase<ReviewManagerBase>::m_name{"review"};
 ReviewManagerBase::ReviewManagerBase(QObject *parent)
     : ManagerBase(parent)
 {}
-
-void ReviewManagerBase::requestReview() {}

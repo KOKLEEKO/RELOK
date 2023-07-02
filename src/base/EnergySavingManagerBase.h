@@ -18,6 +18,7 @@
 class EnergySavingManagerBase : public ManagerBase<EnergySavingManagerBase>, public PersistenceCapability
 {
     Q_OBJECT
+
     Q_PROPERTY(int minimumBatteryLevel MEMBER m_minimumBatteryLevel WRITE setMinimumBatteryLevel NOTIFY
                    minimumBatteryLevelChanged)
 

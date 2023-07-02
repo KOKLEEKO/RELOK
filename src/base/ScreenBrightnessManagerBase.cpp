@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <ScreenBrightnessManagerBase.h>
+#include "ScreenBrightnessManagerBase.h"
 
 template<>
 QString ManagerBase<ScreenBrightnessManagerBase>::m_name{"screenBrightness"};
@@ -15,8 +15,6 @@ ScreenBrightnessManagerBase::ScreenBrightnessManagerBase(
     : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
 {}
-
-void ScreenBrightnessManagerBase::setBrightnessRequested(float /*brightness*/) {}
 
 void ScreenBrightnessManagerBase::updateBrightness(float brightness)
 {

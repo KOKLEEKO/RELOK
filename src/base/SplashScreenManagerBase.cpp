@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <SplashScreenManagerBase.h>
+#include "SplashScreenManagerBase.h"
 
 template<>
 QString ManagerBase<SplashScreenManagerBase>::m_name{"splashScreen"};
@@ -13,5 +13,3 @@ QString ManagerBase<SplashScreenManagerBase>::m_name{"splashScreen"};
 SplashScreenManagerBase::SplashScreenManagerBase(QObject *parent)
     : ManagerBase(parent)
 {}
-
-void SplashScreenManagerBase::hideSplashScreen() {}

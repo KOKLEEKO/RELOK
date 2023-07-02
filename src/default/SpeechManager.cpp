@@ -27,7 +27,8 @@ void SpeechManager::setSpeechLanguage(QString iso)
     m_speech.setLocale({iso});
     if (!m_speechAvailableVoices.contains(iso)) {
         const QVector<QVoice> &availableVoices = m_speech.availableVoices();
-        if (availableVoices.empty())
+        setHasMutipleVoices(!availableVoices.empty());
+        if (!hasMutipleVoices())
             return;
         QStringList voicesNames;
         for (const auto &voice : availableVoices)

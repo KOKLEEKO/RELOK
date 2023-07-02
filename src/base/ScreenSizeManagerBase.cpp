@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <ScreenSizeManagerBase.h>
+#include "ScreenSizeManagerBase.h"
 
 template<>
 QString ManagerBase<ScreenSizeManagerBase>::m_name{"screenSize"};
@@ -15,5 +15,3 @@ ScreenSizeManagerBase::ScreenSizeManagerBase(const std::shared_ptr<PersistenceMa
     : ManagerBase(parent)
     , PersistenceCapability(persistenceManager)
 {}
-
-void ScreenSizeManagerBase::updateSafeAreaInsets() {}

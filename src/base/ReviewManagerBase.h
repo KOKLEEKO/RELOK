@@ -16,5 +16,5 @@ class ReviewManagerBase : public ManagerBase<ReviewManagerBase>
 public:
     ReviewManagerBase(QObject *parent = nullptr);
 
-    Q_INVOKABLE virtual void requestReview();
+    Q_INVOKABLE virtual void requestReview() {}
 };

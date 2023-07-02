@@ -16,5 +16,5 @@ class SplashScreenManagerBase : public ManagerBase<SplashScreenManagerBase>
 public:
     SplashScreenManagerBase(QObject *parent = nullptr);
 
-    Q_INVOKABLE virtual void hideSplashScreen();
+    Q_INVOKABLE virtual void hideSplashScreen() {}
 };

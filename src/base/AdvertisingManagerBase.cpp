@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <AdvertisingManagerBase.h>
+#include "AdvertisingManagerBase.h"
 
 template<>
 QString ManagerBase<AdvertisingManagerBase>::m_name{"advertising"};
@@ -23,5 +23,3 @@ void AdvertisingManagerBase::requestAdvertising(bool isAdvertisingRequested)
     persistenceManager()->setValue("Advanced/isAdvertisingRequested", m_isAdvertisingRequested = isAdvertisingRequested);
     emit isAdvertisingRequestedChanged();
 }
-
-void AdvertisingManagerBase::enableAdvertising(bool /*enable*/) {}

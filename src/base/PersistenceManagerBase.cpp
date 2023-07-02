@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <PersistenceManagerBase.h>
+#include "PersistenceManagerBase.h"
 
 template<>
 QString ManagerBase<PersistenceManagerBase>::m_name{"persistence"};
@@ -13,10 +13,3 @@ QString ManagerBase<PersistenceManagerBase>::m_name{"persistence"};
 PersistenceManagerBase::PersistenceManagerBase(QObject *parent)
     : ManagerBase(parent)
 {}
-
-QVariant PersistenceManagerBase::value(QString /*key*/, QVariant /*defaultValue*/) const
-{
-    return {QVariant::String};
-}
-
-void PersistenceManagerBase::setValue(QString /*key*/, QVariant /*value*/) {}

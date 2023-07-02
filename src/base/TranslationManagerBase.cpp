@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <TranslationManagerBase.h>
+#include "TranslationManagerBase.h"
 
 template<>
 QString ManagerBase<TranslationManagerBase>::m_name{"translation"};

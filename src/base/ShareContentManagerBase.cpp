@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <ShareContentManagerBase.h>
+#include "ShareContentManagerBase.h"
 
 template<>
 QString ManagerBase<ShareContentManagerBase>::m_name{"shareContent"};
@@ -13,5 +13,3 @@ QString ManagerBase<ShareContentManagerBase>::m_name{"shareContent"};
 ShareContentManagerBase::ShareContentManagerBase(QObject *parent)
     : ManagerBase(parent)
 {}
-
-void ShareContentManagerBase::share(QVariant /*content*/) {}

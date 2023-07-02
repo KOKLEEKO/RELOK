@@ -16,7 +16,7 @@ class PersistenceCapability
 public:
     explicit PersistenceCapability(const std::shared_ptr<PersistenceManagerBase> &persistenceManager);
 
-    PersistenceManagerBase *persistenceManager() const;
+    PersistenceManagerBase *persistenceManager() const { return m_persistenceManager.get(); }
 
 private:
     std::shared_ptr<PersistenceManagerBase> m_persistenceManager;

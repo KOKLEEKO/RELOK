@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <SpeechManagerBase.h>
+#include "SpeechManagerBase.h"
 
 template<>
 QString ManagerBase<SpeechManagerBase>::m_name{"speech"};
@@ -21,4 +21,12 @@ SpeechManagerBase::SpeechManagerBase(const std::shared_ptr<ClockLanguageManagerB
         if (state == QTextToSpeech::Ready)
             endOfSpeech();
     });
+}
+
+void SpeechManagerBase::setHasMutipleVoices(bool newHasMutipleVoices)
+{
+    if (m_hasMutipleVoices == newHasMutipleVoices)
+        return;
+    m_hasMutipleVoices = newHasMutipleVoices;
+    emit hasMutipleVoicesChanged();
 }

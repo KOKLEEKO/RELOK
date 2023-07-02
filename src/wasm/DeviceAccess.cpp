@@ -7,8 +7,8 @@
 **************************************************************************************************/
 #include "DeviceAccess.h"
 
+Q_LOGGING_CATEGORY(lc, "Device-wasm")
+
 DeviceAccess::DeviceAccess(QObject *parent)
     : DeviceAccessBase{parent}
-{
-    
-}
+{}

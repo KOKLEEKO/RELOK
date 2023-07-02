@@ -13,6 +13,7 @@
 class AutoLockManagerBase : public ManagerBase<AutoLockManagerBase>, public PersistenceCapability
 {
     Q_OBJECT
+
     Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
     Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
 
@@ -23,8 +24,9 @@ public:
     bool isAutoLockDisabled() const { return m_isAutoLockDisabled; }
     bool isAutoLockRequested() const { return m_isAutoLockRequested; }
     Q_INVOKABLE void requestAutoLock(bool isAutoLockRequested);
-    Q_INVOKABLE virtual void security(bool value);
-    virtual void disableAutoLock(bool disable);
+
+    Q_INVOKABLE virtual void security(bool /*value*/) {}
+    virtual void disableAutoLock(bool /*disable*/) {}
 
 signals:
     void isAutoLockDisabledChanged();

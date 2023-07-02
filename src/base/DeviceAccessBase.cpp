@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <DeviceAccessBase.h>
+#include "DeviceAccessBase.h"
 
 #include "AdvertisingManagerBase.h"
 #include "AutoLockManagerBase.h"

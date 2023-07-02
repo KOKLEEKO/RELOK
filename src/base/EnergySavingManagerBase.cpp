@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <EnergySavingManagerBase.h>
+#include "EnergySavingManagerBase.h"
 
 template<>
 QString ManagerBase<EnergySavingManagerBase>::m_name{"energySaving"};

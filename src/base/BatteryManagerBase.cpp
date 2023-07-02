@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <BatteryManagerBase.h>
+#include "BatteryManagerBase.h"
 
 template<>
 QString ManagerBase<BatteryManagerBase>::m_name{"battery"};

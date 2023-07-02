@@ -25,6 +25,7 @@ public:
                                     QObject *parent = nullptr);
 
     virtual void getAvailableTransalations() {}
+
     Q_INVOKABLE virtual void switchLanguage(QString /*language*/) {}
 
 signals:

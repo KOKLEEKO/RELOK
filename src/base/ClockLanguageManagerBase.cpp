@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include <ClockLanguageManagerBase.h>
+#include "ClockLanguageManagerBase.h"
 
 #include <QDir>
 #include <QFileInfo>
@@ -16,5 +16,3 @@ QString ManagerBase<ClockLanguageManagerBase>::m_name{"clockLanguage"};
 ClockLanguageManagerBase::ClockLanguageManagerBase(QObject *parent)
     : ManagerBase(parent)
 {}
-
-void ClockLanguageManagerBase::detectClockAvailableLocales() {}

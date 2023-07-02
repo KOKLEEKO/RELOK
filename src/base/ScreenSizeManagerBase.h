@@ -13,6 +13,7 @@
 class ScreenSizeManagerBase : public ManagerBase<ScreenSizeManagerBase>, public PersistenceCapability
 {
     Q_OBJECT
+
     Q_PROPERTY(bool prefersStatusBarHidden MEMBER m_prefersStatusBarHidden NOTIFY prefersStatusBarHiddenChanged)
     Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetBottom MEMBER m_safeInsetBottom NOTIFY safeInsetsChanged)
@@ -25,7 +26,7 @@ public:
     explicit ScreenSizeManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                    QObject *parent = nullptr);
 
-    virtual void updateSafeAreaInsets();
+    virtual void updateSafeAreaInsets() {}
 
 signals:
     void prefersStatusBarHiddenChanged();
