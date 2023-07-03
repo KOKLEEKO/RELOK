@@ -39,6 +39,7 @@ ColumnLayout {
     }
     GridLayout {
         id: menuItems
+
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
         Layout.maximumHeight: is_collapsed ? 0 : implicitHeight

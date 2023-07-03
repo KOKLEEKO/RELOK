@@ -17,6 +17,7 @@ SpeechManagerBase::SpeechManagerBase(const std::shared_ptr<ClockLanguageManagerB
     , PersistenceCapability(persistenceManager)
     , m_clockLanguageManager(clockLanguageManager)
 {
+    //move to default
     connect(&m_speech, &QTextToSpeech::stateChanged, this, [=](QTextToSpeech::State state) {
         if (state == QTextToSpeech::Ready)
             endOfSpeech();

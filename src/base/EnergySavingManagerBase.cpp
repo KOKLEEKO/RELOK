@@ -34,7 +34,7 @@ EnergySavingManagerBase::EnergySavingManagerBase(const std::shared_ptr<AutoLockM
 }
 
 void EnergySavingManagerBase::batterySaving()
-{
+{ //move to default
     qCDebug(lc) << __func__ << m_autoLockManager->isAutoLockRequested() << m_batteryManager->isPlugged()
                 << m_batteryManager->batteryLevel() << m_minimumBatteryLevel;
     bool disable = !m_autoLockManager->isAutoLockRequested()

@@ -44,7 +44,7 @@ Controls.Menu {
 
         Controls.IconButton {
             name: "ko-fi"
-            visible: !Helpers.isPurchasing
+            active: !Helpers.isPurchasing
             tooltip: "Ko-fi"
             onClicked: openUrl("https://ko-fi.com/johanremilien")
         }
@@ -56,7 +56,7 @@ Controls.Menu {
                 Layout.fillWidth: true
                 enabled: !store.purchasing && product.status === Product.Registered
                 tooltip: qsTranslate("Tips", modelData.tooltip) + DeviceAccess.managers.translation.emptyString
-                visible: Helpers.isPurchasing
+                active: Helpers.isPurchasing
                 onClicked: { store.purchasing = true; product.purchase() }
             }
         }
@@ -68,60 +68,63 @@ Controls.Menu {
 benefit to you.") + DeviceAccess.managers.translation.emptyString
         }
     }
-    Controls.MenuSection {
-        visible: Helpers.isMobile  // @disable-check M16  @disable-check M31
-        title: qsTr("Battery Saving") + DeviceAccess.managers.translation.emptyString
-        Controls.MenuItem {
-            title: qsTr("Stay Awake") + DeviceAccess.managers.translation.emptyString
-            details: qsTr("If this option is enabled, the device's screen will remain active while the application is \
+    Loader {
+        active: Helpers.isMobile
+        sourceComponent:
+            Controls.MenuSection {
+            title: qsTr("Battery Saving") + DeviceAccess.managers.translation.emptyString
+            Controls.MenuItem {
+                title: qsTr("Stay Awake") + DeviceAccess.managers.translation.emptyString
+                details: qsTr("If this option is enabled, the device's screen will remain active while the application is \
 running.\nDon't forget to enable '%1' if you might lose attention on your device.")
-            .arg(Helpers.isAndroid ? qsTr("App pinning") : qsTr("Guided Access")) + DeviceAccess.managers.translation.emptyString
-        }
-            Switch {
-                checked: !DeviceAccess.managers.autoLock.isAutoLockRequested
-                onToggled: DeviceAccess.managers.autoLock.isAutoLockRequested = !checked
+                .arg(Helpers.isAndroid ? qsTr("App pinning") : qsTr("Guided Access")) + DeviceAccess.managers.translation.emptyString
             }
-            Controls.MenuItem {
-                title: qsTr("App pinning") + DeviceAccess.managers.translation.emptyString
-                visible: Helpers.isAndroid  // @disable-check M16  @disable-check M31
-                Switch { onToggled: DeviceAccess.managers.autoLock.security(checked) }
-            }
-            Controls.MenuItem {
-                title: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString())
-                       + DeviceAccess.managers.translation.emptyString
-                details: qsTr("'%1' feature will be automatically disabled when the battery level reaches this value \
+                Switch {
+                    checked: !DeviceAccess.managers.autoLock.isAutoLockRequested
+                    onToggled: DeviceAccess.managers.autoLock.isAutoLockRequested = !checked
+                }
+                Controls.MenuItem {
+                    title: qsTr("App pinning") + DeviceAccess.managers.translation.emptyString
+                    active: Helpers.isAndroid
+                    Switch { onToggled: DeviceAccess.managers.autoLock.security(checked) }
+                }
+                Controls.MenuItem {
+                    title: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString())
+                           + DeviceAccess.managers.translation.emptyString
+                    details: qsTr("'%1' feature will be automatically disabled when the battery level reaches this value \
 unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%1: %2%)"
                                                                            .arg(qsTr("battery level"))
                                                                            .arg(DeviceAccess.managers.battery.batteryLevel) : "")
-                /**/       + DeviceAccess.managers.translation.emptyString
-                extras: Slider {
-                    from: 20
-                    to: 50
-                    stepSize: 5
-                    value: DeviceAccess.managers.energySaving.minimumBatteryLevel
-                    onMoved: DeviceAccess.managers.energySaving.minimumBatteryLevel = value
-                }
-            }
-            Controls.MenuItem {
-                title: "%1 (%2%)".arg(qsTr("Brightness Level")).arg(DeviceAccess.managers.screenBrightness.brightness) + DeviceAccess.managers.translation.emptyString
-                extras: Slider {
-                    from: 0
-                    to: 100
-                    value: DeviceAccess.managers.screenBrightness.brightness
-                    onMoved: DeviceAccess.managers.screenBrightness.brightnessRequested = value/100
-                    Component.onCompleted: {
-                        if (Helpers.isAndroid)
-                            DeviceAccess.managers.screenBrightness.requestBrightnessUpdate()
+                    /**/       + DeviceAccess.managers.translation.emptyString
+                    extras: Slider {
+                        from: 20
+                        to: 50
+                        stepSize: 5
+                        value: DeviceAccess.managers.energySaving.minimumBatteryLevel
+                        onMoved: DeviceAccess.managers.energySaving.minimumBatteryLevel = value
                     }
                 }
-                details: qsTr("High brightness levels cause the battery to discharge faster.") + DeviceAccess.managers.translation.emptyString
+                Controls.MenuItem {
+                    title: "%1 (%2%)".arg(qsTr("Brightness Level")).arg(DeviceAccess.managers.screenBrightness.brightness) + DeviceAccess.managers.translation.emptyString
+                    extras: Slider {
+                        from: 0
+                        to: 100
+                        value: DeviceAccess.managers.screenBrightness.brightness
+                        onMoved: DeviceAccess.managers.screenBrightness.brightnessRequested = value/100
+                        Component.onCompleted: {
+                            if (Helpers.isAndroid)
+                                DeviceAccess.managers.screenBrightness.requestBrightnessUpdate()
+                        }
+                    }
+                    details: qsTr("High brightness levels cause the battery to discharge faster.") + DeviceAccess.managers.translation.emptyString
+                }
             }
         }
         Controls.MenuSection {
             title: qsTr("Appearance") + DeviceAccess.managers.translation.emptyString
             Controls.MenuItem {
                 title: (Helpers.isIos ? qsTr("Hide Status Bar") : qsTr("FullScreen")) + DeviceAccess.managers.translation.emptyString
-                visible: Helpers.isDesktop || Helpers.isMobile  // @disable-check M16  @disable-check M31
+                active: Helpers.isDesktop || Helpers.isMobile
                 Switch {
                     checked: root.isFullScreen
                     onToggled: Helpers.updateVisibility(root, DeviceAccess)
@@ -134,6 +137,7 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                 /**/       + DeviceAccess.managers.translation.emptyString
             }
             Controls.MenuItem {
+                id: applicationLanguage
                 title: qsTr("Application Language") + DeviceAccess.managers.translation.emptyString
                 readonly property string defaultLanguage: Qt.locale().name.substr(0,2)
                 function switchLanguage(language) {
@@ -143,10 +147,10 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
 
                 Button {
                     text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
-                    enabled: Object.keys(DeviceAccess.managers.translation.availableTranslations)[parent.parent.parent.extraControls[0].currentIndex] !== parent.parent.parent.defaultLanguage
+                    enabled: Object.keys(DeviceAccess.managers.translation.availableTranslations)[applicationLanguage.extraControls[0].currentIndex] !== applicationLanguage.defaultLanguage
                     onClicked: {
-                        parent.parent.parent.switchLanguage(parent.parent.parent.defaultLanguage)
-                        parent.parent.parent.extraControls[0].currentIndex = Object.keys(DeviceAccess.managers.translation.availableTranslations).indexOf(parent.parent.parent.defaultLanguage)
+                        applicationLanguage.switchLanguage(applicationLanguage.defaultLanguage)
+                        applicationLanguage.extraControls[0].currentIndex = Object.keys(DeviceAccess.managers.translation.availableTranslations).indexOf(applicationLanguage.defaultLanguage)
                     }
                 }
                 extras: ComboBox {
@@ -155,11 +159,11 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                     width: parent.width
                     model: Object.values(DeviceAccess.managers.translation.availableTranslations)
                     onActivated: (index) => {
-                                     parent.parent.parent.switchLanguage(Object.keys(DeviceAccess.managers.translation.availableTranslations)[index])
+                                     applicationLanguage.switchLanguage(Object.keys(DeviceAccess.managers.translation.availableTranslations)[index])
                                  }
                     Component.onCompleted: {
                         currentIndex = Object.keys(DeviceAccess.managers.translation.availableTranslations)
-                        .indexOf(DeviceAccess.managers.persistence.value("Appearance/uiLanguage", parent.parent.parent.defaultLanguage))
+                        .indexOf(DeviceAccess.managers.persistence.value("Appearance/uiLanguage", applicationLanguage.defaultLanguage))
                     }
                 }
             }
@@ -190,7 +194,6 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
             }
             Controls.MenuItem {
                 title: qsTr("Speech") + DeviceAccess.managers.translation.emptyString
-                visible: Object.keys(DeviceAccess.managers.speech.speechAvailableLocales).length  // @disable-check M16  @disable-check M31
                 Switch {
                     checked: wordClock.enable_speech
                     onToggled: DeviceAccess.managers.persistence.setValue("Appearance/speech", wordClock.enable_speech = checked)
@@ -216,7 +219,7 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
             }
             Controls.MenuItem {
                 title: qsTr("Voice") + DeviceAccess.managers.translation.emptyString
-                visible: Object.keys(DeviceAccess.managers.speech.speechAvailableVoices).length // @disable-check M16  @disable-check M31
+                active: Object.keys(DeviceAccess.managers.speech.speechAvailableVoices).length // @disable-check M16  @disable-check M31
                 extras: ComboBox {
                     //palette.dark: systemPalette.text
                     //palette.text: systemPalette.text
@@ -252,7 +255,7 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
             title: qsTr("Advanced") + DeviceAccess.managers.translation.emptyString
             Controls.MenuItem {
                 title: qsTr("Display as widget") + DeviceAccess.managers.translation.emptyString
-                visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+                active: Helpers.isDesktop  // @disable-check M16  @disable-check M31
                 Switch {
                     checked: root.isWidget
                     onToggled: Helpers.updateDisplayMode(root)
@@ -262,7 +265,7 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
                 }
             }
             Controls.MenuItem {
-                visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+                active: Helpers.isDesktop  // @disable-check M16  @disable-check M31
                 enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
                 title: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control.value)) + DeviceAccess.managers.translation.emptyString
                 Slider {
@@ -277,7 +280,7 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
             }
             Controls.MenuItem {
                 title: qsTr("Display as watermark") + DeviceAccess.managers.translation.emptyString
-                visible: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+                active: Helpers.isDesktop  // @disable-check M16  @disable-check M31
                 Button {
                     text: qsTr("Activate") + DeviceAccess.managers.translation.emptyString
                     onClicked: {
@@ -289,14 +292,15 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
                 }
             }
             Controls.MenuItem {
+                id: timeZone
                 function update() { wordClock.deltaTime = (wordClock.deviceOffset - extraControls[0].value) * 30 }
                 title: qsTr("Time Zone (%1)").arg(wordClock.selectedGMT) + DeviceAccess.managers.translation.emptyString
                 Button {
                     text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
                     enabled: wordClock.selectedGMT !== wordClock.deviceGMT
                     onClicked: {
-                        parent.parent.parent.extraControls[0].value = wordClock.deviceOffset
-                        parent.parent.parent.update()
+                        timeZone.extraControls[0].value = wordClock.deviceOffset
+                        timeZone.update()
                     }
                 }
                 extras:
@@ -305,44 +309,46 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
                     from: -24
                     to: 28
                     stepSize: 1
-                    onPressedChanged: if (!pressed) parent.parent.parent.update()
+                    onPressedChanged: if (!pressed) timeZone.update()
                     onValueChanged: wordClock.selectedGMT = "GMT%1".arg(wordClock.offsetToGMT(value))
                 }
                 details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> is used each \
 time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.managers.translation.emptyString
             }
             Controls.LargePositionSelector {
-                title: qsTr("Time Zone display mode") + DeviceAccess.managers.translation.emptyString
                 name: "timeZone"
+                title: qsTr("Time Zone display mode") + DeviceAccess.managers.translation.emptyString
+
             }
             Controls.LargePositionSelector {
-                title: qsTr("Date display mode") + DeviceAccess.managers.translation.emptyString
                 name: "date"
+                title: qsTr("Date display mode") + DeviceAccess.managers.translation.emptyString
+
             }
             Controls.LargePositionSelector {
-                title: qsTr("4-Dot display mode") + DeviceAccess.managers.translation.emptyString
                 name: "minutes"
+                title: qsTr("4-Dot display mode") + DeviceAccess.managers.translation.emptyString
             }
             Controls.SmallPositionSelector {
-                title: qsTr("Seconds display mode") + DeviceAccess.managers.translation.emptyString
                 name: "seconds"
+                title: qsTr("Seconds display mode") + DeviceAccess.managers.translation.emptyString
             }
             Controls.SmallPositionSelector {
-                title: qsTr("AM|PM display mode") + DeviceAccess.managers.translation.emptyString
                 name: "ampm"
+                title: qsTr("AM|PM display mode") + DeviceAccess.managers.translation.emptyString
             }
             Controls.SmallPositionSelector {
-                title: qsTr("Week Number display mode") + DeviceAccess.managers.translation.emptyString
                 name: "weekNumber"
+                title: qsTr("Week Number display mode") + DeviceAccess.managers.translation.emptyString
             }
             Controls.SmallPositionSelector {
-                title: qsTr("Battery Level display mode") + DeviceAccess.managers.translation.emptyString
+                active: Helpers.isMobile
                 name: "batteryLevel"
-                visible: Helpers.isMobile  // @disable-check M16  @disable-check M31
+                title: qsTr("Battery Level display mode") + DeviceAccess.managers.translation.emptyString
             }
             Controls.MenuItem {
+                active: !Helpers.isWasm
                 title: qsTr("Welcome popup") + DeviceAccess.managers.translation.emptyString
-                visible: !Helpers.isWasm  // @disable-check M16  @disable-check M31
                 Switch {
                     checked: root.showWelcome
                     onCheckedChanged: DeviceAccess.managers.persistence.setValue("Welcome/showPopup", checked)
@@ -379,9 +385,9 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
             }
             Controls.ColorPicker {
                 id: backgroundColorPicker
+                active: Helpers.isDesktop || Helpers.isWasm
                 title: qsTr("Background Color") + DeviceAccess.managers.translation.emptyString
                 name: "background_color"
-                visible: Helpers.isDesktop || Helpers.isWasm  // @disable-check M16  @disable-check M31
             }
         }
         Controls.MenuSection {
@@ -393,8 +399,8 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
                 details: qsTr("The source code is available on GitHub under the LGPL license.")
                 /**/+ DeviceAccess.managers.translation.emptyString }
             Controls.MenuItem {
+                active: false
                 title: qsTr("Bug tracking") + DeviceAccess.managers.translation.emptyString
-                visible: false  // @disable-check M16  @disable-check M31
                 Switch  {
                     checked: DeviceAccess.managers.tracking.isBugTracking
                     onToggled: DeviceAccess.managers.tracking.isBugTracking = checked
@@ -403,16 +409,17 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
 soon as you encounter them. But you can disable this feature to enter submarine mode.") + DeviceAccess.managers.translation.emptyString
             }
             Controls.MenuItem {
+                id: review
                 title: qsTr("Review") + DeviceAccess.managers.translation.emptyString
                 property int rating: DeviceAccess.managers.persistence.value("About/rating", 0)
                 model: 5
                 delegate: Button {
-                    property bool isSelected: index <= parent.parent.parent.rating
+                    property bool isSelected: index <= review.rating
                     icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "filled" : "empty")
                     display: Button.IconOnly
                     background: null
                     onClicked: {
-                        DeviceAccess.managers.persistence.setValue("About/rating", parent.parent.parent.rating = index)
+                        DeviceAccess.managers.persistence.setValue("About/rating", review.rating = index)
                         if (index >= 3)
                             DeviceAccess.managers.review.requestReview()
                         else
@@ -426,11 +433,11 @@ soon as you encounter them. But you can disable this feature to enter submarine 
                 model: [ { name: "webassembly", visbible: !Helpers.isWasm, link: "https://wordclock.kokleeko.io" },
                     /**/ { name: "app-store", link: "https://apps.apple.com/app/wordclock/id1626068981" },
                     /**/ { name: "google-play", link: "https://play.google.com/store/apps/details?id=io.kokleeko.wordclock" },
-                    /**/ { name: "lg-store", visible: false, link: "" },
-                    /**/ { name: "ms-store", visible: false, link: "" } ]
+                    /**/ { name: "lg-store", active: false, link: "" },
+                    /**/ { name: "ms-store", active: false, link: "" } ]
                 delegate: Controls.IconButton {
+                    active: modelData.active ?? true
                     name: modelData.name
-                    visible: modelData.visible ?? true
                     onClicked: openUrl(modelData.link)
                 }
                 details: qsTr("The application may be slightly different depending on the platform used.")

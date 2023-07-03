@@ -64,6 +64,7 @@ void SpeechManager::initSpeechLocales()
                     iso = QString(uiLanguage).replace('-', '_');
             const QString name = QString("%1 (%2)").arg(QLocale::languageToString(locale.language()),
                                                         locale.nativeCountryName());
+            qCDebug(lc) << iso << name;
             m_speechAvailableLocales.insert(iso, name);
         }
     }

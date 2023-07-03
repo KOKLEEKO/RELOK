@@ -18,7 +18,8 @@ Rectangle {
             fileBaseName = (supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2) : "en"
         DeviceAccess.managers.speech.setSpeechLanguage(language)
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
-        if (isDebug) console.log(language, supportedLanguages, tmp_language_url)
+        if (isDebug)
+            console.log(language, supportedLanguages, tmp_language_url)
         language_url = tmp_language_url
         selected_language = language
         if (enable_speech) DeviceAccess.managers.speech.say(written_time)
