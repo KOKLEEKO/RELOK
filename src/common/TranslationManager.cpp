@@ -15,7 +15,7 @@ TranslationManager::TranslationManager(const std::shared_ptr<PersistenceManagerB
                                        QObject *parent)
     : TranslationManagerBase{persistenceManager, parent}
 {
-    m_isEnabled = true;
+    m_enabled = true;
     getAvailableTransalations();
 }
 

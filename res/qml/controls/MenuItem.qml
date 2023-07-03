@@ -30,42 +30,44 @@ Loader {
     Layout.fillWidth: true
     Layout.rightMargin: 25
     sourceComponent:
+        Component {
         ColumnLayout {
-        spacing: 0
+            spacing: 0
 
-        Loader { active: withRadioGroup; onLoaded: radioGroup = item; sourceComponent: ButtonGroup {} }
+            Loader { active: withRadioGroup; onLoaded: radioGroup = item; sourceComponent: ButtonGroup {} }
 
-        GridLayout {
-            property real inLineWidth: 0
-            flow: (inLineWidth + parent.Layout.rightMargin > scrollView.availableWidth) ? GridLayout.TopToBottom
-                                                                                        : GridLayout.LeftToRight
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            Title { id: label; text: title; Layout.fillWidth: true; heading: headings.h3 }
-            Loader { sourceComponent: controlComponent; onLoaded: control = item }
-            Component.onCompleted: inLineWidth = label.implicitWidth + rowSpacing + (control ? control.implicitWidth: 0)
-        }
-        Loader {
-            Layout.fillWidth: true
-            Layout.preferredWidth: parent.width
-            active: isModelValid || !!extras.length
-            onLoaded: extraGrid = item
-            sourceComponent: Flow {
-                spacing: 5
-                Component.onCompleted: children = extras
-                Loader {
-                    active: isModelValid
-                    sourceComponent: Repeater {
-                        model: menuItem.model
-                        delegate: menuItem.delegate
-                        onItemAdded: extras.push(item)
+            GridLayout {
+                property real inLineWidth: 0
+                flow: (inLineWidth + parent.Layout.rightMargin > scrollView.availableWidth) ? GridLayout.TopToBottom
+                                                                                            : GridLayout.LeftToRight
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Title { id: label; text: title; Layout.fillWidth: true; heading: headings.h3 }
+                Loader { sourceComponent: controlComponent; onLoaded: control = item }
+                Component.onCompleted: inLineWidth = label.implicitWidth + rowSpacing + (control ? control.implicitWidth: 0)
+            }
+            Loader {
+                Layout.fillWidth: true
+                Layout.preferredWidth: parent.width
+                active: isModelValid || !!extras.length
+                onLoaded: extraGrid = item
+                sourceComponent: Flow {
+                    spacing: 5
+                    Component.onCompleted: children = extras
+                    Loader {
+                        active: isModelValid
+                        sourceComponent: Repeater {
+                            model: menuItem.model
+                            delegate: menuItem.delegate
+                            onItemAdded: extras.push(item)
+                        }
                     }
                 }
             }
+            Loader {
+                active: !!details.length
+                Layout.fillWidth: true
+                sourceComponent: Controls.Details { text: details } }
         }
-        Loader {
-            active: !!details.length
-            Layout.fillWidth: true
-            sourceComponent: Controls.Details { text: details } }
     }
 }

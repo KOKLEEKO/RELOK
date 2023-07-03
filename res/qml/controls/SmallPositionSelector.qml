@@ -9,7 +9,9 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-import "qrc:/js/Helpers.js" as Helpers
+import DeviceAccess 1.0
+
+import "qrc:/js/Helpers.js" as HelpersJS
 
 PositionSelector {
     delegate:
@@ -31,7 +33,7 @@ PositionSelector {
                     model: [ QT_TR_NOOP("Left"), QT_TR_NOOP("Center"), QT_TR_NOOP("Right") ]
                     RadioButton {
                         readonly property int positionIndex: index + 3 * buttonIndex
-                        enabled: Helpers.isWeaklyEqual(wordClock.accessories[positionIndex], "", name)
+                        enabled: HelpersJS.isWeaklyEqual(wordClock.accessories[positionIndex], "", name)
                         text: qsTr(modelData) + DeviceAccess.managers.translation.emptyString
                         checked: wordClock.accessories[positionIndex] === name
                         ButtonGroup.group: radioGroup

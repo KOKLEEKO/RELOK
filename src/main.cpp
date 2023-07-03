@@ -44,14 +44,7 @@ int main(int argc, char *argv[]) {
         qDebug() << systemFontName << font;
     }
 
-    DeviceAccess *deviceAccess = DeviceAccessFactory::create();
-    engine.rootContext()->setContextProperty("DeviceAccess", deviceAccess);
-
-    //    qmlRegisterSingletonInstance("DA",
-    //                                 1,
-    //                                 0,
-    //                                 "DeviceAccessBase",
-    //                                 static_cast<DeviceAccess *>(DeviceAccess::instance())->complete());
+    qmlRegisterSingletonInstance("DeviceAccess", 1, 0, "DeviceAccess", DeviceAccessFactory::create());
 
     /* Qt% limitation
      * QQmlApplicationEngine::retranslate()
@@ -62,9 +55,10 @@ int main(int argc, char *argv[]) {
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl) QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
-    QObject::connect(deviceAccess->manager<PersistenceManagerBase>(PersistenceManagerBase::name()),
+    QObject::connect(DeviceAccess::instance<DeviceAccess>()->manager<PersistenceManagerBase>(
+                         PersistenceManagerBase::name()),
                      &PersistenceManagerBase::settingsReady,
-                     &app,
+                     &engine,
                      [url, &engine]() { engine.load(url); });
     return app.exec();
 }

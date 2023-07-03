@@ -13,7 +13,9 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtWebView 1.15
 
-import "qrc:/js/Helpers.js" as Helpers
+import DeviceAccess 1.0
+
+import "qrc:/js/Helpers.js" as HelpersJS
 
 ApplicationWindow {
     id: root
@@ -23,7 +25,7 @@ ApplicationWindow {
     property alias headings: headings
     property alias badReviewPopup: badReviewPopup
     readonly property bool isLandScape: width > height
-    readonly property bool isFullScreen: Helpers.isIos ? DeviceAccess.managers.screenSize.prefersStatusBarHidden
+    readonly property bool isFullScreen: HelpersJS.isIos ? DeviceAccess.managers.screenSize.prefersStatusBarHidden
                                                        : visibility === Window.FullScreen
     property bool isWidget: false
     property bool showWelcome: DeviceAccess.managers.persistence.value("Welcome/showPopup", true)
@@ -50,13 +52,13 @@ ApplicationWindow {
     minimumWidth: minimumSize
     minimumHeight: minimumSize
     visible: true
-    visibility: Helpers.isIos ? Window.FullScreen : Window.AutomaticVisibility
+    visibility: HelpersJS.isIos ? Window.FullScreen : Window.AutomaticVisibility
     opacity: DeviceAccess.managers.persistence.value("Appearance/opacity", 1)
     color: wordClock.background_color
 
     onClosing: {
         aboutToQuit = true
-        if (Helpers.isAndroid) { close.accepted = false; DeviceAccess.moveTaskToBack() }
+        if (HelpersJS.isAndroid) { close.accepted = false; DeviceAccess.moveTaskToBack() }
         if (!isFullScreen) {
             DeviceAccess.managers.persistence.setValue("Appearance/width", width)
             DeviceAccess.managers.persistence.setValue("Appearance/height", height)
@@ -65,7 +67,7 @@ ApplicationWindow {
     onIsFullScreenChanged: {
         if (!aboutToQuit) {
             DeviceAccess.managers.persistence.setValue("Appearance/fullScreen", isFullScreen)
-            if (Helpers.isDesktop) {
+            if (HelpersJS.isDesktop) {
                 if (isFullScreen) {
                     tmpOpacity = root.opacity
                     root.opacity = 1
@@ -75,12 +77,12 @@ ApplicationWindow {
             }
         }
     }
-    onIsWidgetChanged: if (Helpers.isDesktop) DeviceAccess.managers.persistence.setValue("Appearance/widget", isWidget)
-    onVisibilityChanged: if (Helpers.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
+    onIsWidgetChanged: if (HelpersJS.isDesktop) DeviceAccess.managers.persistence.setValue("Appearance/widget", isWidget)
+    onVisibilityChanged: if (HelpersJS.isMobile && !settingPanel.opened) visibilityChangedSequence.start()
     Component.onCompleted: {
         console.log(Object.keys(DeviceAccess.managers))
         console.info("pixelDensity", Screen.pixelDensity)
-        if (Helpers.isAndroid) onSizeChanged.connect(DeviceAccess.managers.screenSize.updateSafeAreaInsets)
+        if (HelpersJS.isAndroid) onSizeChanged.connect(DeviceAccess.managers.screenSize.updateSafeAreaInsets)
 
         if (isDebug) {
             var paletteString = "↓\npalette {\n";
@@ -184,20 +186,25 @@ ApplicationWindow {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onPressAndHold: (mouse) => {
-                            if (Helpers.isDesktop) {
-                                switch (mouse.button) {
+                            if (HelpersJS.isDesktop)
+                            {
+                                switch (mouse.button)
+                                {
                                     case Qt.RightButton:
-                                    Helpers.updateDisplayMode(root)
+                                    HelpersJS.updateDisplayMode(root)
                                     break;
                                     case Qt.LeftButton:
-                                    Helpers.updateVisibility(root, DeviceAccess)
+                                    HelpersJS.updateVisibility(root)
                                     break;
                                 }
                             } else {
-                                Helpers.updateVisibility(root, DeviceAccess)
+                                HelpersJS.updateVisibility(root)
                             }
                         }
-        onClicked: (mouse) => { if (!Helpers.isDesktop || mouse.button === Qt.RightButton) settingPanel.open() }
+        onClicked: (mouse) => {
+                       if (!HelpersJS.isDesktop || mouse.button === Qt.RightButton)
+                       settingPanel.open()
+                   }
     }
 
     WordClock {
@@ -224,7 +231,7 @@ ApplicationWindow {
                 - (isFullScreen ? 0
                                 : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
                                             DeviceAccess.managers.screenSize.safeInsetTop)
-                                   + (Helpers.isIos ? 0
+                                   + (HelpersJS.isIos ? 0
                                                     : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
                                                                DeviceAccess.managers.screenSize.safeInsetBottom))))
         edge: Qt.RightEdge
@@ -312,7 +319,7 @@ ApplicationWindow {
                     wrapMode: Text.WordWrap
                     text:
                         "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use."))
-                    /**/             .arg(Helpers.isMobile ? qsTr("Please touch the screen outside this pop-up window \
+                    /**/             .arg(HelpersJS.isMobile ? qsTr("Please touch the screen outside this pop-up window \
 to close it and open the settings menu.")                  : qsTr("Please right-click outside this pop-up window to \
 close it and open the settings menu.")) + DeviceAccess.managers.translation.emptyString
                 }
@@ -325,7 +332,7 @@ close it and open the settings menu.")) + DeviceAccess.managers.translation.empt
                 Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
                 onClosed: root.showWelcome = !hidePopupCheckbox.checked
                 closePolicy: Dialog.NoAutoClose
-                Component.onCompleted: { header.background.visible = false; if (!Helpers.isWasm && showWelcome) open() }
+                Component.onCompleted: { header.background.visible = false; if (!HelpersJS.isWasm && showWelcome) open() }
             }
             Dialog {
                 id: badReviewPopup
@@ -354,5 +361,5 @@ Your suggestions will be taken into account.") + DeviceAccess.managers.translati
                                                                 + DeviceAccess.managers.translation.emptyString)
                 }
             }
-            Loader { active: Helpers.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
+            Loader { active: HelpersJS.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
         }

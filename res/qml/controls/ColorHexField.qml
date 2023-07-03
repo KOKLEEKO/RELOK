@@ -8,7 +8,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import "qrc:/js/Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as HelpersJS
 
 TextField {
     function setColor(text) {

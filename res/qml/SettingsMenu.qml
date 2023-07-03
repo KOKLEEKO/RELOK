@@ -11,12 +11,14 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 
+import DeviceAccess 1.0
+
 import "qrc:/qml/controls" as Controls
-import "qrc:/js/Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as HelpersJS
 
 Controls.Menu {
     function openUrl(url) {
-        if (Helpers.isMobile && url.split(":")[0] !== "mailto")
+        if (HelpersJS.isMobile && url.split(":")[0] !== "mailto")
             webView.openUrl(url)
         else
             Qt.openUrlExternally(url)
@@ -44,7 +46,7 @@ Controls.Menu {
 
         Controls.IconButton {
             name: "ko-fi"
-            active: !Helpers.isPurchasing
+            active: !HelpersJS.isPurchasing
             tooltip: "Ko-fi"
             onClicked: openUrl("https://ko-fi.com/johanremilien")
         }
@@ -56,11 +58,11 @@ Controls.Menu {
                 Layout.fillWidth: true
                 enabled: !store.purchasing && product.status === Product.Registered
                 tooltip: qsTranslate("Tips", modelData.tooltip) + DeviceAccess.managers.translation.emptyString
-                active: Helpers.isPurchasing
+                active: HelpersJS.isPurchasing
                 onClicked: { store.purchasing = true; product.purchase() }
             }
         }
-        show_detailsComponent: Helpers.isPurchasing
+        show_detailsComponent: HelpersJS.isPurchasing
         detailsComponent: Controls.Details {
             horizontalAlignment: Label.Center
             font.bold: true
@@ -69,7 +71,7 @@ benefit to you.") + DeviceAccess.managers.translation.emptyString
         }
     }
     Loader {
-        active: Helpers.isMobile
+        active: HelpersJS.isMobile
         sourceComponent:
             Controls.MenuSection {
             title: qsTr("Battery Saving") + DeviceAccess.managers.translation.emptyString
@@ -77,7 +79,7 @@ benefit to you.") + DeviceAccess.managers.translation.emptyString
                 title: qsTr("Stay Awake") + DeviceAccess.managers.translation.emptyString
                 details: qsTr("If this option is enabled, the device's screen will remain active while the application is \
 running.\nDon't forget to enable '%1' if you might lose attention on your device.")
-                .arg(Helpers.isAndroid ? qsTr("App pinning") : qsTr("Guided Access")) + DeviceAccess.managers.translation.emptyString
+                .arg(HelpersJS.isAndroid ? qsTr("App pinning") : qsTr("Guided Access")) + DeviceAccess.managers.translation.emptyString
             }
                 Switch {
                     checked: !DeviceAccess.managers.autoLock.isAutoLockRequested
@@ -85,14 +87,14 @@ running.\nDon't forget to enable '%1' if you might lose attention on your device
                 }
                 Controls.MenuItem {
                     title: qsTr("App pinning") + DeviceAccess.managers.translation.emptyString
-                    active: Helpers.isAndroid
+                    active: HelpersJS.isAndroid
                     Switch { onToggled: DeviceAccess.managers.autoLock.security(checked) }
                 }
                 Controls.MenuItem {
                     title: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString())
                            + DeviceAccess.managers.translation.emptyString
                     details: qsTr("'%1' feature will be automatically disabled when the battery level reaches this value \
-unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%1: %2%)"
+unless the device charges.").arg(qsTr("Stay Awake")) + (HelpersJS.isMobile ? "\n(%1: %2%)"
                                                                            .arg(qsTr("battery level"))
                                                                            .arg(DeviceAccess.managers.battery.batteryLevel) : "")
                     /**/       + DeviceAccess.managers.translation.emptyString
@@ -112,7 +114,7 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                         value: DeviceAccess.managers.screenBrightness.brightness
                         onMoved: DeviceAccess.managers.screenBrightness.brightnessRequested = value/100
                         Component.onCompleted: {
-                            if (Helpers.isAndroid)
+                            if (HelpersJS.isAndroid)
                                 DeviceAccess.managers.screenBrightness.requestBrightnessUpdate()
                         }
                     }
@@ -123,11 +125,11 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
         Controls.MenuSection {
             title: qsTr("Appearance") + DeviceAccess.managers.translation.emptyString
             Controls.MenuItem {
-                title: (Helpers.isIos ? qsTr("Hide Status Bar") : qsTr("FullScreen")) + DeviceAccess.managers.translation.emptyString
-                active: Helpers.isDesktop || Helpers.isMobile
+                title: (HelpersJS.isIos ? qsTr("Hide Status Bar") : qsTr("FullScreen")) + DeviceAccess.managers.translation.emptyString
+                active: HelpersJS.isDesktop || HelpersJS.isMobile
                 Switch {
                     checked: root.isFullScreen
-                    onToggled: Helpers.updateVisibility(root, DeviceAccess)
+                    onToggled: HelpersJS.updateVisibility(root)
                     Component.onCompleted: {
                         if (root.isFullScreen !== DeviceAccess.managers.persistence.value("Appearance/fullScreen", false))
                             toggled()
@@ -180,7 +182,7 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                     currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
                     model: Object.values(wordClock.languages)
                     onModelChanged: {
-                        if (Helpers.isAndroid)
+                        if (HelpersJS.isAndroid)
                             currentIndex = Qt.binding(() => Object.keys(wordClock.languages)
                                                       .indexOf(wordClock.selected_language))
                     }
@@ -227,8 +229,9 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                         if (wordClock.enable_speech) DeviceAccess.managers.speech.say(wordClock.written_time)
                         DeviceAccess.managers.persistence.setValue("Appearance/%1_voice".arg(wordClock.selected_language), index)
                     }
+                    //[TO-DO] FIX: Object is created even if the parent isn't.
                     width: parent.width
-                    model: Helpers.isAndroid ? [] : DeviceAccess.managers.speech.speechAvailableVoices[wordClock.selected_language]
+                    model: HelpersJS.isAndroid ? [] : DeviceAccess.managers.speech.speechAvailableVoices[wordClock.selected_language]
                     onModelChanged: {
                         currentIndex = DeviceAccess.managers.persistence.value("Appearance/%1_voice".arg(wordClock.selected_language), 0)
                         DeviceAccess.managers.speech.setSpeechVoice(currentIndex)
@@ -245,7 +248,7 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
                     checked: wordClock.enable_special_message
                     onToggled: {
                         DeviceAccess.managers.persistence.setValue("Appearance/specialMessage", wordClock.enable_special_message = checked)
-                        if(Helpers.isWeaklyEqual(wordClock.time, "00:00:am", "11:11:am", "22:22:pm")) wordClock.updateTable()
+                        if(HelpersJS.isWeaklyEqual(wordClock.time, "00:00:am", "11:11:am", "22:22:pm")) wordClock.updateTable()
                     }
                 }
             }
@@ -254,17 +257,17 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
             title: qsTr("Advanced") + DeviceAccess.managers.translation.emptyString
             Controls.MenuItem {
                 title: qsTr("Display as widget") + DeviceAccess.managers.translation.emptyString
-                active: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+                active: HelpersJS.isDesktop  // @disable-check M16  @disable-check M31
                 Switch {
                     checked: root.isWidget
-                    onToggled: Helpers.updateDisplayMode(root)
+                    onToggled: HelpersJS.updateDisplayMode(root)
                     Component.onCompleted: {
                         if (root.isWidget !== DeviceAccess.managers.persistence.value("Appearance/widget", false)) toggled()
                     }
                 }
             }
             Controls.MenuItem {
-                active: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+                active: HelpersJS.isDesktop  // @disable-check M16  @disable-check M31
                 enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
                 title: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control.value)) + DeviceAccess.managers.translation.emptyString
                 Slider {
@@ -279,7 +282,7 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
             }
             Controls.MenuItem {
                 title: qsTr("Display as watermark") + DeviceAccess.managers.translation.emptyString
-                active: Helpers.isDesktop  // @disable-check M16  @disable-check M31
+                active: HelpersJS.isDesktop  // @disable-check M16  @disable-check M31
                 Button {
                     text: qsTr("Activate") + DeviceAccess.managers.translation.emptyString
                     onClicked: {
@@ -309,7 +312,7 @@ following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (
                     to: 28
                     stepSize: 1
                     onPressedChanged: if (!pressed) timeZone.update()
-                    onValueChanged: wordClock.selectedGMT = "GMT%1".arg(wordClock.offsetToGMT(value))
+                    onValueChanged: wordClock.selectedOffset = value
                 }
                 details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> is used each \
 time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.managers.translation.emptyString
@@ -341,12 +344,12 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
                 title: qsTr("Week Number display mode") + DeviceAccess.managers.translation.emptyString
             }
             Controls.SmallPositionSelector {
-                active: Helpers.isMobile
+                active: HelpersJS.isMobile
                 name: "batteryLevel"
                 title: qsTr("Battery Level display mode") + DeviceAccess.managers.translation.emptyString
             }
             Controls.MenuItem {
-                active: !Helpers.isWasm
+                active: !HelpersJS.isWasm
                 title: qsTr("Welcome popup") + DeviceAccess.managers.translation.emptyString
                 Switch {
                     checked: root.showWelcome
@@ -384,7 +387,7 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
             }
             Controls.ColorPicker {
                 id: backgroundColorPicker
-                active: Helpers.isDesktop || Helpers.isWasm
+                active: HelpersJS.isDesktop || HelpersJS.isWasm
                 title: qsTr("Background Color") + DeviceAccess.managers.translation.emptyString
                 name: "background_color"
             }
@@ -429,7 +432,7 @@ soon as you encounter them. But you can disable this feature to enter submarine 
             }
             Controls.MenuItem {
                 title: qsTr("Also available on") + DeviceAccess.managers.translation.emptyString
-                model: [ { name: "webassembly", visbible: !Helpers.isWasm, link: "https://wordclock.kokleeko.io" },
+                model: [ { name: "webassembly", visbible: !HelpersJS.isWasm, link: "https://wordclock.kokleeko.io" },
                     /**/ { name: "app-store", link: "https://apps.apple.com/app/wordclock/id1626068981" },
                     /**/ { name: "google-play", link: "https://play.google.com/store/apps/details?id=io.kokleeko.wordclock" },
                     /**/ { name: "lg-store", active: false, link: "" },

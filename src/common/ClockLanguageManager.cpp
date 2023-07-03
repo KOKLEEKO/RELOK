@@ -13,7 +13,7 @@
 ClockLanguageManager::ClockLanguageManager(QObject *parent)
     : ClockLanguageManagerBase{parent}
 {
-    m_isEnabled = true;
+    m_enabled = true;
     detectClockAvailableLocales();
 }
 

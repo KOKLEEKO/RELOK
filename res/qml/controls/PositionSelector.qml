@@ -9,8 +9,10 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import DeviceAccess 1.0
+
 import "." as Controls
-import "qrc:/js/Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as HelpersJS
 
 Controls.MenuItem {
     function hide(shouldNotify = true) {

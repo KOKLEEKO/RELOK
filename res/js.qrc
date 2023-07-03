@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>js/Helpers.js</file>
+        <file>js/WordClock.js</file>
     </qresource>
 </RCC>

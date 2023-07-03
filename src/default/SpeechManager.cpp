@@ -12,7 +12,7 @@ SpeechManager::SpeechManager(const std::shared_ptr<ClockLanguageManagerBase> &cl
                              QObject *parent)
     : SpeechManagerBase{clockLanguageManager, persistenceManager, parent}
 {
-    m_isEnabled = true;
+    m_enabled = true;
     initSpeechLocales();
 }
 

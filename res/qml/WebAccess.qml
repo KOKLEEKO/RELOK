@@ -10,7 +10,9 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtWebView 1.15
 
-import "qrc:/js/Helpers.js" as Helpers
+import DeviceAccess 1.0
+
+import "qrc:/js/Helpers.js" as HelpersJS
 
 Drawer {
     id: popup
@@ -23,7 +25,7 @@ Drawer {
             - (isFullScreen ? 0
                             : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
                                         DeviceAccess.managers.screenSize.safeInsetTop)
-                               + (Helpers.isIos ? 0
+                               + (HelpersJS.isIos ? 0
                                                 : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
                                                            DeviceAccess.managers.screenSize.safeInsetBottom))))
     interactive: opened

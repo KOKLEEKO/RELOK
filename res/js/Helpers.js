@@ -6,7 +6,12 @@
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 .pragma library
+
 .import QtQuick.Window 2.15 as QtWindow
+
+.import DeviceAccess 1.0 as Global
+
+var DeviceAcces = Global.DeviceAccess
 
 var isMobile = isWeaklyEqual(Qt.platform.os, "android", "ios")
 var isDesktop = isWeaklyEqual(Qt.platform.os, "linux", "osx", "unix", "windows")
@@ -179,7 +184,7 @@ function listProperties(name, object) {
         console.info("%1[%2] =".arg(name).arg(prop), object[prop])
 }
 
-function updateVisibility(window, DeviceAccess) {
+function updateVisibility(window) {
     if (isIos) {
         DeviceAccess.managers.screenSize.toggleFullScreen()
     } else {

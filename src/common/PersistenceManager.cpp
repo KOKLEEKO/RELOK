@@ -12,7 +12,7 @@
 PersistenceManager::PersistenceManager(QObject *parent)
     : PersistenceManagerBase{parent}
 {
-    m_isEnabled = true;
+    m_enabled = true;
     startTimer(0);
 }
 
