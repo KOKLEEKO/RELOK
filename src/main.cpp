@@ -37,9 +37,9 @@ int main(int argc, char *argv[]) {
     const QMetaEnum &systemFontMetaEnum = QMetaEnum::fromType<QFontDatabase::SystemFont>();
     const int systemFontKeyCount = systemFontMetaEnum.keyCount();
     for (int index = 0; index < systemFontKeyCount; ++index) {
-        QFontDatabase::SystemFont value = static_cast<QFontDatabase::SystemFont>(systemFontMetaEnum.value(index));
-        QFont font = QFontDatabase::systemFont(value);
-        QString systemFontName = systemFontMetaEnum.key(index);
+        const QFontDatabase::SystemFont value = static_cast<QFontDatabase::SystemFont>(systemFontMetaEnum.value(index));
+        const QFont font = QFontDatabase::systemFont(value);
+        const QString systemFontName = systemFontMetaEnum.key(index);
         engine.rootContext()->setContextProperty(systemFontName, font);
         qDebug() << systemFontName << font;
     }
