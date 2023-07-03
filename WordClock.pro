@@ -189,9 +189,11 @@ macx | ios {
         android/gradlew                                         \
         android/gradlew.bat                                     \
         android/res/values/libs.xml                             \
-        android/src/io/kokleeko/wordclock/DeviceAccess.java     \
         android/src/io/kokleeko/wordclock/MyActivity.java
-    SOURCES += src/DeviceAccess_android.cpp
+
+    DISTFILES +=                                                \
+        android/src/io/kokleeko/wordclock/DeviceAccess.java     \
+        src/DeviceAccess_android.cpp
 } else:emscripten {
     INCLUDEPATH += src/wasm
     HEADERS +=                                                  \

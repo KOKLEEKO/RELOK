@@ -144,7 +144,6 @@ unless the device charges.").arg(qsTr("Stay Awake")) + (Helpers.isMobile ? "\n(%
                     DeviceAccess.managers.translation.switchLanguage(language)
                     DeviceAccess.managers.persistence.setValue("Appearance/uiLanguage", language)
                 }
-
                 Button {
                     text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
                     enabled: Object.keys(DeviceAccess.managers.translation.availableTranslations)[applicationLanguage.extraControls[0].currentIndex] !== applicationLanguage.defaultLanguage

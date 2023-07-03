@@ -31,7 +31,7 @@ DeviceAccess *DeviceAccessFactory::create()
 #endif
     m_deviceAccess->addManager(std::make_shared<TranslationManager>(persistence));
 #ifdef Q_OS_ANDROID
-    m_deviceAccess->addManager(m_splashScreenManager = std::make_shared<SplashScreenManager>(););
+    m_deviceAccess->addManager(std::make_shared<SplashScreenManager>());
 #endif
 
     return m_deviceAccess;
