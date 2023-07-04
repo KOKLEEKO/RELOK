@@ -5,72 +5,92 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtWebView 1.15
+import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 2.15 as QtControls
+import QtQuick.Layouts 1.15 as QtLayouts
+import QtWebView 1.15 as QtWebView
 
 import DeviceAccess 1.0
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
-Drawer {
+QtControls.Drawer
+{
     id: popup
+
     property alias webView: webView
-    edge: Qt.RightEdge
-    y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
-    width: parent.width
+
+    y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                   DeviceAccess.managers.screenSize.safeInsetTop)
     z: 1
     height: parent.height
             - (isFullScreen ? 0
                             : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
                                         DeviceAccess.managers.screenSize.safeInsetTop)
                                + (HelpersJS.isIos ? 0
-                                                : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
-                                                           DeviceAccess.managers.screenSize.safeInsetBottom))))
+                                                  : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                             DeviceAccess.managers.screenSize.safeInsetBottom))))
+    width: parent.width
     interactive: opened
-    ColumnLayout {
+    edge: Qt.RightEdge
+    QtLayouts.ColumnLayout
+    {
         anchors.fill: parent  // @disable-check M16 @disable-check M31
         spacing: 0
-        ToolBar {
-            topPadding: DeviceAccess.managers.screenSize.safeInsetTop
+        QtControls.ToolBar
+        {
             leftPadding: DeviceAccess.managers.screenSize.safeInsetLeft
             rightPadding: DeviceAccess.managers.screenSize.safeInsetRight
-            Layout.fillWidth: true
-            RowLayout {
+            topPadding: DeviceAccess.managers.screenSize.safeInsetTop
+            QtLayouts.Layout.fillWidth: true
+            QtLayouts.RowLayout
+            {
                 anchors.fill: parent  // @disable-check M16 @disable-check M31
-                ToolButton {
+                QtControls.ToolButton
+                {
                     icon.source: "qrc:/assets/close.svg"
                     onClicked: popup.close()
                 }
-                ToolSeparator { }
-                ToolButton {
+                QtControls.ToolSeparator { }
+                QtControls.ToolButton
+                {
                     icon.source: "qrc:/assets/back.svg"
                     onClicked: webView.openUrl(webView.base_url, true)
                 }
-                ToolButton {
+                QtControls.ToolButton
+                {
                     icon.source: "qrc:/assets/refresh.svg"
                     onClicked: webView.reload()
                 }
-                Label {
-                    text: webView.title
-                    elide: Label.ElideRight
+                QtControls.Label
+                {
+                    QtLayouts.Layout.fillWidth: true
                     horizontalAlignment: Qt.AlignHCenter
                     verticalAlignment: Qt.AlignVCenter
-                    Layout.fillWidth: true
+                    elide: QtControls.Label.ElideRight
                     font.bold: true
+                    text: webView.title
                 }
-                ToolButton {
+                QtControls.ToolButton
+                {
                     icon.source: "qrc:/assets/browser.svg"
                     onClicked: Qt.openUrlExternally(webView.base_url)
                 }
             }
         }
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            WebView {
+        QtQuick.Item
+        {
+            QtLayouts.Layout.fillHeight: true
+            QtLayouts.Layout.fillWidth: true
+            QtWebView.WebView
+            {
                 id: webView
+
+                property int status
+                property string base_url
+                property string error_string
+                property string title
+
                 function openUrl(url, fromBack = false) {
                     if (url !== base_url || (fromBack && url !== webView.url.toString()))
                         webView.url = url
@@ -79,48 +99,47 @@ Drawer {
                         base_url = url
                     }
                 }
-                property string title
-                property string base_url
-                property int status
-                property string error_string
-                visible: status === WebView.LoadSucceededStatus
+                visible: status === QtWebView.WebView.LoadSucceededStatus
                 anchors.fill: parent
                 onLoadingChanged: {
                     status = loadRequest.status
                     switch (status) {
-                    case WebView.LoadStartedStatus:
+                    case QtWebView.WebView.LoadStartedStatus:
                         webView.title = qsTr("Loading...") + DeviceAccess.managers.translation.emptyString
                         break;
-                    case WebView.LoadSucceededStatus:
+                    case QtWebView.WebView.LoadSucceededStatus:
                         runJavaScript("document.title", (title) => webView.title = title)
                         break;
-                    case WebView.LoadFailedStatus:
+                    case QtWebView.WebView.LoadFailedStatus:
                         webView.title = qsTr("Houston, we have a problem") + DeviceAccess.managers.translation.emptyString
                         webView.error_string = loadRequest.errorString
                         break;
                     }
                 }
             }
-            BusyIndicator {
+            QtControls.BusyIndicator
+            {
                 anchors.centerIn: parent
-                visible: webView.status === WebView.LoadStartedStatus
                 running: visible
+                visible: webView.status === QtWebView.WebView.LoadStartedStatus
             }
-            Rectangle {
+            QtQuick.Rectangle
+            {
                 id: errorPage
                 anchors.fill: parent
-                visible: webView.status === WebView.LoadFailedStatus
                 color: palette.button
-                Label {
+                visible: webView.status === QtWebView.WebView.LoadFailedStatus
+                QtControls.Label
+                {
                     anchors { fill: parent; margins: parent.width/4 }
-                    text: webView.error_string
                     font.pointSize: headings.h1
-                    horizontalAlignment: Label.AlignHCenter
-                    verticalAlignment: Label.AlignVCenter
-                    wrapMode: Label.WordWrap
+                    horizontalAlignment: QtControls.Label.AlignHCenter
                     maximumLineCount: 10
-                    style: Label.Raised
+                    style: QtControls.Label.Raised
                     styleColor: palette.base
+                    text: webView.error_string
+                    verticalAlignment: QtControls.Label.AlignVCenter
+                    wrapMode: QtControls.Label.WordWrap
                 }
             }
         }

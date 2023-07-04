@@ -15,9 +15,8 @@ import "qrc:/qml/languages"
 
 import DeviceAccess 1.0
 
-QtQuick.Rectangle {
-    signal applyColors()
-
+QtQuick.Rectangle
+{
     // User-facing Settings
     property string selected_language
     property bool enable_speech: DeviceAccess.managers.persistence.value("Appearance/speech", true)
@@ -30,13 +29,15 @@ QtQuick.Rectangle {
     // Internal Settings
     property bool is_color_animation_enabled: true
     readonly property int animation_easing: QtQuick.Easing.Linear
-    property var languages: Object.keys(DeviceAccess.managers.speech.speechAvailableLocales).length ? DeviceAccess.managers.speech.speechAvailableLocales
-                                                                                                    : DeviceAccess.managers.clockLanguage.clockAvailableLocales
+    property var languages: Object.keys(DeviceAccess.managers.speech.speechAvailableLocales).length ?
+                                DeviceAccess.managers.speech.speechAvailableLocales :
+                                DeviceAccess.managers.clockLanguage.clockAvailableLocales
     property url language_url
     readonly property real table_width: Math.min(height, width)
     readonly property real cell_width: table_width/(rows+2)
     readonly property real dot_size: cell_width/4
-    readonly property var speech_frequencies: {
+    readonly property var speech_frequencies:
+    {
         "1" : qsTr("every minute") + DeviceAccess.managers.translation.emptyString,
         "5" : qsTr("every 5 minutes") + DeviceAccess.managers.translation.emptyString,
         "10": qsTr("every 10 minutes") + DeviceAccess.managers.translation.emptyString,
@@ -65,9 +66,10 @@ QtQuick.Rectangle {
     property string minutes_value
     property string seconds_value
     property int currentWeekNumber
-    readonly property string currentDate: currentDateTime
-                                          ? currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
-                                          : ""
+    readonly property string currentDate: currentDateTime ?
+                                              currentDateTime.toLocaleDateString(Qt.locale(selected_language)).
+                                              toUpperCase() :
+                                              ""
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
     readonly property int hours_array_step: 1
@@ -93,22 +95,24 @@ QtQuick.Rectangle {
     property var onoff_table: HelpersJS.createWelcomeTable()
     property var tmp_onoff_table: HelpersJS.createTable(rows, columns, false)
 
-    readonly property var accessory: (index, isCorner = true) => {
-                                         switch(accessories[index]) {
-                                             case "timeZone":
-                                             return isCorner ? null : timeZone
+    readonly property var accessory: (index, isCorner = true) =>
+                                     {
+                                         switch(accessories[index])
+                                         {
+                                             case "ampm":
+                                             return ampm
+                                             case "batteryLevel":
+                                             return batteryLevel
                                              case "date":
                                              return isCorner ? null : date
                                              case "minutes":
                                              return isCorner ? dot : dots
                                              case "seconds":
                                              return seconds
-                                             case "ampm":
-                                             return ampm
+                                             case "timeZone":
+                                             return isCorner ? null : timeZone
                                              case "weekNumber":
                                              return weekNumber
-                                             case "batteryLevel":
-                                             return batteryLevel
                                              default:
                                              return null
                                          }
@@ -117,72 +121,62 @@ QtQuick.Rectangle {
     property real accessoriesOpacity: .0
 
     property alias timer: timer
+    property alias startupTimer: startupTimer
 
-    QtQuick.Behavior on background_color {
+    signal applyColors()
+
+    QtQuick.Behavior on background_color
+    {
         enabled: is_color_animation_enabled
         QtQuick.ColorAnimation { duration: 1000; easing.type: animation_easing }
     }
-    QtQuick.Behavior on on_color {
+    QtQuick.Behavior on on_color
+    {
         enabled: is_color_animation_enabled
         QtQuick.ColorAnimation {  duration: 1000; easing.type: animation_easing }
     }
-    QtQuick.Behavior on off_color {
+    QtQuick.Behavior on off_color
+    {
         enabled: is_color_animation_enabled
         QtQuick.ColorAnimation { duration: 1000; easing.type: animation_easing }
     }
-    QtQuick.Behavior on accessoriesOpacity { QtQuick.PropertyAnimation { duration: 1000; easing.type: animation_easing } }
+    QtQuick.Behavior on accessoriesOpacity
+    {
+        QtQuick.PropertyAnimation { duration: 1000; easing.type: animation_easing }
+    }
 
     color: background_color
-    onLanguageChanged: { DeviceAccess.managers.splashScreen.hideSplashScreen(); enabled = false }
-    QtQuick.Component.onCompleted: {
-        WordClockJS.instance = this
-        accessoriesChanged()
-        selected_language = DeviceAccess.managers.persistence.value("Appearance/clockLanguage", "")
-        language_urlChanged.connect(() => {
-                                        if (time)
-                                        {
-                                            previous_hours_array_index = -1
-                                            previous_minutes_array_index = -1
-                                            tmp_onoff_table = HelpersJS.createTable(rows, columns, false)
-                                            timeChanged()
-                                        }
-                                    })
-        timeChanged.connect(WordClockJS.updateTable)
-
-        if (selected_language === "")
-            WordClockJS.detectAndUseDeviceLanguage()
-        else
-            WordClockJS.selectLanguage(selected_language)
+    onLanguageChanged:
+    {
+        if (DeviceAccess.managers.splashScreen.isActive)
+            DeviceAccess.managers.splashScreen.hideSplashScreen()
     }
+
+    QtQuick.Component.onCompleted: WordClockJS.init(this, isDebug)
 
     QtQuick.Loader { source: language_url; onLoaded: language = item }
-    QtQuick.Timer {
+    QtQuick.Timer
+    {
+        id: startupTimer
+
         property bool color_transition_finished: false
+
         interval: 1000
-        running: true
         repeat: true
-        onTriggered:
-            if (color_transition_finished)
-            {
-                stop()
-                is_color_animation_enabled = false
-            }
-            else
-            {
-                timer.start()
-                applyColors()
-                WordClockJS.showAccessories()
-                color_transition_finished = true
-            }
+        running: true
+
+        onTriggered: WordClockJS.startupSequence(color_transition_finished)
     }
-    QtQuick.Timer {
+    QtQuick.Timer
+    {
         id: timer
+
         //public
         property bool is_debug: false
-        property int fake_counter: 0
-        property bool jump_by_minute: false
         property bool jump_by_5_minutes: false
+        property bool jump_by_minute: false
         property bool jump_by_hour: false
+        property int fake_counter: 0
         readonly property string time_reference: "00:00:00"
         //private
         readonly property int day_to_ms: 86400000
@@ -194,105 +188,115 @@ QtQuick.Rectangle {
                                                  parseInt(time_reference_list[0])*hour_to_ms +
                                                  parseInt(time_reference_list[1])*minute_to_ms +
                                                  parseInt(time_reference_list[2])*s_to_ms
+
         interval: is_debug ? 5000 : 5
         repeat: true
         running: false
         triggeredOnStart: true
-        onTriggered: {
-            if (is_debug)
-            {
-                currentDateTime = new Date(time_reference_ms +
-                                           (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
-                                           fake_counter*minute_to_ms)
-                ++fake_counter
-            }
-            else
-            {
-                const now = new Date()
-                deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
-                currentDateTime = new Date(now.getTime() - deltaTime*minute_to_ms)
-            }
-            seconds_value = currentDateTime.getSeconds()
-            time = currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
-        }
+
+        onTriggered: WordClockJS.updateTime()
     }
 
     //QtQuick.Image { id: backgroundImage; anchors.fill: parent }
-    QtQuick.Column {
+    QtQuick.Column
+    {
         id: column
         anchors.centerIn: parent
-        width: table_width
         height: width
-        QtQuick.Item {
+        width: table_width
+        QtQuick.Item
+        {
             height: cell_width
             width: parent.width
-            QtQuick.Loader {
+            QtQuick.Loader
+            {
                 anchors { verticalCenter: parent.verticalCenter; left: parent.left }
                 sourceComponent: accessory(0)
+
                 onLoaded: if (accessories[0] === "minutes") item.index = 0
             }
             QtQuick.Loader { anchors.centerIn: parent; sourceComponent: accessory(1, false) }
-            QtQuick.Loader {
+            QtQuick.Loader
+            {
                 anchors { verticalCenter: parent.verticalCenter; right: parent.right }
                 sourceComponent: accessory(2)
+
                 onLoaded: if (accessories[2] === "minutes") item.index = 1
             }
         }
-        QtQuick.Repeater {
+        QtQuick.Repeater
+        {
             model: language ? language.table : []
-            QtQuick.Row {
+            QtQuick.Row
+            {
                 anchors.horizontalCenter: parent.horizontalCenter
-                QtQuick.Repeater {
+                QtQuick.Repeater
+                {
                     id: repeater
+
                     property int row_index: index
+
                     model: language.table[index]
-                    QtQuick.Text {
+                    QtQuick.Text
+                    {
                         readonly property bool is_enabled: onoff_table[row_index][column_index]
                         readonly property int column_index: index
                         readonly property int row_index: repeater.row_index
-                        width: cell_width
-                        height: width
-                        text: modelData
+
                         color: is_enabled ? on_color : off_color
+                        font { pointSize: 80; kerning: false; preferShaping: false; family: GeneralFont }
+                        fontSizeMode: QtQuick.Text.Fit
+                        height: width
+                        horizontalAlignment : QtQuick.Text.AlignHCenter
+                        minimumPointSize: 5
                         style: is_enabled ? QtQuick.Text.Outline : QtQuick.Text.Sunken
                         styleColor: is_enabled ? Qt.lighter(on_color, 1.1) : Qt.darker(background_color, 1.1)
-                        horizontalAlignment : QtQuick.Text.AlignHCenter
+                        text: modelData
                         verticalAlignment: QtQuick.Text.AlignVCenter
-                        fontSizeMode: QtQuick.Text.Fit
-                        minimumPointSize: 5
-                        font { pointSize: 80; kerning: false; preferShaping: false; family: GeneralFont }
+                        width: cell_width
                     }
                 }
             }
         }
-        QtQuick.Item {
+        QtQuick.Item
+        {
             height: cell_width
             width: parent.width
-            QtQuick.Loader {
+            QtQuick.Loader
+            {
                 anchors { verticalCenter: parent.verticalCenter; left: parent.left }
                 sourceComponent: accessory(3)
+
                 onLoaded: if (accessories[3] === "minutes") item.index = 3
             }
             QtQuick.Loader { anchors.centerIn: parent; sourceComponent: accessory(4, false) }
-            QtQuick.Loader {
+            QtQuick.Loader
+            {
                 anchors { verticalCenter: parent.verticalCenter; right: parent.right }
                 sourceComponent: accessory(5)
+
                 onLoaded: if (accessories[5] === "minutes") item.index = 2
             }
         }
     }
-    QtQuick.Component {
+    QtQuick.Component
+    {
         id: dots
-        QtQuick.Row {
+
+        QtQuick.Row
+        {
             spacing: cell_width - dot_size
             topPadding: spacing/2
             visible: ((language))
             QtQuick.Repeater { model: 4; delegate: dot }
         }
     }
-    QtQuick.Component {
+    QtQuick.Component
+    {
         id: dot
-        QtQuick.Rectangle {
+
+        QtQuick.Rectangle
+        {
             property int index: model.index
             anchors.verticalCenter: parent ? parent.verticalCenter : undefined
             color: (index+1 <= onoff_dots) ? on_color : off_color
@@ -302,53 +306,71 @@ QtQuick.Rectangle {
             width: dot_size
         }
     }
-    QtQuick.Component {
+    QtQuick.Component
+    {
         id: date
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             isOn: false
+            opacity: accessoriesOpacity
             text: currentDate
         }
     }
-    QtQuick.Component {
+    QtQuick.Component
+    {
         id: timeZone
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             isOn: false
+            opacity: accessoriesOpacity
             text: selectedGMT
         }
     }
-    QtQuick.Component {
+    QtQuick.Component
+    {
         id: ampm
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             isOn: true
+            opacity: accessoriesOpacity
             text: is_AM  ? "AM" : "PM"
         }
     }
-    QtQuick.Component {
+    QtQuick.Component
+    {
         id: seconds
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             font.family: FixedFont
             isOn: true
+            opacity: accessoriesOpacity
             text: ("0" + seconds_value).slice(-2)
         }
     }
-    QtQuick.Component {
+    QtQuick.Component
+    {
         id: weekNumber
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             isOn: false
+            opacity: accessoriesOpacity
             text: currentWeekNumber
         }
     }
-    QtQuick.Component {
+    QtQuick.Component
+    {
         id: batteryLevel
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             font.family: FixedFont
             isOn: DeviceAccess.managers.battery.isPlugged
+            opacity: accessoriesOpacity
             text: "%1 %".arg(DeviceAccess.managers.battery.batteryLevel)
         }
     }

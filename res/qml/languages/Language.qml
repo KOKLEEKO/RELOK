@@ -5,15 +5,15 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
+import QtQuick 2.15 as QtQuick
 import "qrc:/js/Helpers.js" as HelpersJS
 
-QtObject {
+QtQuick.QtObject {
     required property var table
     required property var written_hours_array
     required property var written_minutes_array
 
-    Component.onCompleted: {
+    QtQuick.Component.onCompleted: {
         HelpersJS.createUndefinedMethod(this, "written_time", "hours_array_index", "minutes_array_index", "isAM")
         HelpersJS.createUndefinedMethod(this, "special_message","enable")
         for (var hours of hours_array)

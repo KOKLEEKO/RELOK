@@ -1,9 +1,70 @@
 .pragma library
 .import DeviceAccess 1.0 as Global
 
-var instance = null
 var DeviceAccess = Global.DeviceAccess
-var isDebug = true
+var instance = null
+var isDebug = undefined
+
+function init(_instance, _isDebug)
+{
+    instance = _instance
+    isDebug = _isDebug
+    instance.accessoriesChanged()
+    instance.selected_language = DeviceAccess.managers.persistence.value("Appearance/clockLanguage", "")
+    instance.language_urlChanged.connect(() => {
+                                             if (instance.time)
+                                             {
+                                                 instance.previous_hours_array_index = -1
+                                                 instance.previous_minutes_array_index = -1
+                                                 instance.tmp_onoff_table = HelpersJS.createTable(rows, columns, false)
+                                                 instance.timeChanged()
+                                             }
+                                         })
+    instance.timeChanged.connect(updateTable)
+
+    if (instance.selected_language === "")
+        detectAndUseDeviceLanguage()
+    else
+        selectLanguage(instance.selected_language)
+}
+
+function startupSequence()
+{
+    if (instance.startupTimer.color_transition_finished)
+    {
+        instance.startupTimer.stop()
+        instance.is_color_animation_enabled = false
+    }
+    else
+    {
+        instance.timer.start()
+        instance.applyColors()
+        showAccessories()
+        instance.startupTimer.color_transition_finished = true
+    }
+}
+
+function updateTime()
+{
+    if (instance.timer.is_debug)
+    {
+        instance.currentDateTime = new Date(instance.timer.time_reference_ms
+                                            + (instance.timer.jump_by_minute
+                                               + instance.timer.jump_by_5_minutes*5
+                                               + instance.timer.jump_by_hour*60 )
+                                            * instance.timer.fake_counter
+                                            * instance.timer.minute_to_ms)
+        ++instance.timer.fake_counter
+    }
+    else
+    {
+        const now = new Date()
+        instance.deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
+        instance.currentDateTime = new Date(now.getTime() - instance.deltaTime*instance.timer.minute_to_ms)
+    }
+    instance.seconds_value = instance.currentDateTime.getSeconds()
+    instance.time = instance.currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
+}
 
 function checkInstance()
 {
@@ -16,6 +77,8 @@ function checkInstance()
 
 function selectLanguage(language, speech)
 {
+    checkInstance()
+
     var fileBaseName = language
     if (!instance.supportedLanguages.includes(fileBaseName))
         fileBaseName = (instance.supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2)
@@ -36,10 +99,15 @@ function selectLanguage(language, speech)
     }
 }
 
-function detectAndUseDeviceLanguage() { selectLanguage(Qt.locale().name) }
+function detectAndUseDeviceLanguage()
+{
+    selectLanguage(Qt.locale().name)
+}
 
 function updateTable()
 {
+    checkInstance()
+
     const startDate = new Date(instance.currentDateTime.getFullYear(), 0, 1)
     instance.currentWeekNumber = Math.ceil(Math.floor((instance.currentDateTime - startDate)
                                                       / instance.timer.day_to_ms) / 7)
@@ -75,8 +143,10 @@ function updateTable()
     if (instance.previous_hours_array_index !== instance.hours_array_index || is_special || instance.was_special)
     {
         if (instance.previous_hours_array_index !== -1)
-            instance.language["hours_" + instance.hours_array[instance.previous_hours_array_index]](false, instance.was_AM)
-
+        {
+            instance.language["hours_"
+                              + instance.hours_array[instance.previous_hours_array_index]](false, instance.was_AM)
+        }
         instance.was_AM = isAM
 
         if (!is_special)
@@ -108,7 +178,11 @@ function updateTable()
     instance.onoff_dots = tmp_onoff_dots
 }
 
-function showAccessories() { instance.accessoriesOpacity = 1 }
+function showAccessories()
+{
+    checkInstance()
+    instance.accessoriesOpacity = 1
+}
 
 function offsetToGMT(value)
 {

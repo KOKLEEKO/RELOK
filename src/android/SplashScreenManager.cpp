@@ -10,5 +10,5 @@
 SplashScreenManager::SplashScreenManager(QObject *parent)
     : SplashScreenManagerBase{parent}
 {
-
+    m_isActive = m_enabled = true;
 }
