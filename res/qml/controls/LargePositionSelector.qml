@@ -5,24 +5,30 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.15 as QtControls
 
 import DeviceAccess 1.0
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
-PositionSelector {
-    delegate: RadioButton {
+PositionSelector
+{
+    delegate: QtControls.RadioButton
+    {
         readonly property int positionIndex: isMinutes ? Math.floor(Math.pow(4, index - 1)) : Math.pow(4, index)
-        enabled: isMinutes && positionIndex == 0 ? HelpersJS.isWeaklyEqual(wordClock.accessories[positionIndex], "", name)
-                                                   && HelpersJS.isStrictlyEqual(wordClock.accessories[positionIndex],
-                                                                              wordClock.accessories[2],
-                                                                              wordClock.accessories[3],
-                                                                              wordClock.accessories[5])
-                                                 : HelpersJS.isWeaklyEqual(wordClock.accessories[positionIndex], "", name)
-        text: qsTranslate("PositionSelector", modelData) + DeviceAccess.managers.translation.emptyString
+
+        QtControls.ButtonGroup.group: radioGroup
         checked: wordClock.accessories[positionIndex] === name
-        ButtonGroup.group: radioGroup
+        enabled: (isMinutes && positionIndex == 0) ? HelpersJS.isWeaklyEqual(wordClock.accessories[positionIndex],
+                                                                             "", name)
+                                                   && HelpersJS.isStrictlyEqual(wordClock.accessories[positionIndex],
+                                                                                wordClock.accessories[2],
+                                                                                wordClock.accessories[3],
+                                                                                wordClock.accessories[5])
+                                                 : HelpersJS.isWeaklyEqual(wordClock.accessories[positionIndex],
+                                                                           "", name)
+        text: qsTranslate("PositionSelector", modelData) + DeviceAccess.managers.translation.emptyString
+
         onClicked: activate(positionIndex)
     }
 }

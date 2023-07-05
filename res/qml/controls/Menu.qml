@@ -5,42 +5,51 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 2.15 as QtControls
+import QtQuick.Layouts 1.15 as QtLayouts
 
 import "qrc:/qml/controls" as Controls
 
-ColumnLayout {
-    property alias label: label
-    property string title
+QtLayouts.ColumnLayout
+{
     default property alias contentItem: menuSections.children
-    property url icon
     property MenuSection collapsed: null
+    property QtQuick.Component footer: null
+    property alias label: label
     property alias scrollView: scrollView
-    property Component footer: null
-    RowLayout {
-        Layout.rightMargin: 20
-        Title {
+    property string title
+    property url icon
+
+    QtLayouts.RowLayout
+    {
+        QtLayouts.Layout.rightMargin: 20
+
+        Title
+        {
             id: label
-            text: title
-            horizontalAlignment: Title.AlignHCenter
-            heading: headings.h1
-            minimumPointSize: heading.h2 + 1
+
+            QtLayouts.Layout.alignment: Qt.AlignTop
+            QtLayouts.Layout.fillWidth: true
             fontSizeMode: Title.HorizontalFit
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignTop
+            heading: headings.h1
+            horizontalAlignment: Title.AlignHCenter
+            minimumPointSize: heading.h2 + 1
             mouseArea.enabled: true
             mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
+            text: title
         }
         IconButton { name: "close"; onClicked: settingPanel.close() }
     }
-    ScrollView {
+    QtControls.ScrollView
+    {
         id: scrollView
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-        ScrollBar.vertical.policy: (collapsed && !collapsed.is_collapsed && !collapsed.is_tipMe) ? ScrollBar.AlwaysOn
-                                                                                                 : ScrollBar.AsNeeded
+
+        QtControls.ScrollBar.vertical.policy: (collapsed && !collapsed.is_collapsed && !collapsed.is_tipMe)
+                                              ? QtControls.ScrollBar.AlwaysOn
+                                              : QtControls.ScrollBar.AsNeeded
+        QtLayouts.Layout.fillHeight: true
+        QtLayouts.Layout.fillWidth: true
         clip: true
         //palette {
         //  /* tribute to Qt (https://brand.qt.io/design)*/
@@ -49,12 +58,13 @@ ColumnLayout {
         //  button: "#cecfd5"
         //}
 
-        Item {
+        QtQuick.Item
+        {
             width: scrollView.availableWidth
             height: scrollView.availableHeight
             implicitHeight: menuSections.implicitHeight
-            ColumnLayout { id: menuSections; anchors.fill: parent }  // @disable-check M16  @disable-check M31
+            QtLayouts.ColumnLayout { id: menuSections; anchors.fill: parent }  // @disable-check M16  @disable-check M31
         }
     }
-    Loader { sourceComponent: footer; Layout.fillWidth: true }
+    QtQuick.Loader { sourceComponent: footer; QtLayouts.Layout.fillWidth: true }
 }

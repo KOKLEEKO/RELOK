@@ -4,7 +4,7 @@
 <context>
     <name>ColorPicker</name>
     <message>
-        <location filename="../res/qml/controls/ColorPicker.qml" line="19"/>
+        <location filename="../res/qml/controls/ColorPicker.qml" line="60"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>

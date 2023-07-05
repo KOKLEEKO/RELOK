@@ -5,14 +5,18 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 2.15 as QtQuick
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
-Picker {
-    id: control
-    function getColor(hue, position) {
+Picker
+{
+    id: colorFactorPicker
+
+    required property int factorType
+
+    function getColor(hue, position)
+    {
         switch (factorType) {
         case Picker.Factors.Saturation:
             return Qt.hsla(hue, position, lightness, 1)
@@ -23,8 +27,31 @@ Picker {
         }
     }
 
-    required property int factorType
-    Component.onCompleted: {
+    background: QtQuick.Rectangle
+    {
+        border.color: visualFocus ? palette.highlight
+                                  : enabled ? palette.mid : palette.midlight
+        gradient: QtQuick.Gradient
+        {
+            orientation: QtQuick.Gradient.Horizontal
+
+            QtQuick.GradientStop { position: 0;     color: getColor(hue, 0)   }
+            QtQuick.GradientStop { position: 0.25;  color: getColor(hue, .25) }
+            QtQuick.GradientStop { position: 0.5;   color: getColor(hue, .5)  }
+            QtQuick.GradientStop { position: 0.75;  color: getColor(hue, .75) }
+            QtQuick.GradientStop { position: 1;     color: getColor(hue, 1)   }
+        }
+        height: implicitHeight
+        implicitHeight: 8
+        implicitWidth: 200
+        radius: implicitWidth/2
+        width: colorFactorPicker.availableWidth
+        x: colorFactorPicker.leftPadding
+        y: colorFactorPicker.topPadding + colorFactorPicker.availableHeight/2 - height/2
+    }
+
+    QtQuick.Component.onCompleted:
+    {
         hueChanged.connect(valueChanged)
         if (factorType === Picker.Factors.Saturation)
             lightnessChanged.connect(valueChanged)
@@ -32,23 +59,5 @@ Picker {
             saturationChanged.connect(valueChanged)
         valueChanged.connect(() => selected_color = getColor(hue, value))
         valueChanged()
-    }
-    background: Rectangle {
-        x: control.leftPadding
-        y: control.topPadding + control.availableHeight/2 - height/2
-        implicitWidth: 200
-        implicitHeight: 8
-        width: control.availableWidth
-        height: implicitHeight
-        radius: implicitWidth/2
-        gradient: Gradient {
-            orientation: Gradient.Horizontal
-            GradientStop { position: 0;     color: getColor(hue, 0) }
-            GradientStop { position: 0.25;  color: getColor(hue, .25) }
-            GradientStop { position: 0.5;   color: getColor(hue, .5) }
-            GradientStop { position: 0.75;  color: getColor(hue, .75) }
-            GradientStop { position: 1;     color: getColor(hue, 1) }
-        }
-        border.color: visualFocus ? palette.highlight : enabled ? palette.mid : palette.midlight
     }
 }

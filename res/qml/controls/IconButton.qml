@@ -5,21 +5,25 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 2.15 as QtControls
 
-Loader {
+QtQuick.Loader
+{
     property bool enabled: true
-    property string tooltip
     property string name: undefined
+    property string tooltip
+
     signal clicked()
-    onLoaded: { item.clicked.connect(clicked); item.enabled = Qt.binding(() => enabled) }
-    sourceComponent:
-        Button {
-        display: Button.IconOnly
+
+    sourceComponent: QtControls.Button
+    {
+        display: QtControls.Button.IconOnly
         flat: true
         icon.source: "qrc:/assets/%1.svg".arg(name)
         implicitWidth: implicitHeight
-        ToolTip { visible: hovered && tooltip; text: tooltip }
+        QtControls.ToolTip { visible: hovered && tooltip; text: tooltip }
     }
+
+    onLoaded: { item.clicked.connect(clicked); item.enabled = Qt.binding(() => enabled) }
 }

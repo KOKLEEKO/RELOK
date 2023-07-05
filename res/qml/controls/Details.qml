@@ -5,12 +5,12 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15 as QtControls
 
-Label {
+QtControls.Label
+{
     color: palette.windowText
-    maximumLineCount: Number.POSITIVE_INFINITY
-    wrapMode: Label.WordWrap
     font { family: SmallestReadableFont; pointSize: headings.p1 }
+    maximumLineCount: Number.POSITIVE_INFINITY
+    wrapMode: QtControls.Label.WordWrap
 }
