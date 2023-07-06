@@ -22,6 +22,7 @@ QtQuick.Loader
         flat: true
         icon.source: "qrc:/assets/%1.svg".arg(name)
         implicitWidth: implicitHeight
+
         QtControls.ToolTip { visible: hovered && tooltip; text: tooltip }
     }
 

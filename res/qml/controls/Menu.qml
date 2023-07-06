@@ -39,7 +39,7 @@ QtLayouts.ColumnLayout
             mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
             text: title
         }
-        IconButton { name: "close"; onClicked: settingPanel.close() }
+        IconButton { name: "close"; onClicked: settingsPanel.close() }
     }
     QtControls.ScrollView
     {

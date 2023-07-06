@@ -39,13 +39,13 @@ QtQuick.Rectangle
     readonly property real dot_size: cell_width/4
     readonly property var speech_frequencies:
     {
-        "1" : qsTr("every minute") + DeviceAccess.managers.translation.emptyString,
-        "5" : qsTr("every 5 minutes") + DeviceAccess.managers.translation.emptyString,
+        "1" : qsTr("every minute")     + DeviceAccess.managers.translation.emptyString,
+        "5" : qsTr("every 5 minutes")  + DeviceAccess.managers.translation.emptyString,
         "10": qsTr("every 10 minutes") + DeviceAccess.managers.translation.emptyString,
         "15": qsTr("every 15 minutes") + DeviceAccess.managers.translation.emptyString,
         "20": qsTr("every 20 minutes") + DeviceAccess.managers.translation.emptyString,
         "30": qsTr("every 30 minutes") + DeviceAccess.managers.translation.emptyString,
-        "60": qsTr("every hour") + DeviceAccess.managers.translation.emptyString
+        "60": qsTr("every hour")       + DeviceAccess.managers.translation.emptyString
     }
     readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
     property string speech_frequency: DeviceAccess.managers.persistence.value("Appearance/speech_frequency", "15")
@@ -100,22 +100,14 @@ QtQuick.Rectangle
                                      {
                                          switch(accessories[index])
                                          {
-                                             case "ampm":
-                                             return ampm
-                                             case "batteryLevel":
-                                             return batteryLevel
-                                             case "date":
-                                             return isCorner ? null : date
-                                             case "minutes":
-                                             return isCorner ? dot : dots
-                                             case "seconds":
-                                             return seconds
-                                             case "timeZone":
-                                             return isCorner ? null : timeZone
-                                             case "weekNumber":
-                                             return weekNumber
-                                             default:
-                                             return null
+                                             case "ampm"        : return ampm
+                                             case "batteryLevel": return batteryLevel
+                                             case "date"        : return isCorner ? null : date
+                                             case "minutes"     : return isCorner ? dot : dots
+                                             case "seconds"     : return seconds
+                                             case "timeZone"    : return isCorner ? null : timeZone
+                                             case "weekNumber"  : return weekNumber
+                                             default            : return null
                                          }
                                      }
     property var accessories: new Array(6).fill("")
@@ -128,7 +120,19 @@ QtQuick.Rectangle
     signal detectAndUseDeviceLanguage()
     signal selectLanguage(string language)
 
+    anchors.verticalCenter: parent.verticalCenter
     color: background_color
+    height: parent.height - (isFullScreen ? 0
+                                          : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                                      DeviceAccess.managers.screenSize.safeInsetTop)
+                                             + Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                        DeviceAccess.managers.screenSize.safeInsetBottom)))
+    width: parent.width - (DeviceAccess.managers.screenSize.safeInsetLeft
+                           + DeviceAccess.managers.screenSize.safeInsetRight) -
+           (isLandScape ? settingsPanel.position * (settingsPanel.width -
+                                                   DeviceAccess.managers.screenSize.safeInsetRight)
+                        : 0)
+    x: DeviceAccess.managers.screenSize.safeInsetLeft
 
     QtQuick.Component.onCompleted: wordClockJS = new WordClockJS.Object(this, isDebug)
 

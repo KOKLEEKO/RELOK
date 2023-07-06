@@ -50,7 +50,7 @@ PositionSelector
                         enabled: HelpersJS.isWeaklyEqual(wordClock.accessories[positionIndex], "", name)
                         text: qsTr(modelData) + DeviceAccess.managers.translation.emptyString
 
-                        onClicked: activate(positionIndex)
+                        onClicked: positionSelectorJS.activate(positionIndex)
                     }
                 }
             }

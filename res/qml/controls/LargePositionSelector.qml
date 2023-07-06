@@ -29,6 +29,6 @@ PositionSelector
                                                                            "", name)
         text: qsTranslate("PositionSelector", modelData) + DeviceAccess.managers.translation.emptyString
 
-        onClicked: activate(positionIndex)
+        onClicked: positionSelectorJS.activate(positionIndex)
     }
 }

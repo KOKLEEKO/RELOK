@@ -56,17 +56,17 @@ Controls.Menu
         }
         QtQuick.Repeater
         {
-            model: tipsModel
+            model: tips.tipsModel
             Controls.IconButton
             {
-                readonly property QtPurchasing.Product product: products[modelData.name]
+                readonly property QtPurchasing.Product product: tips.products[modelData.name]
 
                 QtLayouts.Layout.fillWidth: true
                 active: HelpersJS.isPurchasing
-                enabled: !store.purchasing && product.status === QtPurchasing.Product.Registered
+                enabled: !tips.store.purchasing && product.status === QtPurchasing.Product.Registered
                 name: "tip-" + modelData.name
                 tooltip: qsTranslate("Tips", modelData.tooltip) + DeviceAccess.managers.translation.emptyString
-                onClicked: { store.purchasing = true; product.purchase() }
+                onClicked: { tips.store.purchasing = true; product.purchase() }
             }
         }
         show_detailsComponent: HelpersJS.isPurchasing
@@ -390,7 +390,7 @@ display 0, 1, or 2 lights, allowing you to distinguish these different times.") 
                     root.visibility = Window.Maximized
                     root.opacity = Math.min(root.opacity, .85)
                     root.flags = (Qt.WindowStaysOnTopHint | Qt.WindowTransparentForInput | Qt.FramelessWindowHint)
-                    settingPanel.close()
+                    settingsPanel.close()
                 }
             }
         }

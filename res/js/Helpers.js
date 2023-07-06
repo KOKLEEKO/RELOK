@@ -18,24 +18,29 @@ var isAndroid = Qt.platform.os === "android"
 var isWasm = Qt.platform.os === "wasm"
 var isPurchasing = isWeaklyEqual(Qt.platform.os, "android", "ios", "osx", "windows")
 
-function createStringArrayWithPadding (min, size, step, targetLength = 2, padString = '0') {
-    return new Array(size).fill()
-    .map((element, index) => (index*step + min).toString().padStart(targetLength, padString))
+function createStringArrayWithPadding (min, size, step, targetLength = 2, padString = '0')
+{
+    return new Array(size).fill().map((element, index) =>
+                                      (index*step + min).toString().padStart(targetLength, padString))
 }
 
-function createUndefinedMethod(object, name, ...args) {
+function createUndefinedMethod(object, name, ...args)
+{
     Object.defineProperty(object, name, { value: (args) => unimplementedMethodWarning(name) });
 }
 
-function unimplementedMethodWarning (name) {
+function unimplementedMethodWarning (name)
+{
     console.warn(`[${name}] not implemented`)
 }
 
-function inRange (value, min, max) {
+function inRange (value, min, max)
+{
     return (min <= value && value <= max)
 }
 
-function clamp(value, min, max) {
+function clamp(value, min, max)
+{
     return Math.max(min, Math.min(value, max))
 }
 
@@ -43,19 +48,26 @@ function clamp(value, min, max) {
     The following method is used only during development
     to detect which letter can be added to fill the gaps in a table
 */
-function missingLetters(table) {
+function missingLetters(table)
+{
     var missingLetters = new Array(26).fill().map((element, index) => String.fromCharCode(index+65))
     var availableSpot = 0
     const rows = table.length
-    for (var row = 0; row < rows; ++row) {
+    for (var row = 0; row < rows; ++row)
+    {
         const columns = table[row].length
-        for (var column = 0; column < columns; ++column) {
+        for (var column = 0; column < columns; ++column)
+        {
             const letter = table[row][column]
-            if (letter === " ") {
+            if (letter === " ")
+            {
                 ++availableSpot
-            } else {
+            }
+            else
+            {
                 const index = missingLetters.indexOf(letter);
-                if (index !== -1) {
+                if (index !== -1)
+                {
                     missingLetters.splice(index, 1)
                 }
             }
@@ -64,25 +76,36 @@ function missingLetters(table) {
     console.log(missingLetters, availableSpot)
 }
 
-function toggle(object, propertyName, first, second) {
+function toggle(object, propertyName, first, second)
+{
     if (object.hasOwnProperty(propertyName))
+    {
         object[propertyName] = (object[propertyName] === first ? second : first)
+    }
     else
+    {
         console.error(`${object} doesn't contain a property named "${propertyName}"`)
+    }
 }
 
-function isWeaklyEqual(value, ...args) {
-    for (var arg of args) {
-        if (value === arg) {
+function isWeaklyEqual(value, ...args)
+{
+    for (var arg of args)
+    {
+        if (value === arg)
+        {
             return true
         }
     }
     return false
 }
 
-function isStrictlyEqual(value, ...args) {
-    for (var arg of args) {
-        if (value !== arg) {
+function isStrictlyEqual(value, ...args)
+{
+    for (var arg of args)
+    {
+        if (value !== arg)
+        {
             return false
         }
     }
@@ -94,15 +117,20 @@ function listProperties(name, object) {
         console.info("%1[%2] =".arg(name).arg(prop), object[prop])
 }
 
-function updateVisibility(window) {
-    if (isIos) {
+function updateVisibility(window)
+{
+    if (isIos)
+    {
         Global.DeviceAccess.managers.screenSize.toggleFullScreen()
-    } else {
+    }
+    else
+    {
         toggle(window, "visibility", QtWindow.Window.FullScreen, QtWindow.Window.AutomaticVisibility)
     }
 }
 
-function updateDisplayMode(window) {
+function updateDisplayMode(window)
+{
     const widgetFlag = (Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
     window.flags ^= widgetFlag
     window.isWidget = window.flags & widgetFlag

@@ -53,9 +53,13 @@ Picker
     {
         hueChanged.connect(valueChanged)
         if (factorType === Picker.Factors.Saturation)
+        {
             lightnessChanged.connect(valueChanged)
+        }
         else if (factorType === Picker.Factors.Lightness)
+        {
             saturationChanged.connect(valueChanged)
+        }
         valueChanged.connect(() => selected_color = getColor(hue, value))
         valueChanged()
     }
