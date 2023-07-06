@@ -25,6 +25,7 @@ Controls.Menu
         else
             Qt.openUrlExternally(url)
     }
+
     function greetings()
     {
         if (wordClock.is_AM)
@@ -636,6 +637,7 @@ almost as soon as you encounter them. But you can disable this feature to enter 
         Controls.MenuItem
         {
             title: qsTr("Version")
-            QtControls.Label { text: Qt.application.version } }
+            QtControls.Label { text: Qt.application.version }
+        }
     }
 }

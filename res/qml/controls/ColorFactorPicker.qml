@@ -14,18 +14,17 @@ Picker
     id: colorFactorPicker
 
     required property int factorType
-
-    function getColor(hue, position)
-    {
-        switch (factorType) {
-        case Picker.Factors.Saturation:
-            return Qt.hsla(hue, position, lightness, 1)
-        case Picker.Factors.Lightness:
-            return Qt.hsla(hue, saturation, position, 1)
-        default:
-            return Qt.hsla(hue, saturation, lightness, 1)
-        }
-    }
+    readonly property var getColor: (hue, position) =>
+                                    {
+                                        switch (factorType) {
+                                            case Picker.Factors.Saturation:
+                                            return Qt.hsla(hue, position, lightness, 1)
+                                            case Picker.Factors.Lightness:
+                                            return Qt.hsla(hue, saturation, position, 1)
+                                            default:
+                                            return Qt.hsla(hue, saturation, lightness, 1)
+                                        }
+                                    }
 
     background: QtQuick.Rectangle
     {

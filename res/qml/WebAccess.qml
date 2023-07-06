@@ -13,39 +13,46 @@ import QtWebView 1.15 as QtWebView
 import DeviceAccess 1.0
 
 import "qrc:/js/Helpers.js" as HelpersJS
+import "qrc:/js/WebAccess.js" as WebAccessJS
 
 QtControls.Drawer
 {
-    id: popup
+    id: webAccess
 
     property alias webView: webView
+    property var webAccessJS: null
 
+    edge: Qt.RightEdge
+    height: parent.height -
+            (isFullScreen ? 0 : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                          DeviceAccess.managers.screenSize.safeInsetTop) +
+                                 (HelpersJS.isIos ? 0
+                                                  : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                             DeviceAccess.managers.screenSize.safeInsetBottom))))
+    interactive: opened
+    width: parent.width
     y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
                                    DeviceAccess.managers.screenSize.safeInsetTop)
     z: 1
-    height: parent.height
-            - (isFullScreen ? 0
-                            : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
-                                        DeviceAccess.managers.screenSize.safeInsetTop)
-                               + (HelpersJS.isIos ? 0
-                                                  : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
-                                                             DeviceAccess.managers.screenSize.safeInsetBottom))))
-    width: parent.width
-    interactive: opened
-    edge: Qt.RightEdge
+
+    QtQuick.Component.onCompleted: webAccessJS = new WebAccessJS(this, isDebug)
+
     QtLayouts.ColumnLayout
     {
         anchors.fill: parent  // @disable-check M16 @disable-check M31
         spacing: 0
+
         QtControls.ToolBar
         {
+            QtLayouts.Layout.fillWidth: true
             leftPadding: DeviceAccess.managers.screenSize.safeInsetLeft
             rightPadding: DeviceAccess.managers.screenSize.safeInsetRight
             topPadding: DeviceAccess.managers.screenSize.safeInsetTop
-            QtLayouts.Layout.fillWidth: true
+
             QtLayouts.RowLayout
             {
                 anchors.fill: parent  // @disable-check M16 @disable-check M31
+
                 QtControls.ToolButton
                 {
                     icon.source: "qrc:/assets/close.svg"
@@ -55,7 +62,7 @@ QtControls.Drawer
                 QtControls.ToolButton
                 {
                     icon.source: "qrc:/assets/back.svg"
-                    onClicked: webView.openUrl(webView.base_url, true)
+                    onClicked: webAccessJS.openUrl(webView.base_url, true)
                 }
                 QtControls.ToolButton
                 {
@@ -65,11 +72,11 @@ QtControls.Drawer
                 QtControls.Label
                 {
                     QtLayouts.Layout.fillWidth: true
-                    horizontalAlignment: Qt.AlignHCenter
-                    verticalAlignment: Qt.AlignVCenter
                     elide: QtControls.Label.ElideRight
                     font.bold: true
+                    horizontalAlignment: Qt.AlignHCenter
                     text: webView.title
+                    verticalAlignment: Qt.AlignVCenter
                 }
                 QtControls.ToolButton
                 {
@@ -82,6 +89,7 @@ QtControls.Drawer
         {
             QtLayouts.Layout.fillHeight: true
             QtLayouts.Layout.fillWidth: true
+
             QtWebView.WebView
             {
                 id: webView
@@ -91,31 +99,10 @@ QtControls.Drawer
                 property string error_string
                 property string title
 
-                function openUrl(url, fromBack = false) {
-                    if (url !== base_url || (fromBack && url !== webView.url.toString()))
-                        webView.url = url
-                    if (!fromBack) {
-                        popup.open()
-                        base_url = url
-                    }
-                }
                 visible: status === QtWebView.WebView.LoadSucceededStatus
                 anchors.fill: parent
-                onLoadingChanged: {
-                    status = loadRequest.status
-                    switch (status) {
-                    case QtWebView.WebView.LoadStartedStatus:
-                        webView.title = qsTr("Loading...") + DeviceAccess.managers.translation.emptyString
-                        break;
-                    case QtWebView.WebView.LoadSucceededStatus:
-                        runJavaScript("document.title", (title) => webView.title = title)
-                        break;
-                    case QtWebView.WebView.LoadFailedStatus:
-                        webView.title = qsTr("Houston, we have a problem") + DeviceAccess.managers.translation.emptyString
-                        webView.error_string = loadRequest.errorString
-                        break;
-                    }
-                }
+
+                onLoadingChanged: (loadRequest) => webAccessJS.loadingChanged(loadRequest)
             }
             QtControls.BusyIndicator
             {
@@ -126,6 +113,7 @@ QtControls.Drawer
             QtQuick.Rectangle
             {
                 id: errorPage
+
                 anchors.fill: parent
                 color: palette.button
                 visible: webView.status === QtWebView.WebView.LoadFailedStatus

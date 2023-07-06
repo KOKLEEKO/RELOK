@@ -15,11 +15,6 @@ MenuItem
     property color selected_color: extraControls[0].selected_color
     required property string name
 
-    function reset()
-    {
-        extraControls[3].setColor(parent.parent["default_%1".arg(name)])
-    }
-
     extras: [
         ColorHuePicker {},
         ColorFactorPicker
@@ -48,7 +43,7 @@ MenuItem
 
     QtQuick.Component.onCompleted:
     {
-        control.clicked.connect(reset)
+        control.clicked.connect(() => extraControls[3].setColor(parent.parent["default_%1".arg(name)]))
         selected_colorChanged.connect(
                     () => {
                         wordClock[name] = selected_color

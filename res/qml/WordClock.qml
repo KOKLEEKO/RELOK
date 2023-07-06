@@ -17,6 +17,7 @@ import DeviceAccess 1.0
 
 QtQuick.Rectangle
 {
+    property var wordClockJS: null
     // User-facing Settings
     property string selected_language
     property bool enable_speech: DeviceAccess.managers.persistence.value("Appearance/speech", true)
@@ -92,8 +93,8 @@ QtQuick.Rectangle
                                                                                 minutes_array_step)
     readonly property int columns: 11
     readonly property int rows: 10
-    property var onoff_table: HelpersJS.createWelcomeTable()
-    property var tmp_onoff_table: HelpersJS.createTable(rows, columns, false)
+    property var onoff_table: WordClockJS.createWelcomeTable()
+    property var tmp_onoff_table: WordClockJS.createTable(rows, columns, false)
 
     readonly property var accessory: (index, isCorner = true) =>
                                      {
@@ -124,6 +125,12 @@ QtQuick.Rectangle
     property alias startupTimer: startupTimer
 
     signal applyColors()
+    signal detectAndUseDeviceLanguage()
+    signal selectLanguage(string language)
+
+    color: background_color
+
+    QtQuick.Component.onCompleted: wordClockJS = new WordClockJS.Object(this, isDebug)
 
     QtQuick.Behavior on background_color
     {
@@ -145,15 +152,6 @@ QtQuick.Rectangle
         QtQuick.PropertyAnimation { duration: 1000; easing.type: animation_easing }
     }
 
-    color: background_color
-    onLanguageChanged:
-    {
-        if (DeviceAccess.managers.splashScreen.isActive)
-            DeviceAccess.managers.splashScreen.hideSplashScreen()
-    }
-
-    QtQuick.Component.onCompleted: WordClockJS.init(this, isDebug)
-
     QtQuick.Loader { source: language_url; onLoaded: language = item }
     QtQuick.Timer
     {
@@ -165,7 +163,7 @@ QtQuick.Rectangle
         repeat: true
         running: true
 
-        onTriggered: WordClockJS.startupSequence(color_transition_finished)
+        onTriggered: wordClockJS.startupSequence(color_transition_finished)
     }
     QtQuick.Timer
     {
@@ -194,7 +192,7 @@ QtQuick.Rectangle
         running: false
         triggeredOnStart: true
 
-        onTriggered: WordClockJS.updateTime()
+        onTriggered: wordClockJS.updateTime()
     }
 
     //QtQuick.Image { id: backgroundImage; anchors.fill: parent }

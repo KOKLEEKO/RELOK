@@ -6,22 +6,22 @@
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 //import QtDigitalAdvertising 1.1
-import QtPurchasing 1.15
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Window 2.15
-import QtWebView 1.15
+import QtPurchasing 1.15 as QtPurchasing
+import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 2.15 as QtControls
+import QtQuick.Layouts 1.15 as QtLayouts
+import QtQuick.Window 2.15 as QtWindows
+import QtWebView 1.15 as QtWebView
 
 import DeviceAccess 1.0
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
-ApplicationWindow
+QtControls.ApplicationWindow
 {
     id: root
 
-    property WebView webView: null
+    property QtWebView.WebView webView: null
     property alias badReviewPopup: badReviewPopup
     property alias headings: headings
     property bool aboutToQuit: false
@@ -30,7 +30,7 @@ ApplicationWindow
     property real tmpOpacity: root.opacity
     property size size: Qt.size(width, height)
     readonly property bool isFullScreen: HelpersJS.isIos ? DeviceAccess.managers.screenSize.prefersStatusBarHidden
-                                                         : visibility === Window.FullScreen
+                                                         : visibility === QtWindows.Window.FullScreen
     readonly property bool isLandScape: width > height
 
     //Tips
@@ -50,14 +50,14 @@ ApplicationWindow
 
     property int minimumSize: 287
 
-    width: DeviceAccess.managers.persistence.value("Appearance/width", 640)
-    height: DeviceAccess.managers.persistence.value("Appearance/height", 480)
-    minimumWidth: minimumSize
-    minimumHeight: minimumSize
-    visible: true
-    visibility: HelpersJS.isIos ? Window.FullScreen : Window.AutomaticVisibility
-    opacity: DeviceAccess.managers.persistence.value("Appearance/opacity", 1)
     color: wordClock.background_color
+    height: DeviceAccess.managers.persistence.value("Appearance/height", 480)
+    minimumHeight: minimumSize
+    minimumWidth: minimumSize
+    opacity: DeviceAccess.managers.persistence.value("Appearance/opacity", 1)
+    visibility: HelpersJS.isIos ? QtWindows.Window.FullScreen : QtWindows.Window.AutomaticVisibility
+    visible: true
+    width: DeviceAccess.managers.persistence.value("Appearance/width", 640)
 
     onClosing:
     {
@@ -95,20 +95,28 @@ ApplicationWindow
     onIsWidgetChanged:
     {
         if (HelpersJS.isDesktop)
+        {
             DeviceAccess.managers.persistence.setValue("Appearance/widget", isWidget)
+        }
     }
     onVisibilityChanged:
     {
         if (HelpersJS.isMobile && !settingPanel.opened)
+        {
             visibilityChangedSequence.start()
+        }
     }
-    Component.onCompleted:
+    QtQuick.Component.onCompleted:
     {
-        console.info("pixelDensity", Screen.pixelDensity)
+        console.info("pixelDensity", QtWindows.Screen.pixelDensity)
 
-        if (HelpersJS.isAndroid) onSizeChanged.connect(DeviceAccess.managers.screenSize.updateSafeAreaInsets)
+        if (HelpersJS.isAndroid)
+        {
+            onSizeChanged.connect(DeviceAccess.managers.screenSize.updateSafeAreaInsets)
+        }
 
-        if (isDebug) {
+        if (isDebug)
+        {
             var paletteString = "↓\npalette {\n";
             for (var prop in palette) paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop])
             paletteString += "}"
@@ -120,7 +128,7 @@ ApplicationWindow
         //console.log(Qt.rgba(1,0,0,0).hslLightness)
     }
 
-    Instantiator
+    QtQuick.Instantiator
     {
         model: tipsModel
 
@@ -131,28 +139,21 @@ ApplicationWindow
             productsChanged()
         }
 
-        Product
+        QtPurchasing.Product
         {
             identifier: "io.kokleeko.wordclock.tip.%1".arg(modelData.name)
-            type: Product.Consumable
+            type: QtPurchasing.Product.Consumable
 
             onPurchaseSucceeded: (transaction) => store.success(transaction)
             onPurchaseFailed: (transaction) => store.failed(transaction, this)
         }
     }
-    Store
+    QtPurchasing.Store
     {
         id: store
 
         property bool purchasing: false
 
-        function success(transaction)
-        {
-            if (transaction)
-                transaction.finalize()
-            tipThanksPopup.open()
-            purchasing = false
-        }
         function failed(transaction, product)
         {
             if (transaction)
@@ -167,6 +168,16 @@ ApplicationWindow
                 purchasing = false
             }
         }
+        function success(transaction)
+        {
+            if (transaction)
+            {
+                transaction.finalize()
+            }
+            tipThanksPopup.open()
+            purchasing = false
+        }
+
         onPurchasingChanged:
         {
             if (!purchasing)
@@ -177,7 +188,7 @@ ApplicationWindow
         }
     }
 
-    QtObject
+    QtQuick.QtObject
     {
         id: headings
 
@@ -190,7 +201,7 @@ ApplicationWindow
         readonly property real p2: 11
     }
 
-    SystemPalette { id: systemPalette }
+    QtQuick.SystemPalette { id: systemPalette }
     //palette {
     //  alternateBase: systemPalette.alternateBase
     //  base: systemPalette.base
@@ -212,7 +223,7 @@ ApplicationWindow
     //  windowText: systemPalette.windowText
     //}
 
-    Connections
+    QtQuick.Connections
     {
         function onViewConfigurationChanged()
         {
@@ -220,7 +231,7 @@ ApplicationWindow
         }
         target: DeviceAccess.managers.screenSize
     }
-    SequentialAnimation
+    QtQuick.SequentialAnimation
     {
         id: viewConfigurationChangedSequence
 
@@ -228,8 +239,8 @@ ApplicationWindow
 
         alwaysRunToEnd: true
 
-        PropertyAction { targets: [wordClock, settingPanel]; property:"opacity"; value: 0 }
-        ScriptAction
+        QtQuick.PropertyAction { targets: [wordClock, settingPanel]; property:"opacity"; value: 0 }
+        QtQuick.ScriptAction
         {
             script:
             {
@@ -237,23 +248,31 @@ ApplicationWindow
                 settingPanel.close()
             }
         }
-        PauseAnimation { duration: 500 }
-        PropertyAnimation { targets: [wordClock, settingPanel]; property: "opacity"; duration: 500; from: 0; to: 1 }
-        ScriptAction { script: if (viewConfigurationChangedSequence.isMenuOpened) settingPanel.open() }
+        QtQuick.PauseAnimation { duration: 500 }
+        QtQuick.PropertyAnimation { targets: [wordClock, settingPanel]; property: "opacity"; duration: 500; from: 0; to: 1 }
+        QtQuick.ScriptAction { script: if (viewConfigurationChangedSequence.isMenuOpened) settingPanel.open() }
     }
-    SequentialAnimation
+    QtQuick.SequentialAnimation
     {
         id: visibilityChangedSequence
+
         alwaysRunToEnd: true
 
-        PropertyAction { target: wordClock; property:"opacity"; value: 0 }
-        PropertyAnimation { targets: wordClock; property: "opacity"; duration: 350; from: 0; to: 1 }
+        QtQuick.PropertyAction { target: wordClock; property:"opacity"; value: 0 }
+        QtQuick.PropertyAnimation { targets: wordClock; property: "opacity"; duration: 350; from: 0; to: 1 }
     }
-    MouseArea
+    QtQuick.MouseArea
     {
-        anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
+        anchors.fill: parent
 
+        onClicked: (mouse) =>
+                   {
+                       if (!HelpersJS.isDesktop || mouse.button === Qt.RightButton)
+                       {
+                           settingPanel.open()
+                       }
+                   }
         onPressAndHold: (mouse) =>
                         {
                             if (HelpersJS.isDesktop)
@@ -267,33 +286,48 @@ ApplicationWindow
                                     HelpersJS.updateVisibility(root)
                                     break;
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 HelpersJS.updateVisibility(root)
                             }
                         }
-        onClicked: (mouse) =>
-                   {
-                       if (!HelpersJS.isDesktop || mouse.button === Qt.RightButton)
-                       settingPanel.open()
-                   }
     }
     WordClock
     {
         id: wordClock
         anchors.verticalCenter: parent.verticalCenter
-        x: DeviceAccess.managers.screenSize.safeInsetLeft
         height: parent.height - (isFullScreen ? 0
-                                              : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
+                                              : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                                          DeviceAccess.managers.screenSize.safeInsetTop)
                                                  + Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
                                                             DeviceAccess.managers.screenSize.safeInsetBottom)))
-        width: parent.width - (DeviceAccess.managers.screenSize.safeInsetLeft + DeviceAccess.managers.screenSize.safeInsetRight)
-               - (isLandScape ? settingPanel.position * (settingPanel.width - DeviceAccess.managers.screenSize.safeInsetRight) : 0)
+        width: parent.width - (DeviceAccess.managers.screenSize.safeInsetLeft
+                               + DeviceAccess.managers.screenSize.safeInsetRight) -
+               (isLandScape ? settingPanel.position * (settingPanel.width -
+                                                       DeviceAccess.managers.screenSize.safeInsetRight)
+                            : 0)
+        x: DeviceAccess.managers.screenSize.safeInsetLeft
     }
-    Drawer
+    QtControls.Drawer
     {
         id: settingPanel
-        y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
-        width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
+
+        background: QtQuick.Item
+        {
+            clip: true
+            opacity: isLandScape ? 1 : .925
+
+            QtQuick.Rectangle
+            {
+                anchors { fill: parent; rightMargin: -radius }
+                color: palette.window
+                radius: Math.min(parent.height, parent.width)*.011
+            }
+        }
+        bottomPadding: 20 + isFullScreen ? DeviceAccess.managers.screenSize.safeInsetBottom : 0
+        dim: false
+        edge: Qt.RightEdge
         height: parent.height
                 - (isFullScreen ? 0
                                 : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
@@ -301,43 +335,33 @@ ApplicationWindow
                                    + (HelpersJS.isIos ? 0
                                                       : Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
                                                                  DeviceAccess.managers.screenSize.safeInsetBottom))))
-        edge: Qt.RightEdge
-        dim: false
-        bottomPadding: 20 + isFullScreen ? DeviceAccess.managers.screenSize.safeInsetBottom : 0
         leftPadding: isLandScape ? 20 : Math.max(20, DeviceAccess.managers.screenSize.safeInsetLeft)
         rightPadding: Math.max(20, DeviceAccess.managers.screenSize.safeInsetRight)
         topPadding: isFullScreen ? Math.max(20, DeviceAccess.managers.screenSize.safeInsetTop) : 20
-        background: Item
-        {
-            clip: true
-            opacity: isLandScape ? 1 : .925
-            Rectangle
-            {
-                anchors { fill: parent; rightMargin: -radius }
-                radius: Math.min(parent.height, parent.width)*.011
-                color: palette.window
-            }
-        }
+        width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
+        y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
 
-        Behavior on bottomPadding { NumberAnimation {duration: 100 } }
-        Behavior on height { NumberAnimation {duration: 100 } }
-        Behavior on topPadding { NumberAnimation {duration: 100 } }
-        Behavior on y { NumberAnimation {duration: 100 } }
+        QtQuick.Behavior on bottomPadding { QtQuick.NumberAnimation {duration: 100 } }
+        QtQuick.Behavior on height { QtQuick.NumberAnimation {duration: 100 } }
+        QtQuick.Behavior on topPadding { QtQuick.NumberAnimation {duration: 100 } }
+        QtQuick.Behavior on y { QtQuick.NumberAnimation {duration: 100 } }
         SettingsMenu { }
-        BusyIndicator { anchors.centerIn: parent; running: store.purchasing && !failTransactionPopup.opened }
+        QtControls.BusyIndicator { anchors.centerIn: parent; running: store.purchasing && !failTransactionPopup.opened }
     }
-    Popup
+    QtControls.Popup
     {
         id: purchasingPopup
-        modal: true
-        z: 1
+
         background: null
+        closePolicy: QtControls.Popup.NoAutoClose
+        modal: true
         visible: store.purchasing
-        closePolicy: Popup.NoAutoClose
+        z: 1
     }
-    Dialog
+    QtControls.Dialog
     {
         id: tipThanksPopup
+
         anchors.centerIn: parent
         clip: true
         modal: true
@@ -345,77 +369,79 @@ ApplicationWindow
         width: header.implicitWidth
         z: 1
 
-        Label
+        QtControls.Label
         {
-            horizontalAlignment: Label.Center
-            width: parent.width
-            wrapMode: Text.WordWrap
+            horizontalAlignment: QtControls.Label.Center
             text: "❤\n\n%1".arg(qsTr("It means a lot to us.")) + DeviceAccess.managers.translation.emptyString
+            width: parent.width
+            wrapMode: QtControls.Label.WordWrap
         }
     }
-    Dialog
+    QtControls.Dialog
     {
         id: failTransactionPopup
+
         anchors.centerIn: parent
         clip: true
         modal: true
+        standardButtons: QtControls.Dialog.No | QtControls.Dialog.Yes
         title: qsTr("Oops...") + DeviceAccess.managers.translation.emptyString
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1
-        standardButtons: Dialog.No | Dialog.Yes
 
         onAccepted: failedProduct.purchase()
         onRejected: store.purchasing = false
-        Component.onCompleted: {
-            standardButton(Dialog.No).text = Qt.binding(() => qsTranslate("QPlatformTheme", "No")
-                                                        + DeviceAccess.managers.translation.emptyString)
-            standardButton(Dialog.Yes).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Yes")
-                                                         + DeviceAccess.managers.translation.emptyString)
+        QtQuick.Component.onCompleted: {
+            standardButton(QtControls.Dialog.No).text = Qt.binding(() => qsTranslate("QPlatformTheme", "No") +
+                                                                   DeviceAccess.managers.translation.emptyString)
+            standardButton(QtControls.Dialog.Yes).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Yes") +
+                                                                    DeviceAccess.managers.translation.emptyString)
         }
 
-        Label
+        QtControls.Label
         {
-            horizontalAlignment: Label.Center
+            horizontalAlignment: QtControls.Label.Center
             width: parent.width
-            wrapMode: Text.WordWrap
+            wrapMode: QtControls.Label.WordWrap
             text: ("%1.\n\n%2".arg(failedProductErrorString ?
                                        failedProductErrorString :
                                        qsTr("Something went wrong..."))).arg(qsTr("Do you want to try again?")) +
                   DeviceAccess.managers.translation.emptyString
         }
     }
-    Dialog
+    QtControls.Dialog
     {
         id: welcomePopup
 
         anchors.centerIn: parent
         background.opacity: .95
         clip: true
-        closePolicy: Dialog.NoAutoClose
+        closePolicy: QtControls.Dialog.NoAutoClose
         implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
         title: qsTr("Welcome to %1").arg(Qt.application.name) + DeviceAccess.managers.translation.emptyString
         z: 1
 
         onClosed: root.showWelcome = !hidePopupCheckbox.checked
-        Component.onCompleted: { header.background.visible = false; if (!HelpersJS.isWasm && showWelcome) open() }
+        QtQuick.Component.onCompleted: { header.background.visible = false; if (!HelpersJS.isWasm && showWelcome) open() }
 
-        ColumnLayout
+        QtLayouts.ColumnLayout
         {
             anchors { fill: parent; margins: welcomePopup.margins }  // @disable-check M16  @disable-check M31
-            Label
+            QtControls.Label
             {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                fontSizeMode: Label.Fit
+                QtLayouts.Layout.fillHeight: true
+                QtLayouts.Layout.fillWidth: true
+                fontSizeMode: QtControls.Label.Fit
                 minimumPixelSize: 1
-                wrapMode: Text.WordWrap
+
                 text:
                     "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use.")).arg(
                         HelpersJS.isMobile ? qsTr("Please touch the screen outside this pop-up window to close it and \
 open the settings menu.") : qsTr("Please right-click outside this pop-up window to \
 close it and open the settings menu.")) + DeviceAccess.managers.translation.emptyString
+                wrapMode: QtControls.Label.WordWrap
             }
-            CheckBox
+            QtControls.CheckBox
             {
                 id: hidePopupCheckbox
 
@@ -423,39 +449,41 @@ close it and open the settings menu.")) + DeviceAccess.managers.translation.empt
                 text: qsTr("Don't show this again") + DeviceAccess.managers.translation.emptyString
             }
         }
-        Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
+        QtQuick.Connections { target: settingPanel; function onOpened() { welcomePopup.close() } }
     }
-    Dialog
+    QtControls.Dialog
     {
         id: badReviewPopup
 
         anchors.centerIn: parent
         clip: true
         modal: true
+        standardButtons: QtControls.Dialog.Close | QtControls.Dialog.Ok
         title: qsTr("Thanks for your review") + DeviceAccess.managers.translation.emptyString
         width: Math.max(root.width/2, header.implicitWidth)
         z: 1
-        standardButtons: Dialog.Close | Dialog.Ok
 
         onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
-                                         .arg(qsTr("Suggestions for %1").arg(Qt.application.name)))
-                    + DeviceAccess.managers.translation.emptyString
-        Component.onCompleted: {
-            standardButton(Dialog.Close).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close")
-                                                           + DeviceAccess.managers.translation.emptyString)
-            standardButton(Dialog.Ok).text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK")
-                                                        + DeviceAccess.managers.translation.emptyString)
+                                         .arg(qsTr("Suggestions for %1").arg(Qt.application.name))) +
+                    DeviceAccess.managers.translation.emptyString
+
+        QtQuick.Component.onCompleted:
+        {
+            standardButton(QtControls.Dialog.Close).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close") +
+                                                                      DeviceAccess.managers.translation.emptyString)
+            standardButton(QtControls.Dialog.Ok).text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK") +
+                                                                   DeviceAccess.managers.translation.emptyString)
         }
 
-        Label
+        QtControls.Label
         {
-            width: parent.width
-            wrapMode: Text.WordWrap
             text: qsTr("We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
 Your suggestions will be taken into account.") + DeviceAccess.managers.translation.emptyString
+            width: parent.width
+            wrapMode: QtControls.Label.WordWrap
         }
     }
-    Loader { active: HelpersJS.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
+    QtQuick.Loader { active: HelpersJS.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
 }
