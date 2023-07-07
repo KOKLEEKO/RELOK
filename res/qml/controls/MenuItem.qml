@@ -68,7 +68,7 @@ QtQuick.Loader
                 QtQuick.Loader
                 {
                     active: isModelValid
-                    sourceComponent:  QtQuick.Repeater
+                    sourceComponent: QtQuick.Repeater
                     {
                         delegate: menuItem.delegate
                         model: menuItem.model

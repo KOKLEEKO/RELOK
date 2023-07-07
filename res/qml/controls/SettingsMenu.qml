@@ -18,14 +18,6 @@ import "qrc:/js/Helpers.js" as HelpersJS
 
 Controls.Menu
 {
-    function openUrl(url)
-    {
-        if (HelpersJS.isMobile && url.split(":")[0] !== "mailto")
-            webView.openUrl(url)
-        else
-            Qt.openUrlExternally(url)
-    }
-
     function greetings()
     {
         if (wordClock.is_AM)
@@ -33,6 +25,14 @@ Controls.Menu
         else if (parseInt(wordClock.hours_value) < 18) // 6:00 PM
             return QT_TR_NOOP("Good Afternoon!")
         return QT_TR_NOOP("Good Evening!")
+    }
+
+    function openUrl(url)
+    {
+        if (HelpersJS.isMobile && url.split(":")[0] !== "mailto")
+            webView.openUrl(url)
+        else
+            Qt.openUrlExternally(url)
     }
 
     anchors.fill: parent  // @disable-check M16  @disable-check M31
@@ -52,6 +52,7 @@ Controls.Menu
             name: "ko-fi"
             active: !HelpersJS.isPurchasing
             tooltip: "Ko-fi"
+
             onClicked: openUrl("https://ko-fi.com/johanremilien")
         }
         QtQuick.Repeater
@@ -66,6 +67,7 @@ Controls.Menu
                 enabled: !tips.store.purchasing && product.status === QtPurchasing.Product.Registered
                 name: "tip-" + modelData.name
                 tooltip: qsTranslate("Tips", modelData.tooltip) + DeviceAccess.managers.translation.emptyString
+
                 onClicked: { tips.store.purchasing = true; product.purchase() }
             }
         }
@@ -94,7 +96,8 @@ is running.\nDon't forget to enable '%1' if you might lose attention on your dev
                                                                                                qsTr("Guided Access")) +
                          DeviceAccess.managers.translation.emptyString
             }
-            QtControls.Switch {
+            QtControls.Switch
+            {
                 checked: !DeviceAccess.managers.autoLock.isAutoLockRequested
                 onToggled: DeviceAccess.managers.autoLock.isAutoLockRequested = !checked
             }
@@ -189,6 +192,7 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
                 enabled: Object.keys(DeviceAccess.managers.translation.availableTranslations)
                          [applicationLanguage.extraControls[0].currentIndex] !== applicationLanguage.defaultLanguage
+
                 onClicked:
                 {
                     applicationLanguage.switchLanguage(applicationLanguage.defaultLanguage)
@@ -235,6 +239,7 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 width: parent.width
                 currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
                 model: Object.values(wordClock.languages)
+
                 onModelChanged:
                 {
                     if (HelpersJS.isAndroid)
@@ -296,13 +301,14 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 {
                     DeviceAccess.managers.speech.setSpeechVoice(index)
                     if (wordClock.enable_speech)
+                    {
                         DeviceAccess.managers.speech.say(wordClock.written_time)
+                    }
                     DeviceAccess.managers.persistence.setValue("Appearance/%1_voice"
                                                                .arg(wordClock.selected_language), index)
                 }
 
-                //[TO-DO] FIX: Object is created even if the parent isn't.
-                width: parent.width
+                width: parent ? parent.width : 0
                 model: HelpersJS.isAndroid ? [] : DeviceAccess.managers.speech.speechAvailableVoices[
                                                  wordClock.selected_language]
 
@@ -565,9 +571,9 @@ almost as soon as you encounter them. But you can disable this feature to enter 
             {
                 property bool isSelected: index <= review.rating
 
-                icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "filled" : "empty")
-                display: QtControls.Button.IconOnly
                 background: null
+                display: QtControls.Button.IconOnly
+                icon.source: "qrc:/assets/star-%1.svg".arg(isSelected ? "filled" : "empty")
 
                 onClicked:
                 {
@@ -634,10 +640,6 @@ almost as soon as you encounter them. But you can disable this feature to enter 
             details: qsTr("\nDeveloped with love by Johan and published by Denver.") +
                      DeviceAccess.managers.translation.emptyString
         }
-        Controls.MenuItem
-        {
-            title: qsTr("Version")
-            QtControls.Label { text: Qt.application.version }
-        }
+        Controls.MenuItem { title: qsTr("Version"); QtControls.Label { text: Qt.application.version } }
     }
 }

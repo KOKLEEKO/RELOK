@@ -83,7 +83,6 @@ class Object
 
     selectLanguage(language)
     {
-        console.log("selectLanguage")
         var fileBaseName = language
         if (!instance.supportedLanguages.includes(fileBaseName))
         {
@@ -122,9 +121,7 @@ class Object
 
     updateTable()
     {
-        console.log(this, instance)
         const startDate = new Date(instance.currentDateTime.getFullYear(), 0, 1)
-        console.log(startDate)
         instance.currentWeekNumber = Math.ceil(Math.floor((instance.currentDateTime - startDate)
                                                                / instance.timer.day_to_ms) / 7)
 
