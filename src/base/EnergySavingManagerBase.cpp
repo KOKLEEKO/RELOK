@@ -19,27 +19,6 @@ EnergySavingManagerBase::EnergySavingManagerBase(const std::shared_ptr<AutoLockM
     , m_autoLockManager(autoLockManager)
     , m_batteryManager(batteryManager)
 {
-    connect(m_batteryManager.get(),
-            &BatteryManagerBase::batteryLevelChanged,
-            this,
-            &EnergySavingManagerBase::batterySaving);
-    connect(m_batteryManager.get(),
-            &BatteryManagerBase::isPluggedChanged,
-            this,
-            &EnergySavingManagerBase::batterySaving);
-    connect(m_autoLockManager.get(),
-            &AutoLockManagerBase::isAutoLockRequestedChanged,
-            this,
-            &EnergySavingManagerBase::batterySaving);
-}
-
-void EnergySavingManagerBase::batterySaving()
-{ //move to default
-    qCDebug(lc) << __func__ << m_autoLockManager->isAutoLockRequested() << m_batteryManager->isPlugged()
-                << m_batteryManager->batteryLevel() << m_minimumBatteryLevel;
-    bool disable = !m_autoLockManager->isAutoLockRequested()
-                   && (m_batteryManager->isPlugged() || m_batteryManager->batteryLevel() > m_minimumBatteryLevel);
-    m_autoLockManager->disableAutoLock(disable);
 }
 
 void EnergySavingManagerBase::setMinimumBatteryLevel(int minimumBatteryLevel)

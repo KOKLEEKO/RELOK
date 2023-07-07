@@ -109,6 +109,7 @@ macx | ios {
     QMAKE_ASSET_CATALOGS += apple/Assets.xcassets
     LIBS += -framework StoreKit
     DISTFILES += Gemfile
+
     macx {
         INCLUDEPATH +=                                          \
             src/macx                                            \
@@ -126,12 +127,19 @@ macx | ios {
         QMAKE_INFO_PLIST = apple/macx/Info.plist
         DISTFILES += src/DeviceAccess_macx.mm
     } else:ios {
-        INCLUDEPATH += src/ios
+        INCLUDEPATH +=                                          \
+            src/default                                         \
+            src/ios
+
+        HEADERS +=                                              \
+            src/default/EnergySavingManager.h
+        SOURCES +=                                              \
+            src/default/EnergySavingManager.cpp
+
         OBJECTIVE_HEADERS +=                                    \
             src/ios/AutoLockManager.h                           \
             src/ios/BatteryManager.h                            \
             src/ios/DeviceAccess.h                              \
-            src/ios/EnergySavingManager.h                       \
             src/ios/ReviewManager.h                             \
             src/ios/ScreenBrightnessManager.h                   \
             src/ios/ScreenSizeManager.h                         \
@@ -141,7 +149,6 @@ macx | ios {
             src/ios/AutoLockManager.mm                          \
             src/ios/BatteryManager.mm                           \
             src/ios/DeviceAccess.mm                             \
-            src/ios/EnergySavingManager.mm                      \
             src/ios/ReviewManager.mm                            \
             src/ios/ScreenBrightnessManager.mm                  \
             src/ios/ScreenSizeManager.mm                        \
@@ -155,29 +162,33 @@ macx | ios {
     }
 } else:android {
     QT += androidextras
-    INCLUDEPATH += src/android
+
+    INCLUDEPATH +=                                              \
+        src/android                                             \
+        src/default
+
     HEADERS +=                                                  \
         src/android/AutoLockManager.h                           \
         src/android/BatteryManager.h                            \
         src/android/DeviceAccess.h                              \
-        src/android/EnergySavingManager.h                       \
         src/android/ReviewManager.h                             \
         src/android/ScreenBrightnessManager.h                   \
         src/android/ScreenSizeManager.h                         \
         src/android/ShareContentManager.h                       \
         src/android/SpeechManager.h                             \
-        src/android/SplashScreenManager.h
+        src/android/SplashScreenManager.h                       \
+        src/default/EnergySavingManager.h
     SOURCES +=                                                  \
         src/android/AutoLockManager.cpp                         \
         src/android/BatteryManager.cpp                          \
         src/android/DeviceAccess.cpp                            \
-        src/android/EnergySavingManager.cpp                     \
         src/android/ReviewManager.cpp                           \
         src/android/ScreenBrightnessManager.cpp                 \
         src/android/ScreenSizeManager.cpp                       \
         src/android/ShareContentManager.cpp                     \
         src/android/SpeechManager.cpp                           \
-        src/android/SplashScreenManager.cpp
+        src/android/SplashScreenManager.cpp                     \
+        src/default/EnergySavingManager.cpp
     ANDROID_VERSION_NAME = $$VERSION
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     DISTFILES +=                                                \
@@ -196,12 +207,14 @@ macx | ios {
         src/DeviceAccess_android.cpp
 } else:emscripten {
     INCLUDEPATH += src/wasm
+
     HEADERS +=                                                  \
         src/wasm/DeviceAccess.h
     SOURCES +=                                                  \
         src/wasm/DeviceAccess.cpp
 } else {
     INCLUDEPATH += src/default
+
     HEADERS +=                                                  \
         src/default/DeviceAccess.h                              \
         src/default/SpeechManager.h

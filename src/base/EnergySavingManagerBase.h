@@ -27,14 +27,15 @@ public:
                                      const std::shared_ptr<BatteryManagerBase> &batteryManager,
                                      const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
                                      QObject *parent = nullptr);
-
-    virtual void batterySaving();
     void setMinimumBatteryLevel(int value);
+
+private:
+    virtual void batterySaving() {}
 
 signals:
     void minimumBatteryLevelChanged();
 
-private:
+protected:
     int m_minimumBatteryLevel = 50;
     std::shared_ptr<AutoLockManagerBase> m_autoLockManager;
     std::shared_ptr<BatteryManagerBase> m_batteryManager;

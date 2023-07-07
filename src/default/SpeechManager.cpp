@@ -13,6 +13,12 @@ SpeechManager::SpeechManager(const std::shared_ptr<ClockLanguageManagerBase> &cl
     : SpeechManagerBase{clockLanguageManager, persistenceManager, parent}
 {
     m_enabled = true;
+
+    connect(&m_speech, &QTextToSpeech::stateChanged, this, [=](QTextToSpeech::State state) {
+        if (state == QTextToSpeech::Ready)
+            endOfSpeech();
+    });
+
     initSpeechLocales();
 }
 

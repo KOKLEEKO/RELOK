@@ -22,5 +22,5 @@ public:
     void say(QString text) override;
     void setSpeechLanguage(QString iso) override;
     void setSpeechVoice(int index) override;
-    void initSpeechLocales() override;
+    void initSpeechLocales() override final;
 };
