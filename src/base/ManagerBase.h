@@ -12,20 +12,27 @@
 #include <QLoggingCategory>
 #include <QString>
 
+#include "DeviceAccessBase.h"
+
 Q_DECLARE_LOGGING_CATEGORY(lc)
 
 template<typename ManagerImpl>
 class ManagerBase : public QObject
 {
-    Q_PROPERTY(bool enabled MEMBER m_enabled CONSTANT)
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
 public:
-    ManagerBase(QObject *parent = nullptr)
+    explicit ManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr)
         : QObject(parent)
+        , m_deviceAccess(deviceAccess)
     {}
 
     static QString name() { return m_name; }
+    bool enabled() const { return m_enabled; }
+
+    DeviceAccessBase *deviceAccess() const { return m_deviceAccess; }
 
 protected:
     static QString m_name; //CRTP
+    DeviceAccessBase *m_deviceAccess;
     bool m_enabled = false;
 };

@@ -7,19 +7,21 @@
 **************************************************************************************************/
 #include "AdvertisingManagerBase.h"
 
+#include "PersistenceManagerBase.h"
+
 template<>
 QString ManagerBase<AdvertisingManagerBase>::m_name{"advertising"};
 
-AdvertisingManagerBase::AdvertisingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                               QObject *parent)
-    : ManagerBase(parent)
-    , PersistenceCapability(persistenceManager)
+AdvertisingManagerBase::AdvertisingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}
 
 void AdvertisingManagerBase::requestAdvertising(bool isAdvertisingRequested)
 {
     if (m_isAdvertisingRequested == isAdvertisingRequested)
         return;
-    persistenceManager()->setValue("Advanced/isAdvertisingRequested", m_isAdvertisingRequested = isAdvertisingRequested);
+    deviceAccess()
+        ->manager<PersistenceManagerBase>(PersistenceManagerBase::name())
+        ->setValue("Advanced/isAdvertisingRequested", m_isAdvertisingRequested = isAdvertisingRequested);
     emit isAdvertisingRequestedChanged();
 }

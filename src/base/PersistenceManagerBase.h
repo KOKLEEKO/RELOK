@@ -17,7 +17,7 @@ class PersistenceManagerBase : public ManagerBase<PersistenceManagerBase>
     Q_OBJECT
 
 public:
-    PersistenceManagerBase(QObject *parent = nullptr);
+    explicit PersistenceManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual QVariant value(QString /*key*/, QVariant /*defaultValue*/) const { return {QVariant::String}; }
     Q_INVOKABLE virtual void setValue(QString /*key*/, QVariant /*value*/) {}
@@ -25,3 +25,6 @@ public:
 signals:
     void settingsReady();
 };
+
+template<>
+QString ManagerBase<PersistenceManagerBase>::m_name;

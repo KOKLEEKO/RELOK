@@ -8,9 +8,8 @@
 #pragma once
 
 #include "ManagerBase.h"
-#include <PersistenceCapability.h>
 
-class AdvertisingManagerBase : public ManagerBase<AdvertisingManagerBase>, public PersistenceCapability
+class AdvertisingManagerBase : public ManagerBase<AdvertisingManagerBase>
 {
     Q_OBJECT
 
@@ -19,8 +18,7 @@ class AdvertisingManagerBase : public ManagerBase<AdvertisingManagerBase>, publi
                    isAdvertisingRequestedChanged)
 
 public:
-    explicit AdvertisingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                    QObject *parent = nullptr);
+    explicit AdvertisingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     bool isAdvertisingEnabled() const { return m_isAdvertisingEnabled; }
     bool isAdvertisingRequested() const { return m_isAdvertisingRequested; }
@@ -36,3 +34,6 @@ private:
     bool m_isAdvertisingEnabled = false;
     bool m_isAdvertisingRequested = false;
 };
+
+template<>
+QString ManagerBase<AdvertisingManagerBase>::m_name;

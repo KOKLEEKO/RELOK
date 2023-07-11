@@ -16,7 +16,7 @@ class SplashScreenManagerBase : public ManagerBase<SplashScreenManagerBase>
     Q_PROPERTY(bool isActive MEMBER m_isActive NOTIFY isActiveChanged)
 
 public:
-    SplashScreenManagerBase(QObject *parent = nullptr);
+    explicit SplashScreenManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual void hideSplashScreen()
     {
@@ -30,3 +30,6 @@ signals:
 protected:
     bool m_isActive = false;
 };
+
+template<>
+QString ManagerBase<SplashScreenManagerBase>::m_name;

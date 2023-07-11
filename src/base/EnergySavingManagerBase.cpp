@@ -7,24 +7,21 @@
 **************************************************************************************************/
 #include "EnergySavingManagerBase.h"
 
+#include "PersistenceManagerBase.h"
+
 template<>
 QString ManagerBase<EnergySavingManagerBase>::m_name{"energySaving"};
 
-EnergySavingManagerBase::EnergySavingManagerBase(const std::shared_ptr<AutoLockManagerBase> &autoLockManager,
-                                                 const std::shared_ptr<BatteryManagerBase> &batteryManager,
-                                                 const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                                 QObject *parent)
-    : ManagerBase(parent)
-    , PersistenceCapability(persistenceManager)
-    , m_autoLockManager(autoLockManager)
-    , m_batteryManager(batteryManager)
-{
-}
+EnergySavingManagerBase::EnergySavingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
+{}
 
 void EnergySavingManagerBase::setMinimumBatteryLevel(int minimumBatteryLevel)
 {
     if (m_minimumBatteryLevel == minimumBatteryLevel)
         return;
-    persistenceManager()->setValue("BatterySaving/minimumBatteryLevel", m_minimumBatteryLevel = minimumBatteryLevel);
+    deviceAccess()
+        ->manager<PersistenceManagerBase>(PersistenceManagerBase::name())
+        ->setValue("BatterySaving/minimumBatteryLevel", m_minimumBatteryLevel = minimumBatteryLevel);
     emit minimumBatteryLevelChanged();
 }

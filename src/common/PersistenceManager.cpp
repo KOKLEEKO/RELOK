@@ -9,11 +9,12 @@
 
 #include <QTimerEvent>
 
-PersistenceManager::PersistenceManager(QObject *parent)
-    : PersistenceManagerBase{parent}
+PersistenceManager::PersistenceManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : PersistenceManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
     startTimer(0);
+    qCDebug(lc) << m_settings.fileName();
 }
 
 QVariant PersistenceManager::value(QString key, QVariant defaultValue) const

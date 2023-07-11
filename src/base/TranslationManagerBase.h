@@ -8,21 +8,19 @@
 #pragma once
 
 #include "ManagerBase.h"
-#include <PersistenceCapability.h>
 
 #include <QString>
 #include <QTranslator>
 #include <QVariantMap>
 
-class TranslationManagerBase : public ManagerBase<TranslationManagerBase>, public PersistenceCapability
+class TranslationManagerBase : public ManagerBase<TranslationManagerBase>
 {
     Q_OBJECT
     Q_PROPERTY(QVariantMap availableTranslations MEMBER m_availableTranslations CONSTANT)
     Q_PROPERTY(QString emptyString MEMBER m_emptyString NOTIFY retranslate)
 
 public:
-    explicit TranslationManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                    QObject *parent = nullptr);
+    explicit TranslationManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     virtual void getAvailableTransalations() {}
 
@@ -39,3 +37,6 @@ protected:
 private:
     QString m_emptyString{};
 };
+
+template<>
+QString ManagerBase<TranslationManagerBase>::m_name;

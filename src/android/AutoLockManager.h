@@ -12,6 +12,5 @@
 class AutoLockManager : public AutoLockManagerBase
 {
 public:
-    explicit AutoLockManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                             QObject *parent = nullptr);
+    explicit AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 };

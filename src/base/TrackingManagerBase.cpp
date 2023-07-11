@@ -10,8 +10,6 @@
 template<>
 QString ManagerBase<TrackingManagerBase>::m_name{"tracking"};
 
-TrackingManagerBase::TrackingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                         QObject *parent)
-    : ManagerBase(parent)
-    , PersistenceCapability(persistenceManager)
+TrackingManagerBase::TrackingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}

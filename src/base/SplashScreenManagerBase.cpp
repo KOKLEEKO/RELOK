@@ -10,6 +10,6 @@
 template<>
 QString ManagerBase<SplashScreenManagerBase>::m_name{"splashScreen"};
 
-SplashScreenManagerBase::SplashScreenManagerBase(QObject *parent)
-    : ManagerBase(parent)
+SplashScreenManagerBase::SplashScreenManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}

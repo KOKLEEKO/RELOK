@@ -7,8 +7,10 @@
 **************************************************************************************************/
 #include "ReviewManager.h"
 
-ReviewManager::ReviewManager(QObject *parent)
-    : ReviewManagerBase{parent}
+ReviewManager::ReviewManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ReviewManagerBase{deviceAccess, parent}
 {
-
+    m_enabled = true;
 }
+
+void ReviewManager::requestReview() {}

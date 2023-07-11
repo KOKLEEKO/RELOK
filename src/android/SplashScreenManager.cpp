@@ -7,8 +7,8 @@
 **************************************************************************************************/
 #include "SplashScreenManager.h"
 
-SplashScreenManager::SplashScreenManager(QObject *parent)
-    : SplashScreenManagerBase{parent}
+SplashScreenManager::SplashScreenManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : SplashScreenManagerBase{deviceAccess, parent}
 {
     m_isActive = m_enabled = true;
 }

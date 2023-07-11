@@ -25,20 +25,20 @@
 DeviceAccessBase::DeviceAccessBase(QObject *parent)
     : QObject(parent)
 {
-    auto persistence = addManager(std::make_shared<PersistenceManagerBase>(parent));
+    addManager(std::make_shared<PersistenceManagerBase>(this, parent));
 
-    auto autoLock = addManager(std::make_shared<AutoLockManagerBase>(persistence, parent));
-    auto battery = addManager(std::make_shared<BatteryManagerBase>(parent));
-    auto clockLanguage = addManager(std::make_shared<ClockLanguageManagerBase>(parent));
+    addManager(std::make_shared<AutoLockManagerBase>(this, parent));
+    addManager(std::make_shared<BatteryManagerBase>(this, parent));
+    addManager(std::make_shared<ClockLanguageManagerBase>(this, parent));
 
-    addManager(std::make_shared<AdvertisingManagerBase>(persistence, parent));
-    addManager(std::make_shared<EnergySavingManagerBase>(autoLock, battery, persistence, parent));
-    addManager(std::make_shared<ReviewManagerBase>(parent));
-    addManager(std::make_shared<ScreenBrightnessManagerBase>(persistence, parent));
-    addManager(std::make_shared<ScreenSizeManagerBase>(persistence, parent));
-    addManager(std::make_shared<ShareContentManagerBase>(parent));
-    addManager(std::make_shared<SpeechManagerBase>(clockLanguage, persistence, parent));
-    addManager(std::make_shared<SplashScreenManagerBase>(parent));
-    addManager(std::make_shared<TrackingManagerBase>(persistence, parent));
-    addManager(std::make_shared<TranslationManagerBase>(persistence, parent));
+    addManager(std::make_shared<AdvertisingManagerBase>(this, parent));
+    addManager(std::make_shared<EnergySavingManagerBase>(this, parent));
+    addManager(std::make_shared<ReviewManagerBase>(this, parent));
+    addManager(std::make_shared<ScreenBrightnessManagerBase>(this, parent));
+    addManager(std::make_shared<ScreenSizeManagerBase>(this, parent));
+    addManager(std::make_shared<ShareContentManagerBase>(this, parent));
+    addManager(std::make_shared<SpeechManagerBase>(this, parent));
+    addManager(std::make_shared<SplashScreenManagerBase>(this, parent));
+    addManager(std::make_shared<TrackingManagerBase>(this, parent));
+    addManager(std::make_shared<TranslationManagerBase>(this, parent));
 }

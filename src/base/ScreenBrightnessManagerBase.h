@@ -8,9 +8,8 @@
 #pragma once
 
 #include "ManagerBase.h"
-#include <PersistenceCapability.h>
 
-class ScreenBrightnessManagerBase : public ManagerBase<ScreenBrightnessManagerBase>, public PersistenceCapability
+class ScreenBrightnessManagerBase : public ManagerBase<ScreenBrightnessManagerBase>
 {
     Q_OBJECT
 
@@ -18,11 +17,11 @@ class ScreenBrightnessManagerBase : public ManagerBase<ScreenBrightnessManagerBa
     Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
 
 public:
-    explicit ScreenBrightnessManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                         QObject *parent = nullptr);
+    explicit ScreenBrightnessManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
+
+    void updateBrightness(float brightness);
 
     virtual void setBrightnessRequested(float /*brightness*/) {}
-    void updateBrightness(float brightness);
 
 signals:
     void brightnessChanged();
@@ -31,3 +30,6 @@ private:
     float m_brightness = .0;
     float m_brightnessRequested = .0;
 };
+
+template<>
+QString ManagerBase<ScreenBrightnessManagerBase>::m_name;

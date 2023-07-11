@@ -12,6 +12,6 @@
 class ReviewManager : public ReviewManagerBase
 {
 public:
-    explicit ReviewManager(QObject *parent = nullptr);
+    explicit ReviewManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 };
 

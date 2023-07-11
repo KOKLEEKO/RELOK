@@ -39,7 +39,6 @@ HEADERS +=                                                      \
     src/base/SplashScreenManagerBase.h                          \
     src/base/TrackingManagerBase.h                              \
     src/base/TranslationManagerBase.h                           \
-    src/base/capability/PersistenceCapability.h                 \
     src/common/ClockLanguageManager.h                           \
     src/common/DeviceAccessFactory.h                            \
     src/common/PersistenceManager.h                             \
@@ -61,7 +60,6 @@ SOURCES +=                                                      \
     src/base/SplashScreenManagerBase.cpp                        \
     src/base/TrackingManagerBase.cpp                            \
     src/base/TranslationManagerBase.cpp                         \
-    src/base/capability/PersistenceCapability.cpp               \
     src/common/ClockLanguageManager.cpp                         \
     src/common/DeviceAccessFactory.cpp                          \
     src/common/PersistenceManager.cpp                           \
@@ -111,6 +109,7 @@ macx | ios {
     DISTFILES += Gemfile
 
     macx {
+
         INCLUDEPATH +=                                          \
             src/macx                                            \
             src/default
@@ -126,15 +125,17 @@ macx | ios {
             src/macx/DeviceAccess.mm
         QMAKE_INFO_PLIST = apple/macx/Info.plist
         DISTFILES += src/DeviceAccess_macx.mm
+
     } else:ios {
-        INCLUDEPATH +=                                          \
-            src/default                                         \
-            src/ios
+
+        INCLUDEPATH += src/ios
 
         HEADERS +=                                              \
-            src/default/EnergySavingManager.h
+            src/default/EnergySavingManager.h                   \
+            src/default/SpeechManager.h
         SOURCES +=                                              \
-            src/default/EnergySavingManager.cpp
+            src/default/EnergySavingManager.cpp                 \
+            src/default/SpeechManager.cpp
 
         OBJECTIVE_HEADERS +=                                    \
             src/ios/AutoLockManager.h                           \
@@ -160,12 +161,12 @@ macx | ios {
         app_launch_screen.files = apple/ios/Launch.storyboard
         QMAKE_BUNDLE_DATA += app_launch_screen
     }
+
 } else:android {
+
     QT += androidextras
 
-    INCLUDEPATH +=                                              \
-        src/android                                             \
-        src/default
+    INCLUDEPATH += src/android
 
     HEADERS +=                                                  \
         src/android/AutoLockManager.h                           \
@@ -177,7 +178,8 @@ macx | ios {
         src/android/ShareContentManager.h                       \
         src/android/SpeechManager.h                             \
         src/android/SplashScreenManager.h                       \
-        src/default/EnergySavingManager.h
+        src/default/EnergySavingManager.h                       \
+        src/default/SpeechManager.h
     SOURCES +=                                                  \
         src/android/AutoLockManager.cpp                         \
         src/android/BatteryManager.cpp                          \
@@ -188,7 +190,9 @@ macx | ios {
         src/android/ShareContentManager.cpp                     \
         src/android/SpeechManager.cpp                           \
         src/android/SplashScreenManager.cpp                     \
-        src/default/EnergySavingManager.cpp
+        src/default/EnergySavingManager.cpp                     \
+        src/default/SpeechManager.cpp
+
     ANDROID_VERSION_NAME = $$VERSION
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     DISTFILES +=                                                \
@@ -205,14 +209,18 @@ macx | ios {
     DISTFILES +=                                                \
         android/src/io/kokleeko/wordclock/DeviceAccess.java     \
         src/DeviceAccess_android.cpp
+
 } else:emscripten {
+
     INCLUDEPATH += src/wasm
 
     HEADERS +=                                                  \
         src/wasm/DeviceAccess.h
     SOURCES +=                                                  \
         src/wasm/DeviceAccess.cpp
+
 } else {
+
     INCLUDEPATH += src/default
 
     HEADERS +=                                                  \
@@ -221,6 +229,7 @@ macx | ios {
     SOURCES +=                                                  \
         src/default/DeviceAccess.cpp                            \
         src/default/SpeechManager.cpp
+
 }
 
 DISTFILES +=                                                    \

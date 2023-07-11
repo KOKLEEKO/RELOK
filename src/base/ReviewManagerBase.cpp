@@ -10,6 +10,6 @@
 template<>
 QString ManagerBase<ReviewManagerBase>::m_name{"review"};
 
-ReviewManagerBase::ReviewManagerBase(QObject *parent)
-    : ManagerBase(parent)
+ReviewManagerBase::ReviewManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}

@@ -10,6 +10,6 @@
 template<>
 QString ManagerBase<ShareContentManagerBase>::m_name{"shareContent"};
 
-ShareContentManagerBase::ShareContentManagerBase(QObject *parent)
-    : ManagerBase(parent)
+ShareContentManagerBase::ShareContentManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}

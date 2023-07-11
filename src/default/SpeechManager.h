@@ -9,18 +9,24 @@
 
 #include <SpeechManagerBase.h>
 
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+namespace Default {
+#endif
+
 class SpeechManager : public SpeechManagerBase
 {
     Q_OBJECT
 
 public:
-    explicit SpeechManager(const std::shared_ptr<ClockLanguageManagerBase> &clockLanguageManager,
-                           const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                           QObject *parent = nullptr);
+    explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     void endOfSpeech() const override {}
     void say(QString text) override;
     void setSpeechLanguage(QString iso) override;
     void setSpeechVoice(int index) override;
-    void initSpeechLocales() override final;
+    void initSpeechLocales() final override;
 };
+
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+} //Default
+#endif

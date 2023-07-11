@@ -7,9 +7,8 @@
 **************************************************************************************************/
 #include "SpeechManager.h"
 
-SpeechManager::SpeechManager(const std::shared_ptr<ClockLanguageManagerBase> &clockLanguageManager,
-                             const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                             QObject *parent)
-    : SpeechManagerBase{clockLanguageManager, persistenceManager, parent}
+SpeechManager::SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : Default::SpeechManager{deviceAccess, parent}
 {
+    m_enabled = true;
 }

@@ -20,10 +20,13 @@ class ClockLanguageManagerBase : public ManagerBase<ClockLanguageManagerBase>
     virtual void detectClockAvailableLocales() {}
 
 public:
-    ClockLanguageManagerBase(QObject *parent = nullptr);
+    ClockLanguageManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     QVariantMap clockAvailableLocales() const { return m_clockAvailableLocales; }
 
 protected:
     QVariantMap m_clockAvailableLocales;
 };
+
+template<>
+QString ManagerBase<ClockLanguageManagerBase>::m_name;

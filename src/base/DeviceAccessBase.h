@@ -15,7 +15,7 @@
 
 Q_DECLARE_LOGGING_CATEGORY(lc)
 
-class DeviceAccessBase : public QObject
+class DeviceAccessBase : public QObject, public std::enable_shared_from_this<DeviceAccessBase>
 {
     Q_OBJECT
 
@@ -25,11 +25,10 @@ class DeviceAccessBase : public QObject
     DeviceAccessBase &operator=(const DeviceAccessBase &) = delete;
 
 public:
-    template<class DeviceAccessImpl>
-    static DeviceAccessImpl *instance()
+    static DeviceAccessBase *instance()
     {
-        static DeviceAccessImpl *deviceAccessImpl = new DeviceAccessImpl();
-        return deviceAccessImpl;
+        static DeviceAccessBase *instance = new DeviceAccessBase();
+        return instance;
     }
 
     template<class ManagerImpl>

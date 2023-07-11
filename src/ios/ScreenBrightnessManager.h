@@ -12,7 +12,8 @@
 class ScreenBrightnessManager : public ScreenBrightnessManagerBase
 {
 public:
-    explicit ScreenBrightnessManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                     QObject *parent = nullptr);
+    explicit ScreenBrightnessManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
+
+    void setBrightnessRequested(float brightness) override;
 };
 

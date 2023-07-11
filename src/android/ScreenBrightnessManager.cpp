@@ -7,8 +7,8 @@
 **************************************************************************************************/
 #include "ScreenBrightnessManager.h"
 
-ScreenBrightnessManager::ScreenBrightnessManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                                 QObject *parent)
-    : ScreenBrightnessManagerBase{persistenceManager, parent}
+ScreenBrightnessManager::ScreenBrightnessManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ScreenBrightnessManagerBase{deviceAccess, parent}
 {
+    m_enabled = true;
 }

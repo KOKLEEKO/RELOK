@@ -17,7 +17,7 @@ class BatteryManagerBase : public ManagerBase<BatteryManagerBase>
     Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
 
 public:
-    BatteryManagerBase(QObject *parent = nullptr);
+    BatteryManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     bool isPlugged() const { return m_isPlugged; }
     int batteryLevel() const { return m_batteryLevel; }
@@ -32,3 +32,6 @@ private:
     bool m_isPlugged = false;
     int m_batteryLevel = 0; // [0 .. 100] %
 };
+
+template<>
+QString ManagerBase<BatteryManagerBase>::m_name;

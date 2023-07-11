@@ -7,7 +7,8 @@
 **************************************************************************************************/
 #include "BatteryManager.h"
 
-BatteryManager::BatteryManager(QObject *parent)
-    : BatteryManagerBase{parent}
+BatteryManager::BatteryManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : BatteryManagerBase{deviceAccess, parent}
 {
+    m_enabled = true;
 }

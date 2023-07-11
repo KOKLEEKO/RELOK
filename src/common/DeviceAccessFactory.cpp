@@ -9,30 +9,55 @@
 
 #include <ClockLanguageManager.h>
 #include <PersistenceManager.h>
+#include <TranslationManager.h>
+
 #ifndef Q_OS_WASM
+//#include <ReviewManager.h>
 #include <SpeechManager.h>
 #endif
-#include <TranslationManager.h>
 
 #ifdef Q_OS_ANDROID
 #include <SplashScreenManager.h>
+#endif
+
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+#include <AutoLockManager.h>
+#include <BatteryManager.h>
+#include <ScreenBrightnessManager.h>
+#include <ScreenSizeManager.h>
+#include <ShareContentManager.h>
+#include <SpeechManager.h>
+
+#include "src/default/EnergySavingManager.h"
 #endif
 
 DeviceAccessFactory::DeviceAccessFactory() {}
 
 DeviceAccess *DeviceAccessFactory::create()
 {
-    DeviceAccess *m_deviceAccess = DeviceAccess::instance<DeviceAccess>();
+    static DeviceAccessBase *deviceAccess = DeviceAccess::instance();
+    deviceAccess->addManager(std::make_shared<ClockLanguageManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<PersistenceManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<TranslationManager>(deviceAccess));
 
-    auto clockLanguage = m_deviceAccess->addManager(std::make_shared<ClockLanguageManager>());
-    auto persistence = m_deviceAccess->addManager(std::make_shared<PersistenceManager>());
 #ifndef Q_OS_WASM
-    m_deviceAccess->addManager(std::make_shared<SpeechManager>(clockLanguage, persistence));
-#endif
-    m_deviceAccess->addManager(std::make_shared<TranslationManager>(persistence));
-#ifdef Q_OS_ANDROID
-    m_deviceAccess->addManager(std::make_shared<SplashScreenManager>());
+    deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
+    //deviceAccess->addManager(std::make_shared<ReviewManager>(deviceAccess));
 #endif
 
-    return m_deviceAccess;
+#ifdef Q_OS_ANDROID
+    deviceAccess->addManager(std::make_shared<SplashScreenManager>(deviceAccess));
+#endif
+
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+    deviceAccess->addManager(std::make_shared<AutoLockManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<BatteryManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<EnergySavingManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<ScreenBrightnessManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<ScreenSizeManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<ShareContentManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
+#endif
+
+    return static_cast<DeviceAccess *>(deviceAccess);
 }

@@ -16,7 +16,7 @@ class PersistenceManager : public PersistenceManagerBase
     Q_OBJECT
 
 public:
-    explicit PersistenceManager(QObject *parent = nullptr);
+    explicit PersistenceManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     QVariant value(QString key, QVariant defaultValue) const override;
     void setValue(QString key, QVariant value) override;

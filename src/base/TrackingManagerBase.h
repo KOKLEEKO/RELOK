@@ -8,17 +8,15 @@
 #pragma once
 
 #include "ManagerBase.h"
-#include <PersistenceCapability.h>
 
-class TrackingManagerBase : public ManagerBase<TrackingManagerBase>, public PersistenceCapability
+class TrackingManagerBase : public ManagerBase<TrackingManagerBase>
 {
     Q_OBJECT
     Q_PROPERTY(bool isBugTracking MEMBER m_isBugTracking WRITE requestBugTracking NOTIFY isBugTrackingChanged)
     Q_PROPERTY(bool isUsageTracking MEMBER m_isUsageTracking WRITE requestUsageTracking NOTIFY isUsageTrackingChanged)
 
 public:
-    explicit TrackingManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                 QObject *parent = nullptr);
+    explicit TrackingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual void requestBugTracking(bool /*value*/) {}
     Q_INVOKABLE virtual void requestUsageTracking(bool /*value*/) {}
@@ -31,3 +29,6 @@ private:
     bool m_isBugTracking = false;
     bool m_isUsageTracking = false;
 };
+
+template<>
+QString ManagerBase<TrackingManagerBase>::m_name;

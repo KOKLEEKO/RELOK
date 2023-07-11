@@ -7,7 +7,8 @@
 **************************************************************************************************/
 #include "ShareContentManager.h"
 
-ShareContentManager::ShareContentManager(QObject *parent)
-    : ShareContentManagerBase{parent}
+ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ShareContentManagerBase{deviceAccess, parent}
 {
+    m_enabled = true;
 }

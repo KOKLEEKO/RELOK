@@ -12,7 +12,6 @@
 class ScreenSizeManager : public ScreenSizeManagerBase
 {
 public:
-    explicit ScreenSizeManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                               QObject *parent = nullptr);
+    explicit ScreenSizeManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 };
 

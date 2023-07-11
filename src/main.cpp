@@ -51,12 +51,18 @@ int main(int argc, char *argv[]) {
      * This function refreshes all the engine's bindings, not only those that use strings marked for translation.
      */
     //QObject::connect(&DeviceAccess::instance(), &DeviceAccess::retranslate, &engine, &QQmlApplicationEngine::retranslate);
+
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl) {
-            if (!obj && url == objUrl) QCoreApplication::exit(-1);
-        }, Qt::QueuedConnection);
-    QObject::connect(DeviceAccess::instance<DeviceAccess>()->manager<PersistenceManagerBase>(
-                         PersistenceManagerBase::name()),
+    QObject::connect(
+        &engine,
+        &QQmlApplicationEngine::objectCreated,
+        &app,
+        [url](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        },
+        Qt::QueuedConnection);
+    QObject::connect(DeviceAccessBase::instance()->manager<PersistenceManagerBase>(PersistenceManagerBase::name()),
                      &PersistenceManagerBase::settingsReady,
                      &engine,
                      [url, &engine]() { engine.load(url); });

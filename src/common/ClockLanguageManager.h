@@ -14,8 +14,8 @@ class ClockLanguageManager : public ClockLanguageManagerBase
     Q_OBJECT
 
 public:
-    explicit ClockLanguageManager(QObject *parent = nullptr);
+    explicit ClockLanguageManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    void detectClockAvailableLocales() override final;
+    void detectClockAvailableLocales() final override;
 };
 

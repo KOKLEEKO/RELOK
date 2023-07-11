@@ -7,7 +7,8 @@
 **************************************************************************************************/
 #include "AutoLockManager.h"
 
-AutoLockManager::AutoLockManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager, QObject *parent)
-    : AutoLockManagerBase{persistenceManager, parent}
+AutoLockManager::AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : AutoLockManagerBase{deviceAccess, parent}
 {
+    m_enabled = true;
 }

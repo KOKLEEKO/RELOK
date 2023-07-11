@@ -7,10 +7,14 @@
 **************************************************************************************************/
 #include "SpeechManager.h"
 
-SpeechManager::SpeechManager(const std::shared_ptr<ClockLanguageManagerBase> &clockLanguageManager,
-                             const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                             QObject *parent)
-    : SpeechManagerBase{clockLanguageManager, persistenceManager, parent}
+#include "PersistenceManagerBase.h"
+
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+using namespace Default;
+#endif
+
+SpeechManager::SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : SpeechManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
 
@@ -41,12 +45,14 @@ void SpeechManager::setSpeechLanguage(QString iso)
             voicesNames << voice.name().split(" ")[0];
         m_speechAvailableVoices.insert(iso, voicesNames);
         const QString settingName = QString("Appearance/%1_voice").arg(iso);
-        if (persistenceManager()->value(settingName, -1).toInt() == -1) {
+        if (deviceAccess()->manager<PersistenceManagerBase>(PersistenceManagerBase::name())->value(settingName, -1).toInt()
+            == -1) {
             int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(" ")[0]);
             if (iso == "fr_FR" && m_speechAvailableVoices[iso].toStringList().size() > 9)
                 defaultIndex = 9;
-            persistenceManager()->setValue(QString("Appearance/%1_voice").arg(iso),
-                                           defaultIndex == -1 ? 0 : defaultIndex);
+            deviceAccess()
+                ->manager<PersistenceManagerBase>(PersistenceManagerBase::name())
+                ->setValue(QString("Appearance/%1_voice").arg(iso), defaultIndex == -1 ? 0 : defaultIndex);
         }
         emit speechAvailableVoicesChanged();
     }

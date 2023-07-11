@@ -10,8 +10,8 @@
 #include <QDir>
 #include <QFileInfo>
 
-ClockLanguageManager::ClockLanguageManager(QObject *parent)
-    : ClockLanguageManagerBase{parent}
+ClockLanguageManager::ClockLanguageManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ClockLanguageManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
     detectClockAvailableLocales();

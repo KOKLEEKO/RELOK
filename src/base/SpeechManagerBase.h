@@ -8,7 +8,6 @@
 #pragma once
 
 #include "ManagerBase.h"
-#include <PersistenceCapability.h>
 
 #include <memory>
 
@@ -17,10 +16,7 @@
 #include <QTextToSpeech>
 #include <QVariantMap>
 
-#include "ClockLanguageManagerBase.h"
-#include "PersistenceManagerBase.h"
-
-class SpeechManagerBase : public ManagerBase<SpeechManagerBase>, public PersistenceCapability
+class SpeechManagerBase : public ManagerBase<SpeechManagerBase>
 {
     Q_OBJECT
 
@@ -29,9 +25,7 @@ class SpeechManagerBase : public ManagerBase<SpeechManagerBase>, public Persiste
     Q_PROPERTY(bool hasMutipleVoices READ hasMutipleVoices NOTIFY hasMutipleVoicesChanged)
 
 public:
-    explicit SpeechManagerBase(const std::shared_ptr<ClockLanguageManagerBase> &clockLanguageManager,
-                               const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                               QObject *parent = nullptr);
+    explicit SpeechManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     bool hasMutipleVoices() const { return m_hasMutipleVoices; }
     void setHasMutipleVoices(bool newHasMutipleVoices);
@@ -54,6 +48,8 @@ protected:
     QVariantMap m_speechAvailableVoices{};
     QStringList m_speechFilter{};
     QTextToSpeech m_speech{};
-    std::shared_ptr<ClockLanguageManagerBase> m_clockLanguageManager;
     bool m_hasMutipleVoices = false;
 };
+
+template<>
+QString ManagerBase<SpeechManagerBase>::m_name;

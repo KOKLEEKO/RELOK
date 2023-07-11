@@ -12,6 +12,6 @@
 class SplashScreenManager : public SplashScreenManagerBase
 {
 public:
-    explicit SplashScreenManager(QObject *parent = nullptr);
+    explicit SplashScreenManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 };
 

@@ -8,9 +8,8 @@
 #pragma once
 
 #include "ManagerBase.h"
-#include <PersistenceCapability.h>
 
-class AutoLockManagerBase : public ManagerBase<AutoLockManagerBase>, public PersistenceCapability
+class AutoLockManagerBase : public ManagerBase<AutoLockManagerBase>
 {
     Q_OBJECT
 
@@ -18,8 +17,7 @@ class AutoLockManagerBase : public ManagerBase<AutoLockManagerBase>, public Pers
     Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
 
 public:
-    explicit AutoLockManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                 QObject *parent = nullptr);
+    explicit AutoLockManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     bool isAutoLockDisabled() const { return m_isAutoLockDisabled; }
     bool isAutoLockRequested() const { return m_isAutoLockRequested; }
@@ -27,6 +25,9 @@ public:
 
     Q_INVOKABLE virtual void security(bool /*value*/) {}
     virtual void disableAutoLock(bool /*disable*/) {}
+
+protected:
+    void setIsAutoLockDisabled(bool newIsAutoLockDisabled);
 
 signals:
     void isAutoLockDisabledChanged();
@@ -36,3 +37,6 @@ private:
     bool m_isAutoLockDisabled = false;
     bool m_isAutoLockRequested = false;
 };
+
+template<>
+QString ManagerBase<AutoLockManagerBase>::m_name;

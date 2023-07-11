@@ -10,8 +10,8 @@
 template<>
 QString ManagerBase<BatteryManagerBase>::m_name{"battery"};
 
-BatteryManagerBase::BatteryManagerBase(QObject *parent)
-    : ManagerBase(parent)
+BatteryManagerBase::BatteryManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}
 
 void BatteryManagerBase::updateBatteryLevel(float batteryLevel)

@@ -11,9 +11,8 @@
 #include <QFileInfo>
 #include <QGuiApplication>
 
-TranslationManager::TranslationManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                       QObject *parent)
-    : TranslationManagerBase{persistenceManager, parent}
+TranslationManager::TranslationManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : TranslationManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
     getAvailableTransalations();

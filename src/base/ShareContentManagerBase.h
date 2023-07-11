@@ -16,7 +16,10 @@ class ShareContentManagerBase : public ManagerBase<ShareContentManagerBase>
     Q_OBJECT
 
 public:
-    ShareContentManagerBase(QObject *parent = nullptr);
+    explicit ShareContentManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual void share(QVariant /*content*/) {}
 };
+
+template<>
+QString ManagerBase<ShareContentManagerBase>::m_name;

@@ -10,10 +10,8 @@
 template<>
 QString ManagerBase<ScreenBrightnessManagerBase>::m_name{"screenBrightness"};
 
-ScreenBrightnessManagerBase::ScreenBrightnessManagerBase(
-    const std::shared_ptr<PersistenceManagerBase> &persistenceManager, QObject *parent)
-    : ManagerBase(parent)
-    , PersistenceCapability(persistenceManager)
+ScreenBrightnessManagerBase::ScreenBrightnessManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}
 
 void ScreenBrightnessManagerBase::updateBrightness(float brightness)

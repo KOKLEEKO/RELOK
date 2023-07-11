@@ -10,6 +10,6 @@
 template<>
 QString ManagerBase<PersistenceManagerBase>::m_name{"persistence"};
 
-PersistenceManagerBase::PersistenceManagerBase(QObject *parent)
-    : ManagerBase(parent)
+PersistenceManagerBase::PersistenceManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}

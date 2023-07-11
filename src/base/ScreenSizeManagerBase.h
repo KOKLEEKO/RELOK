@@ -8,9 +8,8 @@
 #pragma once
 
 #include "ManagerBase.h"
-#include <PersistenceCapability.h>
 
-class ScreenSizeManagerBase : public ManagerBase<ScreenSizeManagerBase>, public PersistenceCapability
+class ScreenSizeManagerBase : public ManagerBase<ScreenSizeManagerBase>
 {
     Q_OBJECT
 
@@ -23,8 +22,7 @@ class ScreenSizeManagerBase : public ManagerBase<ScreenSizeManagerBase>, public 
     Q_PROPERTY(float statusBarHeight MEMBER m_statusBarHeight NOTIFY safeInsetsChanged)
 
 public:
-    explicit ScreenSizeManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                   QObject *parent = nullptr);
+    explicit ScreenSizeManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     virtual void updateSafeAreaInsets() {}
 
@@ -42,3 +40,6 @@ private:
     float m_safeInsetTop = .0;
     float m_statusBarHeight = .0;
 };
+
+template<>
+QString ManagerBase<ScreenSizeManagerBase>::m_name;

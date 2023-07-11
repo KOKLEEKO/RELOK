@@ -7,7 +7,8 @@
 **************************************************************************************************/
 #include "ScreenSizeManager.h"
 
-ScreenSizeManager::ScreenSizeManager(const std::shared_ptr<PersistenceManagerBase> &persistenceManager, QObject *parent)
-    : ScreenSizeManagerBase{persistenceManager, parent}
+ScreenSizeManager::ScreenSizeManager(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ScreenSizeManagerBase{deviceAccess, parent}
 {
+    m_enabled = true;
 }

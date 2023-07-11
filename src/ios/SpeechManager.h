@@ -7,13 +7,11 @@
 **************************************************************************************************/
 #pragma once
 
-#include <SpeechManagerBase.h>
+#include "src/default/SpeechManager.h"
 
-class SpeechManager : public SpeechManagerBase
+class SpeechManager : public Default::SpeechManager
 {
 public:
-    explicit SpeechManager(const std::shared_ptr<ClockLanguageManagerBase> &clockLanguageManager,
-                           const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                           QObject *parent = nullptr);
+    explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 };
 

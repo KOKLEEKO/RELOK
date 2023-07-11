@@ -10,8 +10,6 @@
 template<>
 QString ManagerBase<TranslationManagerBase>::m_name{"translation"};
 
-TranslationManagerBase::TranslationManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                               QObject *parent)
-    : ManagerBase(parent)
-    , PersistenceCapability(persistenceManager)
+TranslationManagerBase::TranslationManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}

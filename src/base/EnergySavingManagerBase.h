@@ -8,14 +8,10 @@
 #pragma once
 
 #include "ManagerBase.h"
-#include <PersistenceCapability.h>
 
 #include <memory>
 
-#include "AutoLockManagerBase.h"
-#include "BatteryManagerBase.h"
-
-class EnergySavingManagerBase : public ManagerBase<EnergySavingManagerBase>, public PersistenceCapability
+class EnergySavingManagerBase : public ManagerBase<EnergySavingManagerBase>
 {
     Q_OBJECT
 
@@ -23,13 +19,8 @@ class EnergySavingManagerBase : public ManagerBase<EnergySavingManagerBase>, pub
                    minimumBatteryLevelChanged)
 
 public:
-    explicit EnergySavingManagerBase(const std::shared_ptr<AutoLockManagerBase> &autoLockManager,
-                                     const std::shared_ptr<BatteryManagerBase> &batteryManager,
-                                     const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                     QObject *parent = nullptr);
+    explicit EnergySavingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
     void setMinimumBatteryLevel(int value);
-
-private:
     virtual void batterySaving() {}
 
 signals:
@@ -37,6 +28,7 @@ signals:
 
 protected:
     int m_minimumBatteryLevel = 50;
-    std::shared_ptr<AutoLockManagerBase> m_autoLockManager;
-    std::shared_ptr<BatteryManagerBase> m_batteryManager;
 };
+
+template<>
+QString ManagerBase<EnergySavingManagerBase>::m_name;

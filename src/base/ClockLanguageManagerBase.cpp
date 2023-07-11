@@ -13,6 +13,6 @@
 template<>
 QString ManagerBase<ClockLanguageManagerBase>::m_name{"clockLanguage"};
 
-ClockLanguageManagerBase::ClockLanguageManagerBase(QObject *parent)
-    : ManagerBase(parent)
+ClockLanguageManagerBase::ClockLanguageManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}

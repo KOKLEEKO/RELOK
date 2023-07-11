@@ -10,8 +10,6 @@
 template<>
 QString ManagerBase<ScreenSizeManagerBase>::m_name{"screenSize"};
 
-ScreenSizeManagerBase::ScreenSizeManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                             QObject *parent)
-    : ManagerBase(parent)
-    , PersistenceCapability(persistenceManager)
+ScreenSizeManagerBase::ScreenSizeManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}

@@ -7,19 +7,30 @@
 **************************************************************************************************/
 #include "AutoLockManagerBase.h"
 
+#include "PersistenceManager.h"
+
 template<>
 QString ManagerBase<AutoLockManagerBase>::m_name{"autoLock"};
 
-AutoLockManagerBase::AutoLockManagerBase(const std::shared_ptr<PersistenceManagerBase> &persistenceManager,
-                                         QObject *parent)
-    : ManagerBase(parent)
-    , PersistenceCapability(persistenceManager)
+AutoLockManagerBase::AutoLockManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+    : ManagerBase(deviceAccess, parent)
 {}
 
 void AutoLockManagerBase::requestAutoLock(bool isAutoLockRequested)
 {
     if (m_isAutoLockRequested == isAutoLockRequested)
         return;
-    persistenceManager()->setValue("BatterySaving/isAutoLockRequested", m_isAutoLockRequested = isAutoLockRequested);
+    deviceAccess()
+        ->manager<PersistenceManager>(PersistenceManager::name())
+        ->setValue("BatterySaving/isAutoLockRequested", m_isAutoLockRequested = isAutoLockRequested);
     emit isAutoLockRequestedChanged();
+}
+
+void AutoLockManagerBase::setIsAutoLockDisabled(bool newIsAutoLockDisabled)
+{
+    if (m_isAutoLockDisabled == newIsAutoLockDisabled)
+        return;
+    m_isAutoLockDisabled = newIsAutoLockDisabled;
+    qCDebug(lc) << "[R] isAutoLockDisabled:" << m_isAutoLockDisabled;
+    emit isAutoLockDisabledChanged();
 }
