@@ -15,6 +15,8 @@ class ShareContentManagerBase : public ManagerBase<ShareContentManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
+
 public:
     explicit ShareContentManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 

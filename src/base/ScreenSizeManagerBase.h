@@ -13,6 +13,7 @@ class ScreenSizeManagerBase : public ManagerBase<ScreenSizeManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(bool prefersStatusBarHidden MEMBER m_prefersStatusBarHidden NOTIFY prefersStatusBarHiddenChanged)
     Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetBottom MEMBER m_safeInsetBottom NOTIFY safeInsetsChanged)

@@ -7,8 +7,6 @@
 **************************************************************************************************/
 #pragma once
 
-#include <QObject>
-
 #include <QLoggingCategory>
 #include <QString>
 
@@ -19,7 +17,6 @@ Q_DECLARE_LOGGING_CATEGORY(lc)
 template<typename ManagerImpl>
 class ManagerBase : public QObject
 {
-    Q_PROPERTY(bool enabled READ enabled CONSTANT)
 public:
     explicit ManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr)
         : QObject(parent)

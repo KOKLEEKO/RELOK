@@ -13,6 +13,7 @@ class AutoLockManagerBase : public ManagerBase<AutoLockManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(bool isAutoLockDisabled READ isAutoLockDisabled NOTIFY isAutoLockDisabledChanged)
     Q_PROPERTY(bool isAutoLockRequested READ isAutoLockRequested WRITE requestAutoLock NOTIFY isAutoLockRequestedChanged)
 

@@ -12,6 +12,8 @@
 class TrackingManagerBase : public ManagerBase<TrackingManagerBase>
 {
     Q_OBJECT
+
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(bool isBugTracking MEMBER m_isBugTracking WRITE requestBugTracking NOTIFY isBugTrackingChanged)
     Q_PROPERTY(bool isUsageTracking MEMBER m_isUsageTracking WRITE requestUsageTracking NOTIFY isUsageTrackingChanged)
 

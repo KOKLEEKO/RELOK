@@ -15,6 +15,7 @@ class EnergySavingManagerBase : public ManagerBase<EnergySavingManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(int minimumBatteryLevel MEMBER m_minimumBatteryLevel WRITE setMinimumBatteryLevel NOTIFY
                    minimumBatteryLevelChanged)
 

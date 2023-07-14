@@ -13,6 +13,7 @@ class SplashScreenManagerBase : public ManagerBase<SplashScreenManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(bool isActive MEMBER m_isActive NOTIFY isActiveChanged)
 
 public:

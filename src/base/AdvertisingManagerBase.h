@@ -13,6 +13,7 @@ class AdvertisingManagerBase : public ManagerBase<AdvertisingManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(bool isAdvertisingEnabled READ isAdvertisingEnabled NOTIFY isAdvertisingEnableChanged)
     Q_PROPERTY(bool isAdvertisingRequested READ isAdvertisingRequested WRITE requestAdvertising NOTIFY
                    isAdvertisingRequestedChanged)

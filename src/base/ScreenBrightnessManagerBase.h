@@ -13,6 +13,7 @@ class ScreenBrightnessManagerBase : public ManagerBase<ScreenBrightnessManagerBa
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(float brightness MEMBER m_brightness NOTIFY brightnessChanged)
     Q_PROPERTY(float brightnessRequested WRITE setBrightnessRequested MEMBER m_brightnessRequested)
 

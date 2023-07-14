@@ -16,6 +16,8 @@
 class TranslationManagerBase : public ManagerBase<TranslationManagerBase>
 {
     Q_OBJECT
+
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(QVariantMap availableTranslations MEMBER m_availableTranslations CONSTANT)
     Q_PROPERTY(QString emptyString MEMBER m_emptyString NOTIFY retranslate)
 

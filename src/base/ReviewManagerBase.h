@@ -13,6 +13,8 @@ class ReviewManagerBase : public ManagerBase<ReviewManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
+
 public:
     explicit ReviewManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 

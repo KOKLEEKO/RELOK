@@ -113,6 +113,8 @@ QtControls.ApplicationWindow
         //for (var prop in Qt.rgba(1,0,0,0))
         //  console.log(prop)
         //console.log(Qt.rgba(1,0,0,0).hslLightness)
+
+        HelpersJS.listProperties("DeviceAccess.managers.battery", DeviceAccess.managers.battery)
     }
 
     QtQuick.Connections

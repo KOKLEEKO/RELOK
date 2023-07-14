@@ -13,6 +13,7 @@ class BatteryManagerBase : public ManagerBase<BatteryManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(bool isPlugged READ isPlugged NOTIFY isPluggedChanged)
     Q_PROPERTY(int batteryLevel READ batteryLevel NOTIFY batteryLevelChanged)
 

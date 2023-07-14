@@ -20,6 +20,7 @@ class SpeechManagerBase : public ManagerBase<SpeechManagerBase>
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales NOTIFY speechAvailableLocalesChanged)
     Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
     Q_PROPERTY(bool hasMutipleVoices READ hasMutipleVoices NOTIFY hasMutipleVoicesChanged)
