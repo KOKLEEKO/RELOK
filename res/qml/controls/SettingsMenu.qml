@@ -83,6 +83,7 @@ benefit to you.") + DeviceAccess.managers.translation.emptyString
     QtQuick.Loader
     {
         active: DeviceAccess.managers.battery.enabled
+        QtLayouts.Layout.fillWidth: true
         sourceComponent: Controls.MenuSection
         {
             title: qsTr("Battery Saving") + DeviceAccess.managers.translation.emptyString
@@ -145,7 +146,8 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                             DeviceAccess.managers.screenBrightness.requestBrightnessUpdate()
                     }
                 }
-                details: qsTr("High brightness levels cause the battery to discharge faster.") + DeviceAccess.managers.translation.emptyString
+                details: qsTr("High brightness levels cause the battery to discharge faster.") +
+                         DeviceAccess.managers.translation.emptyString
             }
         }
     }
@@ -165,8 +167,7 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 onToggled: HelpersJS.updateVisibility(root)
                 QtQuick.Component.onCompleted:
                 {
-                    if (root.isFullScreen !== DeviceAccess.managers.persistence.value("Appearance/fullScreen",
-                                                                                      false))
+                    if (root.isFullScreen !== DeviceAccess.managers.persistence.value("Appearance/fullScreen", false))
                         toggled()
                 }
             }
@@ -239,15 +240,13 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 width: parent.width
                 currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
                 model: Object.values(wordClock.languages)
-
                 onModelChanged:
                 {
                     if (HelpersJS.isAndroid)
                         currentIndex = Qt.binding(() => Object.keys(wordClock.languages)
                                                   .indexOf(wordClock.selected_language))
                 }
-                onActivated: (index) =>
-                             {
+                onActivated: (index) => {
                                  const language = Object.keys(wordClock.languages)[index]
                                  wordClock.selectLanguage(language)
                                  DeviceAccess.managers.persistence.setValue("Appearance/clockLanguage", language)
@@ -301,16 +300,13 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 {
                     DeviceAccess.managers.speech.setSpeechVoice(index)
                     if (wordClock.enable_speech)
-                    {
                         DeviceAccess.managers.speech.say(wordClock.written_time)
-                    }
                     DeviceAccess.managers.persistence.setValue("Appearance/%1_voice"
                                                                .arg(wordClock.selected_language), index)
                 }
 
                 width: parent ? parent.width : 0
-                model: HelpersJS.isAndroid ? [] : DeviceAccess.managers.speech.speechAvailableVoices[
-                                                 wordClock.selected_language]
+                model: DeviceAccess.managers.speech.speechAvailableVoices[wordClock.selected_language]
 
                 onModelChanged:
                 {
@@ -365,7 +361,7 @@ display 0, 1, or 2 lights, allowing you to distinguish these different times.") 
         }
         Controls.MenuItem
         {
-            title: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control.value)) +
+            title: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control ? control.value : 0)) +
                    DeviceAccess.managers.translation.emptyString
             active: HelpersJS.isDesktop  // @disable-check M16  @disable-check M31
             enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
@@ -492,13 +488,15 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
 
         function applyColors()
         {
-            const on_color = DeviceAccess.managers.persistence.value("Appearance/on_color", default_on_color)
-            const off_color = DeviceAccess.managers.persistence.value("Appearance/off_color", default_off_color)
-            const background_color = DeviceAccess.managers.persistence.value("Appearance/background_color",
-                                                                             default_background_color)
-            activatedLetterColorPicker.extraControls[3].setColor(on_color)
-            deactivatedLetterColorPicker.extraControls[3].setColor(off_color)
-            backgroundColorPicker.extraControls[3].setColor(background_color)
+            activatedLetterColorPicker.extraControls[3].setColor(
+                        DeviceAccess.managers.persistence.value("Appearance/on_color", default_on_color))
+            deactivatedLetterColorPicker.extraControls[3].setColor(
+                        DeviceAccess.managers.persistence.value("Appearance/off_color", default_off_color))
+
+            if (backgroundColorPicker.active)
+                backgroundColorPicker.extraControls[3].setColor(
+                            DeviceAccess.managers.persistence.value("Appearance/background_color",
+                                                                    default_background_color))
         }
 
         title: qsTr("Colors") + DeviceAccess.managers.translation.emptyString
@@ -563,7 +561,7 @@ almost as soon as you encounter them. But you can disable this feature to enter 
         {
             id: review
 
-            property int rating: DeviceAccess.managers.persistence.value("About/rating", 0)
+            property int rating: DeviceAccess.managers.persistence.value("About/rating", -1)
 
             title: qsTr("Review") + DeviceAccess.managers.translation.emptyString
             model: 5

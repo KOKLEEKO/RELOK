@@ -97,7 +97,7 @@ class Object
         }
 
         instance.language_url = tmp_language_url
-        instance.selected_language = language
+        instance.selected_language = fileBaseName
 
         if (DeviceAccess.managers.speech.enabled && instance.enable_speech)
         {

@@ -35,7 +35,7 @@ QtControls.TextField
     inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
     selectByMouse: true
     selectedTextColor: "white"
-    text: huePicker.selected_color.toString().toUpperCase()
+    text: huePicker ? huePicker.selected_color.toString().toUpperCase() : ""
     validator: QtQuick.RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }  // @disable-check M16 @disable-check M31
 
     QtQuick.Component.onCompleted: editingFinished.connect(() => { setColor(text); focus = false })

@@ -35,7 +35,7 @@ QtControls.Drawer
                                    DeviceAccess.managers.screenSize.safeInsetTop)
     z: 1
 
-    QtQuick.Component.onCompleted: webAccessJS = new WebAccessJS(this, isDebug)
+    QtQuick.Component.onCompleted: webAccessJS = new WebAccessJS.Object(this, isDebug)
 
     QtLayouts.ColumnLayout
     {

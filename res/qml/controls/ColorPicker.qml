@@ -12,7 +12,7 @@ import DeviceAccess 1.0
 
 MenuItem
 {
-    property color selected_color: extraControls[0].selected_color
+    property color selected_color: extraControls ? extraControls[0].selected_color : "black"
     required property string name
 
     extras: [
@@ -20,28 +20,30 @@ MenuItem
         ColorFactorPicker
         {
             factorType: Picker.Factors.Saturation
-            hue: parent.children[0].hue
-            lightness: parent.children[0].lightness
+            hue: parent ? parent.children[0].hue : 0
+            lightness: parent ? parent.children[0].lightness : 0
 
-            QtQuick.Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
+            QtQuick.Component.onCompleted:
+            {
+                onMoved.connect(() => { if (parent) parent.children[0].saturation = value }); moved() }
         },
         ColorFactorPicker
         {
             factorType: Picker.Factors.Lightness
-            hue: parent.children[0].hue
-            saturation: parent.children[0].saturation
+            hue: parent ? parent.children[0].hue : 0
+            saturation: parent ? parent.children[0].saturation : 0
 
-            QtQuick.Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
+            QtQuick.Component.onCompleted: { onMoved.connect(() => { if (parent) parent.children[0].lightness = value }); moved() }
         },
         ColorHexField
         {
-            huePicker: parent.children[0]
-            saturationPicker: parent.children[1]
-            lightnessPicker: parent.children[2]
+            huePicker: parent ? parent.children[0] : null
+            saturationPicker: parent ? parent.children[1] : null
+            lightnessPicker: parent ? parent.children[2] : null
         }
     ]
 
-    QtQuick.Component.onCompleted:
+    onLoaded:
     {
         control.clicked.connect(() => extraControls[3].setColor(parent.parent["default_%1".arg(name)]))
         selected_colorChanged.connect(
