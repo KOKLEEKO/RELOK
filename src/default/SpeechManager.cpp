@@ -28,6 +28,7 @@ SpeechManager::SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent)
 
 void SpeechManager::say(QString text)
 {
+    requestAudioFocus();
     m_speech.stop();
     m_speech.say(text.toLower());
 }

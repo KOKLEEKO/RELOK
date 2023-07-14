@@ -20,11 +20,13 @@ class SpeechManager : public SpeechManagerBase
 public:
     explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    void endOfSpeech() const override {}
-    void say(QString text) override;
+    void say(QString text) final override;
     void setSpeechLanguage(QString iso) override;
     void setSpeechVoice(int index) override;
+
+protected:
     void initSpeechLocales() final override;
+    void endOfSpeech() const override {}
 };
 
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)

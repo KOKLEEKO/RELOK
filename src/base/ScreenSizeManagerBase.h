@@ -24,14 +24,18 @@ class ScreenSizeManagerBase : public ManagerBase<ScreenSizeManagerBase>
 public:
     explicit ScreenSizeManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
+    bool prefersStatusBarHidden() const { return m_prefersStatusBarHidden; }
+
     virtual void updateSafeAreaInsets() {}
+    Q_INVOKABLE virtual void toggleFullScreen() {}
 
 signals:
     void prefersStatusBarHiddenChanged();
     void safeInsetsChanged();
     void viewConfigurationChanged();
 
-private:
+protected:
+    bool m_shouldNotifyViewConfigurationChanged = true;
     bool m_prefersStatusBarHidden = false;
     float m_navigationBarHeight = .0;
     float m_safeInsetBottom = .0;

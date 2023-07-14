@@ -14,6 +14,7 @@ class ScreenSizeManager : public ScreenSizeManagerBase
 public:
     explicit ScreenSizeManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    void updateSafeAreaInsets() override;
+    void toggleFullScreen() final override;
+    void updateSafeAreaInsets() final override;
 };
 

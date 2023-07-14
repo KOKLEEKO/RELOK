@@ -7,10 +7,23 @@
 **************************************************************************************************/
 #include "ReviewManager.h"
 
+#import <StoreKit/SKStoreReviewController.h>
+#import <UIKit/UIApplication.h>
+#import <UIKit/UIWindowScene.h>
+
 ReviewManager::ReviewManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : ReviewManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
 }
 
-void ReviewManager::requestReview() {}
+void ReviewManager::requestReview()
+{
+    if (@available(iOS 14.0, *)) {
+        auto windowScene = [[[UIApplication sharedApplication] keyWindow] windowScene];
+        if (windowScene)
+            [SKStoreReviewController requestReviewInScene:windowScene];
+    } else if (@available(iOS 10.3, *)) {
+        [SKStoreReviewController requestReview];
+    }
+}

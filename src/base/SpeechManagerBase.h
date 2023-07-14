@@ -30,12 +30,14 @@ public:
     bool hasMutipleVoices() const { return m_hasMutipleVoices; }
     void setHasMutipleVoices(bool newHasMutipleVoices);
 
-    virtual void initSpeechLocales() {}
-    virtual void endOfSpeech() const {}
-
     Q_INVOKABLE virtual void say(QString /*text*/) {}
     Q_INVOKABLE virtual void setSpeechLanguage(QString /*iso*/) {}
     Q_INVOKABLE virtual void setSpeechVoice(int /*index*/){};
+
+protected:
+    virtual void requestAudioFocus() {}
+    virtual void initSpeechLocales() {}
+    virtual void endOfSpeech() const {}
 
 signals:
     void speechAvailableLocalesChanged();

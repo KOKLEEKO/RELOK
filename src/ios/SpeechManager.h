@@ -13,5 +13,7 @@ class SpeechManager : public Default::SpeechManager
 {
 public:
     explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
+
+    void endOfSpeech() const final override;
 };
 

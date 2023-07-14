@@ -5,7 +5,10 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include "ScreenBrightnessManager.h"
+#import "ScreenBrightnessManager.h"
+#include "PersistenceManager.h"
+
+#import "UIKit/UIScreen.h"
 
 ScreenBrightnessManager::ScreenBrightnessManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : ScreenBrightnessManagerBase{deviceAccess, parent}
@@ -13,4 +16,11 @@ ScreenBrightnessManager::ScreenBrightnessManager(DeviceAccessBase *deviceAccess,
     m_enabled = true;
 }
 
-void ScreenBrightnessManager::setBrightnessRequested(float brightness) {}
+void ScreenBrightnessManager::setBrightnessRequested(float brightness)
+{
+    qCDebug(lc) << "[W] brightness:" << brightness;
+    deviceAccess()
+        ->manager<PersistenceManager>(PersistenceManager::name())
+        ->setValue("BatterySaving/brightness", [UIScreen mainScreen].brightness = brightness);
+    updateBrightness([UIScreen mainScreen].brightness);
+}

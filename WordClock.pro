@@ -131,15 +131,16 @@ macx | ios {
         INCLUDEPATH += src/ios
 
         HEADERS +=                                              \
+            src/default/BatteryManager.h                        \
             src/default/EnergySavingManager.h                   \
             src/default/SpeechManager.h
         SOURCES +=                                              \
+            src/default/BatteryManager.cpp                      \
             src/default/EnergySavingManager.cpp                 \
             src/default/SpeechManager.cpp
 
         OBJECTIVE_HEADERS +=                                    \
             src/ios/AutoLockManager.h                           \
-            src/ios/BatteryManager.h                            \
             src/ios/DeviceAccess.h                              \
             src/ios/ReviewManager.h                             \
             src/ios/ScreenBrightnessManager.h                   \
@@ -148,7 +149,6 @@ macx | ios {
             src/ios/SpeechManager.h
         OBJECTIVE_SOURCES +=                                    \
             src/ios/AutoLockManager.mm                          \
-            src/ios/BatteryManager.mm                           \
             src/ios/DeviceAccess.mm                             \
             src/ios/ReviewManager.mm                            \
             src/ios/ScreenBrightnessManager.mm                  \
@@ -170,7 +170,6 @@ macx | ios {
 
     HEADERS +=                                                  \
         src/android/AutoLockManager.h                           \
-        src/android/BatteryManager.h                            \
         src/android/DeviceAccess.h                              \
         src/android/ReviewManager.h                             \
         src/android/ScreenBrightnessManager.h                   \
@@ -178,11 +177,11 @@ macx | ios {
         src/android/ShareContentManager.h                       \
         src/android/SpeechManager.h                             \
         src/android/SplashScreenManager.h                       \
+        src/default/BatteryManager.h                            \
         src/default/EnergySavingManager.h                       \
         src/default/SpeechManager.h
     SOURCES +=                                                  \
         src/android/AutoLockManager.cpp                         \
-        src/android/BatteryManager.cpp                          \
         src/android/DeviceAccess.cpp                            \
         src/android/ReviewManager.cpp                           \
         src/android/ScreenBrightnessManager.cpp                 \
@@ -190,6 +189,7 @@ macx | ios {
         src/android/ShareContentManager.cpp                     \
         src/android/SpeechManager.cpp                           \
         src/android/SplashScreenManager.cpp                     \
+        src/default/BatteryManager.cpp                          \
         src/default/EnergySavingManager.cpp                     \
         src/default/SpeechManager.cpp
 

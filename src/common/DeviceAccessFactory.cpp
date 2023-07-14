@@ -22,13 +22,13 @@
 
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
 #include <AutoLockManager.h>
-#include <BatteryManager.h>
 #include <ScreenBrightnessManager.h>
 #include <ScreenSizeManager.h>
 #include <ShareContentManager.h>
 #include <SpeechManager.h>
 
 #include "src/default/EnergySavingManager.h"
+#include <src/default/BatteryManager.h>
 #endif
 
 DeviceAccessFactory::DeviceAccessFactory() {}

@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include "AutoLockManager.h"
+#import "AutoLockManager.h"
 
 #import <UIKit/UIApplication.h>
 

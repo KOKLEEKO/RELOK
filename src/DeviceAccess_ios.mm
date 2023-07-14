@@ -103,7 +103,7 @@ bool shouldNotifyViewConfigurationChanged = YES;
 
 void DeviceAccess::setBrightnessRequested(float brightness) {
     qCDebug(lc) << "W brightness:" << brightness;
-    m_settings.setValue("BatterySaving/battery", [UIScreen mainScreen].brightness = brightness);
+    m_settings.setValue("BatterySaving/brightness", [UIScreen mainScreen].brightness = brightness);
     updateBrightness([UIScreen mainScreen].brightness);
 }
 

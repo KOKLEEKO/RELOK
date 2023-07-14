@@ -82,7 +82,7 @@ benefit to you.") + DeviceAccess.managers.translation.emptyString
     }
     QtQuick.Loader
     {
-        active: HelpersJS.isMobile
+        active: DeviceAccess.managers.battery.enabled
         sourceComponent: Controls.MenuSection
         {
             title: qsTr("Battery Saving") + DeviceAccess.managers.translation.emptyString
@@ -467,7 +467,7 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
         }
         Controls.SmallPositionSelector
         {
-            active: HelpersJS.isMobile
+            active: DeviceAccess.managers.battery.enabled
             name: "batteryLevel"
             title: qsTr("Battery Level display mode") + DeviceAccess.managers.translation.emptyString
         }
@@ -547,7 +547,7 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
         }
         Controls.MenuItem
         {
-            active: false
+            active: DeviceAccess.managers.tracking.enabled
             title: qsTr("Bug tracking") + DeviceAccess.managers.translation.emptyString
 
             QtControls.Switch

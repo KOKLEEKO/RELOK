@@ -5,9 +5,25 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include "SpeechManager.h"
+#import "SpeechManager.h"
+
+#import <AVFoundation/AVAudioSession.h>
 
 SpeechManager::SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : Default::SpeechManager{deviceAccess, parent}
 {
+    m_enabled = true;
+
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                            mode:AVAudioSessionModeVoicePrompt
+                                         options:AVAudioSessionCategoryOptionDuckOthers
+                                                 | AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers
+                                           error:nil];
+}
+
+void SpeechManager::endOfSpeech() const
+{
+    [[AVAudioSession sharedInstance] setActive:NO
+                                   withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+                                         error:nil];
 }

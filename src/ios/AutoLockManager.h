@@ -14,6 +14,6 @@ class AutoLockManager : public AutoLockManagerBase
 public:
     explicit AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    virtual void disableAutoLock(bool disable);
+    void disableAutoLock(bool disable) final override;
 };
 
