@@ -32,5 +32,7 @@ private:
     float m_brightnessRequested = .0;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<ScreenBrightnessManagerBase>::m_name;
+#endif

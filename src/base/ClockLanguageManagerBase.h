@@ -29,5 +29,7 @@ protected:
     QVariantMap m_clockAvailableLocales;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<ClockLanguageManagerBase>::m_name;
+#endif

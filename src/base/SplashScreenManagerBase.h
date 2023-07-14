@@ -32,5 +32,7 @@ protected:
     bool m_isActive = false;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<SplashScreenManagerBase>::m_name;
+#endif

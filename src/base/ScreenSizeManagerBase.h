@@ -46,5 +46,7 @@ protected:
     float m_statusBarHeight = .0;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<ScreenSizeManagerBase>::m_name;
+#endif

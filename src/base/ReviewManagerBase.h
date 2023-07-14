@@ -21,5 +21,7 @@ public:
     Q_INVOKABLE virtual void requestReview() {}
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<ReviewManagerBase>::m_name;
+#endif

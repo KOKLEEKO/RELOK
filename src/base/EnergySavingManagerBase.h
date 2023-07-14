@@ -31,5 +31,7 @@ protected:
     int m_minimumBatteryLevel = 50;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<EnergySavingManagerBase>::m_name;
+#endif

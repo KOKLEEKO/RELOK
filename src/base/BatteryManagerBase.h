@@ -34,5 +34,7 @@ private:
     int m_batteryLevel = 0; // [0 .. 100] %
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<BatteryManagerBase>::m_name;
+#endif

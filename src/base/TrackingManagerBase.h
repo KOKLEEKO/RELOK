@@ -32,5 +32,7 @@ private:
     bool m_isUsageTracking = false;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<TrackingManagerBase>::m_name;
+#endif

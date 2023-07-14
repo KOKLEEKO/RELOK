@@ -39,5 +39,7 @@ private:
     bool m_isAutoLockRequested = false;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<AutoLockManagerBase>::m_name;
+#endif

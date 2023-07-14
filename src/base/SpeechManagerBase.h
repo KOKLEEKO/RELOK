@@ -54,5 +54,7 @@ protected:
     bool m_hasMutipleVoices = false;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<SpeechManagerBase>::m_name;
+#endif

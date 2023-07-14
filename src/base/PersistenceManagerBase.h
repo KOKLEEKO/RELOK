@@ -27,5 +27,7 @@ signals:
     void settingsReady();
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<PersistenceManagerBase>::m_name;
+#endif

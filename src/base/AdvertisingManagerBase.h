@@ -36,5 +36,7 @@ private:
     bool m_isAdvertisingRequested = false;
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<AdvertisingManagerBase>::m_name;
+#endif

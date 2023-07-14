@@ -23,5 +23,7 @@ public:
     Q_INVOKABLE virtual void share(QVariant /*content*/) {}
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<ShareContentManagerBase>::m_name;
+#endif

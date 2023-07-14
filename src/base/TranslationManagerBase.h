@@ -40,5 +40,7 @@ private:
     QString m_emptyString{};
 };
 
+#ifndef Q_OS_WIN
 template<>
 QString ManagerBase<TranslationManagerBase>::m_name;
+#endif
