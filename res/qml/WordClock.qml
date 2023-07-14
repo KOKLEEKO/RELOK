@@ -187,9 +187,9 @@ QtQuick.Rectangle
         readonly property int s_to_ms: 1000
         readonly property var time_reference_list: time_reference.split(':')
         readonly property int time_reference_ms: -3600000 + // January 1, 1970, 00:00:00
-                                                 parseInt(time_reference_list[0])*hour_to_ms +
-                                                 parseInt(time_reference_list[1])*minute_to_ms +
-                                                 parseInt(time_reference_list[2])*s_to_ms
+                                                 parseInt(time_reference_list[0], 10)*hour_to_ms +
+                                                 parseInt(time_reference_list[1], 10)*minute_to_ms +
+                                                 parseInt(time_reference_list[2], 10)*s_to_ms
 
         interval: is_debug ? 5000 : 5
         repeat: true

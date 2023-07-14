@@ -85,16 +85,12 @@ class Object
     {
         var fileBaseName = language
         if (!instance.supportedLanguages.includes(fileBaseName))
-        {
             fileBaseName = (instance.supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2)
                                                                                                     : "en"
-        }
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
 
         if (isDebug)
-        {
             console.log(language, instance.supportedLanguages, tmp_language_url)
-        }
 
         instance.language_url = tmp_language_url
         instance.selected_language = fileBaseName
@@ -114,9 +110,7 @@ class Object
     languageChanged()
     {
         if (DeviceAccess.managers.splashScreen.isActive)
-        {
             DeviceAccess.managers.splashScreen.hideSplashScreen()
-        }
     }
 
     updateTable()
@@ -134,8 +128,13 @@ class Object
         (instance.hours_value[0] === instance.hours_value[1]) &&
         (instance.hours_value === instance.minutes_value)
 
-        if (instance.minutes_value >= 35 && (++instance.hours_value % 12 == 0))
-        isAM ^= true
+        if (instance.minutes_value >= 35)
+        {
+            ++instance.hours_value
+            if (instance.hours_value % 12 === 0)
+                isAM ^= true
+        }
+
         instance.hours_array_index = instance.hours_value % 12
         instance.minutes_array_index = Math.floor(instance.minutes_value/5)
         const tmp_onoff_dots = instance.minutes_value%5
@@ -145,13 +144,13 @@ class Object
                                                                          isAM) + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots)
                                                                                                  : "")
         if (isDebug)
-        console.debug(instance.time, instance.written_time)
+            console.debug(instance.time, instance.written_time)
 
-        if (instance.enable_speech && (instance.minutes_value % parseInt(instance.speech_frequency) == 0))
-        DeviceAccess.managers.speech.say(instance.written_time.toLowerCase())
+        if (instance.enable_speech && (instance.minutes_value % parseInt(instance.speech_frequency, 10) === 0))
+            DeviceAccess.managers.speech.say(instance.written_time.toLowerCase())
 
         if (instance.was_special)
-        instance.language.special_message(false)
+            instance.language.special_message(false)
 
         if (instance.previous_hours_array_index !== instance.hours_array_index || is_special || instance.was_special)
         {
@@ -172,7 +171,7 @@ class Object
         if (instance.previous_minutes_array_index !== instance.minutes_array_index || is_special || instance.was_special)
         {
             if (instance.previous_minutes_array_index !== -1)
-            instance.language["minutes_" + instance.minutes_array[instance.previous_minutes_array_index]](false)
+                instance.language["minutes_" + instance.minutes_array[instance.previous_minutes_array_index]](false)
 
             if (!is_special)
             {
@@ -182,7 +181,7 @@ class Object
         }
 
         if (is_special)
-        instance.language.special_message(true)
+            instance.language.special_message(true)
 
         instance.was_special = is_special
 

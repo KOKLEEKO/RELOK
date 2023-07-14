@@ -22,7 +22,7 @@ Controls.Menu
     {
         if (wordClock.is_AM)
             return QT_TR_NOOP("Good Morning!")
-        else if (parseInt(wordClock.hours_value) < 18) // 6:00 PM
+        else if (parseInt(wordClock.hours_value, 10) < 18) // 6:00 PM
             return QT_TR_NOOP("Good Afternoon!")
         return QT_TR_NOOP("Good Evening!")
     }
