@@ -7,6 +7,7 @@
 **************************************************************************************************/
 #include "SpeechManager.h"
 
+#include "ClockLanguageManagerBase.h"
 #include "PersistenceManagerBase.h"
 
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
@@ -39,7 +40,7 @@ void SpeechManager::setSpeechLanguage(QString iso)
     if (!m_speechAvailableVoices.contains(iso)) {
         const QVector<QVoice> &availableVoices = m_speech.availableVoices();
         setHasMutipleVoices(!availableVoices.empty());
-        if (!hasMutipleVoices())
+        if (!hasMultipleVoices())
             return;
         QStringList voicesNames;
         for (const auto &voice : availableVoices)
@@ -67,17 +68,20 @@ void SpeechManager::setSpeechVoice(int index)
 
 void SpeechManager::initSpeechLocales()
 {
-    const QVector<QLocale> &locales = m_speech.availableLocales();
-    for (const auto &locale : locales) {
-        if (m_speechFilter.contains(locale.bcp47Name().left(2))) {
+    auto clockLocaleBaseNames = deviceAccess()
+                                    ->manager<ClockLanguageManagerBase>(ClockLanguageManagerBase::name())
+                                    ->clockAvailableLocales()
+                                    .keys();
+    const QVector<QLocale> &speechLocales = m_speech.availableLocales();
+    for (const auto &speechLocale : speechLocales) {
+        if (clockLocaleBaseNames.contains(speechLocale.bcp47Name().left(2))) {
             QString iso;
-            const QList uiLanguages{locale.uiLanguages()};
+            const QList uiLanguages{speechLocale.uiLanguages()};
             for (const auto &uiLanguage : uiLanguages)
                 if (uiLanguage.split('-').count() == 2)
                     iso = QString(uiLanguage).replace('-', '_');
-            const QString name = QString("%1 (%2)").arg(QLocale::languageToString(locale.language()),
-                                                        locale.nativeCountryName());
-            qCDebug(lc) << iso << name;
+            const QString name = QString("%1 (%2)").arg(QLocale::languageToString(speechLocale.language()),
+                                                        speechLocale.nativeCountryName());
             m_speechAvailableLocales.insert(iso, name);
         }
     }

@@ -107,12 +107,12 @@ QtControls.ApplicationWindow
             var paletteString = "↓\npalette {\n";
             for (var prop in palette) paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop])
             paletteString += "}"
-            console.log(paletteString)
+            console.info(paletteString)
         }
 
         //for (var prop in Qt.rgba(1,0,0,0))
-        //  console.log(prop)
-        //console.log(Qt.rgba(1,0,0,0).hslLightness)
+        //  console.debug(prop)
+        //console.debug(Qt.rgba(1,0,0,0).hslLightness)
     }
 
     QtQuick.Connections

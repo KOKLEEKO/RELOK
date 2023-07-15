@@ -25,8 +25,8 @@ public:
     void setSpeechVoice(int index) override;
 
 protected:
-    void initSpeechLocales() final override;
     void endOfSpeech() const override {}
+    void initSpeechLocales() final override;
 };
 
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)

@@ -14,6 +14,7 @@ ClockLanguageManager::ClockLanguageManager(DeviceAccessBase *deviceAccess, QObje
     : ClockLanguageManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
+
     detectClockAvailableLocales();
 }
 

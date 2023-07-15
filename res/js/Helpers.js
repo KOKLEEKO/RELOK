@@ -73,7 +73,7 @@ function missingLetters(table)
             }
         }
     }
-    console.log(missingLetters, availableSpot)
+    console.debug(missingLetters, availableSpot)
 }
 
 function toggle(object, propertyName, first, second)

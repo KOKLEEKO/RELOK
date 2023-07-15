@@ -23,12 +23,12 @@ class SpeechManagerBase : public ManagerBase<SpeechManagerBase>
     Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(QVariantMap speechAvailableLocales MEMBER m_speechAvailableLocales NOTIFY speechAvailableLocalesChanged)
     Q_PROPERTY(QVariantMap speechAvailableVoices MEMBER m_speechAvailableVoices NOTIFY speechAvailableVoicesChanged)
-    Q_PROPERTY(bool hasMutipleVoices READ hasMutipleVoices NOTIFY hasMutipleVoicesChanged)
+    Q_PROPERTY(bool hasMultipleVoices READ hasMultipleVoices NOTIFY hasMultipleVoicesChanged)
 
 public:
     explicit SpeechManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    bool hasMutipleVoices() const { return m_hasMutipleVoices; }
+    bool hasMultipleVoices() const { return m_hasMultipleVoices; }
     void setHasMutipleVoices(bool newHasMutipleVoices);
 
     Q_INVOKABLE virtual void say(QString /*text*/) {}
@@ -37,21 +37,19 @@ public:
 
 protected:
     virtual void requestAudioFocus() {}
-    virtual void initSpeechLocales() {}
     virtual void endOfSpeech() const {}
+    virtual void initSpeechLocales() {}
 
 signals:
     void speechAvailableLocalesChanged();
     void speechAvailableVoicesChanged();
-
-    void hasMutipleVoicesChanged();
+    void hasMultipleVoicesChanged();
 
 protected:
     QVariantMap m_speechAvailableLocales{};
     QVariantMap m_speechAvailableVoices{};
-    QStringList m_speechFilter{};
     QTextToSpeech m_speech{};
-    bool m_hasMutipleVoices = false;
+    bool m_hasMultipleVoices = false;
 };
 
 #ifndef Q_OS_WIN

@@ -29,13 +29,12 @@ class Object
                                                       }
                                                   })
         instance.timeChanged.connect(this.updateTable)
-        instance.detectAndUseDeviceLanguage.connect(this.detectAndUseDeviceLanguage)
         instance.selectLanguage.connect(this.selectLanguage)
         instance.onLanguageChanged.connect(this.languageChanged)
 
         if (instance.selected_language === "")
         {
-            this.detectAndUseDeviceLanguage()
+            this.selectLanguage(Qt.locale().name)
         }
         else
         {
@@ -90,21 +89,18 @@ class Object
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
 
         if (isDebug)
-            console.log(language, instance.supportedLanguages, tmp_language_url)
+            console.debug(language, instance.supportedLanguages, tmp_language_url)
 
         instance.language_url = tmp_language_url
-        instance.selected_language = fileBaseName
+        instance.selected_language = DeviceAccess.managers.speech.enabled ? language : fileBaseName
 
         if (DeviceAccess.managers.speech.enabled && instance.enable_speech)
         {
             DeviceAccess.managers.speech.setSpeechLanguage(language)
             DeviceAccess.managers.speech.say(instance.written_time)
         }
-    }
 
-    detectAndUseDeviceLanguage()
-    {
-        this.selectLanguage(Qt.locale().name)
+        DeviceAccess.managers.persistence.setValue("Appearance/clockLanguage", language)
     }
 
     languageChanged()

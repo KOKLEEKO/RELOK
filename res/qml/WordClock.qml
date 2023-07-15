@@ -117,7 +117,6 @@ QtQuick.Rectangle
     property alias startupTimer: startupTimer
 
     signal applyColors()
-    signal detectAndUseDeviceLanguage()
     signal selectLanguage(string language)
 
     anchors.verticalCenter: parent.verticalCenter

@@ -229,9 +229,11 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
             QtControls.Button
             {
                 text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
-                enabled: wordClock.selected_language !== Qt.locale().name
+                enabled: wordClock.selected_language !== (DeviceAccess.managers.speech.enabled
+                                                          ? Qt.locale().name
+                                                          : Qt.locale().name.substring(0,2))
 
-                onClicked: wordClock.detectAndUseDeviceLanguage()
+                onClicked: wordClock.selectLanguage(Qt.locale().name)
             }
             extras: QtControls.ComboBox
             {
@@ -246,11 +248,7 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                         currentIndex = Qt.binding(() => Object.keys(wordClock.languages)
                                                   .indexOf(wordClock.selected_language))
                 }
-                onActivated: (index) => {
-                                 const language = Object.keys(wordClock.languages)[index]
-                                 wordClock.selectLanguage(language)
-                                 DeviceAccess.managers.persistence.setValue("Appearance/clockLanguage", language)
-                             }
+                onActivated: (index) => wordClock.selectLanguage(Object.keys(wordClock.languages)[index])
             }
         }
         Controls.MenuItem
@@ -291,7 +289,7 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
         Controls.MenuItem
         {
             title: qsTr("Voice") + DeviceAccess.managers.translation.emptyString
-            active: Object.keys(DeviceAccess.managers.speech.speechAvailableVoices).length // @disable-check M16  @disable-check M31
+            active: DeviceAccess.managers.speech.hasMultipleVoices // @disable-check M16  @disable-check M31
             extras: QtControls.ComboBox
             {
                 //palette.dark: systemPalette.text

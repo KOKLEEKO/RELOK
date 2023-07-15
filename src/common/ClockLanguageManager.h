@@ -18,4 +18,3 @@ public:
 
     void detectClockAvailableLocales() final override;
 };
-

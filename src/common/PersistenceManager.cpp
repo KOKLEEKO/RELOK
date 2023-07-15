@@ -13,6 +13,7 @@ PersistenceManager::PersistenceManager(DeviceAccessBase *deviceAccess, QObject *
     : PersistenceManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
+
     startTimer(0);
     qCDebug(lc) << m_settings.fileName();
 }

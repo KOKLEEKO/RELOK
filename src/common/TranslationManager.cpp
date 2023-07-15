@@ -15,6 +15,7 @@ TranslationManager::TranslationManager(DeviceAccessBase *deviceAccess, QObject *
     : TranslationManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
+
     getAvailableTransalations();
 }
 
