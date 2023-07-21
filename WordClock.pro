@@ -11,8 +11,9 @@ QT += quick core webview svg texttospeech purchasing
 
 CONFIG +=                                                       \
     c++1z                                                       \
-    lrelease                                                    \
     embed_translations                                          \
+    lrelease                                                    \
+    object_parallel_to_source                                   \
     sdk_no_version_check
 
 CONFIG -= qtquickcompiler
