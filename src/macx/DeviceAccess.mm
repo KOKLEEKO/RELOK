@@ -7,13 +7,13 @@
 **************************************************************************************************/
 #include "DeviceAccess.h"
 
-#include "src/default/SpeechManager.h"
-#include <ClockLanguageManager.h>
-#include <PersistenceManager.h>
-#include <TranslationManager.h>
+#import <Foundation/NSBundle.h>
 
 Q_LOGGING_CATEGORY(lc, "Device-macx")
 
 DeviceAccess::DeviceAccess(QObject *parent)
     : DeviceAccessBase{parent}
-{}
+{
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    qCDebug(lc) << "[R] versionName:" << [infoDict objectForKey:@"CFBundleVersion"];
+}

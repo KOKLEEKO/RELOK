@@ -14,6 +14,6 @@ class ShareContentManager : public ShareContentManagerBase
 public:
     explicit ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    void share(QVariant content) override;
+    void share(QVariant content) final override;
 };
 

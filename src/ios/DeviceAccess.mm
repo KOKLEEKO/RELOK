@@ -7,6 +7,7 @@
 **************************************************************************************************/
 #import "DeviceAccess.h"
 
+#import <Foundation/NSBundle.h>
 #import <Foundation/NSNotification.h>
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIScreen.h>

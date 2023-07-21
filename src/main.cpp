@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
-    QObject::connect(DeviceAccessBase::instance()->manager<PersistenceManagerBase>(PersistenceManagerBase::name()),
+    QObject::connect(DeviceAccessBase::instance()->manager<PersistenceManagerBase>(),
                      &PersistenceManagerBase::settingsReady,
                      &engine,
                      [url, &engine]() { engine.load(url); });

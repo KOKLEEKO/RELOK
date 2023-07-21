@@ -20,8 +20,7 @@ void EnergySavingManagerBase::setMinimumBatteryLevel(int minimumBatteryLevel)
 {
     if (m_minimumBatteryLevel == minimumBatteryLevel)
         return;
-    deviceAccess()
-        ->manager<PersistenceManagerBase>(PersistenceManagerBase::name())
-        ->setValue("BatterySaving/minimumBatteryLevel", m_minimumBatteryLevel = minimumBatteryLevel);
+    deviceAccess()->manager<PersistenceManagerBase>()->setValue("BatterySaving/minimumBatteryLevel",
+                                                                m_minimumBatteryLevel = minimumBatteryLevel);
     emit minimumBatteryLevelChanged();
 }

@@ -20,8 +20,7 @@ void AdvertisingManagerBase::requestAdvertising(bool isAdvertisingRequested)
 {
     if (m_isAdvertisingRequested == isAdvertisingRequested)
         return;
-    deviceAccess()
-        ->manager<PersistenceManagerBase>(PersistenceManagerBase::name())
-        ->setValue("Advanced/isAdvertisingRequested", m_isAdvertisingRequested = isAdvertisingRequested);
+    deviceAccess()->manager<PersistenceManagerBase>()->setValue("Advanced/isAdvertisingRequested",
+                                                                m_isAdvertisingRequested = isAdvertisingRequested);
     emit isAdvertisingRequestedChanged();
 }

@@ -20,9 +20,8 @@ void AutoLockManagerBase::requestAutoLock(bool isAutoLockRequested)
 {
     if (m_isAutoLockRequested == isAutoLockRequested)
         return;
-    deviceAccess()
-        ->manager<PersistenceManager>(PersistenceManager::name())
-        ->setValue("BatterySaving/isAutoLockRequested", m_isAutoLockRequested = isAutoLockRequested);
+    deviceAccess()->manager<PersistenceManager>()->setValue("BatterySaving/isAutoLockRequested",
+                                                            m_isAutoLockRequested = isAutoLockRequested);
     emit isAutoLockRequestedChanged();
 }
 

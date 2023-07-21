@@ -7,8 +7,15 @@
 **************************************************************************************************/
 #include "ReviewManager.h"
 
+#include <QtAndroid>
+
 ReviewManager::ReviewManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : ReviewManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
+}
+
+void ReviewManager::requestReview()
+{
+    QtAndroid::androidActivity().callMethod<void>("requestReview");
 }

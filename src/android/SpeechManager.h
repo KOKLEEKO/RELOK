@@ -13,5 +13,12 @@ class SpeechManager : public Default::SpeechManager
 {
 public:
     explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
+
+    void setSpeechLanguage(QString iso) final override;
+    void setSpeechVoice(int index) final override;
+
+protected:
+    void endOfSpeech() const final override;
+    void requestAudioFocus() final override;
 };
 

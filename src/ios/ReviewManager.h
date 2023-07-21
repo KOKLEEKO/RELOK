@@ -14,6 +14,6 @@ class ReviewManager : public ReviewManagerBase
 public:
     explicit ReviewManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    void requestReview() override;
+    void requestReview() final override;
 };
 

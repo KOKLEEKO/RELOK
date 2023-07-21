@@ -32,8 +32,9 @@ public:
     }
 
     template<class ManagerImpl>
-    ManagerImpl *manager(QString name) const
+    ManagerImpl *manager() const
     {
+        QString name = ManagerImpl::name();
         if (m_managers.contains(name) && m_managers[name].isValid())
             return qvariant_cast<ManagerImpl *>(m_managers[name]);
         return nullptr;

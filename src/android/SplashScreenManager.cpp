@@ -7,8 +7,16 @@
 **************************************************************************************************/
 #include "SplashScreenManager.h"
 
+#include <QtAndroid>
+
 SplashScreenManager::SplashScreenManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : SplashScreenManagerBase{deviceAccess, parent}
 {
     m_isActive = m_enabled = true;
+}
+
+void SplashScreenManager::hideSplashScreen()
+{
+    QtAndroid::hideSplashScreen();
+    SplashScreenManagerBase::hideSplashScreen();
 }

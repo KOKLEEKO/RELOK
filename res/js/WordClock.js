@@ -116,7 +116,9 @@ class Object
     languageChanged()
     {
         if (DeviceAccess.managers.splashScreen.isActive)
-        DeviceAccess.managers.splashScreen.hideSplashScreen()
+        {
+            DeviceAccess.managers.splashScreen.hideSplashScreen()
+        }
     }
 
     updateTable()

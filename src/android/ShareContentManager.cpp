@@ -12,3 +12,5 @@ ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject
 {
     m_enabled = true;
 }
+
+void ShareContentManager::share(QVariant content) {}

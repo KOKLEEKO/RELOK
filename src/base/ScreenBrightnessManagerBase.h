@@ -23,6 +23,7 @@ public:
     void updateBrightness(float brightness);
 
     virtual void setBrightnessRequested(float /*brightness*/) {}
+    Q_INVOKABLE virtual void requestBrightnessUpdate() {}
 
 signals:
     void brightnessChanged();

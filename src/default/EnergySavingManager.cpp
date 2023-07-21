@@ -8,15 +8,15 @@ EnergySavingManager::EnergySavingManager(DeviceAccessBase *deviceAccess, QObject
 {
     m_enabled = true;
 
-    auto batteryManager = deviceAccess->manager<BatteryManagerBase>(BatteryManagerBase::name());
+    auto batteryManager = deviceAccess->manager<BatteryManagerBase>();
     connect(batteryManager, &BatteryManagerBase::batteryLevelChanged, this, &EnergySavingManager::batterySaving);
     connect(batteryManager, &BatteryManagerBase::isPluggedChanged, this, &EnergySavingManager::batterySaving);
 }
 
 void EnergySavingManager::batterySaving()
 {
-    auto autoLockManager = deviceAccess()->manager<AutoLockManagerBase>(AutoLockManagerBase::name());
-    auto batteryManager = deviceAccess()->manager<BatteryManagerBase>(BatteryManagerBase::name());
+    auto autoLockManager = deviceAccess()->manager<AutoLockManagerBase>();
+    auto batteryManager = deviceAccess()->manager<BatteryManagerBase>();
 
     bool disable = !autoLockManager->isAutoLockRequested()
                    && (batteryManager->isPlugged() || batteryManager->batteryLevel() > m_minimumBatteryLevel);
