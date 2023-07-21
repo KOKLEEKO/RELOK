@@ -310,7 +310,6 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 {
                     currentIndex = DeviceAccess.managers.persistence.value("Appearance/%1_voice"
                                                                            .arg(wordClock.selected_language), 0)
-                    DeviceAccess.managers.speech.setSpeechVoice(currentIndex)
                 }
                 onActivated: (index) => setSpeechVoice(index)
             }

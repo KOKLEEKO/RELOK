@@ -190,7 +190,7 @@ QtQuick.Rectangle
                                                  parseInt(time_reference_list[1], 10)*minute_to_ms +
                                                  parseInt(time_reference_list[2], 10)*s_to_ms
 
-        interval: is_debug ? 5000 : 5
+        interval: is_debug ? 5000 : 200
         repeat: true
         running: false
         triggeredOnStart: true

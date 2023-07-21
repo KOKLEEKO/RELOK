@@ -10,6 +10,7 @@
 var DeviceAccess = Global.DeviceAccess
 var instance = null
 var isDebug = undefined
+var firstTime = true
 
 class Object
 {
@@ -20,14 +21,14 @@ class Object
         instance.accessoriesChanged()
         instance.selected_language = DeviceAccess.managers.persistence.value("Appearance/clockLanguage", "")
         instance.language_urlChanged.connect(() => {
-                                                      if (instance.time)
-                                                      {
-                                                          instance.previous_hours_array_index = -1
-                                                          instance.previous_minutes_array_index = -1
-                                                          instance.tmp_onoff_table = createTable(rows, columns, false)
-                                                          instance.timeChanged()
-                                                      }
-                                                  })
+                                                 if (instance.time)
+                                                 {
+                                                     instance.previous_hours_array_index = -1
+                                                     instance.previous_minutes_array_index = -1
+                                                     instance.tmp_onoff_table = createTable(rows, columns, false)
+                                                     instance.timeChanged()
+                                                 }
+                                             })
         instance.timeChanged.connect(this.updateTable)
         instance.selectLanguage.connect(this.selectLanguage)
         instance.onLanguageChanged.connect(this.languageChanged)
@@ -63,11 +64,11 @@ class Object
         if (instance.timer.is_debug)
         {
             instance.currentDateTime = new Date(instance.timer.time_reference_ms
-                                                     + (instance.timer.jump_by_minute
-                                                        + instance.timer.jump_by_5_minutes*5
-                                                        + instance.timer.jump_by_hour*60 )
-                                                     * instance.timer.fake_counter
-                                                     * instance.timer.minute_to_ms)
+                                                + (instance.timer.jump_by_minute
+                                                   + instance.timer.jump_by_5_minutes*5
+                                                   + instance.timer.jump_by_hour*60 )
+                                                * instance.timer.fake_counter
+                                                * instance.timer.minute_to_ms)
             ++instance.timer.fake_counter
         }
         else
@@ -84,12 +85,14 @@ class Object
     {
         var fileBaseName = language
         if (!instance.supportedLanguages.includes(fileBaseName))
-            fileBaseName = (instance.supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2)
-                                                                                                    : "en"
+        fileBaseName = (instance.supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2)
+                                                                                           : "en"
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
 
         if (isDebug)
+        {
             console.debug(language, instance.supportedLanguages, tmp_language_url)
+        }
 
         instance.language_url = tmp_language_url
         instance.selected_language = DeviceAccess.managers.speech.enabled ? language : fileBaseName
@@ -97,7 +100,14 @@ class Object
         if (DeviceAccess.managers.speech.enabled && instance.enable_speech)
         {
             DeviceAccess.managers.speech.setSpeechLanguage(language)
-            DeviceAccess.managers.speech.say(instance.written_time)
+            const voiceIndex = DeviceAccess.managers.persistence.value("Appearance/%1_voice"
+                                                                       .arg(instance.selected_language), 0)
+            DeviceAccess.managers.speech.setSpeechVoice(voiceIndex)
+
+            if (instance.written_time)
+            {
+                DeviceAccess.managers.speech.say(instance.written_time)
+            }
         }
 
         DeviceAccess.managers.persistence.setValue("Appearance/clockLanguage", language)
@@ -106,14 +116,14 @@ class Object
     languageChanged()
     {
         if (DeviceAccess.managers.splashScreen.isActive)
-            DeviceAccess.managers.splashScreen.hideSplashScreen()
+        DeviceAccess.managers.splashScreen.hideSplashScreen()
     }
 
     updateTable()
     {
         const startDate = new Date(instance.currentDateTime.getFullYear(), 0, 1)
         instance.currentWeekNumber = Math.ceil(Math.floor((instance.currentDateTime - startDate)
-                                                               / instance.timer.day_to_ms) / 7)
+                                                          / instance.timer.day_to_ms) / 7)
 
         const split_time = instance.time.split(':')
         instance.hours_value = split_time[0]
@@ -128,7 +138,7 @@ class Object
         {
             ++instance.hours_value
             if (instance.hours_value % 12 === 0)
-                isAM ^= true
+            isAM ^= true
         }
 
         instance.hours_array_index = instance.hours_value % 12
@@ -136,24 +146,33 @@ class Object
         const tmp_onoff_dots = instance.minutes_value%5
 
         instance.written_time = instance.language.written_time(instance.hours_array_index,
-                                                                         instance.minutes_array_index,
-                                                                         isAM) + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots)
-                                                                                                 : "")
+                                                               instance.minutes_array_index,
+                                                               isAM) + (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots)
+                                                                                       : "")
         if (isDebug)
+        {
             console.debug(instance.time, instance.written_time)
+        }
 
-        if (instance.enable_speech && (instance.minutes_value % parseInt(instance.speech_frequency, 10) === 0))
+        if (instance.enable_speech && (
+                (instance.minutes_value % parseInt(instance.speech_frequency, 10) === 0) || firstTime))
+        {
             DeviceAccess.managers.speech.say(instance.written_time.toLowerCase())
+        }
+
+        firstTime = false
 
         if (instance.was_special)
+        {
             instance.language.special_message(false)
+        }
 
         if (instance.previous_hours_array_index !== instance.hours_array_index || is_special || instance.was_special)
         {
             if (instance.previous_hours_array_index !== -1)
             {
                 instance.language["hours_"
-                                       + instance.hours_array[instance.previous_hours_array_index]](false, instance.was_AM)
+                                  + instance.hours_array[instance.previous_hours_array_index]](false, instance.was_AM)
             }
             instance.was_AM = isAM
 
@@ -167,7 +186,7 @@ class Object
         if (instance.previous_minutes_array_index !== instance.minutes_array_index || is_special || instance.was_special)
         {
             if (instance.previous_minutes_array_index !== -1)
-                instance.language["minutes_" + instance.minutes_array[instance.previous_minutes_array_index]](false)
+            instance.language["minutes_" + instance.minutes_array[instance.previous_minutes_array_index]](false)
 
             if (!is_special)
             {
@@ -177,7 +196,7 @@ class Object
         }
 
         if (is_special)
-            instance.language.special_message(true)
+        instance.language.special_message(true)
 
         instance.was_special = is_special
 
