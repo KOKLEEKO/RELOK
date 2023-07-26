@@ -19,8 +19,7 @@ ScreenBrightnessManager::ScreenBrightnessManager(DeviceAccessBase *deviceAccess,
 void ScreenBrightnessManager::setBrightnessRequested(float brightness)
 {
     qCDebug(lc) << "[W] brightness:" << brightness;
-    deviceAccess()
-        ->manager<PersistenceManager>(PersistenceManager::name())
-        ->setValue("BatterySaving/brightness", [UIScreen mainScreen].brightness = brightness);
+    deviceAccess()->manager<PersistenceManager>()->setValue("BatterySaving/brightness",
+                                                            [UIScreen mainScreen].brightness = brightness);
     updateBrightness([UIScreen mainScreen].brightness);
 }

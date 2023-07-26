@@ -125,7 +125,6 @@ macx | ios {
         OBJECTIVE_SOURCES +=                                    \
             src/macx/DeviceAccess.mm
         QMAKE_INFO_PLIST = apple/macx/Info.plist
-        DISTFILES += src/DeviceAccess_macx.mm
 
     } else:ios {
 
@@ -157,7 +156,6 @@ macx | ios {
             src/ios/ShareContentManager.mm                      \
             src/ios/SpeechManager.mm
         QMAKE_INFO_PLIST = apple/ios/Info.plist
-        DISTFILES += src/DeviceAccess_ios.mm
         OTHER_FILES += apple/ios/Launch.storyboard
         app_launch_screen.files = apple/ios/Launch.storyboard
         QMAKE_BUNDLE_DATA += app_launch_screen
@@ -205,11 +203,8 @@ macx | ios {
         android/gradlew                                         \
         android/gradlew.bat                                     \
         android/res/values/libs.xml                             \
-        android/src/io/kokleeko/wordclock/MyActivity.java
-
-    DISTFILES +=                                                \
         android/src/io/kokleeko/wordclock/DeviceAccess.java     \
-        src/DeviceAccess_android.cpp
+        android/src/io/kokleeko/wordclock/MyActivity.java
 
 } else:emscripten {
 
@@ -232,7 +227,3 @@ macx | ios {
         src/default/SpeechManager.cpp
 
 }
-
-DISTFILES +=                                                    \
-    src/DeviceAccess.h                                          \
-    src/DeviceAccess.cpp

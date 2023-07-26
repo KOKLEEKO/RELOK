@@ -17,7 +17,7 @@ AutoLockManager::AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent
     m_enabled = true;
 
     connect(this, &AutoLockManagerBase::isAutoLockRequestedChanged, this, [=]() {
-        auto energySavingManager = deviceAccess->manager<EnergySavingManagerBase>(EnergySavingManagerBase::name());
+        auto energySavingManager = deviceAccess->manager<EnergySavingManagerBase>();
         if (energySavingManager->enabled())
             energySavingManager->batterySaving();
         else

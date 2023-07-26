@@ -7,17 +7,18 @@
 **************************************************************************************************/
 #import "DeviceAccess.h"
 
-#import <Foundation/NSBundle.h>
-#import <Foundation/NSNotification.h>
-#import <UIKit/UIApplication.h>
-#import <UIKit/UIScreen.h>
-#import <UIKit/UIViewControllerTransitionCoordinator.h>
-
 Q_LOGGING_CATEGORY(lc, "Device-ios")
 
 #import <BatteryManagerBase.h>
 #import <ScreenBrightnessManagerBase.h>
 #import <ScreenSizeManagerBase.h>
+
+#pragma region native {
+#import <Foundation/NSBundle.h>
+#import <Foundation/NSNotification.h>
+#import <UIKit/UIApplication.h>
+#import <UIKit/UIScreen.h>
+#import <UIKit/UIViewControllerTransitionCoordinator.h>
 
 @interface QIOSViewController
 @end
@@ -30,7 +31,7 @@ Q_LOGGING_CATEGORY(lc, "Device-ios")
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    auto screenSizeManager = DeviceAccess::instance()->manager<ScreenSizeManagerBase>(ScreenSizeManagerBase::name());
+    auto screenSizeManager = DeviceAccess::instance()->manager<ScreenSizeManagerBase>();
     if (screenSizeManager && screenSizeManager->enabled())
         emit screenSizeManager->viewConfigurationChanged();
 }
@@ -42,7 +43,7 @@ Q_LOGGING_CATEGORY(lc, "Device-ios")
 
 - (BOOL)prefersStatusBarHidden
 {
-    auto screenSizeManager = DeviceAccess::instance()->manager<ScreenSizeManagerBase>(ScreenSizeManagerBase::name());
+    auto screenSizeManager = DeviceAccess::instance()->manager<ScreenSizeManagerBase>();
     if (screenSizeManager && screenSizeManager->enabled())
         return screenSizeManager->prefersStatusBarHidden();
     else
@@ -78,20 +79,20 @@ Q_LOGGING_CATEGORY(lc, "Device-ios")
 
 - (void)viewSafeAreaInsetsDidChange
 {
-    auto screenSizeManager = DeviceAccess::instance()->manager<ScreenSizeManagerBase>(ScreenSizeManagerBase::name());
+    auto screenSizeManager = DeviceAccess::instance()->manager<ScreenSizeManagerBase>();
     if (screenSizeManager && screenSizeManager->enabled())
         screenSizeManager->updateSafeAreaInsets();
 }
 
 - (void)updateBatteryLevel:(float)batteryLevel
 {
-    auto batteryManager = DeviceAccess::instance()->manager<BatteryManagerBase>(BatteryManagerBase::name());
+    auto batteryManager = DeviceAccess::instance()->manager<BatteryManagerBase>();
     if (batteryManager && batteryManager->enabled())
         batteryManager->updateBatteryLevel(batteryLevel);
 }
 - (void)updateIsPlugged:(UIDeviceBatteryState)batteryState
 {
-    auto batteryManager = DeviceAccess::instance()->manager<BatteryManagerBase>(BatteryManagerBase::name());
+    auto batteryManager = DeviceAccess::instance()->manager<BatteryManagerBase>();
     if (batteryManager && batteryManager->enabled()) {
         batteryManager->updateIsPlugged(batteryState == UIDeviceBatteryStateCharging
                                         || batteryState == UIDeviceBatteryStateFull);
@@ -99,8 +100,7 @@ Q_LOGGING_CATEGORY(lc, "Device-ios")
 }
 - (void)updateBrightness:(float)brightness
 {
-    auto screenBrightnessManager = DeviceAccess::instance()->manager<ScreenBrightnessManagerBase>(
-        ScreenBrightnessManagerBase::name());
+    auto screenBrightnessManager = DeviceAccess::instance()->manager<ScreenBrightnessManagerBase>();
     if (screenBrightnessManager && screenBrightnessManager->enabled())
         screenBrightnessManager->updateBrightness(brightness);
 }
@@ -123,6 +123,7 @@ Q_LOGGING_CATEGORY(lc, "Device-ios")
     [self updateBrightness:(float) brightness];
 }
 @end
+#pragma endregion }
 
 DeviceAccess::DeviceAccess(QObject *parent)
     : DeviceAccessBase{parent}

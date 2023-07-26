@@ -14,6 +14,6 @@ class DeviceAccess : public DeviceAccessBase
 public:
     explicit DeviceAccess(QObject *parent = nullptr);
 
-    void moveTaskToBack();
+    Q_INVOKABLE void moveTaskToBack();
 };
 
