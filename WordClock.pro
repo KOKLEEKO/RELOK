@@ -13,7 +13,6 @@ CONFIG +=                                                       \
     c++1z                                                       \
     embed_translations                                          \
     lrelease                                                    \
-    object_parallel_to_source                                   \
     sdk_no_version_check
 
 CONFIG -= qtquickcompiler
@@ -164,6 +163,8 @@ macx | ios {
 } else:android {
 
     QT += androidextras
+
+    CONFIG += object_parallel_to_source
 
     INCLUDEPATH += src/android
 
