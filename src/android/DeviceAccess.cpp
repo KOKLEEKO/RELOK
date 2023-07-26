@@ -16,8 +16,7 @@
 
 Q_LOGGING_CATEGORY(lc, "Device-android")
 
-DeviceAccess::DeviceAccess(QObject *parent)
-    : DeviceAccessBase{parent}
+void DeviceAccess::specificInitializationSteps()
 {
     qCDebug(lc) << "[R] versionName:"
                 << QAndroidJniObject::getStaticObjectField<jstring>("io/kokleeko/wordclock/BuildConfig", "VERSION_NAME")

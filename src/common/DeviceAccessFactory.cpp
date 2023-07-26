@@ -35,7 +35,7 @@ DeviceAccessFactory::DeviceAccessFactory() {}
 
 DeviceAccess *DeviceAccessFactory::create()
 {
-    static DeviceAccessBase *deviceAccess = DeviceAccess::instance();
+    static DeviceAccess *deviceAccess = static_cast<DeviceAccess *>(DeviceAccess::instance());
     deviceAccess->addManager(std::make_shared<ClockLanguageManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<PersistenceManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<TranslationManager>(deviceAccess));
@@ -59,5 +59,7 @@ DeviceAccess *DeviceAccessFactory::create()
     deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
 #endif
 
-    return static_cast<DeviceAccess *>(deviceAccess);
+    deviceAccess->specificInitializationSteps();
+
+    return deviceAccess;
 }

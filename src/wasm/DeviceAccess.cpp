@@ -9,6 +9,4 @@
 
 Q_LOGGING_CATEGORY(lc, "Device-wasm")
 
-DeviceAccess::DeviceAccess(QObject *parent)
-    : DeviceAccessBase{parent}
-{}
+void DeviceAccess::specificInitializationSteps() {}

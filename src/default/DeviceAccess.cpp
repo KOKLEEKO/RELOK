@@ -2,6 +2,4 @@
 
 Q_LOGGING_CATEGORY(lc, "Device")
 
-DeviceAccess::DeviceAccess(QObject *parent)
-    : DeviceAccessBase{parent}
-{}
+void DeviceAccess::specificInitializationSteps() {}

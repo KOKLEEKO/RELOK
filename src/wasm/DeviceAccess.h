@@ -12,6 +12,8 @@
 class DeviceAccess : public DeviceAccessBase
 {
 public:
-    explicit DeviceAccess(QObject *parent = nullptr);
+    DeviceAccess() = delete;
+
+    void specificInitializationSteps() final override;
 };
 

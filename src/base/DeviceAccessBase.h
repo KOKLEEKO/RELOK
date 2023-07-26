@@ -31,6 +31,8 @@ public:
         return instance;
     }
 
+    virtual void specificInitializationSteps() {}
+
     template<class ManagerImpl>
     ManagerImpl *manager() const
     {

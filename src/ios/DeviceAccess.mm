@@ -125,8 +125,7 @@ Q_LOGGING_CATEGORY(lc, "Device-ios")
 @end
 #pragma endregion }
 
-DeviceAccess::DeviceAccess(QObject *parent)
-    : DeviceAccessBase{parent}
+void DeviceAccess::specificInitializationSteps()
 {
     NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
     qCDebug(lc) << "[R] versionName:" << [infoDict objectForKey:@"CFBundleVersion"];

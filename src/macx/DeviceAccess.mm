@@ -11,8 +11,7 @@
 
 Q_LOGGING_CATEGORY(lc, "Device-macx")
 
-DeviceAccess::DeviceAccess(QObject *parent)
-    : DeviceAccessBase{parent}
+void DeviceAccess::specificInitializationSteps()
 {
     NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
     qCDebug(lc) << "[R] versionName:" << [infoDict objectForKey:@"CFBundleVersion"];
