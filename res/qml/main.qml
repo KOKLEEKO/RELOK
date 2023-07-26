@@ -157,8 +157,8 @@ QtControls.ApplicationWindow
     Headings { id: headings }
     Tips { id: tips }
     SystemPalette { id: systemPalette }
-    ClickableArea { }
     WordClock { id: wordClock }
+    ClickableArea { }
     SettingsPanel { id: settingsPanel }
     Popups.PurchasingPopup { }
     Popups.TipsThanksPopup { id: tipsThanksPopup }

@@ -19,7 +19,7 @@ QtControls.Dialog
     anchors.centerIn: parent
     background.opacity: .95
     clip: true
-    closePolicy: QtControls.Dialog.NoAutoClose
+    closePolicy: QtControls.Dialog.CloseOnPressOutside
     implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
     title: qsTr("Welcome to %1").arg(Qt.application.name) + DeviceAccess.managers.translation.emptyString
     z: 1
@@ -52,5 +52,4 @@ close it and open the settings menu.")) + DeviceAccess.managers.translation.empt
             text: qsTr("Don't show this again") + DeviceAccess.managers.translation.emptyString
         }
     }
-    QtQuick.Connections { target: settingsPanel; function onOpened() { welcomePopup.close() } }
 }

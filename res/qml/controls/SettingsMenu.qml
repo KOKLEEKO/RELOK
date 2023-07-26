@@ -43,8 +43,7 @@ Controls.Menu
         is_tipMe: true
         label.heading: headings.h3
         label.horizontalAlignment: QtControls.Label.AlignHCenter
-        label.text: (is_collapsed ? "☞" : "♥").concat(" ", qsTr("Tip Jar")).concat(" ", is_collapsed ? "☜":"♥") +
-                    DeviceAccess.managers.translation.emptyString
+        label.text: "♥ ".concat(qsTr("Tip Jar")).concat(" ♥") + DeviceAccess.managers.translation.emptyString
         menuItems.flow: QtLayouts.GridLayout.LeftToRight
 
         Controls.IconButton
@@ -254,6 +253,8 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
         Controls.MenuItem
         {
             title: qsTr("Speech") + DeviceAccess.managers.translation.emptyString
+            active: DeviceAccess.managers.speech.enabled
+
             QtControls.Switch
             {
                 checked: wordClock.enable_speech
@@ -269,7 +270,7 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                     currentIndex = Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
                 }
 
-                width: parent.width
+                width: parent ? parent.width : 0
                 model: Object.values(wordClock.speech_frequencies)
 
                 onActivated: (index) =>

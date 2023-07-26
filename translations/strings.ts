@@ -105,90 +105,90 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>SettingsMenu</name>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="79"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="78"/>
         <source>These preceding items are representative of a bonus paid to the development team, with no benefit to you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="89"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="88"/>
         <source>Battery Saving</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="93"/>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="117"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="92"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="116"/>
         <source>Stay Awake</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="94"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="93"/>
         <source>If this option is enabled, the device&apos;s screen will remain active while the application is running.
 Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="96"/>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="107"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="95"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="106"/>
         <source>App pinning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="97"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="96"/>
         <source>Guided Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="114"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="113"/>
         <source>Minimum Battery Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="133"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="132"/>
         <source>Brightness Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="156"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="155"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="159"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="158"/>
         <source>Hide Status Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="160"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="159"/>
         <source>FullScreen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="477"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="478"/>
         <source>Display at startup.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="540"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="541"/>
         <source>The source code is available on GitHub under the LGPL license.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="582"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="583"/>
         <source>Rate us by clicking on the stars.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="586"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="587"/>
         <source>Also available on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="616"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="617"/>
         <source>We would be happy to receive your feedback.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="344"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="345"/>
         <source>Display as widget</source>
         <translation type="unfinished"></translation>
     </message>
@@ -208,104 +208,104 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="116"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="115"/>
         <source>&apos;%1&apos; feature will be automatically disabled when the battery level reaches this value unless the device charges.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="149"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="148"/>
         <source>High brightness levels cause the battery to discharge faster.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="174"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="173"/>
         <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="320"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="321"/>
         <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="361"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="362"/>
         <source>Opacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="381"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="382"/>
         <source>Display as watermark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="227"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="226"/>
         <source>Clock Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="193"/>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="231"/>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="421"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="192"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="230"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="422"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="256"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="255"/>
         <source>Speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="291"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="292"/>
         <source>Voice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="319"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="320"/>
         <source>Enable Special Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="470"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="471"/>
         <source>Welcome popup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="340"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="341"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="118"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="117"/>
         <source>battery level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="444"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="445"/>
         <source>4-Dot display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="449"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="450"/>
         <source>Seconds display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="439"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="440"/>
         <source>Date display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="499"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="500"/>
         <source>Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="524"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="525"/>
         <source>Background Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="509"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="510"/>
         <source>The color can be set in HSL (Hue, Saturation, Lightness) or in hexadecimal format.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -315,123 +315,123 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="189"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="188"/>
         <source>Application Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="386"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="387"/>
         <source>Activate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="405"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="406"/>
         <source>Time Zone (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="416"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="417"/>
         <source>This setting is not persistent, the time zone of the device &lt;b&gt;(%1)&lt;/b&gt; is used each time the application is launched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="434"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="435"/>
         <source>Time Zone display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="454"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="455"/>
         <source>AM|PM display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="459"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="460"/>
         <source>Week Number display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="465"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="466"/>
         <source>Battery Level display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="507"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="508"/>
         <source>Activated Letter Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="516"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="517"/>
         <source>Deactivated Letter Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="530"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="531"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="534"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="535"/>
         <source>Open source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="546"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="547"/>
         <source>Bug tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="553"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="554"/>
         <source>We anonymously track the appearance of bugs with Firebase in order to correct them almost as soon as you encounter them. But you can disable this feature to enter submarine mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="563"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="564"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="601"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="602"/>
         <source>The application may be slightly different depending on the platform used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="606"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="607"/>
         <source>Contact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="621"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="622"/>
         <source>Credits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="623"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="624"/>
         <source>Built with Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="624"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="625"/>
         <source>Released with Fastlane</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="625"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="626"/>
         <source>Icons from SVG Repo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="626"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="627"/>
         <source>Localization with Crowdin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="635"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="636"/>
         <source>
 Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SettingsMenu.qml" line="638"/>
+        <location filename="../res/qml/controls/SettingsMenu.qml" line="639"/>
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>

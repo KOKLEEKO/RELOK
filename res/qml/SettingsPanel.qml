@@ -44,10 +44,10 @@ QtControls.Drawer
     width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
     y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
 
-    QtQuick.Behavior on bottomPadding { QtQuick.NumberAnimation {duration: 100 } }
-    QtQuick.Behavior on height { QtQuick.NumberAnimation {duration: 100 } }
-    QtQuick.Behavior on topPadding { QtQuick.NumberAnimation {duration: 100 } }
-    QtQuick.Behavior on y { QtQuick.NumberAnimation {duration: 100 } }
+    QtQuick.Behavior on bottomPadding { QtQuick.NumberAnimation { duration: 100 } }
+    QtQuick.Behavior on height { QtQuick.NumberAnimation { duration: 100 } }
+    QtQuick.Behavior on topPadding { QtQuick.NumberAnimation { duration: 100 } }
+    QtQuick.Behavior on y { QtQuick.NumberAnimation { duration: 100 } }
     Controls.SettingsMenu { }
     QtControls.BusyIndicator { anchors.centerIn: parent; running: tips.store.purchasing && !failedTransactionPopup.opened }
 }

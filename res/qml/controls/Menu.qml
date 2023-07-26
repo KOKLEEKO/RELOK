@@ -21,25 +21,19 @@ QtLayouts.ColumnLayout
     property string title
     property url icon
 
-    QtLayouts.RowLayout
+    Title
     {
-        QtLayouts.Layout.rightMargin: 20
+        id: label
 
-        Title
-        {
-            id: label
-
-            QtLayouts.Layout.alignment: Qt.AlignTop
-            QtLayouts.Layout.fillWidth: true
-            fontSizeMode: Title.HorizontalFit
-            heading: headings.h1
-            horizontalAlignment: Title.AlignHCenter
-            minimumPointSize: heading.h2 + 1
-            mouseArea.enabled: true
-            mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
-            text: title
-        }
-        IconButton { name: "close"; onClicked: settingsPanel.close() }
+        QtLayouts.Layout.alignment: Qt.AlignTop
+        QtLayouts.Layout.fillWidth: true
+        fontSizeMode: Title.HorizontalFit
+        heading: headings.h1
+        horizontalAlignment: Title.AlignHCenter
+        minimumPointSize: heading.h2 + 1
+        mouseArea.enabled: true
+        mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }
+        text: title
     }
     QtControls.ScrollView
     {
