@@ -5,24 +5,29 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 2.15 as QtControls
+import QtQuick.Layouts 1.15 as QtLayouts
 
-Label {
+QtControls.Label
+{
     property alias mouseArea: mouseArea
     required property int heading
-    Layout.fillWidth: true
-    elide: Text.ElideRight
+
+    QtLayouts.Layout.fillWidth: true
+    elide: QtControls.Label.ElideRight
     font { bold: true; pointSize: heading }
     maximumLineCount: 2
-    wrapMode: Text.WordWrap
-    verticalAlignment: Text.AlignVCenter
-    MouseArea {
+    verticalAlignment: QtControls.Label.AlignVCenter
+    wrapMode: QtControls.Label.WordWrap
+
+    QtQuick.MouseArea
+    {
         id: mouseArea
-        enabled: false
-        hoverEnabled: true
+
         anchors.fill: parent
         cursorShape: (hoverEnabled && containsMouse) ? Qt.PointingHandCursor : Qt.ArrowCursor
+        enabled: false
+        hoverEnabled: true
     }
 }

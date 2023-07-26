@@ -5,42 +5,54 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 2.15 as QtControls
 
-import "qrc:/qml/controls" as Controls
+import DeviceAccess 1.0
 
-Controls.MenuItem {
-    function reset() { extraControls[3].setColor(parent.parent["default_%1".arg(name)]) }
-    property color selected_color: extraControls[0].selected_color
+MenuItem
+{
+    property color selected_color: extraControls ? extraControls[0].selected_color : "black"
     required property string name
-    Button { text: qsTr("Reset") + DeviceAccess.emptyString }
+
     extras: [
-        Controls.ColorHuePicker {},
-        Controls.ColorFactorPicker {
-            hue: parent.children[0].hue
-            lightness: parent.children[0].lightness
-            factorType: Controls.Picker.Factors.Saturation
-            Component.onCompleted: { onMoved.connect(() => parent.children[0].saturation = value); moved() }
+        ColorHuePicker {},
+        ColorFactorPicker
+        {
+            factorType: Picker.Factors.Saturation
+            hue: parent ? parent.children[0].hue : 0
+            lightness: parent ? parent.children[0].lightness : 0
+
+            QtQuick.Component.onCompleted:
+            {
+                onMoved.connect(() => { if (parent) parent.children[0].saturation = value }); moved() }
         },
-        Controls.ColorFactorPicker {
-            hue: parent.children[0].hue
-            saturation: parent.children[0].saturation
-            factorType: Controls.Picker.Factors.Lightness
-            Component.onCompleted: { onMoved.connect(() => parent.children[0].lightness = value); moved() }
+        ColorFactorPicker
+        {
+            factorType: Picker.Factors.Lightness
+            hue: parent ? parent.children[0].hue : 0
+            saturation: parent ? parent.children[0].saturation : 0
+
+            QtQuick.Component.onCompleted: { onMoved.connect(() => { if (parent) parent.children[0].lightness = value }); moved() }
         },
-        Controls.ColorHexField {
-            huePicker: parent.children[0]
-            saturationPicker: parent.children[1]
-            lightnessPicker: parent.children[2]
+        ColorHexField
+        {
+            huePicker: parent ? parent.children[0] : null
+            saturationPicker: parent ? parent.children[1] : null
+            lightnessPicker: parent ? parent.children[2] : null
         }
     ]
-    Component.onCompleted: {
-        control.clicked.connect(reset)
-        selected_colorChanged.connect(() => {
-                                          wordClock[name] = selected_color
-                                          DeviceAccess.setSettingsValue("Appearance/%1".arg(name),
-                                                                        selected_color.toString().toUpperCase())
-                                      })
+
+    onLoaded:
+    {
+        control.clicked.connect(() => extraControls[3].setColor(parent.parent["default_%1".arg(name)]))
+        selected_colorChanged.connect(
+                    () => {
+                        wordClock[name] = selected_color
+                        DeviceAccess.managers.persistence.setValue("Appearance/%1".arg(name),
+                                                                   selected_color.toString().toUpperCase())
+                    })
     }
+
+    QtControls.Button { text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString }
 }

@@ -5,133 +5,57 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
+import QtQuick 2.15 as QtQuick
 
-import "qrc:/js/Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as HelpersJS
+import "qrc:/js/WordClock.js" as WordClockJS
+
 import "qrc:/qml/controls" as Controls
 import "qrc:/qml/languages"
 
-Rectangle {
-    function selectLanguage(language, speech) {
-        var fileBaseName = language
-        if (!supportedLanguages.includes(fileBaseName))
-            fileBaseName = (supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2) : "en"
-        DeviceAccess.setSpeechLanguage(language)
-        const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName)
-        if (isDebug) console.log(language, supportedLanguages, tmp_language_url)
-        language_url = tmp_language_url
-        selected_language = language
-        if (enable_speech) DeviceAccess.say(written_time)
-    }
-    function detectAndUseDeviceLanguage() { selectLanguage(Qt.locale().name) }
-    function updateTable() {
-        const startDate = new Date(currentDateTime.getFullYear(), 0, 1)
-        currentWeekNumber = Math.ceil(Math.floor((currentDateTime - startDate) / timer.day_to_ms) / 7)
-        const split_time = time.split(':')
-        hours_value = split_time[0]
-        minutes_value = split_time[1]
-        var isAM = is_AM = (split_time[2] === "am")
-        const is_special = enable_special_message &&
-                         (hours_value[0] === hours_value[1]) &&
-                         (hours_value === minutes_value)
-        if (minutes_value >= 35 && (++hours_value % 12 == 0)) isAM ^= true
-        hours_array_index = hours_value % 12
-        minutes_array_index = Math.floor(minutes_value/5)
-        const tmp_onoff_dots = minutes_value%5
-        written_time = language.written_time(hours_array_index, minutes_array_index, isAM) +
-                (tmp_onoff_dots ? ", (+%1)".arg(tmp_onoff_dots) : "")
-        if (isDebug) console.debug(time, written_time)
-        if (enable_speech && (minutes_value % parseInt(speech_frequency) == 0))
-            DeviceAccess.say(written_time.toLowerCase())
-        if (was_special) language.special_message(false)
-        if (previous_hours_array_index !== hours_array_index || is_special || was_special) {
-            if (previous_hours_array_index !== -1)
-                language["hours_" + hours_array[previous_hours_array_index]](false, was_AM)
-            was_AM = isAM
-            if (!is_special) {
-                language["hours_" + hours_array[hours_array_index]](true, isAM)
-                previous_hours_array_index = hours_array_index
-            }
-        }
-        if (previous_minutes_array_index !== minutes_array_index || is_special || was_special) {
-            if (previous_minutes_array_index !== -1)
-                language["minutes_" + minutes_array[previous_minutes_array_index]](false)
-            if (!is_special) {
-                language["minutes_" + minutes_array[minutes_array_index]](true)
-                previous_minutes_array_index = minutes_array_index
-            }
-        }
-        if (is_special) language.special_message(true)
-        was_special = is_special
+import DeviceAccess 1.0
 
-        //update table and dots at the same time
-        onoff_table = tmp_onoff_table
-        onoff_dots = tmp_onoff_dots
-    }
-    function offsetToGMT(value) {
-        return String("%1%2:%3").arg(Math.sign(value) < 0 ? "-" : "+")
-        /**/                    .arg(("0" + Math.abs(Math.trunc(value/2))).slice(-2))
-        /**/                    .arg(value%2 ? "30" : "00")
-    }
-    function accessory(index, isCorner = true) {
-        switch(accessories[index]) {
-        case "timeZone":
-            return isCorner ? null : timeZone
-        case "date":
-            return isCorner ? null : date
-        case "minutes":
-            return isCorner ? dot : dots
-        case "seconds":
-            return seconds
-        case "ampm":
-            return ampm
-        case "weekNumber":
-            return weekNumber
-        case "batteryLevel":
-            return batteryLevel
-        default:
-            return null
-        }
-    }
-    function showAccessories() { accessoriesOpacity = 1 }
-
-    signal applyColors()
-
+QtQuick.Rectangle
+{
+    property var wordClockJS: null
     // User-facing Settings
     property string selected_language
-    property bool enable_speech: DeviceAccess.settingsValue("Appearance/speech", true)
-    property bool enable_special_message: DeviceAccess.settingsValue("Appearance/specialMessage", true)
+    property bool enable_speech: DeviceAccess.managers.persistence.value("Appearance/speech", true)
+    property bool enable_special_message: DeviceAccess.managers.persistence.value("Appearance/specialMessage", true)
     property color background_color: "black"
-    property alias backgroud_image_source: backgroundImage.source
+    //property alias backgroud_image_source: backgroundImage.source
     property color on_color: "red"
     property color off_color: "grey"
 
     // Internal Settings
     property bool is_color_animation_enabled: true
-    readonly property int animation_easing: Easing.Linear
-    property var languages: Object.keys(DeviceAccess.speechAvailableLocales).length ? DeviceAccess.speechAvailableLocales
-                                                                                    : DeviceAccess.availableLocales
+    readonly property int animation_easing: QtQuick.Easing.Linear
+    property var languages: Object.keys(DeviceAccess.managers.speech.speechAvailableLocales).length ?
+                                DeviceAccess.managers.speech.speechAvailableLocales :
+                                DeviceAccess.managers.clockLanguage.clockAvailableLocales
     property url language_url
     readonly property real table_width: Math.min(height, width)
     readonly property real cell_width: table_width/(rows+2)
     readonly property real dot_size: cell_width/4
-    readonly property var speech_frequencies: {
-        "1" : qsTr("every minute") + DeviceAccess.emptyString,
-        "5" : qsTr("every 5 minutes") + DeviceAccess.emptyString,
-        "10": qsTr("every 10 minutes") + DeviceAccess.emptyString,
-        "15": qsTr("every 15 minutes") + DeviceAccess.emptyString,
-        "20": qsTr("every 20 minutes") + DeviceAccess.emptyString,
-        "30": qsTr("every 30 minutes") + DeviceAccess.emptyString,
-        "60": qsTr("every hour") + DeviceAccess.emptyString
+    readonly property var speech_frequencies:
+    {
+        "1" : qsTr("every minute")     + DeviceAccess.managers.translation.emptyString,
+        "5" : qsTr("every 5 minutes")  + DeviceAccess.managers.translation.emptyString,
+        "10": qsTr("every 10 minutes") + DeviceAccess.managers.translation.emptyString,
+        "15": qsTr("every 15 minutes") + DeviceAccess.managers.translation.emptyString,
+        "20": qsTr("every 20 minutes") + DeviceAccess.managers.translation.emptyString,
+        "30": qsTr("every 30 minutes") + DeviceAccess.managers.translation.emptyString,
+        "60": qsTr("every hour")       + DeviceAccess.managers.translation.emptyString
     }
-    readonly property var supportedLanguages: DeviceAccess.supportedLanguages
-    property string speech_frequency: DeviceAccess.settingsValue("Appearance/speech_frequency", "15")
+    readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
+    property string speech_frequency: DeviceAccess.managers.persistence.value("Appearance/speech_frequency", "15")
     property Language language
-    //onLanguageChanged: Helpers.missingLetters(language.table)
+    //onLanguageChanged: HelpersJS.missingLetters(language.table)
     property var currentDateTime
     property int deviceOffset: 0
-    readonly property string deviceGMT: "GMT%1".arg(offsetToGMT(deviceOffset))
-    property string selectedGMT: "GMT+00:00"
+    readonly property string deviceGMT: "GMT%1".arg(WordClockJS.offsetToGMT(deviceOffset))
+    property int selectedOffset: 0
+    readonly property string selectedGMT: "GMT%1".arg(WordClockJS.offsetToGMT(selectedOffset))
     property int deltaTime: 0
     property string written_time
     property string time
@@ -143,18 +67,19 @@ Rectangle {
     property string minutes_value
     property string seconds_value
     property int currentWeekNumber
-    readonly property string currentDate: currentDateTime
-                                          ? currentDateTime.toLocaleDateString(Qt.locale(selected_language)).toUpperCase()
-                                          : ""
+    readonly property string currentDate: currentDateTime ?
+                                              currentDateTime.toLocaleDateString(Qt.locale(selected_language)).
+                                              toUpperCase() :
+                                              ""
     property int previous_hours_array_index: -1
     property int hours_array_index: 0
     readonly property int hours_array_step: 1
     readonly property int hours_array_min: 0
     readonly property int hours_array_max: 11
     readonly property int hours_array_size: ((hours_array_max - hours_array_min) / hours_array_step) + 1
-    readonly property var hours_array: Helpers.createStringArrayWithPadding(hours_array_min,
-                                                                            hours_array_size,
-                                                                            hours_array_step)
+    readonly property var hours_array: HelpersJS.createStringArrayWithPadding(hours_array_min,
+                                                                              hours_array_size,
+                                                                              hours_array_step)
     property int previous_minutes_array_index: -1
     property int minutes_array_index: 0
 
@@ -163,71 +88,96 @@ Rectangle {
     readonly property int minutes_array_max: 55
     readonly property int minutes_array_size: ((minutes_array_max - minutes_array_min)/
                                                minutes_array_step) + 1
-    readonly property var minutes_array: Helpers.createStringArrayWithPadding(minutes_array_min,
-                                                                              minutes_array_size,
-                                                                              minutes_array_step)
+    readonly property var minutes_array: HelpersJS.createStringArrayWithPadding(minutes_array_min,
+                                                                                minutes_array_size,
+                                                                                minutes_array_step)
     readonly property int columns: 11
     readonly property int rows: 10
-    property var onoff_table: Helpers.createWelcomeTable()
-    property var tmp_onoff_table: Helpers.createTable(rows, columns, false)
+    property var onoff_table: WordClockJS.createWelcomeTable()
+    property var tmp_onoff_table: WordClockJS.createTable(rows, columns, false)
+
+    readonly property var accessory: (index, isCorner = true) =>
+                                     {
+                                         switch(accessories[index])
+                                         {
+                                             case "ampm"        : return ampm
+                                             case "batteryLevel": return batteryLevel
+                                             case "date"        : return isCorner ? null : date
+                                             case "minutes"     : return isCorner ? dot : dots
+                                             case "seconds"     : return seconds
+                                             case "timeZone"    : return isCorner ? null : timeZone
+                                             case "weekNumber"  : return weekNumber
+                                             default            : return null
+                                         }
+                                     }
     property var accessories: new Array(6).fill("")
     property real accessoriesOpacity: .0
 
-    Behavior on background_color {
-        enabled: is_color_animation_enabled
-        ColorAnimation { duration: 1000; easing.type: animation_easing }
-    }
-    Behavior on on_color {
-        enabled: is_color_animation_enabled
-        ColorAnimation {  duration: 1000; easing.type: animation_easing }
-    }
-    Behavior on off_color {
-        enabled: is_color_animation_enabled
-        ColorAnimation { duration: 1000; easing.type: animation_easing }
-    }
-    Behavior on accessoriesOpacity { PropertyAnimation { duration: 1000; easing.type: animation_easing } }
+    property alias timer: timer
+    property alias startupTimer: startupTimer
 
+    signal applyColors()
+    signal selectLanguage(string language)
+
+    anchors.verticalCenter: parent.verticalCenter
     color: background_color
-    onLanguageChanged: { DeviceAccess.hideSplashScreen(); enabled = false }
-    Component.onCompleted: {
-        selected_language = DeviceAccess.settingsValue("Appearance/clockLanguage", "")
-        language_urlChanged.connect(
-                    () => { if (time) {
-                            previous_hours_array_index = -1
-                            previous_minutes_array_index = -1
-                            tmp_onoff_table = Helpers.createTable(rows, columns, false)
-                            timeChanged()
-                        }
-                    })
-        timeChanged.connect(updateTable)
-        if (selected_language === "") { detectAndUseDeviceLanguage() } else { selectLanguage(selected_language) }
+    height: parent.height - (isFullScreen ? 0
+                                          : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                                      DeviceAccess.managers.screenSize.safeInsetTop)
+                                             + Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                        DeviceAccess.managers.screenSize.safeInsetBottom)))
+    width: parent.width - (DeviceAccess.managers.screenSize.safeInsetLeft
+                           + DeviceAccess.managers.screenSize.safeInsetRight) -
+           (isLandScape ? settingsPanel.position * (settingsPanel.width -
+                                                   DeviceAccess.managers.screenSize.safeInsetRight)
+                        : 0)
+    x: DeviceAccess.managers.screenSize.safeInsetLeft
+
+    QtQuick.Component.onCompleted: wordClockJS = new WordClockJS.Object(this, isDebug)
+
+    QtQuick.Behavior on background_color
+    {
+        enabled: is_color_animation_enabled
+        QtQuick.ColorAnimation { duration: 1000; easing.type: animation_easing }
+    }
+    QtQuick.Behavior on on_color
+    {
+        enabled: is_color_animation_enabled
+        QtQuick.ColorAnimation {  duration: 1000; easing.type: animation_easing }
+    }
+    QtQuick.Behavior on off_color
+    {
+        enabled: is_color_animation_enabled
+        QtQuick.ColorAnimation { duration: 1000; easing.type: animation_easing }
+    }
+    QtQuick.Behavior on accessoriesOpacity
+    {
+        QtQuick.PropertyAnimation { duration: 1000; easing.type: animation_easing }
     }
 
-    Loader { source: language_url; onLoaded: language = item }
-    Timer {
+    QtQuick.Loader { source: language_url; onLoaded: language = item }
+    QtQuick.Timer
+    {
+        id: startupTimer
+
         property bool color_transition_finished: false
+
         interval: 1000
-        running: true
         repeat: true
-        onTriggered:
-            if (color_transition_finished) {
-                stop()
-                is_color_animation_enabled = false
-            } else {
-                timer.start()
-                applyColors()
-                showAccessories()
-                color_transition_finished = true
-            }
+        running: true
+
+        onTriggered: wordClockJS.startupSequence(color_transition_finished)
     }
-    Timer {
+    QtQuick.Timer
+    {
         id: timer
+
         //public
         property bool is_debug: false
-        property int fake_counter: 0
-        property bool jump_by_minute: false
         property bool jump_by_5_minutes: false
+        property bool jump_by_minute: false
         property bool jump_by_hour: false
+        property int fake_counter: 0
         readonly property string time_reference: "00:00:00"
         //private
         readonly property int day_to_ms: 86400000
@@ -236,105 +186,118 @@ Rectangle {
         readonly property int s_to_ms: 1000
         readonly property var time_reference_list: time_reference.split(':')
         readonly property int time_reference_ms: -3600000 + // January 1, 1970, 00:00:00
-                                                 parseInt(time_reference_list[0])*hour_to_ms +
-                                                 parseInt(time_reference_list[1])*minute_to_ms +
-                                                 parseInt(time_reference_list[2])*s_to_ms
-        interval: is_debug ? 5000 : 5
+                                                 parseInt(time_reference_list[0], 10)*hour_to_ms +
+                                                 parseInt(time_reference_list[1], 10)*minute_to_ms +
+                                                 parseInt(time_reference_list[2], 10)*s_to_ms
+
+        interval: is_debug ? 5000 : 200
         repeat: true
         running: false
         triggeredOnStart: true
-        onTriggered: {
-            if (is_debug) {
-                currentDateTime = new Date(time_reference_ms +
-                                           (jump_by_minute + jump_by_5_minutes*5 + jump_by_hour*60)*
-                                           fake_counter*minute_to_ms)
-                ++fake_counter
-            } else {
-                const now = new Date()
-                deviceOffset = Math.floor(-now.getTimezoneOffset() / 30)
-                currentDateTime = new Date(now.getTime() - deltaTime*minute_to_ms)
-            }
-            seconds_value = currentDateTime.getSeconds()
-            time = currentDateTime.toLocaleTimeString(Qt.locale("en_US"), "HH:mm:a")
-        }
+
+        onTriggered: wordClockJS.updateTime()
     }
 
-    Image { id: backgroundImage; anchors.fill: parent }
-    Column {
+    //QtQuick.Image { id: backgroundImage; anchors.fill: parent }
+    QtQuick.Column
+    {
         id: column
         anchors.centerIn: parent
-        width: table_width
         height: width
-        Item {
+        width: table_width
+        QtQuick.Item
+        {
             height: cell_width
             width: parent.width
-            Loader {
+            QtQuick.Loader
+            {
                 anchors { verticalCenter: parent.verticalCenter; left: parent.left }
                 sourceComponent: accessory(0)
+
                 onLoaded: if (accessories[0] === "minutes") item.index = 0
             }
-            Loader { anchors.centerIn: parent; sourceComponent: accessory(1, false) }
-            Loader {
+            QtQuick.Loader { anchors.centerIn: parent; sourceComponent: accessory(1, false) }
+            QtQuick.Loader
+            {
                 anchors { verticalCenter: parent.verticalCenter; right: parent.right }
                 sourceComponent: accessory(2)
+
                 onLoaded: if (accessories[2] === "minutes") item.index = 1
             }
         }
-        Repeater {
+        QtQuick.Repeater
+        {
             model: language ? language.table : []
-            Row {
+            QtQuick.Row
+            {
                 anchors.horizontalCenter: parent.horizontalCenter
-                Repeater {
+                QtQuick.Repeater
+                {
                     id: repeater
+
                     property int row_index: index
+
                     model: language.table[index]
-                    Text {
-                        readonly property int row_index: repeater.row_index
-                        readonly property int column_index: index
+                    QtQuick.Text
+                    {
                         readonly property bool is_enabled: onoff_table[row_index][column_index]
-                        width: cell_width
-                        height: width
-                        text: modelData
+                        readonly property int column_index: index
+                        readonly property int row_index: repeater.row_index
+
                         color: is_enabled ? on_color : off_color
-                        style: is_enabled ? Text.Outline : Text.Sunken
-                        styleColor: is_enabled ? Qt.lighter(on_color, 1.1) : Qt.darker(background_color, 1.1)
-                        horizontalAlignment : Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        fontSizeMode: Text.Fit
-                        minimumPointSize: 5
                         font { pointSize: 80; kerning: false; preferShaping: false; family: GeneralFont }
+                        fontSizeMode: QtQuick.Text.Fit
+                        height: width
+                        horizontalAlignment : QtQuick.Text.AlignHCenter
+                        minimumPointSize: 5
+                        style: is_enabled ? QtQuick.Text.Outline : QtQuick.Text.Sunken
+                        styleColor: is_enabled ? Qt.lighter(on_color, 1.1) : Qt.darker(background_color, 1.1)
+                        text: modelData
+                        verticalAlignment: QtQuick.Text.AlignVCenter
+                        width: cell_width
                     }
                 }
             }
         }
-        Item {
+        QtQuick.Item
+        {
             height: cell_width
             width: parent.width
-            Loader {
+            QtQuick.Loader
+            {
                 anchors { verticalCenter: parent.verticalCenter; left: parent.left }
                 sourceComponent: accessory(3)
+
                 onLoaded: if (accessories[3] === "minutes") item.index = 3
             }
-            Loader { anchors.centerIn: parent; sourceComponent: accessory(4, false) }
-            Loader {
+            QtQuick.Loader { anchors.centerIn: parent; sourceComponent: accessory(4, false) }
+            QtQuick.Loader
+            {
                 anchors { verticalCenter: parent.verticalCenter; right: parent.right }
                 sourceComponent: accessory(5)
+
                 onLoaded: if (accessories[5] === "minutes") item.index = 2
             }
         }
     }
-    Component {
+    QtQuick.Component
+    {
         id: dots
-        Row {
+
+        QtQuick.Row
+        {
             spacing: cell_width - dot_size
             topPadding: spacing/2
             visible: ((language))
-            Repeater { model: 4; delegate: dot }
+            QtQuick.Repeater { model: 4; delegate: dot }
         }
     }
-    Component {
+    QtQuick.Component
+    {
         id: dot
-        Rectangle {
+
+        QtQuick.Rectangle
+        {
             property int index: model.index
             anchors.verticalCenter: parent ? parent.verticalCenter : undefined
             color: (index+1 <= onoff_dots) ? on_color : off_color
@@ -344,54 +307,72 @@ Rectangle {
             width: dot_size
         }
     }
-    Component {
+    QtQuick.Component
+    {
         id: date
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             isOn: false
+            opacity: accessoriesOpacity
             text: currentDate
         }
     }
-    Component {
+    QtQuick.Component
+    {
         id: timeZone
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             isOn: false
+            opacity: accessoriesOpacity
             text: selectedGMT
         }
     }
-    Component {
+    QtQuick.Component
+    {
         id: ampm
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             isOn: true
+            opacity: accessoriesOpacity
             text: is_AM  ? "AM" : "PM"
         }
     }
-    Component {
+    QtQuick.Component
+    {
         id: seconds
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             font.family: FixedFont
             isOn: true
+            opacity: accessoriesOpacity
             text: ("0" + seconds_value).slice(-2)
         }
     }
-    Component {
+    QtQuick.Component
+    {
         id: weekNumber
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             isOn: false
+            opacity: accessoriesOpacity
             text: currentWeekNumber
         }
     }
-    Component {
+    QtQuick.Component
+    {
         id: batteryLevel
-        Controls.AccessoryText {
-            opacity: accessoriesOpacity
+
+        Controls.AccessoryText
+        {
             font.family: FixedFont
-            isOn: DeviceAccess.isPlugged
-            text: "%1 %".arg(DeviceAccess.batteryLevel)
+            isOn: DeviceAccess.managers.battery.isPlugged
+            opacity: accessoriesOpacity
+            text: "%1 %".arg(DeviceAccess.managers.battery.batteryLevel)
         }
     }
 }

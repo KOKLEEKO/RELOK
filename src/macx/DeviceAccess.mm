@@ -7,22 +7,12 @@
 **************************************************************************************************/
 #include "DeviceAccess.h"
 
-using namespace kokleeko::device;
+#import <Foundation/NSBundle.h>
 
-Q_LOGGING_CATEGORY(lc, "Device")
+Q_LOGGING_CATEGORY(lc, "Device-macx")
 
-void DeviceAccess::security(bool /*value*/) {}
-
-void DeviceAccess::requestReview() {}
-
-void DeviceAccess::disableAutoLock(bool /*disable*/) {}
-
-void DeviceAccess::specificInitializationSteps() {}
-
-void DeviceAccess::setBrightnessRequested(float /*brightness*/) {}
-
-void DeviceAccess::endOfSpeech() {}
-
-void DeviceAccess::hideSplashScreen() {}
-
-void DeviceAccess::updateSafeAreaInsets() {}
+void DeviceAccess::specificInitializationSteps()
+{
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    qCDebug(lc) << "[R] versionName:" << [infoDict objectForKey:@"CFBundleVersion"];
+}

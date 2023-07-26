@@ -5,13 +5,20 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 2.15 as QtControls
 
-import "qrc:/js/Helpers.js" as Helpers
+import "qrc:/js/Helpers.js" as HelpersJS
 
-TextField {
-    function setColor(text) {
+QtControls.TextField
+{
+    property color selectedColor
+    required property Picker huePicker
+    required property Picker lightnessPicker
+    required property Picker saturationPicker
+
+    function setColor(text)
+    {
         selectedColor = text
         huePicker.value = selectedColor.hslHue
         huePicker.moved()
@@ -20,18 +27,16 @@ TextField {
         lightnessPicker.value = selectedColor.hslLightness
         lightnessPicker.moved()
     }
-    required property Picker huePicker
-    required property Picker saturationPicker
-    required property Picker lightnessPicker
-    property color selectedColor
-    implicitWidth: 200
-    text: huePicker.selected_color.toString().toUpperCase()
-    font.pointSize: headings.p1
-    horizontalAlignment: TextField.AlignHCenter
+
     color: acceptableInput ? palette.text : "red"
-    validator: RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }  // @disable-check M16 @disable-check M31
+    font.pointSize: headings.p1
+    horizontalAlignment: QtControls.TextField.AlignHCenter
+    implicitWidth: 200
     inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
     selectByMouse: true
     selectedTextColor: "white"
-    Component.onCompleted: editingFinished.connect(() => { setColor(text); focus = false })
+    text: huePicker ? huePicker.selected_color.toString().toUpperCase() : ""
+    validator: QtQuick.RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }  // @disable-check M16 @disable-check M31
+
+    QtQuick.Component.onCompleted: editingFinished.connect(() => { setColor(text); focus = false })
 }

@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>js/Helpers.js</file>
+        <file>js/WordClock.js</file>
+        <file>js/WebAccess.js</file>
+        <file>js/PositionSelector.js</file>
     </qresource>
 </RCC>
