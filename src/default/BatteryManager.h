@@ -11,6 +11,8 @@
 
 class BatteryManager : public BatteryManagerBase
 {
+    Q_OBJECT
+
 public:
     explicit BatteryManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 };

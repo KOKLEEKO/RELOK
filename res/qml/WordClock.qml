@@ -121,6 +121,7 @@ QtQuick.Rectangle
 
     anchors.verticalCenter: parent.verticalCenter
     color: background_color
+    layer.enabled: true
     height: parent.height - (isFullScreen ? 0
                                           : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
                                                       DeviceAccess.managers.screenSize.safeInsetTop)

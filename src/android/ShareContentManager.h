@@ -7,13 +7,14 @@
 **************************************************************************************************/
 #pragma once
 
-#include <ShareContentManagerBase.h>
+#include "src/default/ShareContentManager.h"
 
-class ShareContentManager : public ShareContentManagerBase
+class ShareContentManager : public Default::ShareContentManager
 {
+    Q_OBJECT
+
 public:
     explicit ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    void share(QVariant content) final override;
+    void screenshot() final override;
 };
-

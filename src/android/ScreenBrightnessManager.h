@@ -11,10 +11,11 @@
 
 class ScreenBrightnessManager : public ScreenBrightnessManagerBase
 {
+    Q_OBJECT
+
 public:
     explicit ScreenBrightnessManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     void setBrightnessRequested(float brightness) final override;
     void requestBrightnessUpdate() final override;
 };
-

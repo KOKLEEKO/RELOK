@@ -42,7 +42,7 @@ QtQuick.MouseArea
         QtExtras.MenuItem
         {
             iconSource: "qrc:/assets/share.svg"
-            visible: HelpersJS.isMobile
+            visible: DeviceAccess.managers.shareContent.enabled
             onTriggered: shareTimer.start()
         }
         QtExtras.MenuItem { iconSource: "qrc:/assets/settings.svg"; onTriggered: settingsPanel.open() }
@@ -71,5 +71,10 @@ QtQuick.MouseArea
             onTriggered: HelpersJS.updateVisibility(root)
         }
     }
-    QtQuick.Timer { id: shareTimer; interval: 300; onTriggered: DeviceAccess.share() }
+    QtQuick.Timer
+    {
+        id: shareTimer
+        interval: 300
+        onTriggered: DeviceAccess.managers.shareContent.screenshot(wordClock)
+    }
 }

@@ -8,9 +8,8 @@
 #include "ShareContentManager.h"
 
 ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent)
-    : ShareContentManagerBase{deviceAccess, parent}
+    : Default::ShareContentManager{deviceAccess, parent}
 {
-    m_enabled = true;
 }
 
-void ShareContentManager::share(QVariant content) {}
+void ShareContentManager::screenshot() {}

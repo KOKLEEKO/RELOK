@@ -115,8 +115,10 @@ macx | ios {
             src/default
 
         HEADERS +=                                              \
+            src/default/ShareContentManager.h                   \
             src/default/SpeechManager.h
         SOURCES +=                                              \
+            src/default/ShareContentManager.cpp                 \
             src/default/SpeechManager.cpp
 
         OBJECTIVE_HEADERS +=                                    \
@@ -132,10 +134,12 @@ macx | ios {
         HEADERS +=                                              \
             src/default/BatteryManager.h                        \
             src/default/EnergySavingManager.h                   \
+            src/default/ShareContentManager.h                   \
             src/default/SpeechManager.h
         SOURCES +=                                              \
             src/default/BatteryManager.cpp                      \
             src/default/EnergySavingManager.cpp                 \
+            src/default/ShareContentManager.cpp                 \
             src/default/SpeechManager.cpp
 
         OBJECTIVE_HEADERS +=                                    \
@@ -154,6 +158,7 @@ macx | ios {
             src/ios/ScreenSizeManager.mm                        \
             src/ios/ShareContentManager.mm                      \
             src/ios/SpeechManager.mm
+
         QMAKE_INFO_PLIST = apple/ios/Info.plist
         OTHER_FILES += apple/ios/Launch.storyboard
         app_launch_screen.files = apple/ios/Launch.storyboard
@@ -179,6 +184,7 @@ macx | ios {
         src/android/SplashScreenManager.h                       \
         src/default/BatteryManager.h                            \
         src/default/EnergySavingManager.h                       \
+        src/default/ShareContentManager.h                       \
         src/default/SpeechManager.h
     SOURCES +=                                                  \
         src/android/AutoLockManager.cpp                         \
@@ -191,6 +197,7 @@ macx | ios {
         src/android/SplashScreenManager.cpp                     \
         src/default/BatteryManager.cpp                          \
         src/default/EnergySavingManager.cpp                     \
+        src/default/ShareContentManager.cpp                     \
         src/default/SpeechManager.cpp
 
     ANDROID_VERSION_NAME = $$VERSION

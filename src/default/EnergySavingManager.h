@@ -4,6 +4,8 @@
 
 class EnergySavingManager : public EnergySavingManagerBase
 {
+    Q_OBJECT
+
 public:
     EnergySavingManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 

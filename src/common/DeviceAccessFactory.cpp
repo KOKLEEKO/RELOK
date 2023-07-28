@@ -27,8 +27,12 @@
 #include <ShareContentManager.h>
 #include <SpeechManager.h>
 
+#include "src/default/BatteryManager.h"
 #include "src/default/EnergySavingManager.h"
-#include <src/default/BatteryManager.h>
+#endif
+
+#ifndef Q_OS_WEBOS
+#include "src/default/ShareContentManager.h"
 #endif
 
 DeviceAccessFactory::DeviceAccessFactory() {}
@@ -55,8 +59,11 @@ DeviceAccess *DeviceAccessFactory::create()
     deviceAccess->addManager(std::make_shared<EnergySavingManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<ScreenBrightnessManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<ScreenSizeManager>(deviceAccess));
-    deviceAccess->addManager(std::make_shared<ShareContentManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
+#endif
+
+#ifndef Q_OS_WEBOS
+    deviceAccess->addManager(std::make_shared<ShareContentManager>(deviceAccess));
 #endif
 
     deviceAccess->specificInitializationSteps();

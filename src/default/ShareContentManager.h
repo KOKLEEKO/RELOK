@@ -7,15 +7,22 @@
 **************************************************************************************************/
 #pragma once
 
-#include <ScreenSizeManagerBase.h>
+#include <ShareContentManagerBase.h>
 
-class ScreenSizeManager : public ScreenSizeManagerBase
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+namespace Default {
+#endif
+
+class ShareContentManager : public ShareContentManagerBase
 {
     Q_OBJECT
 
 public:
-    explicit ScreenSizeManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
+    explicit ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    void toggleFullScreen() final override;
-    void updateSafeAreaInsets() final override;
+    void screenshot(QQuickItem *item) override;
 };
+
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+} //Default
+#endif
