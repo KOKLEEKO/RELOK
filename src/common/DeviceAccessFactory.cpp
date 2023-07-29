@@ -24,14 +24,15 @@
 #include <AutoLockManager.h>
 #include <ScreenBrightnessManager.h>
 #include <ScreenSizeManager.h>
-#include <ShareContentManager.h>
 #include <SpeechManager.h>
 
 #include "src/default/BatteryManager.h"
 #include "src/default/EnergySavingManager.h"
 #endif
 
-#ifndef Q_OS_WEBOS
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
+#include <ShareContentManager.h>
+#elif !defined(Q_OS_WEBOS)
 #include "src/default/ShareContentManager.h"
 #endif
 

@@ -9,20 +9,25 @@
 
 #include <ShareContentManagerBase.h>
 
-#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+#include <QStandardPaths>
+
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
 namespace Default {
 #endif
 
 class ShareContentManager : public ShareContentManagerBase
 {
-    Q_OBJECT
 
 public:
     explicit ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     void screenshot(QQuickItem *item) override;
+
+protected:
+    const QString m_screenshotPath{QStandardPaths::writableLocation(QStandardPaths::TempLocation)
+                                   + QLatin1String("WordClock++.png")};
 };
 
-#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
 } //Default
 #endif

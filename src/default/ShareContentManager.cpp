@@ -13,7 +13,7 @@
 #include <QScreen>
 #include <QStandardPaths>
 
-#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
 using namespace Default;
 #endif
 
@@ -26,10 +26,8 @@ ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject
 void ShareContentManager::screenshot(QQuickItem *item)
 {
     auto image = item->grabToImage();
-    connect(image.get(), &QQuickItemGrabResult::ready, this, [image] {
-        QString filePath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation)
-                           + QLatin1String("/WordClock++.png");
-        bool result = const_cast<const QQuickItemGrabResult *>(image.get())->saveToFile(filePath);
-        qCDebug(lc) << "[screenshot]" << (result ? filePath : QLatin1String("failed"));
+    connect(image.get(), &QQuickItemGrabResult::ready, this, [=] {
+        bool result = const_cast<const QQuickItemGrabResult *>(image.get())->saveToFile(m_screenshotPath);
+        qCDebug(lc) << "[screenshot]" << (result ? m_screenshotPath : QLatin1String("failed"));
     });
 }

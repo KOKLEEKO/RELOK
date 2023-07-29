@@ -17,6 +17,10 @@ CONFIG +=                                                       \
 
 CONFIG -= qtquickcompiler
 
+!win32 {
+    CONFIG += object_parallel_to_source
+}
+
 INCLUDEPATH +=                                                  \
     src/base                                                    \
     src/base/capability                                         \
@@ -122,9 +126,12 @@ macx | ios {
             src/default/SpeechManager.cpp
 
         OBJECTIVE_HEADERS +=                                    \
-            src/macx/DeviceAccess.h
+            src/macx/DeviceAccess.h                             \
+            src/macx/ShareContentManager.h
         OBJECTIVE_SOURCES +=                                    \
-            src/macx/DeviceAccess.mm
+            src/macx/DeviceAccess.mm                            \
+            src/macx/ShareContentManager.mm
+
         QMAKE_INFO_PLIST = apple/macx/Info.plist
 
     } else:ios {
@@ -168,8 +175,6 @@ macx | ios {
 } else:android {
 
     QT += androidextras
-
-    CONFIG += object_parallel_to_source
 
     INCLUDEPATH += src/android
 
