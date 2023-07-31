@@ -22,6 +22,11 @@ public:
     explicit ShareContentManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual void screenshot(QQuickItem * /*item*/) {}
+
+protected:
+    virtual void screenshotWithCallback(QQuickItem * /*item*/,
+                                        const std::function<void(QImage)> & /*callback*/ = {})
+    {}
 };
 
 #ifndef Q_OS_WIN

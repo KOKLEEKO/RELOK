@@ -13,6 +13,8 @@
 #include <QScreen>
 #include <QStandardPaths>
 
+#include <functional>
+
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
 using namespace Default;
 #endif
@@ -25,9 +27,15 @@ ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject
 
 void ShareContentManager::screenshot(QQuickItem *item)
 {
-    auto image = item->grabToImage();
+    screenshotWithCallback(item);
+}
+
+void ShareContentManager::screenshotWithCallback(QQuickItem *item,
+                                                 const std::function<void(QImage)> &callback)
+{
+    auto image = item->grabToImage(qApp->devicePixelRatio() * QSize(item->width(), item->height()));
     connect(image.get(), &QQuickItemGrabResult::ready, this, [=] {
-        bool result = const_cast<const QQuickItemGrabResult *>(image.get())->saveToFile(m_screenshotPath);
-        qCDebug(lc) << "[screenshot]" << (result ? m_screenshotPath : QLatin1String("failed"));
+        if (callback)
+            callback(image.get()->image());
     });
 }

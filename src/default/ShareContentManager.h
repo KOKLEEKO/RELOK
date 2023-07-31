@@ -17,6 +17,7 @@ namespace Default {
 
 class ShareContentManager : public ShareContentManagerBase
 {
+    Q_OBJECT
 
 public:
     explicit ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
@@ -24,8 +25,8 @@ public:
     void screenshot(QQuickItem *item) override;
 
 protected:
-    const QString m_screenshotPath{QStandardPaths::writableLocation(QStandardPaths::TempLocation)
-                                   + QLatin1String("WordClock++.png")};
+    void screenshotWithCallback(QQuickItem *item,
+                                const std::function<void(QImage)> &callback = {}) final override;
 };
 
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)

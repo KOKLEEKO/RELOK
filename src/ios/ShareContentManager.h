@@ -11,10 +11,8 @@
 
 class ShareContentManager : public Default::ShareContentManager
 {
-    Q_OBJECT
-
 public:
     explicit ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    void screenshot() final override;
+    void screenshot(QQuickItem *item) final override;
 };

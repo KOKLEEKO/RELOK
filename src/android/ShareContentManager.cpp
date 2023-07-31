@@ -7,12 +7,15 @@
 **************************************************************************************************/
 #include "ShareContentManager.h"
 
+#include <QImage>
+
 ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : Default::ShareContentManager{deviceAccess, parent}
 {
     m_enabled = true;
 }
 
-void ShareContentManager::screenshot()
+void ShareContentManager::screenshot(QQuickItem *item)
 {
+    screenshotWithCallback(item, [](QImage screenshot) { Q_UNUSED(screenshot) });
 }

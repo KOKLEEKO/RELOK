@@ -4,8 +4,6 @@
 
 class ShareContentManager : public Default::ShareContentManager
 {
-    Q_OBJECT
-
 public:
     explicit ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 

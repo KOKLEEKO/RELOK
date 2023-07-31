@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include "ReviewManager.h"
+#import "ReviewManager.h"
 
 #import <StoreKit/SKStoreReviewController.h>
 #import <UIKit/UIApplication.h>

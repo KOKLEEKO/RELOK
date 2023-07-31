@@ -27,6 +27,8 @@ AutoLockManager::AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent
 
 void AutoLockManager::disableAutoLock(bool disable)
 {
+    if (isAutoLockDisabled() == disable)
+        return;
     qCDebug(lc) << "[W] disabledAutoLock:" << disable;
     [[UIApplication sharedApplication] setIdleTimerDisabled:disable];
     setIsAutoLockDisabled([UIApplication sharedApplication].isIdleTimerDisabled);

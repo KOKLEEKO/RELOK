@@ -11,8 +11,6 @@
 
 class SpeechManager : public Default::SpeechManager
 {
-    Q_OBJECT
-
 public:
     explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
