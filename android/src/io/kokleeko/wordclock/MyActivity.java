@@ -27,7 +27,7 @@ import org.qtproject.qt5.android.bindings.QtActivity;
 
 public class MyActivity extends QtActivity
 {
-    private final String TAG = "MyActivity";
+    private static String TAG = "Device-android";
     private AudioManager audioManager;
     private AudioFocusRequest audioFocusRequest;
 

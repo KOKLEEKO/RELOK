@@ -216,6 +216,7 @@ macx | ios {
         android/gradlew                                         \
         android/gradlew.bat                                     \
         android/res/values/libs.xml                             \
+        android/res/xml/paths.xml                               \
         android/src/io/kokleeko/wordclock/DeviceAccess.java     \
         android/src/io/kokleeko/wordclock/MyActivity.java
 
