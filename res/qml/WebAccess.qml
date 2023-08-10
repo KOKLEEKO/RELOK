@@ -56,7 +56,7 @@ QtControls.Drawer
                 QtControls.ToolButton
                 {
                     icon.source: "qrc:/assets/close.svg"
-                    onClicked: popup.close()
+                    onClicked: webAccess.close()
                 }
                 QtControls.ToolSeparator { }
                 QtControls.ToolButton
@@ -98,6 +98,8 @@ QtControls.Drawer
                 property string base_url
                 property string error_string
                 property string title
+
+                function openUrl(url) { webAccessJS.openUrl(url) }
 
                 visible: status === QtWebView.WebView.LoadSucceededStatus
                 anchors.fill: parent

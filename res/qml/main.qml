@@ -31,7 +31,7 @@ QtControls.ApplicationWindow
     property bool isLeftHanded: DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0)
     property bool showWelcome: DeviceAccess.managers.persistence.value("Welcome/showPopup", true)
     property real tmpOpacity: root.opacity
-    property size size: Qt.size(width, height)
+    readonly property size size: Qt.size(width, height)
     readonly property bool isFullScreen: HelpersJS.isIos ? DeviceAccess.managers.screenSize.prefersStatusBarHidden
                                                          : visibility === QtWindows.Window.FullScreen
     readonly property bool isLandScape: width > height

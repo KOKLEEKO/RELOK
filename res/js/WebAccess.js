@@ -22,7 +22,7 @@ class Object {
 
     openUrl(url, fromBack = false)
     {
-        if (url !== base_url || (fromBack && url !== webView.url.toString()))
+        if (url !== instance.webView.base_url || (fromBack && url !== webView.url.toString()))
         {
             instance.webView.url = url
         }
@@ -42,7 +42,7 @@ class Object {
             instance.webView.title = qsTr("Loading...") + DeviceAccess.managers.translation.emptyString
             break;
         case QtWebView.WebView.LoadSucceededStatus:
-            runJavaScript("document.title", (title) => instance.webView.title = title)
+            instance.webView.runJavaScript("document.title", (title) => instance.webView.title = title)
             break;
         case QtWebView.WebView.LoadFailedStatus:
             instance.webView.title = qsTr("Houston, we have a problem") + DeviceAccess.managers.translation.emptyString
