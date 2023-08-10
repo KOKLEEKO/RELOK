@@ -31,8 +31,6 @@
         <file>assets/share.svg</file>
         <file>assets/notify_off.svg</file>
         <file>assets/notify_on.svg</file>
-        <file>assets/focus_off.svg</file>
-        <file>assets/focus_on.svg</file>
         <file>assets/fullscreen_off.svg</file>
         <file>assets/fullscreen_on.svg</file>
     </qresource>

@@ -153,6 +153,7 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
     Controls.MenuSection
     {
         title: qsTr("Appearance") + DeviceAccess.managers.translation.emptyString
+
         Controls.MenuItem
         {
             title: (HelpersJS.isIos ? qsTr("Hide Status Bar")
@@ -171,6 +172,26 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 }
             }
             details: qsTr("When the settings menu is closed, this can also be done by a long press on the clock.")
+            /**/       + DeviceAccess.managers.translation.emptyString
+        }
+        Controls.MenuItem
+        {
+            active: isTouchDevice
+            title: qsTr("Pie Menu") + DeviceAccess.managers.translation.emptyString
+            extras: QtControls.ComboBox
+            {
+                width: parent ? parent.width : 0
+                currentIndex: DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0)
+                model: [
+                    qsTr("Right-handed") + DeviceAccess.managers.translation.emptyString,
+                    qsTr("Left-handed") + DeviceAccess.managers.translation.emptyString
+                ]
+                onCurrentIndexChanged: {
+                    isLeftHanded = Boolean(currentIndex)
+                    DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", currentIndex)
+                }
+            }
+            details: qsTr("Optimize its layout to match the preference of your hand when using your finger")
             /**/       + DeviceAccess.managers.translation.emptyString
         }
         Controls.MenuItem

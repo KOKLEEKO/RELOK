@@ -14,24 +14,25 @@ import DeviceAccess 1.0
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
-QtQuick.MouseArea
+QtQuick.Item
 {
-    property bool isLeftHanded: false
-    property bool isFullCircle: HelpersJS.isDesktop || HelpersJS.isWasm
-    readonly property int pieMenuStartAngle: isFullCircle ? 180 : (isLeftHanded ? 1 : -1) * 195
+    property bool isFullCircle: true
     readonly property int pieMenuEndAngle: isFullCircle ? -180 : (isLeftHanded ? -1 : 1) * 105
+    readonly property int pieMenuStartAngle: isFullCircle ? 180 : (isLeftHanded ? 1 : -1) * 195
 
     anchors.fill: parent
 
-    onPressed: pressAndHoldTimer.start()
-    onReleased: pressAndHoldTimer.stop()
-
-    QtQuick.Timer
+    QtQuick.TapHandler
     {
-        id: pressAndHoldTimer
-        interval: 300
-        onTriggered: pieMenu.popup(parent.mouseX, parent.mouseY)
+        longPressThreshold: 0.3 //s
+
+        onDoubleTapped: if (!HelpersJS.isWasm) HelpersJS.updateVisibility(root)
+        onGrabChanged: (transition, point) => {
+                           isFullCircle = (point.event.device.pointerType !== QtQuick.PointerDevice.Finger)
+                       }
+        onLongPressed: pieMenu.popup(point.position.x, point.position.y)
     }
+
     QtExtras.PieMenu
     {
         id: pieMenu
@@ -57,12 +58,6 @@ QtQuick.MouseArea
             iconSource: "qrc:/assets/speech.svg"
             visible: DeviceAccess.managers.speech.enabled
             onTriggered: DeviceAccess.managers.speech.say(wordClock.written_time)
-        }
-        QtExtras.MenuItem
-        {
-            iconSource: "qrc:/assets/focus_%1.svg".arg(wordClock.true ? "off" : "on")
-            visible: HelpersJS.isMobile
-            onTriggered: {}
         }
         QtExtras.MenuItem
         {

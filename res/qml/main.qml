@@ -28,6 +28,7 @@ QtControls.ApplicationWindow
     property alias headings: headings
     property bool aboutToQuit: false
     property bool isWidget: false
+    property bool isLeftHanded: DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0)
     property bool showWelcome: DeviceAccess.managers.persistence.value("Welcome/showPopup", true)
     property real tmpOpacity: root.opacity
     property size size: Qt.size(width, height)
@@ -41,7 +42,7 @@ QtControls.ApplicationWindow
     height: DeviceAccess.managers.persistence.value("Appearance/height", 480)
     minimumHeight: minimumSize
     minimumWidth: minimumSize
-    opacity: DeviceAccess.managers.persistence.value("Appearance/opacity", 1)
+    opacity: HelpersJS.isDesktop ? DeviceAccess.managers.persistence.value("Appearance/opacity", 1) : 1
     visibility: HelpersJS.isIos ? QtWindows.Window.FullScreen : QtWindows.Window.AutomaticVisibility
     visible: true
     width: DeviceAccess.managers.persistence.value("Appearance/width", 640)
@@ -160,10 +161,12 @@ QtControls.ApplicationWindow
     WordClock { id: wordClock }
     ClickableArea { }
     SettingsPanel { id: settingsPanel }
+
     Popups.PurchasingPopup { }
     Popups.TipsThanksPopup { id: tipsThanksPopup }
     Popups.FailedTransactionPopup { id: failedTransactionPopup }
     Popups.WelcomePopup { id: welcomePopup }
     Popups.BadReviewPopup { id: badReviewPopup }
+
     QtQuick.Loader { active: HelpersJS.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
 }
