@@ -119,6 +119,7 @@ function listProperties(name, object) {
 
 function updateVisibility(window)
 {
+    console.log("updateVisibility")
     if (isIos)
     {
         Global.DeviceAccess.managers.screenSize.toggleFullScreen()

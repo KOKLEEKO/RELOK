@@ -477,37 +477,37 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>Tips</name>
     <message>
-        <location filename="../res/qml/Tips.qml" line="18"/>
+        <location filename="../res/qml/Tips.qml" line="20"/>
         <source>Tip me a Bone (for Denver)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/Tips.qml" line="19"/>
+        <location filename="../res/qml/Tips.qml" line="21"/>
         <source>Tip me a Coffee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/Tips.qml" line="20"/>
+        <location filename="../res/qml/Tips.qml" line="22"/>
         <source>Tip me a Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/Tips.qml" line="21"/>
+        <location filename="../res/qml/Tips.qml" line="23"/>
         <source>Tip me an Ice Cream</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/Tips.qml" line="22"/>
+        <location filename="../res/qml/Tips.qml" line="24"/>
         <source>Tip me a Beer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/Tips.qml" line="23"/>
+        <location filename="../res/qml/Tips.qml" line="25"/>
         <source>Tip me a Burger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/Tips.qml" line="24"/>
+        <location filename="../res/qml/Tips.qml" line="26"/>
         <source>Tip me a Wine Bottle</source>
         <translation type="unfinished"></translation>
     </message>
