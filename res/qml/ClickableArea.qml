@@ -26,7 +26,7 @@ QtQuick.Item
     {
         longPressThreshold: 0.3 //s
 
-        onDoubleTapped: if (!HelpersJS.isWasm) HelpersJS.updateVisibility(root)
+        onDoubleTapped: HelpersJS.updateVisibility(root)
         onGrabChanged: (transition, point) => {
                            isFullCircle = (point.event.device.pointerType !== QtQuick.PointerDevice.Finger)
                        }
@@ -62,7 +62,7 @@ QtQuick.Item
         QtExtras.MenuItem
         {
             iconSource: "qrc:/assets/fullscreen_%1.svg".arg(isFullScreen ? "off" : "on")
-            visible: !HelpersJS.isWasm
+            //visible: !HelpersJS.isWasm
             onTriggered: HelpersJS.updateVisibility(root)
         }
     }
