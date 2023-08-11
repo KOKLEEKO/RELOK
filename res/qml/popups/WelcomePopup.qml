@@ -39,9 +39,10 @@ QtControls.Dialog
 
             text:
                 "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use.")).arg(
-                    HelpersJS.isMobile ? qsTr("Please touch the screen outside this pop-up window to close it and \
-open the settings menu.") : qsTr("Please right-click outside this pop-up window to \
-close it and open the settings menu.")) + DeviceAccess.managers.translation.emptyString
+                    qsTr("Please %1 outside this pop-up to close it and open the settings menu.").arg(
+                        HelpersJS.isMobile ? qsTr("press and hold on the screen", "mobile")
+                                           : qsTr("click and hold", "desktop"))) +
+                DeviceAccess.managers.translation.emptyString
             wrapMode: QtControls.Label.WordWrap
         }
         QtControls.CheckBox

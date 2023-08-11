@@ -12,7 +12,6 @@
 #include <TranslationManager.h>
 
 #ifndef Q_OS_WASM
-#include <ReviewManager.h>
 #include <SpeechManager.h>
 #endif
 
@@ -31,9 +30,8 @@
 #endif
 
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
+#include <ReviewManager.h>
 #include <ShareContentManager.h>
-#elif !defined(Q_OS_WEBOS)
-#include "src/default/ShareContentManager.h"
 #endif
 
 DeviceAccessFactory::DeviceAccessFactory() {}
@@ -47,13 +45,11 @@ DeviceAccess *DeviceAccessFactory::create()
 
 #ifndef Q_OS_WASM
     deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
+#endif
+
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
     deviceAccess->addManager(std::make_shared<ReviewManager>(deviceAccess));
-#endif
-
-#ifdef Q_OS_ANDROID
-    deviceAccess->addManager(std::make_shared<SplashScreenManager>(deviceAccess));
-#endif
-
+    deviceAccess->addManager(std::make_shared<ShareContentManager>(deviceAccess));
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
     deviceAccess->addManager(std::make_shared<AutoLockManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<BatteryManager>(deviceAccess));
@@ -61,10 +57,10 @@ DeviceAccess *DeviceAccessFactory::create()
     deviceAccess->addManager(std::make_shared<ScreenBrightnessManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<ScreenSizeManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
+#ifdef Q_OS_ANDROID
+    deviceAccess->addManager(std::make_shared<SplashScreenManager>(deviceAccess));
 #endif
-
-#ifndef Q_OS_WEBOS
-    deviceAccess->addManager(std::make_shared<ShareContentManager>(deviceAccess));
+#endif
 #endif
 
     deviceAccess->specificInitializationSteps();

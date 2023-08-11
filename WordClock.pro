@@ -127,9 +127,11 @@ macx | ios {
 
         OBJECTIVE_HEADERS +=                                    \
             src/macx/DeviceAccess.h                             \
+            src/macx/ReviewManager.h                            \
             src/macx/ShareContentManager.h
         OBJECTIVE_SOURCES +=                                    \
             src/macx/DeviceAccess.mm                            \
+            src/macx/ReviewManager.mm                           \
             src/macx/ShareContentManager.mm
 
         QMAKE_INFO_PLIST = apple/macx/Info.plist
@@ -235,11 +237,9 @@ macx | ios {
 
     HEADERS +=                                                  \
         src/default/DeviceAccess.h                              \
-        src/default/ShareContentManager.h                       \
         src/default/SpeechManager.h
     SOURCES +=                                                  \
         src/default/DeviceAccess.cpp                            \
-        src/default/ShareContentManager.cpp                     \
         src/default/SpeechManager.cpp
 
 }

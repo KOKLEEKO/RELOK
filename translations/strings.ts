@@ -552,16 +552,23 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/popups/WelcomePopup.qml" line="42"/>
-        <source>Please touch the screen outside this pop-up window to close it and open the settings menu.</source>
+        <source>Please %1 outside this pop-up to close it and open the settings menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/popups/WelcomePopup.qml" line="43"/>
-        <source>Please right-click outside this pop-up window to close it and open the settings menu.</source>
+        <source>press and hold on the screen</source>
+        <comment>mobile</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="52"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="44"/>
+        <source>click and hold</source>
+        <comment>desktop</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="53"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
