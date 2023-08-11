@@ -116,22 +116,34 @@ QtQuick.Rectangle
     property alias timer: timer
     property alias startupTimer: startupTimer
 
+    readonly property size availableSize: Qt.size(parent.width -
+                                                  (DeviceAccess.managers.screenSize.safeInsetLeft +
+                                                   DeviceAccess.managers.screenSize.safeInsetRight) -
+                                                  (isLandScape ? settingsPanel.position *
+                                                                 (settingsPanel.width -
+                                                                  DeviceAccess.managers.screenSize.safeInsetRight)
+                                                               : 0),
+                                                  parent.height -
+                                                  (isFullScreen
+                                                   ? 0
+                                                   : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                                               DeviceAccess.managers.screenSize.safeInsetTop)
+                                                      + Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                                 DeviceAccess.managers.screenSize.safeInsetBottom))))
+
     signal applyColors()
     signal selectLanguage(string language)
 
     anchors.verticalCenter: parent.verticalCenter
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.horizontalCenterOffset: (isLandScape ? settingsPanel.position *
+                                                  (DeviceAccess.managers.screenSize.safeInsetRight -
+                                                   settingsPanel.width): 0)/2
     color: background_color
     layer.enabled: true
-    height: parent.height - (isFullScreen ? 0
-                                          : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
-                                                      DeviceAccess.managers.screenSize.safeInsetTop)
-                                             + Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
-                                                        DeviceAccess.managers.screenSize.safeInsetBottom)))
-    width: parent.width - (DeviceAccess.managers.screenSize.safeInsetLeft
-                           + DeviceAccess.managers.screenSize.safeInsetRight) -
-           (isLandScape ? settingsPanel.position * (settingsPanel.width -
-                                                   DeviceAccess.managers.screenSize.safeInsetRight)
-                        : 0)
+    width: Math.min(availableSize.width, availableSize.height)
+    height: width
+
     x: DeviceAccess.managers.screenSize.safeInsetLeft
 
     QtQuick.Component.onCompleted: wordClockJS = new WordClockJS.Object(this, isDebug)
