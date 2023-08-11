@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
 #else
     engine.rootContext()->setContextProperty("isDebug", false);
 #endif
+    qCDebug(lc) << "[R] touchDevices:" << QTouchDevice::devices().size();
     engine.rootContext()->setContextProperty("isTouchDevice", QTouchDevice::devices().size() > 0);
 
     ///using namespace kokleeko::device;

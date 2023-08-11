@@ -56,7 +56,7 @@ Controls.Menu
         }
         QtQuick.Repeater
         {
-            model: tips.tipsModel
+            model: HelpersJS.isPurchasing ? tips.tipsModel : []
             Controls.IconButton
             {
                 readonly property QtPurchasing.Product product: tips.products[modelData.name]
