@@ -235,9 +235,11 @@ macx | ios {
 
     HEADERS +=                                                  \
         src/default/DeviceAccess.h                              \
+        src/default/ShareContentManager.h                       \
         src/default/SpeechManager.h
     SOURCES +=                                                  \
         src/default/DeviceAccess.cpp                            \
+        src/default/ShareContentManager.cpp                     \
         src/default/SpeechManager.cpp
 
 }

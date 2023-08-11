@@ -12,7 +12,7 @@
 #include <TranslationManager.h>
 
 #ifndef Q_OS_WASM
-//#include <ReviewManager.h>
+#include <ReviewManager.h>
 #include <SpeechManager.h>
 #endif
 
@@ -47,7 +47,7 @@ DeviceAccess *DeviceAccessFactory::create()
 
 #ifndef Q_OS_WASM
     deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
-    //deviceAccess->addManager(std::make_shared<ReviewManager>(deviceAccess));
+    deviceAccess->addManager(std::make_shared<ReviewManager>(deviceAccess));
 #endif
 
 #ifdef Q_OS_ANDROID
