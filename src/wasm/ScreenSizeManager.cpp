@@ -8,7 +8,7 @@ ScreenSizeManager::ScreenSizeManager(DeviceAccessBase *deviceAccess, QObject *pa
     m_enabled = true;
 }
 
-void toggleFullScreen()
+void ScreenSizeManager::toggleFullScreen()
 {
     using emscripten::val;
     const val document = val::global("document");

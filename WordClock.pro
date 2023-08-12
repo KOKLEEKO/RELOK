@@ -227,9 +227,11 @@ macx | ios {
     INCLUDEPATH += src/wasm
 
     HEADERS +=                                                  \
+        src/default/ShareContentManager.h                       \
         src/wasm/DeviceAccess.h                                 \
         src/wasm/ScreenSizeManager.h
     SOURCES +=                                                  \
+        src/default/ShareContentManager.cpp                     \
         src/wasm/DeviceAccess.cpp                               \
         src/wasm/ScreenSizeManager.cpp
 
