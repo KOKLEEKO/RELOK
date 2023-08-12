@@ -176,19 +176,20 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
         }
         Controls.MenuItem
         {
-            active: isTouchDevice
+            active: true//isTouchDevice
             title: qsTr("Pie Menu") + DeviceAccess.managers.translation.emptyString
-            extras: QtControls.ComboBox
+            model: [ QT_TR_NOOP("Right-handed"), QT_TR_NOOP("Left-handed") ]
+            delegate: QtControls.Button
             {
-                width: parent ? parent.width : 0
-                currentIndex: DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0)
-                model: [
-                    qsTr("Right-handed") + DeviceAccess.managers.translation.emptyString,
-                    qsTr("Left-handed") + DeviceAccess.managers.translation.emptyString
-                ]
-                onCurrentIndexChanged: {
-                    isLeftHanded = Boolean(currentIndex)
-                    DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", currentIndex)
+                autoExclusive: true
+                checkable: true
+                checked: index === DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0)
+                text: qsTr(modelData) + DeviceAccess.managers.translation.emptyString
+
+                onClicked:
+                {
+                    isLeftHanded = Boolean(index)
+                    DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", index)
                 }
             }
             details: qsTr("Optimize its layout to match the preference of your hand when using your finger")
@@ -222,24 +223,18 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                     .indexOf(applicationLanguage.defaultLanguage)
                 }
             }
-            extras: QtControls.ComboBox
+            model: Object.values(DeviceAccess.managers.translation.availableTranslations)
+            delegate: QtControls.Button
             {
-                //palette.dark: systemPalette.text
-                //palette.text: systemPalette.text
-                width: parent.width
-                model: Object.values(DeviceAccess.managers.translation.availableTranslations)
-
-                onActivated: (index) =>
-                             {
-                                 applicationLanguage.switchLanguage(
-                                     Object.keys(DeviceAccess.managers.translation.availableTranslations)[index])
-                             }
-                QtQuick.Component.onCompleted:
-                {
-                    currentIndex = Object.keys(DeviceAccess.managers.translation.availableTranslations)
-                    .indexOf(DeviceAccess.managers.persistence.value("Appearance/uiLanguage",
+                autoExclusive: true
+                checkable: true
+                checked: index === Object.keys(DeviceAccess.managers.translation.availableTranslations).indexOf(
+                             DeviceAccess.managers.persistence.value("Appearance/uiLanguage",
                                                                      applicationLanguage.defaultLanguage))
-                }
+                text: modelData
+
+                onClicked: applicationLanguage.switchLanguage(
+                               Object.keys(DeviceAccess.managers.translation.availableTranslations)[index])
             }
         }
         Controls.MenuItem
