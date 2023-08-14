@@ -37,7 +37,7 @@ QtQuick.Rectangle
     readonly property real table_width: Math.min(height, width)
     readonly property real cell_width: table_width/(rows+2)
     readonly property real dot_size: cell_width/4
-    readonly property var speech_frequencies:
+    readonly property var speech_frequencies: // TODO: Replace by a slider
     {
         "1" : qsTr("every minute")     + DeviceAccess.managers.translation.emptyString,
         "5" : qsTr("every 5 minutes")  + DeviceAccess.managers.translation.emptyString,
@@ -45,7 +45,9 @@ QtQuick.Rectangle
         "15": qsTr("every 15 minutes") + DeviceAccess.managers.translation.emptyString,
         "20": qsTr("every 20 minutes") + DeviceAccess.managers.translation.emptyString,
         "30": qsTr("every 30 minutes") + DeviceAccess.managers.translation.emptyString,
-        "60": qsTr("every hour")       + DeviceAccess.managers.translation.emptyString
+        "60": qsTr("every hour")       + DeviceAccess.managers.translation.emptyString,
+        "120": qsTr("every 2 hours")   + DeviceAccess.managers.translation.emptyString,
+        "180": qsTr("every 3 hours")   + DeviceAccess.managers.translation.emptyString
     }
     readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
     property string speech_frequency: DeviceAccess.managers.persistence.value("Appearance/speech_frequency", "15")

@@ -11,6 +11,7 @@ import QtQuick.Controls 2.15 as QtControls
 import DeviceAccess 1.0
 
 import "qrc:/qml/controls" as Controls
+import "qrc:/qml/settings" as Settings
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
@@ -48,6 +49,6 @@ QtControls.Drawer
     QtQuick.Behavior on height { QtQuick.NumberAnimation { duration: 100 } }
     QtQuick.Behavior on topPadding { QtQuick.NumberAnimation { duration: 100 } }
     QtQuick.Behavior on y { QtQuick.NumberAnimation { duration: 100 } }
-    Controls.SettingsMenu { }
+    Settings.Menu { }
     QtControls.BusyIndicator { anchors.centerIn: parent; running: tips.store.purchasing && !failedTransactionPopup.opened }
 }

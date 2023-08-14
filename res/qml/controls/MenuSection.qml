@@ -21,6 +21,7 @@ QtLayouts.ColumnLayout
     property string title
     property url icon
     property var details: null
+    property bool subMenu: false
 
     spacing: 20
 
@@ -34,7 +35,7 @@ QtLayouts.ColumnLayout
         mouseArea.enabled: is_collapsable
         mouseArea.onClicked:
         {
-            if (is_collapsed)
+            if (is_collapsed && !subMenu)
             {
                 collapsed ? collapsed.is_collapsed = true : { }
                 collapsed = label.parent

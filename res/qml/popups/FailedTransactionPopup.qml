@@ -34,9 +34,7 @@ QtControls.Dialog
         horizontalAlignment: QtControls.Label.Center
         width: parent.width
         wrapMode: QtControls.Label.WordWrap
-        text: ("%1.\n\n%2".arg(tips.failedProductErrorString ?
-                                   tips.failedProductErrorString :
-                                   qsTr("Something went wrong..."))).arg(qsTr("Do you want to try again?")) +
+        text: "%1.\n\n%2".arg(qsTr("Something went wrong...")).arg(qsTr("Do you want to try again?")) +
               DeviceAccess.managers.translation.emptyString
     }
 }
