@@ -49,20 +49,19 @@ QtQuick.Item
         QtExtras.MenuItem { iconSource: "qrc:/assets/settings.svg"; onTriggered: settingsPanel.open() }
         QtExtras.MenuItem
         {
-            iconSource: "qrc:/assets/notify_%1.svg".arg(wordClock.enable_speech ? "off" : "on")
-            visible: DeviceAccess.managers.speech.enabled
-            onTriggered: DeviceAccess.managers.persistence.setValue("Appearance/speech", wordClock.enable_speech ^= true)
-        }
-        QtExtras.MenuItem
-        {
             iconSource: "qrc:/assets/speech.svg"
             visible: DeviceAccess.managers.speech.enabled
             onTriggered: DeviceAccess.managers.speech.say(wordClock.written_time)
         }
         QtExtras.MenuItem
         {
+            iconSource: "qrc:/assets/notify_%1.svg".arg(wordClock.enable_speech ? "off" : "on")
+            visible: DeviceAccess.managers.speech.enabled
+            onTriggered: DeviceAccess.managers.persistence.setValue("Appearance/speech", wordClock.enable_speech ^= true)
+        }
+        QtExtras.MenuItem
+        {
             iconSource: "qrc:/assets/fullscreen_%1.svg".arg(isFullScreen ? "off" : "on")
-            //visible: !HelpersJS.isWasm
             onTriggered: HelpersJS.updateVisibility(root)
         }
     }
