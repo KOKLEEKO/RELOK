@@ -8,10 +8,10 @@
 #include "ShareContentManager.h"
 
 #include <QApplication>
-#include <QPixmap>
+#include <QBuffer>
+#include <QByteArray>
+#include <QFileDialog>
 #include <QQuickItemGrabResult>
-#include <QScreen>
-#include <QStandardPaths>
 
 #include <functional>
 
@@ -27,7 +27,13 @@ ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject
 
 void ShareContentManager::screenshot(QQuickItem *item)
 {
-    screenshotWithCallback(item);
+    screenshotWithCallback(item, [](QImage image) {
+        QByteArray byteArray;
+        QBuffer buffer(&byteArray);
+        buffer.open(QIODevice::WriteOnly);
+        image.save(&buffer, "JPEG");
+        QFileDialog::saveFileContent(byteArray, "wordclock++.jpeg");
+    });
 }
 
 void ShareContentManager::screenshotWithCallback(QQuickItem *item,

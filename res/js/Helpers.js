@@ -119,7 +119,7 @@ function listProperties(name, object) {
 
 function updateVisibility(window)
 {
-    if (isIos)
+    if (isIos || isWasm)
     {
         Global.DeviceAccess.managers.screenSize.toggleFullScreen()
     }

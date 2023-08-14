@@ -10,6 +10,7 @@
 #include <QAndroidJniObject>
 #include <QDir>
 #include <QImage>
+#include <QStandardPaths>
 #include <QtAndroid>
 
 ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent)

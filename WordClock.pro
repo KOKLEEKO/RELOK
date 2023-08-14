@@ -222,14 +222,18 @@ macx | ios {
         android/src/io/kokleeko/wordclock/DeviceAccess.java     \
         android/src/io/kokleeko/wordclock/MyActivity.java
 
-} else:emscripten {
+} else:wasm {
 
     INCLUDEPATH += src/wasm
 
     HEADERS +=                                                  \
-        src/wasm/DeviceAccess.h
+        src/default/ShareContentManager.h                       \
+        src/wasm/DeviceAccess.h                                 \
+        src/wasm/ScreenSizeManager.h
     SOURCES +=                                                  \
-        src/wasm/DeviceAccess.cpp
+        src/default/ShareContentManager.cpp                     \
+        src/wasm/DeviceAccess.cpp                               \
+        src/wasm/ScreenSizeManager.cpp
 
 } else {
 

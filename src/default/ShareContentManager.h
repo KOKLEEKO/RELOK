@@ -9,8 +9,6 @@
 
 #include <ShareContentManagerBase.h>
 
-#include <QStandardPaths>
-
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
 namespace Default {
 #endif

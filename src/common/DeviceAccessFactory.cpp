@@ -19,19 +19,24 @@
 #include <SplashScreenManager.h>
 #endif
 
-#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
-#include <AutoLockManager.h>
-#include <ScreenBrightnessManager.h>
-#include <ScreenSizeManager.h>
-#include <SpeechManager.h>
-
-#include "src/default/BatteryManager.h"
-#include "src/default/EnergySavingManager.h"
-#endif
-
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS) || defined(Q_OS_WASM)
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
 #include <ReviewManager.h>
 #include <ShareContentManager.h>
+#endif
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_WASM)
+#include <ScreenSizeManager.h>
+#endif
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+#include "src/default/BatteryManager.h"
+#include "src/default/EnergySavingManager.h"
+#include <AutoLockManager.h>
+#include <ScreenBrightnessManager.h>
+#include <SpeechManager.h>
+#endif
+#ifdef Q_OS_WASM
+#include "src/default/ShareContentManager.h"
+#endif
 #endif
 
 DeviceAccessFactory::DeviceAccessFactory() {}
@@ -47,15 +52,19 @@ DeviceAccess *DeviceAccessFactory::create()
     deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
 #endif
 
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS) || defined(Q_OS_WASM)
+    deviceAccess->addManager(std::make_shared<ShareContentManager>(deviceAccess));
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS)
     deviceAccess->addManager(std::make_shared<ReviewManager>(deviceAccess));
-    deviceAccess->addManager(std::make_shared<ShareContentManager>(deviceAccess));
+#endif
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_WASM)
+    deviceAccess->addManager(std::make_shared<ScreenSizeManager>(deviceAccess));
+#endif
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
     deviceAccess->addManager(std::make_shared<AutoLockManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<BatteryManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<EnergySavingManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<ScreenBrightnessManager>(deviceAccess));
-    deviceAccess->addManager(std::make_shared<ScreenSizeManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
 #ifdef Q_OS_ANDROID
     deviceAccess->addManager(std::make_shared<SplashScreenManager>(deviceAccess));
