@@ -25,7 +25,7 @@ QtControls.Dialog
     z: 1
 
     onClosed: root.showWelcome = !hidePopupCheckbox.checked
-    QtQuick.Component.onCompleted: { header.background.visible = false; if (!HelpersJS.isWasm && showWelcome) open() }
+    QtQuick.Component.onCompleted: { header.background.visible = false; if (showWelcome) open() }
 
     QtLayouts.ColumnLayout
     {
