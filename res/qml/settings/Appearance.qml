@@ -87,18 +87,25 @@ Controls.MenuSection
                 .indexOf(applicationLanguage.defaultLanguage)
             }
         }
-        model: Object.values(DeviceAccess.managers.translation.availableTranslations)
-        delegate: QtControls.Button
+        extras: QtQuick.ListView
         {
-            autoExclusive: true
-            checkable: true
-            checked: index === Object.keys(DeviceAccess.managers.translation.availableTranslations).indexOf(
-                         DeviceAccess.managers.persistence.value("Appearance/uiLanguage",
-                                                                 applicationLanguage.defaultLanguage))
-            text: modelData
+            delegate: QtControls.Button
+            {
+                autoExclusive: true
+                checkable: true
+                checked: index === Object.keys(DeviceAccess.managers.translation.availableTranslations).indexOf(
+                             DeviceAccess.managers.persistence.value("Appearance/uiLanguage",
+                                                                     applicationLanguage.defaultLanguage))
+                text: modelData
 
-            onClicked: applicationLanguage.switchLanguage(
-                           Object.keys(DeviceAccess.managers.translation.availableTranslations)[index])
+                onClicked: applicationLanguage.switchLanguage(
+                               Object.keys(DeviceAccess.managers.translation.availableTranslations)[index])
+            }
+            height: contentItem.childrenRect.height
+            model: Object.values(DeviceAccess.managers.translation.availableTranslations)
+            orientation: QtQuick.ListView.Horizontal
+            spacing: 5
+            width: parent.width
         }
     }
     Controls.MenuItem

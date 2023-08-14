@@ -245,22 +245,22 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/Appearance.qml" line="78"/>
-        <location filename="../res/qml/settings/Appearance.qml" line="110"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="117"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="106"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="113"/>
         <source>Clock Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="137"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="144"/>
         <source>Enable Special Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="138"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="145"/>
         <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
         <translation type="unfinished"></translation>
     </message>
