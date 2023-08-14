@@ -111,13 +111,12 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
     }
     Controls.MenuItem
     {
-        active: !HelpersJS.isWasm
         title: qsTr("Welcome popup") + DeviceAccess.managers.translation.emptyString
 
         QtControls.Switch
         {
             checked: root.showWelcome
-            onCheckedChanged: DeviceAccess.managers.persistence.setValue("Welcome/showPopup", checked)
+            onCheckedChanged: DeviceAccess.managers.persistence.setValue("Welcome/show", checked)
         }
         details: qsTr("Display at startup.") + DeviceAccess.managers.translation.emptyString
     }

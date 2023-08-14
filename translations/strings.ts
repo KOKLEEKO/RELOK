@@ -186,12 +186,12 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="115"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="114"/>
         <source>Welcome popup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="122"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="121"/>
         <source>Display at startup.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -595,7 +595,7 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     </message>
     <message>
         <location filename="../res/qml/popups/WelcomePopup.qml" line="41"/>
-        <source>We thank you for downloading this application and wish you good use.</source>
+        <source>We hope you enjoy using it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
