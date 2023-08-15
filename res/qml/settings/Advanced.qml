@@ -37,25 +37,32 @@ Controls.MenuSection
     }
     Controls.MenuItem
     {
-        title: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(control ? control.value : 0)) +
+        title: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(extraControls[0].value)) +
                DeviceAccess.managers.translation.emptyString
         active: HelpersJS.isDesktop  // @disable-check M16  @disable-check M31
         enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
         details: qsTr("This setting is not persistent and enabled only when the application is not in fullscreen mode") +
                  DeviceAccess.managers.translation.emptyString
-
-        QtControls.Slider
+       extras: QtControls.Slider
         {
             from: 10
             to: 100
             value: DeviceAccess.managers.persistence.value("Appearance/opacity", 1) * 100
+            width: parent.width
 
-            onMoved:
+            onValueChanged:
             {
                 root.opacity = value/100
                 DeviceAccess.managers.persistence.setValue("Appearance/opacity", root.opacity)
             }
         }
+       QtControls.Button
+       {
+           text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
+           enabled: parent.parent.parent.parent.extraControls[0].value !== 100
+
+           onClicked: parent.parent.parent.parent.extraControls[0].value = 1000
+       }
     }
     Controls.MenuItem
     {
@@ -90,6 +97,7 @@ Controls.MenuSection
             stepSize: 1
             to: 28
             value: wordClock.deviceOffset
+            width: parent.width
 
             onPressedChanged: if (!pressed) timeZone.update()
             onValueChanged: wordClock.selectedOffset = value
