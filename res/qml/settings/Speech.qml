@@ -74,7 +74,6 @@ QtQuick.Loader
                             DeviceAccess.managers.speech.say(wordClock.written_time)
                         DeviceAccess.managers.persistence.setValue("Appearance/%1_voice"
                                                                    .arg(wordClock.selected_language), index)
-                        HelpersJS.listProperties("contentItem", contentItem)
                     }
                     QtControls.Label
                     {

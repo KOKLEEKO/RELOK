@@ -131,6 +131,14 @@ Controls.MenuSection
                 text: modelData
 
                 onClicked: wordClock.selectLanguage(Object.keys(wordClock.languages)[index])
+
+                QtControls.Label
+                {
+                    color: parent.icon.color
+                    anchors { right: parent.right; bottom: parent.bottom; margins: 2 }
+                    font: SmallestReadableFont
+                    text: "%1/%2".arg(index+1).arg(parent.QtQuick.ListView.view.count)
+                }
             }
             height: contentItem.childrenRect.height
             model: Object.values(wordClock.languages)
