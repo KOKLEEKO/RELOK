@@ -34,7 +34,7 @@ void TranslationManager::switchLanguage(QString language)
     if (language != m_translator.language()) {
         qGuiApp->removeTranslator(&m_translator);
         //qGuiApp->removeTranslator(&m_translatorQt);
-        if (language != QLatin1String("en") && m_availableTranslations.contains(language)) {
+        if (m_availableTranslations.contains(language)) {
             if (m_translator.load(QLocale(language),
                                   QLatin1String("wordclock"),
                                   QLatin1String("_"),

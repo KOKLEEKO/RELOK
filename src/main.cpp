@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 #else
     engine.rootContext()->setContextProperty("isDebug", false);
 #endif
-    qDebug() << "[R] touchDevices:" << QTouchDevice::devices().size();
+    qCDebug(lc) << "[R] touchDevices:" << QTouchDevice::devices().size();
     for (const auto *device : QTouchDevice::devices())
         qCDebug(lc) << device->type() << device->name() << device->maximumTouchPoints();
     engine.rootContext()->setContextProperty("isTouchDevice", QTouchDevice::devices().size() > 0);
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
         const QFont font = QFontDatabase::systemFont(value);
         const QString systemFontName = systemFontMetaEnum.key(index);
         engine.rootContext()->setContextProperty(systemFontName, font);
-        qDebug() << systemFontName << font;
+        qCDebug(lc) << systemFontName << font;
     }
 
     qmlRegisterSingletonInstance("DeviceAccess", 1, 0, "DeviceAccess", DeviceAccessFactory::create());

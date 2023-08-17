@@ -206,63 +206,63 @@ Développée avec amour par Johan et publiée par Denver.</translation>
       <translation>Apparence</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="153"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="151"/>
       <source>Hide Status Bar</source>
       <translation>Masquer la barre d'état</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="154"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="152"/>
       <source>Full Screen</source>
       <translation>Plein écran</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="168"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="166"/>
       <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
       <translation>Lorsque le menu des paramètres est fermé, cela peut également se faire par un appui long sur l'horloge.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="74"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="72"/>
       <source>Right-handed</source>
       <translation>Droitier</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="74"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="72"/>
       <source>Left-handed</source>
       <translation>Gaucher</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="33"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="35"/>
       <source>Application Language</source>
       <translation>Langue de l'application</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="37"/>
-      <location filename="../res/qml/settings/Appearance.qml" line="97"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="41"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="95"/>
       <source>Reset</source>
       <translation>Réinitialiser</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="73"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="71"/>
       <source>Handedness</source>
       <translation>Préférence manuelle</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="88"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="86"/>
       <source>Optimize the application layout to suit your handedness</source>
       <translation>Optimiser la présentation de l'application pour l'adapter à votre préférence manuelle</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="93"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="91"/>
       <source>Clock Language</source>
       <translation>Langue de l'horloge</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="133"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="131"/>
       <source>Enable Special Message</source>
       <translation>Activer le message spécial</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="134"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="132"/>
       <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
       <translation>Chaque grille contient un message spécial qui s'affiche à la place de l'heure pendant une minute aux heures suivantes : 00:00 (12:00 AM), 11:11 (11:11 AM), et 22:22 (10:22 PM). L'indicateur des minutes (4 points) affiche 0, 1 ou 2 lumières, ce qui vous permet de distinguer ces différentes heures.</translation>
     </message>

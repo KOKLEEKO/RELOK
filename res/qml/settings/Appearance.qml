@@ -23,28 +23,25 @@ Controls.MenuSection
         id: applicationLanguage
 
         readonly property string defaultLanguage: Qt.locale().name.substr(0,2)
-
+        property string selectedLangage: DeviceAccess.managers.persistence.value("Appearance/uiLanguage",
+                                                                                 applicationLanguage.defaultLanguage)
         function switchLanguage(language)
         {
+            selectedLangage = language
             DeviceAccess.managers.translation.switchLanguage(language)
             DeviceAccess.managers.persistence.setValue("Appearance/uiLanguage", language)
         }
 
         title: qsTr("Application Language") + DeviceAccess.managers.translation.emptyString
 
+        QtQuick.Component.onCompleted: switchLanguage(selectedLangage)
+
         QtControls.Button
         {
             text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
             enabled: Object.keys(DeviceAccess.managers.translation.availableTranslations)
                      [applicationLanguage.extraControls[0].currentIndex] !== applicationLanguage.defaultLanguage
-
-            onClicked:
-            {
-                applicationLanguage.switchLanguage(applicationLanguage.defaultLanguage)
-                applicationLanguage.extraControls[0].currentIndex = Object
-                .keys(DeviceAccess.managers.translation.availableTranslations)
-                .indexOf(applicationLanguage.defaultLanguage)
-            }
+            onClicked: applicationLanguage.switchLanguage(applicationLanguage.defaultLanguage)
         }
         extras: QtQuick.ListView
         {
@@ -52,16 +49,17 @@ Controls.MenuSection
             {
                 autoExclusive: true
                 checkable: true
-                checked: index === Object.keys(DeviceAccess.managers.translation.availableTranslations).indexOf(
-                             DeviceAccess.managers.persistence.value("Appearance/uiLanguage",
-                                                                     applicationLanguage.defaultLanguage))
-                text: modelData
+                checked: modelData === applicationLanguage.selectedLangage
+                text: DeviceAccess.managers.translation.availableTranslations[modelData]
 
-                onClicked: applicationLanguage.switchLanguage(
-                               Object.keys(DeviceAccess.managers.translation.availableTranslations)[index])
+                onClicked:
+                {
+                    QtQuick.ListView.view.currentIndex = index
+                    applicationLanguage.switchLanguage(modelData)
+                }
             }
             height: contentItem.childrenRect.height
-            model: Object.values(DeviceAccess.managers.translation.availableTranslations)
+            model: Object.keys(DeviceAccess.managers.translation.availableTranslations)
             orientation: QtQuick.ListView.Horizontal
             spacing: 5
             width: parent.width

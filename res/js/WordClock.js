@@ -19,7 +19,8 @@ class Object
         instance = _instance
         isDebug = _isDebug
         instance.accessoriesChanged()
-        instance.selected_language = DeviceAccess.managers.persistence.value("Appearance/clockLanguage", "")
+        instance.selected_language = DeviceAccess.managers.persistence.value("Appearance/clockLanguage",
+                                                                             Qt.locale().name)
         instance.language_urlChanged.connect(() => {
                                                  if (instance.time)
                                                  {
@@ -33,14 +34,7 @@ class Object
         instance.selectLanguage.connect(this.selectLanguage)
         instance.onLanguageChanged.connect(this.languageChanged)
 
-        if (instance.selected_language === "")
-        {
-            this.selectLanguage(Qt.locale().name)
-        }
-        else
-        {
-            this.selectLanguage(instance.selected_language)
-        }
+        this.selectLanguage(instance.selected_language)
     }
 
     startupSequence()
