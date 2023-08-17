@@ -70,7 +70,7 @@ Controls.MenuSection
     Controls.MenuItem
     {
         active: isTouchDevice
-        title: qsTr("Pie Menu") + DeviceAccess.managers.translation.emptyString
+        title: qsTr("Handedness") + DeviceAccess.managers.translation.emptyString
         model: [ QT_TR_NOOP("Right-handed"), QT_TR_NOOP("Left-handed") ]
         delegate: QtControls.Button
         {
@@ -85,7 +85,7 @@ Controls.MenuSection
                 DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", index)
             }
         }
-        details: qsTr("Optimize its layout to match the preference of your hand when using your finger")
+        details: qsTr("Optimize the application layout to suit your handedness")
         /**/       + DeviceAccess.managers.translation.emptyString
     }
     Controls.MenuItem
@@ -151,7 +151,7 @@ display 0, 1, or 2 lights, allowing you to distinguish these different times.") 
     Controls.MenuItem
     {
         title: (HelpersJS.isIos ? qsTr("Hide Status Bar")
-                                : qsTr("FullScreen")) + DeviceAccess.managers.translation.emptyString
+                                : qsTr("Full Screen")) + DeviceAccess.managers.translation.emptyString
         active: HelpersJS.isDesktop || HelpersJS.isMobile
 
         QtControls.Switch

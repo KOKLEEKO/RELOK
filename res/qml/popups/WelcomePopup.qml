@@ -37,12 +37,8 @@ QtControls.Dialog
             fontSizeMode: QtControls.Label.Fit
             minimumPixelSize: 1
 
-            text:
-                "\%1.\n\n%2.".arg(qsTr("We hope you enjoy using it.")).arg(
-                    qsTr("Please %1 outside this pop-up to close it and open the settings menu.").arg(
-                        HelpersJS.isMobile ? qsTr("press and hold on the screen", "mobile")
-                                           : qsTr("click and hold", "desktop"))) +
-                DeviceAccess.managers.translation.emptyString
+            text: "\%1.\n\n%2.".arg(qsTr("We hope you enjoy using it.")).arg(qsTr("Please press and hold outside this \
+popup to close it and open the settings menu.")) + DeviceAccess.managers.translation.emptyString
             wrapMode: QtControls.Label.WordWrap
         }
         QtControls.CheckBox

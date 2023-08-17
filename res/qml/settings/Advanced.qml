@@ -41,7 +41,7 @@ Controls.MenuSection
                DeviceAccess.managers.translation.emptyString
         active: HelpersJS.isDesktop  // @disable-check M16  @disable-check M31
         enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
-        details: qsTr("This setting is not persistent and enabled only when the application is not in fullscreen mode") +
+        details: qsTr("This setting is not persistent and is enabled when the application is not in fullscreen mode") +
                  DeviceAccess.managers.translation.emptyString
        extras: QtControls.Slider
         {

@@ -156,11 +156,6 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="44"/>
-        <source>This setting is not persistent and enabled only when the application is not in fullscreen mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/settings/Advanced.qml" line="69"/>
         <source>Display as watermark</source>
         <translation type="unfinished"></translation>
@@ -184,6 +179,11 @@ Developed with love by Johan and published by Denver.</source>
         <location filename="../res/qml/settings/Advanced.qml" line="61"/>
         <location filename="../res/qml/settings/Advanced.qml" line="110"/>
         <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Advanced.qml" line="44"/>
+        <source>This setting is not persistent and is enabled when the application is not in fullscreen mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -211,17 +211,12 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/Appearance.qml" line="154"/>
-        <source>FullScreen</source>
+        <source>Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/settings/Appearance.qml" line="168"/>
         <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="73"/>
-        <source>Pie Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -235,11 +230,6 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="88"/>
-        <source>Optimize its layout to match the preference of your hand when using your finger</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/settings/Appearance.qml" line="33"/>
         <source>Application Language</source>
         <translation type="unfinished"></translation>
@@ -248,6 +238,16 @@ Developed with love by Johan and published by Denver.</source>
         <location filename="../res/qml/settings/Appearance.qml" line="37"/>
         <location filename="../res/qml/settings/Appearance.qml" line="97"/>
         <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Appearance.qml" line="73"/>
+        <source>Handedness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Appearance.qml" line="88"/>
+        <source>Optimize the application layout to suit your handedness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -595,29 +595,17 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="41"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="40"/>
         <source>We hope you enjoy using it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="42"/>
-        <source>Please %1 outside this pop-up to close it and open the settings menu.</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="40"/>
+        <source>Please press and hold outside this popup to close it and open the settings menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="43"/>
-        <source>press and hold on the screen</source>
-        <comment>mobile</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="44"/>
-        <source>click and hold</source>
-        <comment>desktop</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="53"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="49"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
