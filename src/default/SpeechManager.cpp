@@ -47,12 +47,15 @@ void SpeechManager::setSpeechLanguage(QString iso)
             voicesNames << voice.name().split(" ")[0];
         m_speechAvailableVoices.insert(iso, voicesNames);
         const QString settingName = QString("Appearance/%1_voice").arg(iso);
-        if (deviceAccess()->manager<PersistenceManagerBase>()->value(settingName, -1).toInt() == -1) {
+        if (deviceAccess()->manager<PersistenceManagerBase>()->value(settingName, -1).toInt()
+            == -1) {
             int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(" ")[0]);
             if (iso == "fr_FR" && m_speechAvailableVoices[iso].toStringList().size() > 9)
                 defaultIndex = 9;
-            deviceAccess()->manager<PersistenceManagerBase>()->setValue(QString("Appearance/%1_voice").arg(iso),
-                                                                        defaultIndex == -1 ? 0 : defaultIndex);
+            deviceAccess()
+                ->manager<PersistenceManagerBase>()
+                ->setValue(QString("Appearance/%1_voice").arg(iso),
+                           defaultIndex == -1 ? 0 : defaultIndex);
         }
         emit speechAvailableVoicesChanged();
     }
@@ -66,16 +69,25 @@ void SpeechManager::setSpeechVoice(int index)
 
 void SpeechManager::initSpeechLocales()
 {
-    auto clockLocaleBaseNames = deviceAccess()->manager<ClockLanguageManagerBase>()->clockAvailableLocales().keys();
     const QVector<QLocale> &speechLocales = m_speech.availableLocales();
     for (const auto &speechLocale : speechLocales) {
-        if (clockLocaleBaseNames.contains(speechLocale.bcp47Name().left(2))) {
-            QString iso;
-            const QList uiLanguages{speechLocale.uiLanguages()};
-            for (const auto &uiLanguage : uiLanguages)
-                if (uiLanguage.split('-').count() == 2)
-                    iso = QString(uiLanguage).replace('-', '_');
-            const QString name = QString("%1 (%2)").arg(QLocale::languageToString(speechLocale.language()),
+        if (deviceAccess()
+                ->manager<ClockLanguageManagerBase>()
+                ->clockAvailableLocales()
+                .keys()
+                .contains(speechLocale.bcp47Name().left(2))) {
+            QString iso = speechLocale.bcp47Name();
+            if (iso.split('-').size() != 2) {
+                const QList uiLanguages{speechLocale.uiLanguages()};
+                for (const auto &uiLanguage : uiLanguages) {
+                    if (uiLanguage.split('-').size() == 2) {
+                        iso = QString(uiLanguage).replace('-', '_');
+                        break;
+                    }
+                }
+            }
+            const QString name = QString("%1 (%2)").arg(QLocale::languageToString(
+                                                            speechLocale.language()),
                                                         speechLocale.nativeCountryName());
             m_speechAvailableLocales.insert(iso, name);
         }

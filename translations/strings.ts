@@ -161,37 +161,38 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="62"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="69"/>
         <source>Display as watermark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="67"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="74"/>
         <source>Activate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="86"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="93"/>
         <source>Time Zone (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="97"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="105"/>
         <source>This setting is not persistent, the time zone of the device &lt;b&gt;(%1)&lt;/b&gt; is used each time the application is launched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="102"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="61"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="110"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="115"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="122"/>
         <source>Welcome popup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="122"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="129"/>
         <source>Display at startup.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -245,22 +246,22 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/Appearance.qml" line="78"/>
-        <location filename="../res/qml/settings/Appearance.qml" line="110"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="117"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="106"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="113"/>
         <source>Clock Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="137"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="152"/>
         <source>Enable Special Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="138"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="153"/>
         <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -500,11 +501,11 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     </message>
     <message>
         <location filename="../res/qml/settings/Speech.qml" line="38"/>
-        <source>Frequency</source>
+        <source>Interval (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Speech.qml" line="64"/>
+        <location filename="../res/qml/settings/Speech.qml" line="58"/>
         <source>Voice</source>
         <translation type="unfinished"></translation>
     </message>
@@ -595,7 +596,7 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     </message>
     <message>
         <location filename="../res/qml/popups/WelcomePopup.qml" line="41"/>
-        <source>We thank you for downloading this application and wish you good use.</source>
+        <source>We hope you enjoy using it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -656,16 +657,6 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     <message>
         <location filename="../res/qml/WordClock.qml" line="48"/>
         <source>every hour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/WordClock.qml" line="49"/>
-        <source>every 2 hours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/WordClock.qml" line="50"/>
-        <source>every 3 hours</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

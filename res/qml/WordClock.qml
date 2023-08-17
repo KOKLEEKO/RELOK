@@ -46,8 +46,6 @@ QtQuick.Rectangle
         "20": qsTr("every 20 minutes") + DeviceAccess.managers.translation.emptyString,
         "30": qsTr("every 30 minutes") + DeviceAccess.managers.translation.emptyString,
         "60": qsTr("every hour")       + DeviceAccess.managers.translation.emptyString,
-        "120": qsTr("every 2 hours")   + DeviceAccess.managers.translation.emptyString,
-        "180": qsTr("every 3 hours")   + DeviceAccess.managers.translation.emptyString
     }
     readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
     property string speech_frequency: DeviceAccess.managers.persistence.value("Appearance/speech_frequency", "15")
