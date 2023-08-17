@@ -25,7 +25,9 @@ MenuItem
 
             QtQuick.Component.onCompleted:
             {
-                onMoved.connect(() => { if (parent) parent.children[0].saturation = value }); moved() }
+                onMoved.connect(() => { if (parent) parent.children[0].saturation = value })
+                moved()
+            }
         },
         ColorFactorPicker
         {
@@ -33,7 +35,11 @@ MenuItem
             hue: parent ? parent.children[0].hue : 0
             saturation: parent ? parent.children[0].saturation : 0
 
-            QtQuick.Component.onCompleted: { onMoved.connect(() => { if (parent) parent.children[0].lightness = value }); moved() }
+            QtQuick.Component.onCompleted:
+            {
+                onMoved.connect(() => { if (parent) parent.children[0].lightness = value })
+                moved()
+            }
         },
         ColorHexField
         {

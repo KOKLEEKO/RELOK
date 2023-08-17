@@ -134,9 +134,10 @@ Controls.MenuSection
 
                 QtControls.Label
                 {
-                    color: parent.icon.color
                     anchors { right: parent.right; bottom: parent.bottom; margins: 2 }
-                    font: SmallestReadableFont
+                    color: parent.icon.color
+                    font.family: SmallestReadableFont.family
+                    font.pointSize: HelpersJS.isWasm ? 9 : SmallestReadableFont.pointSize
                     text: "%1/%2".arg(index+1).arg(parent.QtQuick.ListView.view.count)
                 }
             }

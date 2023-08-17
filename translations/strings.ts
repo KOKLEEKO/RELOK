@@ -256,12 +256,12 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="152"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="153"/>
         <source>Enable Special Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="153"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="154"/>
         <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -290,7 +290,7 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>ColorPicker</name>
     <message>
-        <location filename="../res/qml/controls/ColorPicker.qml" line="57"/>
+        <location filename="../res/qml/controls/ColorPicker.qml" line="63"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
