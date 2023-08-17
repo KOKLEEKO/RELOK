@@ -77,7 +77,7 @@ QtQuick.Loader
                     }
                     QtControls.Label
                     {
-                        anchors { right: parent.right; bottom: parent.bottom; margins: 2 }
+                        anchors { right: parent.right; bottom: parent.bottom }
                         color: parent.icon.color
                         font.family: SmallestReadableFont.family
                         font.pointSize: HelpersJS.isWasm ? 9 : SmallestReadableFont.pointSize

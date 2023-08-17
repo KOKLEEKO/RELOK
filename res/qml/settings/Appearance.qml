@@ -20,47 +20,6 @@ Controls.MenuSection
 
     Controls.MenuItem
     {
-        title: (HelpersJS.isIos ? qsTr("Hide Status Bar")
-                                : qsTr("FullScreen")) + DeviceAccess.managers.translation.emptyString
-        active: HelpersJS.isDesktop || HelpersJS.isMobile
-
-        QtControls.Switch
-        {
-            checked: root.isFullScreen
-
-            onToggled: HelpersJS.updateVisibility(root)
-            QtQuick.Component.onCompleted:
-            {
-                if (root.isFullScreen !== DeviceAccess.managers.persistence.value("Appearance/fullScreen", false))
-                    toggled()
-            }
-        }
-        details: qsTr("When the settings menu is closed, this can also be done by a long press on the clock.")
-        /**/       + DeviceAccess.managers.translation.emptyString
-    }
-    Controls.MenuItem
-    {
-        active: isTouchDevice
-        title: qsTr("Pie Menu") + DeviceAccess.managers.translation.emptyString
-        model: [ QT_TR_NOOP("Right-handed"), QT_TR_NOOP("Left-handed") ]
-        delegate: QtControls.Button
-        {
-            autoExclusive: true
-            checkable: true
-            checked: index === DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0)
-            text: qsTr(modelData) + DeviceAccess.managers.translation.emptyString
-
-            onClicked:
-            {
-                isLeftHanded = Boolean(index)
-                DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", index)
-            }
-        }
-        details: qsTr("Optimize its layout to match the preference of your hand when using your finger")
-        /**/       + DeviceAccess.managers.translation.emptyString
-    }
-    Controls.MenuItem
-    {
         id: applicationLanguage
 
         readonly property string defaultLanguage: Qt.locale().name.substr(0,2)
@@ -110,6 +69,27 @@ Controls.MenuSection
     }
     Controls.MenuItem
     {
+        active: isTouchDevice
+        title: qsTr("Pie Menu") + DeviceAccess.managers.translation.emptyString
+        model: [ QT_TR_NOOP("Right-handed"), QT_TR_NOOP("Left-handed") ]
+        delegate: QtControls.Button
+        {
+            autoExclusive: true
+            checkable: true
+            checked: index === DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0)
+            text: qsTr(modelData) + DeviceAccess.managers.translation.emptyString
+
+            onClicked:
+            {
+                isLeftHanded = Boolean(index)
+                DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", index)
+            }
+        }
+        details: qsTr("Optimize its layout to match the preference of your hand when using your finger")
+        /**/       + DeviceAccess.managers.translation.emptyString
+    }
+    Controls.MenuItem
+    {
         title: qsTr("Clock Language") + DeviceAccess.managers.translation.emptyString
 
         QtControls.Button
@@ -134,7 +114,7 @@ Controls.MenuSection
 
                 QtControls.Label
                 {
-                    anchors { right: parent.right; bottom: parent.bottom; margins: 2 }
+                    anchors { right: parent.right; bottom: parent.bottom }
                     color: parent.icon.color
                     font.family: SmallestReadableFont.family
                     font.pointSize: HelpersJS.isWasm ? 9 : SmallestReadableFont.pointSize
@@ -167,5 +147,25 @@ display 0, 1, or 2 lights, allowing you to distinguish these different times.") 
                     wordClock.updateTable()
             }
         }
+    }
+    Controls.MenuItem
+    {
+        title: (HelpersJS.isIos ? qsTr("Hide Status Bar")
+                                : qsTr("FullScreen")) + DeviceAccess.managers.translation.emptyString
+        active: HelpersJS.isDesktop || HelpersJS.isMobile
+
+        QtControls.Switch
+        {
+            checked: root.isFullScreen
+
+            onToggled: HelpersJS.updateVisibility(root)
+            QtQuick.Component.onCompleted:
+            {
+                if (root.isFullScreen !== DeviceAccess.managers.persistence.value("Appearance/fullScreen", false))
+                    toggled()
+            }
+        }
+        details: qsTr("When the settings menu is closed, this can also be done by a long press on the clock.")
+        /**/       + DeviceAccess.managers.translation.emptyString
     }
 }

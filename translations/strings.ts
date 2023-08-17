@@ -205,63 +205,63 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="23"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="153"/>
         <source>Hide Status Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="24"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="154"/>
         <source>FullScreen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="38"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="168"/>
         <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="44"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="73"/>
         <source>Pie Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="45"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="74"/>
         <source>Right-handed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="45"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="74"/>
         <source>Left-handed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="59"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="88"/>
         <source>Optimize its layout to match the preference of your hand when using your finger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="74"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="33"/>
         <source>Application Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="78"/>
-        <location filename="../res/qml/settings/Appearance.qml" line="117"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="37"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="97"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="113"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="93"/>
         <source>Clock Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="153"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="133"/>
         <source>Enable Special Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="154"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="134"/>
         <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
         <translation type="unfinished"></translation>
     </message>
