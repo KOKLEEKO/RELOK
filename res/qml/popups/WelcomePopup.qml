@@ -19,13 +19,13 @@ QtControls.Dialog
     anchors.centerIn: parent
     background.opacity: .95
     clip: true
-    closePolicy: QtControls.Dialog.NoAutoClose
+    closePolicy: QtControls.Dialog.CloseOnPressOutside
     implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
     title: qsTr("Welcome to %1").arg(Qt.application.name) + DeviceAccess.managers.translation.emptyString
     z: 1
 
     onClosed: root.showWelcome = !hidePopupCheckbox.checked
-    QtQuick.Component.onCompleted: { header.background.visible = false; if (!HelpersJS.isWasm && showWelcome) open() }
+    QtQuick.Component.onCompleted: { header.background.visible = false; if (showWelcome) open() }
 
     QtLayouts.ColumnLayout
     {
@@ -38,10 +38,11 @@ QtControls.Dialog
             minimumPixelSize: 1
 
             text:
-                "\%1.\n\n%2.".arg(qsTr("We thank you for downloading this application and wish you good use.")).arg(
-                    HelpersJS.isMobile ? qsTr("Please touch the screen outside this pop-up window to close it and \
-open the settings menu.") : qsTr("Please right-click outside this pop-up window to \
-close it and open the settings menu.")) + DeviceAccess.managers.translation.emptyString
+                "\%1.\n\n%2.".arg(qsTr("We hope you enjoy using it.")).arg(
+                    qsTr("Please %1 outside this pop-up to close it and open the settings menu.").arg(
+                        HelpersJS.isMobile ? qsTr("press and hold on the screen", "mobile")
+                                           : qsTr("click and hold", "desktop"))) +
+                DeviceAccess.managers.translation.emptyString
             wrapMode: QtControls.Label.WordWrap
         }
         QtControls.CheckBox
@@ -52,5 +53,4 @@ close it and open the settings menu.")) + DeviceAccess.managers.translation.empt
             text: qsTr("Don't show this again") + DeviceAccess.managers.translation.emptyString
         }
     }
-    QtQuick.Connections { target: settingsPanel; function onOpened() { welcomePopup.close() } }
 }

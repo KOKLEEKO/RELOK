@@ -28,9 +28,10 @@ QtQuick.Loader
 
     QtLayouts.Layout.fillWidth: true
     QtLayouts.Layout.rightMargin: 25
+    clip: true
     sourceComponent: QtLayouts.ColumnLayout
     {
-        spacing: 0
+        spacing: 5
 
         QtQuick.Loader
         {

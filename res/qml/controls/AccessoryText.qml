@@ -15,7 +15,7 @@ QtQuick.Text
     font { pointSize: 32; kerning: false; preferShaping: false }
     font.family: SmallestReadableFont
     fontSizeMode: QtQuick.Text.VerticalFit
-    height: cell_width*.4
+    height: cell_width*.55
     horizontalAlignment: QtQuick.Text.AlignHCenter
     minimumPointSize: 1
     style: isOn ? QtQuick.Text.Outline : QtQuick.Text.Sunken

@@ -11,9 +11,10 @@
 
 class SplashScreenManager : public SplashScreenManagerBase
 {
+    Q_OBJECT
+
 public:
     explicit SplashScreenManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     void hideSplashScreen() final override;
 };
-

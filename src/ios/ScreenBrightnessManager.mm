@@ -6,7 +6,8 @@
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 #import "ScreenBrightnessManager.h"
-#include "PersistenceManager.h"
+
+#import "PersistenceManager.h"
 
 #import "UIKit/UIScreen.h"
 

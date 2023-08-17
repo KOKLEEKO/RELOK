@@ -20,7 +20,7 @@ QtControls.Dialog
     width: Math.max(root.width/2, header.implicitWidth)
     z: 1
 
-    onAccepted: Qt.openUrlExternally("mailto:contact@kokleeko.io?subject=%1"
+    onAccepted: Qt.openUrlExternally("mailto:johan.remilien+wordclock@gmail.com?subject=%1"
                                      .arg(qsTr("Suggestions for %1").arg(Qt.application.name))) +
                 DeviceAccess.managers.translation.emptyString
 

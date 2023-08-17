@@ -25,9 +25,8 @@ void ClockLanguageManager::detectClockAvailableLocales()
         const QString baseName(fileInfo.baseName());
         if (baseName != QStringLiteral("Language")) {
             const QLocale locale(baseName);
-            const bool hasCountryCode = (baseName.split("_").length() == 2);
             QString name = QLocale::languageToString(locale.language());
-            if (hasCountryCode)
+            if (baseName.split('_').size() == 2)
                 name.append(QString(" (%1)").arg(locale.nativeCountryName()));
             m_clockAvailableLocales.insert(baseName, name);
         }

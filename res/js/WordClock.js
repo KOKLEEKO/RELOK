@@ -97,14 +97,14 @@ class Object
         instance.language_url = tmp_language_url
         instance.selected_language = DeviceAccess.managers.speech.enabled ? language : fileBaseName
 
-        if (DeviceAccess.managers.speech.enabled && instance.enable_speech)
+        if (DeviceAccess.managers.speech.enabled)
         {
             DeviceAccess.managers.speech.setSpeechLanguage(language)
             const voiceIndex = DeviceAccess.managers.persistence.value("Appearance/%1_voice"
                                                                        .arg(instance.selected_language), 0)
             DeviceAccess.managers.speech.setSpeechVoice(voiceIndex)
 
-            if (instance.written_time)
+            if (instance.written_time && instance.enable_speech)
             {
                 DeviceAccess.managers.speech.say(instance.written_time)
             }

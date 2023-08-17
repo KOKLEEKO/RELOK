@@ -9,6 +9,7 @@
 
 #include "ManagerBase.h"
 
+#include <QQuickItem>
 #include <QVariant>
 
 class ShareContentManagerBase : public ManagerBase<ShareContentManagerBase>
@@ -20,7 +21,12 @@ class ShareContentManagerBase : public ManagerBase<ShareContentManagerBase>
 public:
     explicit ShareContentManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    Q_INVOKABLE virtual void share(QVariant /*content*/) {}
+    Q_INVOKABLE virtual void screenshot(QQuickItem * /*item*/) {}
+
+protected:
+    virtual void screenshotWithCallback(QQuickItem * /*item*/,
+                                        const std::function<void(QImage)> & /*callback*/ = {})
+    {}
 };
 
 #ifndef Q_OS_WIN

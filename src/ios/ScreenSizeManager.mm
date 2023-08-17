@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-#include "ScreenSizeManager.h"
+#import "ScreenSizeManager.h"
 
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIStatusBarManager.h>
@@ -23,14 +23,15 @@ void ScreenSizeManager::toggleFullScreen()
     m_prefersStatusBarHidden ^= true;
     m_shouldNotifyViewConfigurationChanged = NO;
     emit prefersStatusBarHiddenChanged();
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] setNeedsStatusBarAppearanceUpdate];
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController]
+        setNeedsStatusBarAppearanceUpdate];
 }
 
 void ScreenSizeManager::updateSafeAreaInsets()
 {
     // get notch height
     if (@available(iOS 11.0, *)) {
-        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets;
+        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
         m_safeInsetBottom = safeAreaInsets.bottom;
         m_safeInsetLeft = safeAreaInsets.left;
         m_safeInsetRight = safeAreaInsets.right;

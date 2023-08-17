@@ -21,4 +21,3 @@ protected:
     void endOfSpeech() const final override;
     void requestAudioFocus() final override;
 };
-

@@ -8,6 +8,8 @@
 import QtPurchasing 1.15 as QtPurchasing
 import QtQuick 2.15 as QtQuick
 
+import "qrc:/js/Helpers.js" as HelpersJS
+
 QtQuick.Item
 {
     property alias store: store
@@ -26,6 +28,7 @@ QtQuick.Item
 
     QtQuick.Instantiator
     {
+        active: HelpersJS.isPurchasing
         model: tipsModel
 
         onObjectAdded:

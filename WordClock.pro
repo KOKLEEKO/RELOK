@@ -17,6 +17,10 @@ CONFIG +=                                                       \
 
 CONFIG -= qtquickcompiler
 
+!win32 {
+    CONFIG += object_parallel_to_source
+}
+
 INCLUDEPATH +=                                                  \
     src/base                                                    \
     src/base/capability                                         \
@@ -115,14 +119,21 @@ macx | ios {
             src/default
 
         HEADERS +=                                              \
+            src/default/ShareContentManager.h                   \
             src/default/SpeechManager.h
         SOURCES +=                                              \
+            src/default/ShareContentManager.cpp                 \
             src/default/SpeechManager.cpp
 
         OBJECTIVE_HEADERS +=                                    \
-            src/macx/DeviceAccess.h
+            src/macx/DeviceAccess.h                             \
+            src/macx/ReviewManager.h                            \
+            src/macx/ShareContentManager.h
         OBJECTIVE_SOURCES +=                                    \
-            src/macx/DeviceAccess.mm
+            src/macx/DeviceAccess.mm                            \
+            src/macx/ReviewManager.mm                           \
+            src/macx/ShareContentManager.mm
+
         QMAKE_INFO_PLIST = apple/macx/Info.plist
 
     } else:ios {
@@ -132,10 +143,12 @@ macx | ios {
         HEADERS +=                                              \
             src/default/BatteryManager.h                        \
             src/default/EnergySavingManager.h                   \
+            src/default/ShareContentManager.h                   \
             src/default/SpeechManager.h
         SOURCES +=                                              \
             src/default/BatteryManager.cpp                      \
             src/default/EnergySavingManager.cpp                 \
+            src/default/ShareContentManager.cpp                 \
             src/default/SpeechManager.cpp
 
         OBJECTIVE_HEADERS +=                                    \
@@ -154,6 +167,7 @@ macx | ios {
             src/ios/ScreenSizeManager.mm                        \
             src/ios/ShareContentManager.mm                      \
             src/ios/SpeechManager.mm
+
         QMAKE_INFO_PLIST = apple/ios/Info.plist
         OTHER_FILES += apple/ios/Launch.storyboard
         app_launch_screen.files = apple/ios/Launch.storyboard
@@ -163,8 +177,6 @@ macx | ios {
 } else:android {
 
     QT += androidextras
-
-    CONFIG += object_parallel_to_source
 
     INCLUDEPATH += src/android
 
@@ -179,6 +191,7 @@ macx | ios {
         src/android/SplashScreenManager.h                       \
         src/default/BatteryManager.h                            \
         src/default/EnergySavingManager.h                       \
+        src/default/ShareContentManager.h                       \
         src/default/SpeechManager.h
     SOURCES +=                                                  \
         src/android/AutoLockManager.cpp                         \
@@ -191,6 +204,7 @@ macx | ios {
         src/android/SplashScreenManager.cpp                     \
         src/default/BatteryManager.cpp                          \
         src/default/EnergySavingManager.cpp                     \
+        src/default/ShareContentManager.cpp                     \
         src/default/SpeechManager.cpp
 
     ANDROID_VERSION_NAME = $$VERSION
@@ -204,17 +218,22 @@ macx | ios {
         android/gradlew                                         \
         android/gradlew.bat                                     \
         android/res/values/libs.xml                             \
+        android/res/xml/paths.xml                               \
         android/src/io/kokleeko/wordclock/DeviceAccess.java     \
         android/src/io/kokleeko/wordclock/MyActivity.java
 
-} else:emscripten {
+} else:wasm {
 
     INCLUDEPATH += src/wasm
 
     HEADERS +=                                                  \
-        src/wasm/DeviceAccess.h
+        src/default/ShareContentManager.h                       \
+        src/wasm/DeviceAccess.h                                 \
+        src/wasm/ScreenSizeManager.h
     SOURCES +=                                                  \
-        src/wasm/DeviceAccess.cpp
+        src/default/ShareContentManager.cpp                     \
+        src/wasm/DeviceAccess.cpp                               \
+        src/wasm/ScreenSizeManager.cpp
 
 } else {
 

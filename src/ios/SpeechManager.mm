@@ -12,8 +12,6 @@
 SpeechManager::SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : Default::SpeechManager{deviceAccess, parent}
 {
-    m_enabled = true;
-
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
                                             mode:AVAudioSessionModeVoicePrompt
                                          options:AVAudioSessionCategoryOptionDuckOthers

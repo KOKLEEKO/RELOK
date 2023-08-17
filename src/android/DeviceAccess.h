@@ -11,6 +11,8 @@
 
 class DeviceAccess : public DeviceAccessBase
 {
+    Q_OBJECT
+
 public:
     DeviceAccess() = delete;
 
@@ -18,4 +20,3 @@ public:
 
     Q_INVOKABLE void moveTaskToBack();
 };
-

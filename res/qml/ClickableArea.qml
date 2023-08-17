@@ -6,38 +6,69 @@
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
 import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 1.4 as QtExtras
+import QtQuick.Controls.Styles 1.4 as QtExtras
+import QtQuick.Extras 1.4 as QtExtras
+
+import DeviceAccess 1.0
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
-QtQuick.MouseArea
+QtQuick.Item
 {
-    acceptedButtons: Qt.LeftButton | Qt.RightButton
+    property bool isFullCircle: true
+    readonly property int pieMenuEndAngle: isFullCircle ? -180 : (isLeftHanded ? -1 : 1) * 105
+    readonly property int pieMenuStartAngle: isFullCircle ? 180 : (isLeftHanded ? 1 : -1) * 195
+
     anchors.fill: parent
 
-    onClicked: (mouse) =>
-               {
-                   if (!HelpersJS.isDesktop || mouse.button === Qt.RightButton)
-                   {
-                       settingsPanel.open()
-                   }
-               }
-    onPressAndHold: (mouse) =>
-                    {
-                        if (HelpersJS.isDesktop)
-                        {
-                            switch (mouse.button)
-                            {
-                                case Qt.RightButton:
-                                HelpersJS.updateDisplayMode(root)
-                                break;
-                                case Qt.LeftButton:
-                                HelpersJS.updateVisibility(root)
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            HelpersJS.updateVisibility(root)
-                        }
-                    }
+    QtQuick.TapHandler
+    {
+        longPressThreshold: 0.3 //s
+
+        onDoubleTapped: HelpersJS.updateVisibility(root)
+        onGrabChanged: (transition, point) => {
+                           isFullCircle = (point.event.device.pointerType !== QtQuick.PointerDevice.Finger)
+                       }
+        onLongPressed: pieMenu.popup(point.position.x, point.position.y)
+    }
+
+    QtExtras.PieMenu
+    {
+        id: pieMenu
+
+        triggerMode: QtExtras.TriggerMode.TriggerOnRelease
+        style: QtExtras.PieMenuStyle { startAngle: pieMenuStartAngle; endAngle: pieMenuEndAngle }
+
+        QtExtras.MenuItem
+        {
+            iconSource: "qrc:/assets/share.svg"
+            visible: DeviceAccess.managers.shareContent.enabled
+            onTriggered: shareTimer.start()
+        }
+        QtExtras.MenuItem { iconSource: "qrc:/assets/settings.svg"; onTriggered: settingsPanel.open() }
+        QtExtras.MenuItem
+        {
+            iconSource: "qrc:/assets/speech.svg"
+            visible: DeviceAccess.managers.speech.enabled
+            onTriggered: DeviceAccess.managers.speech.say(wordClock.written_time)
+        }
+        QtExtras.MenuItem
+        {
+            iconSource: "qrc:/assets/notify_%1.svg".arg(wordClock.enable_speech ? "off" : "on")
+            visible: DeviceAccess.managers.speech.enabled
+            onTriggered: DeviceAccess.managers.persistence.setValue("Appearance/speech", wordClock.enable_speech ^= true)
+        }
+        QtExtras.MenuItem
+        {
+            iconSource: "qrc:/assets/fullscreen_%1.svg".arg(isFullScreen ? "off" : "on")
+            onTriggered: HelpersJS.updateVisibility(root)
+        }
+    }
+    QtQuick.Timer
+    {
+        id: shareTimer
+        interval: 300
+        onTriggered: DeviceAccess.managers.shareContent.screenshot(wordClock)
+    }
 }

@@ -16,4 +16,3 @@ public:
 
     void endOfSpeech() const final override;
 };
-

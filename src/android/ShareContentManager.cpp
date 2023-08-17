@@ -7,10 +7,36 @@
 **************************************************************************************************/
 #include "ShareContentManager.h"
 
+#include <QAndroidJniObject>
+#include <QDir>
+#include <QImage>
+#include <QStandardPaths>
+#include <QtAndroid>
+
 ShareContentManager::ShareContentManager(DeviceAccessBase *deviceAccess, QObject *parent)
-    : ShareContentManagerBase{deviceAccess, parent}
+    : Default::ShareContentManager{deviceAccess, parent}
 {
     m_enabled = true;
 }
 
-void ShareContentManager::share(QVariant content) {}
+void ShareContentManager::screenshot(QQuickItem *item)
+{
+    screenshotWithCallback(item, [](QImage screenshot) {
+        QString filePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+        QDir dir = QDir(filePath);
+        if (!dir.exists("images"))
+            dir.mkdir("images");
+        const QString mimeType = "image/jpeg";
+        filePath += "/images/wordclock++.jpeg";
+        screenshot.save(filePath);
+        QFileInfo fileInfo(filePath);
+        if (fileInfo.exists()) {
+            QAndroidJniObject::callStaticMethod<void>(
+                "io/kokleeko/wordclock/DeviceAccess",
+                "share",
+                "(Ljava/lang/String;Ljava/lang/String;)V",
+                QAndroidJniObject::fromString(mimeType).object<jstring>(),
+                QAndroidJniObject::fromString(filePath).object<jstring>());
+        }
+    });
+}

@@ -37,7 +37,7 @@ QtQuick.Rectangle
     readonly property real table_width: Math.min(height, width)
     readonly property real cell_width: table_width/(rows+2)
     readonly property real dot_size: cell_width/4
-    readonly property var speech_frequencies:
+    readonly property var speech_frequencies: // TODO: Replace by a slider
     {
         "1" : qsTr("every minute")     + DeviceAccess.managers.translation.emptyString,
         "5" : qsTr("every 5 minutes")  + DeviceAccess.managers.translation.emptyString,
@@ -45,7 +45,7 @@ QtQuick.Rectangle
         "15": qsTr("every 15 minutes") + DeviceAccess.managers.translation.emptyString,
         "20": qsTr("every 20 minutes") + DeviceAccess.managers.translation.emptyString,
         "30": qsTr("every 30 minutes") + DeviceAccess.managers.translation.emptyString,
-        "60": qsTr("every hour")       + DeviceAccess.managers.translation.emptyString
+        "60": qsTr("every hour")       + DeviceAccess.managers.translation.emptyString,
     }
     readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
     property string speech_frequency: DeviceAccess.managers.persistence.value("Appearance/speech_frequency", "15")
@@ -116,21 +116,34 @@ QtQuick.Rectangle
     property alias timer: timer
     property alias startupTimer: startupTimer
 
+    readonly property size availableSize: Qt.size(parent.width -
+                                                  (DeviceAccess.managers.screenSize.safeInsetLeft +
+                                                   DeviceAccess.managers.screenSize.safeInsetRight) -
+                                                  (isLandScape ? settingsPanel.position *
+                                                                 (settingsPanel.width -
+                                                                  DeviceAccess.managers.screenSize.safeInsetRight)
+                                                               : 0),
+                                                  parent.height -
+                                                  (isFullScreen
+                                                   ? 0
+                                                   : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
+                                                               DeviceAccess.managers.screenSize.safeInsetTop)
+                                                      + Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
+                                                                 DeviceAccess.managers.screenSize.safeInsetBottom))))
+
     signal applyColors()
     signal selectLanguage(string language)
 
     anchors.verticalCenter: parent.verticalCenter
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.horizontalCenterOffset: (isLandScape ? settingsPanel.position *
+                                                  (DeviceAccess.managers.screenSize.safeInsetRight -
+                                                   settingsPanel.width): 0)/2
     color: background_color
-    height: parent.height - (isFullScreen ? 0
-                                          : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,
-                                                      DeviceAccess.managers.screenSize.safeInsetTop)
-                                             + Math.max(DeviceAccess.managers.screenSize.navigationBarHeight,
-                                                        DeviceAccess.managers.screenSize.safeInsetBottom)))
-    width: parent.width - (DeviceAccess.managers.screenSize.safeInsetLeft
-                           + DeviceAccess.managers.screenSize.safeInsetRight) -
-           (isLandScape ? settingsPanel.position * (settingsPanel.width -
-                                                   DeviceAccess.managers.screenSize.safeInsetRight)
-                        : 0)
+    layer.enabled: true
+    width: Math.min(availableSize.width, availableSize.height)
+    height: width
+
     x: DeviceAccess.managers.screenSize.safeInsetLeft
 
     QtQuick.Component.onCompleted: wordClockJS = new WordClockJS.Object(this, isDebug)

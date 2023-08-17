@@ -11,6 +11,8 @@
 
 class AutoLockManager : public AutoLockManagerBase
 {
+    Q_OBJECT
+
 public:
     explicit AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
