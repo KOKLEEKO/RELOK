@@ -2,7 +2,7 @@ name: WebAssembly
 
 on:
   push:
-    branches: [ main, wasm ]
+    branches: [ main ]
   pull_request:
     branches: [ main, dev ]
 
