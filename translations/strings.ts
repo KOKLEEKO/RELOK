@@ -205,27 +205,27 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="151"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="150"/>
         <source>Hide Status Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="152"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="151"/>
         <source>Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="166"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="165"/>
         <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="72"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="71"/>
         <source>Right-handed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="72"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="71"/>
         <source>Left-handed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -236,32 +236,32 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/Appearance.qml" line="41"/>
-        <location filename="../res/qml/settings/Appearance.qml" line="95"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="94"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="71"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="70"/>
         <source>Handedness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="86"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="85"/>
         <source>Optimize the application layout to suit your handedness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="91"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="90"/>
         <source>Clock Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="131"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="130"/>
         <source>Enable Special Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="132"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="131"/>
         <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -514,7 +514,7 @@ Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your d
     <name>TipJar</name>
     <message>
         <location filename="../res/qml/settings/TipJar.qml" line="25"/>
-        <source>Tip Jar</source>
+        <source>Support us</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

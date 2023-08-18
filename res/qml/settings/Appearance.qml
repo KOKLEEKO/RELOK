@@ -67,9 +67,8 @@ Controls.MenuSection
     }
     Controls.MenuItem
     {
-        active: isTouchDevice
         title: qsTr("Handedness") + DeviceAccess.managers.translation.emptyString
-        model: [ QT_TR_NOOP("Right-handed"), QT_TR_NOOP("Left-handed") ]
+        model: [ QT_TR_NOOP("Left-handed"), QT_TR_NOOP("Right-handed") ]
         delegate: QtControls.Button
         {
             autoExclusive: true

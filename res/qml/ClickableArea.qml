@@ -17,8 +17,8 @@ import "qrc:/js/Helpers.js" as HelpersJS
 QtQuick.Item
 {
     property bool isFullCircle: true
-    readonly property int pieMenuEndAngle: isFullCircle ? -180 : (isLeftHanded ? -1 : 1) * 105
-    readonly property int pieMenuStartAngle: isFullCircle ? 180 : (isLeftHanded ? 1 : -1) * 195
+    readonly property int pieMenuEndAngle: isFullCircle ? -180 : (isLeftHanded ? 1 : -1) * 105
+    readonly property int pieMenuStartAngle: isFullCircle ? 180 : (isLeftHanded ? -1 : 1) * 195
 
     anchors.fill: parent
 

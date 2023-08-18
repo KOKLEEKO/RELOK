@@ -31,12 +31,6 @@ int main(int argc, char *argv[]) {
 #else
     engine.rootContext()->setContextProperty("isDebug", false);
 #endif
-    qCDebug(lc) << "[R] touchDevices:" << QTouchDevice::devices().size();
-    for (const auto *device : QTouchDevice::devices())
-        qCDebug(lc) << device->type() << device->name() << device->maximumTouchPoints();
-    engine.rootContext()->setContextProperty("isTouchDevice", QTouchDevice::devices().size() > 0);
-
-    ///using namespace kokleeko::device;
 
     const QMetaEnum &systemFontMetaEnum = QMetaEnum::fromType<QFontDatabase::SystemFont>();
     const int systemFontKeyCount = systemFontMetaEnum.keyCount();

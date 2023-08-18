@@ -22,7 +22,7 @@ Controls.MenuSection
         is_tipMe: true
         label.heading: headings.h3
         label.horizontalAlignment: QtControls.Label.AlignHCenter
-        label.text: "♥ ".concat(qsTr("Tip Jar")).concat(" ♥") + DeviceAccess.managers.translation.emptyString
+        label.text: "♥ ".concat(qsTr("Support us")).concat(" ♥") + DeviceAccess.managers.translation.emptyString
         menuItems.flow: QtLayouts.GridLayout.LeftToRight
 
         Controls.IconButton
