@@ -5,7 +5,14 @@
 ###################################################################################################
 
 TEMPLATE = app
-QT += quick core webview svg texttospeech purchasing
+
+VERSION = 1.2.0
+
+QT += quick core svg texttospeech
+
+android|darwin|win32: QT += purchasing webview
+
+message($$QMAKE_PLATFORM)
 
 #include(webos.pri)
 
@@ -17,9 +24,18 @@ CONFIG +=                                                       \
 
 CONFIG -= qtquickcompiler
 
-!win32 {
-    CONFIG += object_parallel_to_source
-}
+!win32: CONFIG += object_parallel_to_source
+
+DEFINES +=                                                      \
+    TARGET=\"\\\"$${TARGET}\\\"\"                               \
+    VERSION=\"\\\"$${VERSION}\\\"\"
+
+# Default rules for deployment.
+qnx:target.path = /tmp/$${TARGET}/bin
+else
+unix:!android: target.path = /opt/$${TARGET}/bin
+
+!isEmpty(target.path): INSTALLS += target
 
 INCLUDEPATH +=                                                  \
     src/base                                                    \
@@ -72,21 +88,6 @@ SOURCES +=                                                      \
 
 RESOURCES += $$files(res/*.qrc)
 
-VERSION = 1.2.0
-
-DEFINES +=                                                      \
-    TARGET=\"\\\"$${TARGET}\\\"\"                               \
-    VERSION=\"\\\"$${VERSION}\\\"\"
-
-# Default rules for deployment.
-qnx {
-    target.path = /tmp/$${TARGET}/bin
-} else {
-    unix:!android: target.path = /opt/$${TARGET}/bin
-}
-
-!isEmpty(target.path): INSTALLS += target
-
 DISTFILES +=                                                    \
     .github/PULL_REQUEST_TEMPLATE                               \
     .github/workflows/*                                         \
@@ -96,11 +97,11 @@ DISTFILES +=                                                    \
     src/README.md
 
 TRANSLATIONS = $$system("ls translations/[^strings]*.ts")
+
 OTHER_FILES += translations/strings.ts
 
-#message($$QMAKE_PLATFORM)
+darwin {
 
-macx | ios {
     QMAKE_TARGET_BUNDLE_PREFIX = io.kokleeko
     Q_ENABLE_BITCODE.name = ENABLE_BITCODE
     Q_ENABLE_BITCODE.value = NO
