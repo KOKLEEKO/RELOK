@@ -5,20 +5,26 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
+#include <QFontDatabase>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#ifdef QT_WEBVIEW_LIB
 #include <QtWebView>
+#endif
 
 #include <memory>
 
 #include <DeviceAccessFactory.h>
 #include <PersistenceManagerBase.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+#ifdef QT_WEBVIEW_LIB
     QtWebView::initialize();
+#endif
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Kokleeko S.L.");
     app.setOrganizationDomain("kokleeko.io");
@@ -35,7 +41,8 @@ int main(int argc, char *argv[]) {
     const QMetaEnum &systemFontMetaEnum = QMetaEnum::fromType<QFontDatabase::SystemFont>();
     const int systemFontKeyCount = systemFontMetaEnum.keyCount();
     for (int index = 0; index < systemFontKeyCount; ++index) {
-        const QFontDatabase::SystemFont value = static_cast<QFontDatabase::SystemFont>(systemFontMetaEnum.value(index));
+        const QFontDatabase::SystemFont value = static_cast<QFontDatabase::SystemFont>(
+            systemFontMetaEnum.value(index));
         const QFont font = QFontDatabase::systemFont(value);
         const QString systemFontName = systemFontMetaEnum.key(index);
         engine.rootContext()->setContextProperty(systemFontName, font);
