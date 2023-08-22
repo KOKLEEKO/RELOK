@@ -98,42 +98,42 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>Accessories</name>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="14"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="18"/>
         <source>Accessories</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="19"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="26"/>
         <source>Time Zone display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="24"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="32"/>
         <source>Date display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="29"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="37"/>
         <source>4-Dot display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="34"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="42"/>
         <source>Seconds display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="39"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="47"/>
         <source>AM|PM display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="44"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="52"/>
         <source>Week Number display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="50"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="58"/>
         <source>Battery Level display mode</source>
         <translation type="unfinished"></translation>
     </message>
@@ -166,18 +166,18 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="93"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="94"/>
         <source>Time Zone (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="105"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="106"/>
         <source>This setting is not persistent, the time zone of the device &lt;b&gt;(%1)&lt;/b&gt; is used each time the application is launched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/settings/Advanced.qml" line="61"/>
-        <location filename="../res/qml/settings/Advanced.qml" line="110"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="111"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -187,12 +187,12 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="122"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="123"/>
         <source>Welcome popup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="129"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="130"/>
         <source>Display at startup.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -326,55 +326,54 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>EnergySaving</name>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="24"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="26"/>
         <source>Energy Saving</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="28"/>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="52"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="31"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="55"/>
         <source>Stay Awake</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="29"/>
-        <source>If this option is enabled, the device&apos;s screen will remain active while the application is running.
-Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your device.</source>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="32"/>
+        <source>If this option is enabled, the device&apos;s screen will remain active while the application is running.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="31"/>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="42"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="34"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="44"/>
         <source>App pinning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="32"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="34"/>
         <source>Guided Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="49"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="52"/>
         <source>Minimum Battery Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="51"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="54"/>
         <source>&apos;%1&apos; feature will be automatically disabled when the battery level reaches this value unless the device charges.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="53"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="56"/>
         <source>battery level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="68"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="72"/>
         <source>Brightness Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="84"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="88"/>
         <source>High brightness levels cause the battery to discharge faster.</source>
         <translation type="unfinished"></translation>
     </message>

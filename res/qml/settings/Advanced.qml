@@ -37,7 +37,7 @@ Controls.MenuSection
     }
     Controls.MenuItem
     {
-        title: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(extraControls[0].value)) +
+        title: "%1 (%2%)".arg(qsTr("Opacity")).arg(Math.floor(extraControls ? extraControls[0].value : 0)) +
                DeviceAccess.managers.translation.emptyString
         active: HelpersJS.isDesktop  // @disable-check M16  @disable-check M31
         enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
@@ -48,7 +48,7 @@ Controls.MenuSection
             from: 10
             to: 100
             value: DeviceAccess.managers.persistence.value("Appearance/opacity", 1) * 100
-            width: parent.width
+            width: parent ? parent.width : 0
 
             onValueChanged:
             {
@@ -90,6 +90,7 @@ Controls.MenuSection
             wordClock.deltaTime = (wordClock.deviceOffset - extraControls[0].value) * 30
         }
 
+        active: !HelpersJS.isWasm
         title: qsTr("Time Zone (%1)").arg(wordClock.selectedGMT) + DeviceAccess.managers.translation.emptyString
         extras: QtControls.Slider
         {
@@ -97,7 +98,7 @@ Controls.MenuSection
             stepSize: 1
             to: 28
             value: wordClock.deviceOffset
-            width: parent.width
+            width: parent ? parent.width : 0
 
             onPressedChanged: if (!pressed) timeZone.update()
             onValueChanged: wordClock.selectedOffset = value
