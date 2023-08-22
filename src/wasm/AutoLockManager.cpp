@@ -5,10 +5,9 @@
 AutoLockManager::AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : AutoLockManagerBase{deviceAccess, parent}
 {
-    emscripten_run_script("console.log('does this working?')");
+    m_enabled = true;
 }
 
 void AutoLockManager::disableAutoLock(bool disable)
 {
-    Q_UNUSED(disable)
 }

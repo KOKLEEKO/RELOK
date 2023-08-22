@@ -17,7 +17,9 @@ import "qrc:/js/Helpers.js" as HelpersJS
 
 QtQuick.Loader
 {
-    active: DeviceAccess.managers.battery.enabled
+    active: DeviceAccess.managers.autoLock.enabled ||
+            DeviceAccess.managers.battery.enabled ||
+            DeviceAccess.managers.screenBrightness.enabled
     QtLayouts.Layout.fillWidth: true
     sourceComponent: Controls.MenuSection
     {
@@ -25,11 +27,11 @@ QtQuick.Loader
 
         Controls.MenuItem
         {
+            active: DeviceAccess.managers.autoLock.enabled
             title: qsTr("Stay Awake") + DeviceAccess.managers.translation.emptyString
             details: qsTr("If this option is enabled, the device's screen will remain active while the application \
-is running.\nDon't forget to enable '%1' if you might lose attention on your device.").arg(HelpersJS.isAndroid ?
-                                                                                           qsTr("App pinning") :
-                                                                                           qsTr("Guided Access")) +
+is running.").concat(HelpersJS.isMobile ? "\nDon't forget to enable '%1' if you might lose attention on your device."
+                                          .arg(HelpersJS.isAndroid ? qsTr("App pinning") : qsTr("Guided Access")) : "") +
                      DeviceAccess.managers.translation.emptyString
         }
         QtControls.Switch
@@ -46,6 +48,7 @@ is running.\nDon't forget to enable '%1' if you might lose attention on your dev
         }
         Controls.MenuItem
         {
+            active: DeviceAccess.managers.autoLock.enabled && DeviceAccess.managers.battery.enabled
             title: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString()) +
                    DeviceAccess.managers.translation.emptyString
             details: qsTr("'%1' feature will be automatically disabled when the battery level reaches this \
@@ -65,6 +68,7 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
         }
         Controls.MenuItem
         {
+            active: DeviceAccess.managers.screenBrightness.enabled
             title: "%1 (%2%)".arg(qsTr("Brightness Level"))
             /**/             .arg(DeviceAccess.managers.screenBrightness.brightness) +
             DeviceAccess.managers.translation.emptyString

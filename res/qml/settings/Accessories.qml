@@ -5,18 +5,26 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
+import QtQuick 2.15 as QtQuick
+
 import DeviceAccess 1.0
 
 import "qrc:/qml/controls" as Controls
+
+import "qrc:/js/Helpers.js" as HelpersJS
 
 Controls.MenuSection
 {
     title: qsTr("Accessories") + DeviceAccess.managers.translation.emptyString
 
-    Controls.LargePositionSelector
+    QtQuick.Loader
     {
-        name: "timeZone"
-        title: qsTr("Time Zone display mode") + DeviceAccess.managers.translation.emptyString
+        active: !HelpersJS.isWasm
+        sourceComponent: Controls.LargePositionSelector
+        {
+            name: "timeZone"
+            title: qsTr("Time Zone display mode") + DeviceAccess.managers.translation.emptyString
+        }
     }
     Controls.LargePositionSelector
     {
