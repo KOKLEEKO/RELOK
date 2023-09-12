@@ -9,7 +9,7 @@
 
 #import "PersistenceManager.h"
 
-#import "UIKit/UIScreen.h"
+#import <UIKit/UIScreen.h>
 
 ScreenBrightnessManager::ScreenBrightnessManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : ScreenBrightnessManagerBase{deviceAccess, parent}

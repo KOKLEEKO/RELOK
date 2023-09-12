@@ -228,11 +228,13 @@ darwin {
     INCLUDEPATH += src/wasm
 
     HEADERS +=                                                  \
+        src/default/BatteryManager.h                            \
         src/default/ShareContentManager.h                       \
         src/wasm/AutoLockManager.h                              \
         src/wasm/DeviceAccess.h                                 \
         src/wasm/ScreenSizeManager.h
     SOURCES +=                                                  \
+        src/default/BatteryManager.cpp                          \
         src/default/ShareContentManager.cpp                     \
         src/wasm/AutoLockManager.cpp                            \
         src/wasm/DeviceAccess.cpp                               \

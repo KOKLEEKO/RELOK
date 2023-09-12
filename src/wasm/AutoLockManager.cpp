@@ -10,4 +10,5 @@ AutoLockManager::AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent
 
 void AutoLockManager::disableAutoLock(bool disable)
 {
+    Q_UNUSED(disable)
 }
