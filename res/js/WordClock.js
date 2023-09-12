@@ -150,8 +150,8 @@ class Object
             console.debug(instance.time, instance.written_time)
         }
 
-        if (instance.enable_speech && (
-                (instance.minutes_value % parseInt(instance.speech_frequency, 10) === 0) || firstTime))
+        if (instance.enable_speech && ((instance.minutes_value % parseInt(instance.speech_frequency, 10) === 0)
+                                       || firstTime))
         {
             DeviceAccess.managers.speech.say(instance.written_time.toLowerCase())
         }
@@ -163,9 +163,9 @@ class Object
             instance.language.special_message(false)
         }
 
-        if (instance.previous_hours_array_index !== instance.hours_array_index || is_special || instance.was_special)
+        if ((instance.previous_hours_array_index !== instance.hours_array_index) || is_special || instance.was_special)
         {
-            if (instance.previous_hours_array_index !== -1)
+            if (instance.previous_hours_array_index !== parseInt(-1))
             {
                 instance.language["hours_"
                                   + instance.hours_array[instance.previous_hours_array_index]](false, instance.was_AM)
@@ -181,8 +181,10 @@ class Object
 
         if (instance.previous_minutes_array_index !== instance.minutes_array_index || is_special || instance.was_special)
         {
-            if (instance.previous_minutes_array_index !== -1)
-            instance.language["minutes_" + instance.minutes_array[instance.previous_minutes_array_index]](false)
+            if (instance.previous_minutes_array_index !== parseInt(-1))
+            {
+                instance.language["minutes_" + instance.minutes_array[instance.previous_minutes_array_index]](false)
+            }
 
             if (!is_special)
             {
@@ -192,7 +194,9 @@ class Object
         }
 
         if (is_special)
-        instance.language.special_message(true)
+        {
+            instance.language.special_message(true)
+        }
 
         instance.was_special = is_special
 

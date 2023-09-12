@@ -87,13 +87,13 @@ Q_LOGGING_CATEGORY(lc, "Device-ios")
 - (void)updateBatteryLevel:(float)batteryLevel
 {
     auto batteryManager = DeviceAccess::instance()->manager<BatteryManagerBase>();
-    if (batteryManager && batteryManager->enabled())
+    if (batteryManager->enabled())
         batteryManager->updateBatteryLevel(batteryLevel);
 }
 - (void)updateIsPlugged:(UIDeviceBatteryState)batteryState
 {
     auto batteryManager = DeviceAccess::instance()->manager<BatteryManagerBase>();
-    if (batteryManager && batteryManager->enabled()) {
+    if (batteryManager->enabled()) {
         batteryManager->updateIsPlugged(batteryState == UIDeviceBatteryStateCharging
                                         || batteryState == UIDeviceBatteryStateFull);
     }

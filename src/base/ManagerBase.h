@@ -25,6 +25,7 @@ public:
 
     static QString name() { return m_name; }
     bool enabled() const { return m_enabled; }
+    void disable() { m_enabled = false; }
 
     DeviceAccessBase *deviceAccess() const { return m_deviceAccess; }
 
