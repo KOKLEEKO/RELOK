@@ -17,9 +17,7 @@ import "qrc:/js/Helpers.js" as HelpersJS
 
 QtQuick.Loader
 {
-    active: DeviceAccess.managers.autoLock.enabled ||
-            DeviceAccess.managers.battery.enabled ||
-            DeviceAccess.managers.screenBrightness.enabled
+    active: DeviceAccess.managers.autoLock.enabled || DeviceAccess.managers.screenBrightness.enabled
     QtLayouts.Layout.fillWidth: true
     sourceComponent: Controls.MenuSection
     {
@@ -31,13 +29,19 @@ QtQuick.Loader
             title: qsTr("Stay Awake") + DeviceAccess.managers.translation.emptyString
             details: qsTr("If this option is enabled, the device's screen will remain active while the application \
 is running.").concat(HelpersJS.isMobile ? "\nDon't forget to enable '%1' if you might lose attention on your device."
-                                          .arg(HelpersJS.isAndroid ? qsTr("App pinning") : qsTr("Guided Access")) : "") +
+                                          .arg(HelpersJS.isAndroid ? qsTr("App pinning")
+                                                                   : qsTr("Guided Access")) : "") +
                      DeviceAccess.managers.translation.emptyString
-        }
-        QtControls.Switch
-        {
-            checked: !DeviceAccess.managers.autoLock.isAutoLockRequested
-            onToggled: DeviceAccess.managers.autoLock.isAutoLockRequested = !checked
+            QtControls.Switch
+            {
+                checked: !DeviceAccess.managers.autoLock.isAutoLockRequested
+                onToggled: DeviceAccess.managers.autoLock.isAutoLockRequested = !checked
+                QtQuick.Component.onCompleted:
+                {
+                    if (DeviceAccess.managers.autoLock.enabled)
+                        DeviceAccess.managers.autoLock.isAutoLockRequestedChanged()
+                }
+            }
         }
         Controls.MenuItem
         {
@@ -48,13 +52,12 @@ is running.").concat(HelpersJS.isMobile ? "\nDon't forget to enable '%1' if you 
         }
         Controls.MenuItem
         {
-            active: DeviceAccess.managers.autoLock.enabled && DeviceAccess.managers.battery.enabled
-            title: "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString()) +
+            active: DeviceAccess.managers.energySaving.enabled
+            title: (active ? "%1 (%2%)".arg(qsTr("Minimum Battery Level")).arg(extraControls[0].value.toString()) : "") +
                    DeviceAccess.managers.translation.emptyString
             details: qsTr("'%1' feature will be automatically disabled when the battery level reaches this \
 value unless the device charges.").arg(qsTr("Stay Awake")) +
-                     (HelpersJS.isMobile ? "\n(%1: %2%)".arg(qsTr("battery level"))
-                                           /**/         .arg(DeviceAccess.managers.battery.batteryLevel) : "") +
+                     "\n(%1: %2%)".arg(qsTr("battery level")).arg(DeviceAccess.managers.battery.batteryLevel) +
                      DeviceAccess.managers.translation.emptyString
             extras: QtControls.Slider
             {

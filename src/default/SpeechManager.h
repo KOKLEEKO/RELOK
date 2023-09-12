@@ -25,7 +25,6 @@ public:
     void setSpeechVoice(int index) override;
 
 protected:
-    void endOfSpeech() const override {}
     void initSpeechLocales() final override;
 };
 

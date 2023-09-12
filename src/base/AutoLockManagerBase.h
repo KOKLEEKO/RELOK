@@ -27,7 +27,6 @@ public:
     Q_INVOKABLE virtual void security(bool /*value*/) {}
     virtual void disableAutoLock(bool /*disable*/) {}
 
-protected:
     void setIsAutoLockDisabled(bool newIsAutoLockDisabled);
 
 signals:

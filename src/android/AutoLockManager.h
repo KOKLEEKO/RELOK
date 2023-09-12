@@ -7,9 +7,9 @@
 **************************************************************************************************/
 #pragma once
 
-#include <AutoLockManagerBase.h>
+#include "src/default/AutoLockManager.h"
 
-class AutoLockManager : public AutoLockManagerBase
+class AutoLockManager : public Default::AutoLockManager
 {
     Q_OBJECT
 
