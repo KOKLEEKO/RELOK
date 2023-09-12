@@ -11,7 +11,7 @@
 #include <QtAndroid>
 
 AutoLockManager::AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent)
-    : AutoLockManagerBase{deviceAccess, parent}
+    : Default::AutoLockManager{deviceAccess, parent}
 {
     m_enabled = true;
 }
