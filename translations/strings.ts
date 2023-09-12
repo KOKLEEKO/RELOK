@@ -326,54 +326,54 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>EnergySaving</name>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="26"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="24"/>
         <source>Energy Saving</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="31"/>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="55"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="29"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="59"/>
         <source>Stay Awake</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="32"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="30"/>
         <source>If this option is enabled, the device&apos;s screen will remain active while the application is running.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="34"/>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="44"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="32"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="48"/>
         <source>App pinning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="34"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="33"/>
         <source>Guided Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="52"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="56"/>
         <source>Minimum Battery Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="54"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="58"/>
         <source>&apos;%1&apos; feature will be automatically disabled when the battery level reaches this value unless the device charges.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="56"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="60"/>
         <source>battery level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="72"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="75"/>
         <source>Brightness Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="88"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="91"/>
         <source>High brightness levels cause the battery to discharge faster.</source>
         <translation type="unfinished"></translation>
     </message>

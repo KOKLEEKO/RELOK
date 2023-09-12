@@ -142,11 +142,13 @@ darwin {
         INCLUDEPATH += src/ios
 
         HEADERS +=                                              \
+            src/default/AutoLockManager.h                       \
             src/default/BatteryManager.h                        \
             src/default/EnergySavingManager.h                   \
             src/default/ShareContentManager.h                   \
             src/default/SpeechManager.h
         SOURCES +=                                              \
+            src/default/AutoLockManager.cpp                     \
             src/default/BatteryManager.cpp                      \
             src/default/EnergySavingManager.cpp                 \
             src/default/ShareContentManager.cpp                 \
@@ -190,6 +192,7 @@ darwin {
         src/android/ShareContentManager.h                       \
         src/android/SpeechManager.h                             \
         src/android/SplashScreenManager.h                       \
+        src/default/AutoLockManager.h                           \
         src/default/BatteryManager.h                            \
         src/default/EnergySavingManager.h                       \
         src/default/ShareContentManager.h                       \
@@ -203,6 +206,7 @@ darwin {
         src/android/ShareContentManager.cpp                     \
         src/android/SpeechManager.cpp                           \
         src/android/SplashScreenManager.cpp                     \
+        src/default/AutoLockManager.h                           \
         src/default/BatteryManager.cpp                          \
         src/default/EnergySavingManager.cpp                     \
         src/default/ShareContentManager.cpp                     \
@@ -228,13 +232,17 @@ darwin {
     INCLUDEPATH += src/wasm
 
     HEADERS +=                                                  \
+        src/default/AutoLockManager.h                           \
         src/default/BatteryManager.h                            \
+        src/default/EnergySavingManager.h                       \
         src/default/ShareContentManager.h                       \
         src/wasm/AutoLockManager.h                              \
         src/wasm/DeviceAccess.h                                 \
         src/wasm/ScreenSizeManager.h
     SOURCES +=                                                  \
+        src/default/AutoLockManager.cpp                         \
         src/default/BatteryManager.cpp                          \
+        src/default/EnergySavingManager.cpp                     \
         src/default/ShareContentManager.cpp                     \
         src/wasm/AutoLockManager.cpp                            \
         src/wasm/DeviceAccess.cpp                               \

@@ -10,6 +10,7 @@
 #include <emscripten.h>
 
 #include "BatteryManagerBase.h"
+#include "EnergySavingManagerBase.h"
 
 Q_LOGGING_CATEGORY(lc, "Device-wasm")
 
@@ -27,9 +28,10 @@ void updateIsPlugged(bool isPlugged)
 }
 
 EMSCRIPTEN_KEEPALIVE
-void disableBatteryManager()
+void disableBatteryAndEnergySavingManagers()
 {
     DeviceAccessBase::instance()->manager<BatteryManagerBase>()->disable();
+    DeviceAccessBase::instance()->manager<EnergySavingManagerBase>()->disable();
 }
 }
 
@@ -53,7 +55,7 @@ void DeviceAccess::specificInitializationSteps()
                     });
                 })
             } else {
-                Module._disableBatteryManager()
+                Module._disableBatteryAndEnergySavingManagers()
             }
         });
         /* clang-format on */

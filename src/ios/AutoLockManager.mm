@@ -12,17 +12,9 @@
 #import <EnergySavingManagerBase.h>
 
 AutoLockManager::AutoLockManager(DeviceAccessBase *deviceAccess, QObject *parent)
-    : AutoLockManagerBase{deviceAccess, parent}
+    : Default::AutoLockManager{deviceAccess, parent}
 {
     m_enabled = true;
-
-    connect(this, &AutoLockManagerBase::isAutoLockRequestedChanged, this, [=]() {
-        auto energySavingManager = deviceAccess->manager<EnergySavingManagerBase>();
-        if (energySavingManager->enabled())
-            energySavingManager->batterySaving();
-        else
-            disableAutoLock(!isAutoLockRequested());
-    });
 }
 
 void AutoLockManager::disableAutoLock(bool disable)
