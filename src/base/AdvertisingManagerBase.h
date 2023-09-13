@@ -24,7 +24,7 @@ public:
     bool isAdvertisingEnabled() const { return m_isAdvertisingEnabled; }
     bool isAdvertisingRequested() const { return m_isAdvertisingRequested; }
 
-    virtual void enableAdvertising(bool /*enable*/) {}
+    virtual void enableAdvertising(bool /*enable*/) { Q_UNIMPLEMENTED(); }
     Q_INVOKABLE virtual void requestAdvertising(bool isAdvertisingRequested);
 
 signals:

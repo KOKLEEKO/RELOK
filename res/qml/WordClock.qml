@@ -182,6 +182,7 @@ QtQuick.Rectangle
 
         onTriggered: wordClockJS.startupSequence(color_transition_finished)
     }
+
     QtQuick.Timer
     {
         id: timer

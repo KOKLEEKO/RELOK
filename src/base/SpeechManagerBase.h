@@ -31,13 +31,13 @@ public:
     void setHasMutipleVoices(bool newHasMutipleVoices);
 
     Q_INVOKABLE virtual void say(QString /*text*/) {}
-    Q_INVOKABLE virtual void setSpeechLanguage(QString /*iso*/) {}
-    Q_INVOKABLE virtual void setSpeechVoice(int /*index*/){};
+    Q_INVOKABLE virtual void setSpeechLanguage(QString /*iso*/) { Q_UNIMPLEMENTED(); }
+    Q_INVOKABLE virtual void setSpeechVoice(int /*index*/) { Q_UNIMPLEMENTED(); };
 
 protected:
-    virtual void requestAudioFocus() {}
-    virtual void endOfSpeech() const {}
-    virtual void initSpeechLocales() {}
+    virtual void requestAudioFocus() { Q_UNIMPLEMENTED(); }
+    virtual void endOfSpeech() const { Q_UNIMPLEMENTED(); }
+    virtual void initSpeechLocales() { Q_UNIMPLEMENTED(); }
 
 signals:
     void speechAvailableLocalesChanged();

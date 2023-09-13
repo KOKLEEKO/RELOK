@@ -21,7 +21,7 @@ class ShareContentManagerBase : public ManagerBase<ShareContentManagerBase>
 public:
     explicit ShareContentManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    Q_INVOKABLE virtual void screenshot(QQuickItem * /*item*/) {}
+    Q_INVOKABLE virtual void screenshot(QQuickItem * /*item*/) { Q_UNIMPLEMENTED(); }
 
 protected:
     virtual void screenshotWithCallback(QQuickItem * /*item*/,

@@ -9,11 +9,8 @@
 
 #include <ClockLanguageManager.h>
 #include <PersistenceManager.h>
-#include <TranslationManager.h>
-
-#ifndef Q_OS_WASM
 #include <SpeechManager.h>
-#endif
+#include <TranslationManager.h>
 
 #ifdef Q_OS_ANDROID
 #include <SplashScreenManager.h>
@@ -46,11 +43,8 @@ DeviceAccess *DeviceAccessFactory::create()
     static DeviceAccess *deviceAccess = static_cast<DeviceAccess *>(DeviceAccess::instance());
     deviceAccess->addManager(std::make_shared<ClockLanguageManager>(deviceAccess));
     deviceAccess->addManager(std::make_shared<PersistenceManager>(deviceAccess));
-    deviceAccess->addManager(std::make_shared<TranslationManager>(deviceAccess));
-
-#ifndef Q_OS_WASM
     deviceAccess->addManager(std::make_shared<SpeechManager>(deviceAccess));
-#endif
+    deviceAccess->addManager(std::make_shared<TranslationManager>(deviceAccess));
 
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS) || defined(Q_OS_MACOS) || defined(Q_OS_WASM)
     deviceAccess->addManager(std::make_shared<ShareContentManager>(deviceAccess));

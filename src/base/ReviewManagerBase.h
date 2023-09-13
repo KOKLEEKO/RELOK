@@ -18,7 +18,7 @@ class ReviewManagerBase : public ManagerBase<ReviewManagerBase>
 public:
     explicit ReviewManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    Q_INVOKABLE virtual void requestReview() {}
+    Q_INVOKABLE virtual void requestReview() { Q_UNIMPLEMENTED(); }
 };
 
 #ifndef Q_OS_WIN

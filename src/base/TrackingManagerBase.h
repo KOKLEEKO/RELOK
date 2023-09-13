@@ -20,8 +20,8 @@ class TrackingManagerBase : public ManagerBase<TrackingManagerBase>
 public:
     explicit TrackingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    Q_INVOKABLE virtual void requestBugTracking(bool /*value*/) {}
-    Q_INVOKABLE virtual void requestUsageTracking(bool /*value*/) {}
+    Q_INVOKABLE virtual void requestBugTracking(bool /*value*/) { Q_UNIMPLEMENTED(); }
+    Q_INVOKABLE virtual void requestUsageTracking(bool /*value*/) { Q_UNIMPLEMENTED(); }
 
 signals:
     void isBugTrackingChanged();
