@@ -9,30 +9,29 @@
 
 #include <SpeechManagerBase.h>
 
-#include <QTextToSpeech>
-
-#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
-namespace Default {
-#endif
+/* DISCLAIMER:
+ *
+ * A better way of doing this would be to create a plugin with QTextToSpeechPlugin and QTextToSpeechEngine
+ * pointing to SpeechSynthesis (Web Speech API).
+ *
+ * Examples:
+ * https://code.qt.io/cgit/qt/qtspeech.git/tree/src/plugins/tts?h=5.15
+ *
+ * Here, for the sake of simplicity, we'll only redefine SpeechManager's virtual methods to make direct calls
+ * to SpeechSynthesis, omitting the use of QTextToSpeech.
+ */
 
 class SpeechManager : public SpeechManagerBase
 {
-    Q_OBJECT
-
 public:
-    explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
+    explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent);
 
     void say(QString text) final override;
     void setSpeechLanguage(QString iso) override;
     void setSpeechVoice(int index) override;
 
 protected:
+    void endOfSpeech() const final override;
     void initSpeechLocales() final override;
-
-protected:
-    QTextToSpeech m_speech{};
 };
 
-#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
-} //Default
-#endif
