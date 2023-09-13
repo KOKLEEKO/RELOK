@@ -27,8 +27,8 @@ public:
 
     bool prefersStatusBarHidden() const { return m_prefersStatusBarHidden; }
 
-    Q_INVOKABLE virtual void updateSafeAreaInsets() {}
-    Q_INVOKABLE virtual void toggleFullScreen() {}
+    Q_INVOKABLE virtual void updateSafeAreaInsets() { Q_UNIMPLEMENTED(); }
+    Q_INVOKABLE virtual void toggleFullScreen() { Q_UNIMPLEMENTED(); }
 
 signals:
     void prefersStatusBarHiddenChanged();

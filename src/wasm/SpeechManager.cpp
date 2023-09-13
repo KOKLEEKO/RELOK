@@ -9,10 +9,20 @@
 
 #include <emscripten.h>
 
+extern "C" {
+EMSCRIPTEN_KEEPALIVE
+void disableSpeechManagers()
+{
+    DeviceAccessBase::instance()->manager<SpeechManagerBase>()->disable();
+}
+}
+
 SpeechManager::SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : SpeechManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
+
+    initSpeechLocales();
 }
 
 void SpeechManager::say(QString text)
@@ -28,4 +38,18 @@ void SpeechManager::setSpeechVoice(int index)
     Q_UNUSED(index)
 }
 void SpeechManager::endOfSpeech() const {};
-void SpeechManager::initSpeechLocales(){};
+void SpeechManager::initSpeechLocales()
+{
+    /* clang-format off */
+    EM_ASM({
+        if ('speechSynthesis' in window) {
+            console.log("now", window.speechSynthesis.getVoices());
+            window.speechSynthesis.onvoiceschanged = () => {
+                console.log("later", window.speechSynthesis.getVoices());
+            };
+        } else {
+            Module._disableSpeechManagers();
+        }
+    });
+    /* clang-format on */
+};

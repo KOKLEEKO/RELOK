@@ -22,7 +22,7 @@ class EnergySavingManagerBase : public ManagerBase<EnergySavingManagerBase>
 public:
     explicit EnergySavingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
     void setMinimumBatteryLevel(int value);
-    virtual void batterySaving() {}
+    virtual void batterySaving() { Q_UNIMPLEMENTED(); }
 
 signals:
     void minimumBatteryLevelChanged();

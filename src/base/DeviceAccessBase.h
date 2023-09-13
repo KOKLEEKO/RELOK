@@ -31,7 +31,7 @@ public:
         return instance;
     }
 
-    virtual void specificInitializationSteps() {}
+    virtual void specificInitializationSteps() { Q_UNIMPLEMENTED(); }
 
     template<class ManagerImpl>
     ManagerImpl *manager() const

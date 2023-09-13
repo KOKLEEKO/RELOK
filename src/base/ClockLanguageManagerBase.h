@@ -18,7 +18,7 @@ class ClockLanguageManagerBase : public ManagerBase<ClockLanguageManagerBase>
     Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(QVariantMap clockAvailableLocales READ clockAvailableLocales CONSTANT)
 
-    virtual void detectClockAvailableLocales() {}
+    virtual void detectClockAvailableLocales() { Q_UNIMPLEMENTED(); }
 
 public:
     ClockLanguageManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);

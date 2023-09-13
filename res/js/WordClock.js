@@ -153,7 +153,7 @@ class Object
         if (instance.enable_speech && ((instance.minutes_value % parseInt(instance.speech_frequency, 10) === 0)
                                        || firstTime))
         {
-            DeviceAccess.managers.speech.say(instance.written_time.toLowerCase())
+            DeviceAccess.managers.speech.say(instance.written_time)
         }
 
         firstTime = false
