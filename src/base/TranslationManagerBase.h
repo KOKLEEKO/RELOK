@@ -24,9 +24,9 @@ class TranslationManagerBase : public ManagerBase<TranslationManagerBase>
 public:
     explicit TranslationManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    virtual void getAvailableTransalations() {}
+    virtual void getAvailableTransalations() { Q_UNIMPLEMENTED(); }
 
-    Q_INVOKABLE virtual void switchLanguage(QString /*language*/) {}
+    Q_INVOKABLE virtual void switchLanguage(QString /*language*/) { Q_UNIMPLEMENTED(); }
 
 signals:
     void retranslate();

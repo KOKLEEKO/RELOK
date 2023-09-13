@@ -24,7 +24,7 @@
 class SpeechManager : public SpeechManagerBase
 {
 public:
-    explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent);
+    explicit SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     void say(QString text) final override;
     void setSpeechLanguage(QString iso) override;
@@ -34,4 +34,3 @@ protected:
     void endOfSpeech() const final override;
     void initSpeechLocales() final override;
 };
-

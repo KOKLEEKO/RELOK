@@ -24,8 +24,8 @@ public:
     bool isAutoLockRequested() const { return m_isAutoLockRequested; }
     Q_INVOKABLE void requestAutoLock(bool isAutoLockRequested);
 
-    Q_INVOKABLE virtual void security(bool /*value*/) {}
-    virtual void disableAutoLock(bool /*disable*/) {}
+    Q_INVOKABLE virtual void security(bool /*value*/) { Q_UNIMPLEMENTED(); }
+    virtual void disableAutoLock(bool /*disable*/) { Q_UNIMPLEMENTED(); }
 
     void setIsAutoLockDisabled(bool newIsAutoLockDisabled);
 
