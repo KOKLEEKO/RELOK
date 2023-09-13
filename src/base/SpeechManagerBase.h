@@ -13,7 +13,6 @@
 
 #include <QString>
 #include <QStringList>
-#include <QTextToSpeech>
 #include <QVariantMap>
 
 class SpeechManagerBase : public ManagerBase<SpeechManagerBase>
@@ -48,7 +47,6 @@ signals:
 protected:
     QVariantMap m_speechAvailableLocales{};
     QVariantMap m_speechAvailableVoices{};
-    QTextToSpeech m_speech{};
     bool m_hasMultipleVoices = false;
 };
 

@@ -206,7 +206,7 @@ darwin {
         src/android/ShareContentManager.cpp                     \
         src/android/SpeechManager.cpp                           \
         src/android/SplashScreenManager.cpp                     \
-        src/default/AutoLockManager.h                           \
+        src/default/AutoLockManager.cpp                         \
         src/default/BatteryManager.cpp                          \
         src/default/EnergySavingManager.cpp                     \
         src/default/ShareContentManager.cpp                     \
@@ -229,6 +229,8 @@ darwin {
 
 } else:wasm {
 
+    QT -= texttospeech
+
     INCLUDEPATH += src/wasm
 
     HEADERS +=                                                  \
@@ -238,7 +240,8 @@ darwin {
         src/default/ShareContentManager.h                       \
         src/wasm/AutoLockManager.h                              \
         src/wasm/DeviceAccess.h                                 \
-        src/wasm/ScreenSizeManager.h
+        src/wasm/ScreenSizeManager.h                            \
+        src/wasm/SpeechManager.h
     SOURCES +=                                                  \
         src/default/AutoLockManager.cpp                         \
         src/default/BatteryManager.cpp                          \
@@ -246,7 +249,8 @@ darwin {
         src/default/ShareContentManager.cpp                     \
         src/wasm/AutoLockManager.cpp                            \
         src/wasm/DeviceAccess.cpp                               \
-        src/wasm/ScreenSizeManager.cpp
+        src/wasm/ScreenSizeManager.cpp                          \
+        src/wasm/SpeechManager.cpp
 
 } else {
 
