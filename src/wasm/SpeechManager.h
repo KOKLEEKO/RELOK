@@ -21,6 +21,8 @@
  * to SpeechSynthesis, omitting the use of QTextToSpeech.
  */
 
+using QIntList = QList<int>;
+
 class SpeechManager : public SpeechManagerBase
 {
 public:
@@ -30,7 +32,16 @@ public:
     void setSpeechLanguage(QString iso) override;
     void setSpeechVoice(int index) override;
 
+    void clearAll();
+    void processVoice(QString lang, QString name, int index);
+    void notifyLocalesAndVoicesChanged();
+
 protected:
     void endOfSpeech() const final override;
     void initSpeechLocales() final override;
+
+private:
+    QMap<QString, QIntList> m_voiceIndices{};
+    QString m_selectedIso{};
+    int m_selectedVoiceIndex = 0;
 };
