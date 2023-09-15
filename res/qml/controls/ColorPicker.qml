@@ -55,7 +55,7 @@ MenuItem
         selected_colorChanged.connect(
                     () => {
                         wordClock[name] = selected_color
-                        DeviceAccess.managers.persistence.setValue("Appearance/%1".arg(name),
+                        DeviceAccess.managers.persistence.setValue("Colors/%1".arg(name),
                                                                    selected_color.toString().toUpperCase())
                     })
     }

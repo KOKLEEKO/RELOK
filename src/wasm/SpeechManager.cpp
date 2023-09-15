@@ -8,7 +8,6 @@
 #include "SpeechManager.h"
 
 #include <emscripten.h>
-#include <emscripten/val.h>
 
 #include "ClockLanguageManagerBase.h"
 #include "PersistenceManagerBase.h"
@@ -61,14 +60,14 @@ EM_JS(void, processVoices, (),
     voices.forEach((voice, index) => {
         const iso = stringToNewUTF8(voice.lang.split('-')[0]);
         if (Module._isLocaleSupported(iso)) {
-            const lang = stringToNewUTF8(voice.lang);
+            _free(iso);
+            const lang = stringToNewUTF8(voice.lang.replace('-', "_"));
             const name = stringToNewUTF8(voice.name.split(' ')[0]);
             Module._processVoice(lang, name, index);
             lastIndex = index;
             _free(lang);
             _free(name);
         }
-        _free(iso);
     });
     Module._notifyLocalesAndVoicesChanged();
 });
@@ -79,7 +78,10 @@ SpeechManager::SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent)
 {
     m_enabled = true;
 
-    initSpeechLocales();
+    connect(deviceAccess->manager<PersistenceManagerBase>(),
+            &PersistenceManagerBase::settingsReady,
+            this,
+            [=] { initSpeechLocales(); });
 }
 
 void SpeechManager::say(QString text)
@@ -89,7 +91,6 @@ void SpeechManager::say(QString text)
         EM_ASM({
             const synth = window.speechSynthesis;
             synth.cancel();
-
             const voiceIndex = $0;
             const textToSay = UTF8ToString($1);
             const utterance = new SpeechSynthesisUtterance(textToSay);
@@ -107,14 +108,13 @@ void SpeechManager::setSpeechLanguage(QString iso)
 }
 void SpeechManager::setSpeechVoice(int index)
 {
+    m_selectedVoiceIndex = -1;
     if (m_voiceIndices.contains(m_selectedIso)) {
         QIntList indices = m_voiceIndices[m_selectedIso];
         if (indices.length() > index) {
             m_selectedVoiceIndex = indices.at(index);
-            return;
         }
     }
-    m_selectedVoiceIndex = -1;
 }
 
 void SpeechManager::clearAll()
@@ -135,14 +135,13 @@ void SpeechManager::processVoice(QString iso, QString name, int index)
     if (!m_speechAvailableVoices.contains(iso)) {
         deviceAccess()
             ->manager<PersistenceManagerBase>()
-            ->setValue(QString("Appearance/%1_voice").arg(iso), 0);
+            ->setValue(QString("Speech/%1_voice").arg(iso), 0);
     }
-    QStringList voices = m_speechAvailableVoices[iso].toStringList();
-
-    QIntList indices = m_voiceIndices[iso];
+    QIntList indices = m_voiceIndices.value(iso);
     indices.push_back(index);
     m_voiceIndices.insert(iso, indices);
 
+    QStringList voices = m_speechAvailableVoices.value(iso).toStringList();
     voices.push_back(name);
     m_speechAvailableVoices.insert(iso, voices);
 }
@@ -161,9 +160,7 @@ void SpeechManager::initSpeechLocales()
     EM_ASM({
         if ('speechSynthesis' in window) {
             processVoices();
-            window.speechSynthesis.onvoiceschanged = () => {
-                processVoices();
-            };
+            window.speechSynthesis.onvoiceschanged = () => processVoices();
         } else {
             Module._disableSpeechManager();
         }

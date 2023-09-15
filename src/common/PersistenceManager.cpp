@@ -36,3 +36,8 @@ void PersistenceManager::timerEvent(QTimerEvent *event)
         emit settingsReady();
     }
 }
+
+void PersistenceManager::clear()
+{
+    m_settings.clear();
+}
