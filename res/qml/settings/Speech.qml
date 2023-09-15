@@ -28,9 +28,9 @@ QtQuick.Loader
             title: qsTr("Enable Time Reminder") + DeviceAccess.managers.translation.emptyString
             QtControls.Switch
             {
-                checked: wordClock.enable_speech
-                onToggled: DeviceAccess.managers.persistence.setValue("Appearance/speech",
-                                                                      wordClock.enable_speech = checked)
+                checked: wordClock.speech_enabled
+                onToggled: DeviceAccess.managers.persistence.setValue("Speech/enabled",
+                                                                      wordClock.speech_enabled = checked)
             }
         }
         Controls.MenuItem
@@ -49,7 +49,7 @@ QtQuick.Loader
                 {
                     const speech_frequency = Object.keys(wordClock.speech_frequencies)[value]
                     wordClock.speech_frequency = speech_frequency
-                    DeviceAccess.managers.persistence.setValue("Appearance/speech_frequency", speech_frequency)
+                    DeviceAccess.managers.persistence.setValue("Speech/frequency", speech_frequency)
                 }
             }
         }
@@ -63,16 +63,16 @@ QtQuick.Loader
                 {
                     autoExclusive: true
                     checkable: true
-                    checked: index === DeviceAccess.managers.persistence.value("Appearance/%1_voice"
+                    checked: index === DeviceAccess.managers.persistence.value("Speech/%1_voice"
                                                                                .arg(wordClock.selected_language), 0)
                     text: modelData
 
                     onClicked:
                     {
                         DeviceAccess.managers.speech.setSpeechVoice(index)
-                        if (wordClock.enable_speech)
+                        if (wordClock.speech_enabled)
                             DeviceAccess.managers.speech.say(wordClock.written_time)
-                        DeviceAccess.managers.persistence.setValue("Appearance/%1_voice"
+                        DeviceAccess.managers.persistence.setValue("Speech/%1_voice"
                                                                    .arg(wordClock.selected_language), index)
                     }
                     QtControls.Label

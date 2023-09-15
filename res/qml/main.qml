@@ -29,7 +29,7 @@ QtControls.ApplicationWindow
     property bool aboutToQuit: false
     property bool isWidget: false
     property bool isLeftHanded: Boolean(DeviceAccess.managers.persistence.value("Appearance/hand_preference", 1))
-    property bool showWelcome: DeviceAccess.managers.persistence.value("Welcome/show", true)
+    property bool showWelcome: DeviceAccess.managers.persistence.value("Advanced/show_welcome", true)
     property real tmpOpacity: root.opacity
     readonly property size size: Qt.size(width, height)
     readonly property bool isFullScreen: HelpersJS.isIos ? DeviceAccess.managers.screenSize.prefersStatusBarHidden
@@ -42,7 +42,7 @@ QtControls.ApplicationWindow
     height: DeviceAccess.managers.persistence.value("Appearance/height", 480)
     minimumHeight: minimumSize
     minimumWidth: minimumSize
-    opacity: HelpersJS.isDesktop ? DeviceAccess.managers.persistence.value("Appearance/opacity", 1) : 1
+    opacity: HelpersJS.isDesktop ? DeviceAccess.managers.persistence.value("Advanced/opacity", 1) : 1
     visibility: HelpersJS.isIos ? QtWindows.Window.FullScreen : QtWindows.Window.AutomaticVisibility
     visible: true
     width: DeviceAccess.managers.persistence.value("Appearance/width", 640)
@@ -84,7 +84,7 @@ QtControls.ApplicationWindow
     {
         if (HelpersJS.isDesktop)
         {
-            DeviceAccess.managers.persistence.setValue("Appearance/widget", isWidget)
+            DeviceAccess.managers.persistence.setValue("Advanced/widget", isWidget)
         }
     }
     onVisibilityChanged:

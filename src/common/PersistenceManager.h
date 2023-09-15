@@ -21,6 +21,7 @@ public:
     QVariant value(QString key, QVariant defaultValue) const final override;
     void setValue(QString key, QVariant value) final override;
     void timerEvent(QTimerEvent *event) final override;
+    void clear() final override;
 
 private:
     QSettings m_settings;

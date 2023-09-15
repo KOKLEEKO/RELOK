@@ -176,8 +176,14 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../res/qml/settings/Advanced.qml" line="134"/>
+        <source>Persistence Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../res/qml/settings/Advanced.qml" line="61"/>
         <location filename="../res/qml/settings/Advanced.qml" line="111"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="138"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
