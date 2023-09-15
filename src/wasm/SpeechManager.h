@@ -43,5 +43,5 @@ protected:
 private:
     QMap<QString, QIntList> m_voiceIndices{};
     QString m_selectedIso{};
-    int m_selectedVoiceIndex = 0;
+    int m_selectedVoiceIndex = -1;
 };

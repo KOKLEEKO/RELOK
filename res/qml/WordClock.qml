@@ -20,7 +20,7 @@ QtQuick.Rectangle
     property var wordClockJS: null
     // User-facing Settings
     property string selected_language
-    property bool enable_speech: DeviceAccess.managers.persistence.value("Appearance/speech", true)
+    property bool speech_enabled: DeviceAccess.managers.persistence.value("Speech/enabled", true)
     property bool enable_special_message: DeviceAccess.managers.persistence.value("Appearance/specialMessage", true)
     property color background_color: "black"
     //property alias backgroud_image_source: backgroundImage.source
@@ -48,7 +48,7 @@ QtQuick.Rectangle
         "60": qsTr("every hour")       + DeviceAccess.managers.translation.emptyString,
     }
     readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
-    property string speech_frequency: DeviceAccess.managers.persistence.value("Appearance/speech_frequency", "15")
+    property string speech_frequency: DeviceAccess.managers.persistence.value("Speech/frequency", "15")
     property Language language
     //onLanguageChanged: HelpersJS.missingLetters(language.table)
     property var currentDateTime
@@ -148,6 +148,17 @@ QtQuick.Rectangle
     x: DeviceAccess.managers.screenSize.safeInsetLeft
 
     QtQuick.Component.onCompleted: wordClockJS = new WordClockJS.Object(this, isDebug)
+
+    QtQuick.Connections
+    {
+        target: DeviceAccess.managers.speech
+        enabled: DeviceAccess.managers.speech.enabled
+        function onSpeechAvailableLocalesChanged() {
+            DeviceAccess.managers.speech.setSpeechVoice(DeviceAccess.managers.persistence.value("Speech/%1_voice"
+                                                                                                .arg(selected_language),
+                                                                                                0))
+        }
+    }
 
     QtQuick.Behavior on background_color
     {

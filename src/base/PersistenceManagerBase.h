@@ -20,8 +20,13 @@ public:
     explicit PersistenceManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
     Q_PROPERTY(bool enabled READ enabled CONSTANT)
-    Q_INVOKABLE virtual QVariant value(QString /*key*/, QVariant /*defaultValue*/) const { return {QVariant::String}; }
-    Q_INVOKABLE virtual void setValue(QString /*key*/, QVariant /*value*/) {}
+    Q_INVOKABLE virtual QVariant value(QString /*key*/, QVariant /*defaultValue*/) const
+    {
+        Q_UNIMPLEMENTED();
+        return {QVariant::String};
+    }
+    Q_INVOKABLE virtual void setValue(QString /*key*/, QVariant /*value*/) { Q_UNIMPLEMENTED(); }
+    Q_INVOKABLE virtual void clear() { Q_UNIMPLEMENTED(); };
 
 signals:
     void settingsReady();

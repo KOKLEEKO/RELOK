@@ -55,9 +55,9 @@ QtQuick.Item
         }
         QtExtras.MenuItem
         {
-            iconSource: "qrc:/assets/notify_%1.svg".arg(wordClock.enable_speech ? "off" : "on")
+            iconSource: "qrc:/assets/notify_%1.svg".arg(wordClock.speech_enabled ? "off" : "on")
             visible: DeviceAccess.managers.speech.enabled
-            onTriggered: DeviceAccess.managers.persistence.setValue("Appearance/speech", wordClock.enable_speech ^= true)
+            onTriggered: DeviceAccess.managers.persistence.setValue("Speech/enabled", wordClock.speech_enabled ^= true)
         }
         QtExtras.MenuItem
         {

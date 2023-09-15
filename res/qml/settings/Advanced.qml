@@ -30,7 +30,7 @@ Controls.MenuSection
             onToggled: HelpersJS.updateDisplayMode(root)
             QtQuick.Component.onCompleted:
             {
-                if (root.isWidget !== DeviceAccess.managers.persistence.value("Appearance/widget", false))
+                if (root.isWidget !== DeviceAccess.managers.persistence.value("Advanced/widget", false))
                     toggled()
             }
         }
@@ -47,13 +47,13 @@ Controls.MenuSection
         {
             from: 10
             to: 100
-            value: DeviceAccess.managers.persistence.value("Appearance/opacity", 1) * 100
+            value: DeviceAccess.managers.persistence.value("Advanced/opacity", 1) * 100
             width: parent ? parent.width : 0
 
             onValueChanged:
             {
                 root.opacity = value/100
-                DeviceAccess.managers.persistence.setValue("Appearance/opacity", root.opacity)
+                DeviceAccess.managers.persistence.setValue("Advanced/opacity", root.opacity)
             }
         }
        QtControls.Button
@@ -125,8 +125,18 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
         QtControls.Switch
         {
             checked: root.showWelcome
-            onCheckedChanged: DeviceAccess.managers.persistence.setValue("Welcome/show", checked)
+            onCheckedChanged: DeviceAccess.managers.persistence.setValue("Advanced/show_welcome", checked)
         }
         details: qsTr("Display at startup.") + DeviceAccess.managers.translation.emptyString
+    }
+    Controls.MenuItem
+    {
+        title: qsTr("Persistence Settings") + DeviceAccess.managers.translation.emptyString
+        active: isDebug
+        QtControls.Button
+        {
+            text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
+            onClicked: DeviceAccess.managers.persistence.clear()
+        }
     }
 }

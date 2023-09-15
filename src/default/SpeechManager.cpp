@@ -46,16 +46,11 @@ void SpeechManager::setSpeechLanguage(QString iso)
         for (const auto &voice : availableVoices)
             voicesNames << voice.name().split(" ")[0];
         m_speechAvailableVoices.insert(iso, voicesNames);
-        const QString settingName = QString("Appearance/%1_voice").arg(iso);
+        const QString settingName = QString("Speech/%1_voice").arg(iso);
         if (deviceAccess()->manager<PersistenceManagerBase>()->value(settingName, -1).toInt()
             == -1) {
-            int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(" ")[0]);
-            if (iso == "fr_FR" && m_speechAvailableVoices[iso].toStringList().size() > 9)
-                defaultIndex = 9;
-            deviceAccess()
-                ->manager<PersistenceManagerBase>()
-                ->setValue(QString("Appearance/%1_voice").arg(iso),
-                           defaultIndex == -1 ? 0 : defaultIndex);
+            int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(' ')[0]);
+            deviceAccess()->manager<PersistenceManagerBase>()->setValue(settingName, defaultIndex);
         }
         emit speechAvailableVoicesChanged();
     }
@@ -76,8 +71,8 @@ void SpeechManager::initSpeechLocales()
                 ->clockAvailableLocales()
                 .keys()
                 .contains(speechLocale.bcp47Name().left(2))) {
-            QString iso = speechLocale.bcp47Name();
-            if (iso.split('-').size() != 2) {
+            QString iso = speechLocale.bcp47Name().replace('-', '_');
+            if (iso.split('_').size() != 2) {
                 const QList uiLanguages{speechLocale.uiLanguages()};
                 for (const auto &uiLanguage : uiLanguages) {
                     if (uiLanguage.split('-').size() == 2) {

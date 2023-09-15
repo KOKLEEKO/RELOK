@@ -94,11 +94,11 @@ class Object
         if (DeviceAccess.managers.speech.enabled)
         {
             DeviceAccess.managers.speech.setSpeechLanguage(language)
-            const voiceIndex = DeviceAccess.managers.persistence.value("Appearance/%1_voice"
+            const voiceIndex = DeviceAccess.managers.persistence.value("Speech/%1_voice"
                                                                        .arg(instance.selected_language), 0)
             DeviceAccess.managers.speech.setSpeechVoice(voiceIndex)
 
-            if (instance.written_time && instance.enable_speech)
+            if (instance.written_time && instance.speech_enabled)
             {
                 DeviceAccess.managers.speech.say(instance.written_time)
             }
@@ -150,8 +150,8 @@ class Object
             console.debug(instance.time, instance.written_time)
         }
 
-        if (instance.enable_speech && ((instance.minutes_value % parseInt(instance.speech_frequency, 10) === 0)
-                                       || firstTime))
+        if (instance.speech_enabled && ((instance.minutes_value % parseInt(instance.speech_frequency, 10) === 0)
+                                        || firstTime))
         {
             DeviceAccess.managers.speech.say(instance.written_time)
         }
