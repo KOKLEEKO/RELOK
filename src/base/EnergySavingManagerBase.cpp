@@ -14,13 +14,23 @@ QString ManagerBase<EnergySavingManagerBase>::m_name{"energySaving"};
 
 EnergySavingManagerBase::EnergySavingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)
-{}
+{
+    connect(deviceAccess->manager<PersistenceManagerBase>(),
+            &PersistenceManagerBase::settingsReady,
+            this,
+            [=] {
+                m_minimumBatteryLevel = deviceAccess->manager<PersistenceManagerBase>()
+                                            ->value("BatterySaving/minimumBatteryLevel", 50)
+                                            .toInt();
+            });
+}
 
 void EnergySavingManagerBase::setMinimumBatteryLevel(int minimumBatteryLevel)
 {
     if (m_minimumBatteryLevel == minimumBatteryLevel)
         return;
     deviceAccess()->manager<PersistenceManagerBase>()->setValue("BatterySaving/minimumBatteryLevel",
-                                                                m_minimumBatteryLevel = minimumBatteryLevel);
+                                                                m_minimumBatteryLevel
+                                                                = minimumBatteryLevel);
     emit minimumBatteryLevelChanged();
 }

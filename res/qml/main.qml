@@ -28,7 +28,8 @@ QtControls.ApplicationWindow
     property alias headings: headings
     property bool aboutToQuit: false
     property bool isWidget: false
-    property bool isLeftHanded: Boolean(DeviceAccess.managers.persistence.value("Appearance/hand_preference", 1))
+    property bool isLeftHanded: Boolean(parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference",
+                                                                                         1)))
     property bool showWelcome: DeviceAccess.managers.persistence.value("Advanced/show_welcome", true)
     property real tmpOpacity: root.opacity
     readonly property size size: Qt.size(width, height)

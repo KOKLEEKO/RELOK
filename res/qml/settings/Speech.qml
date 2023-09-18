@@ -21,11 +21,14 @@ QtQuick.Loader
     QtLayouts.Layout.fillWidth: true
     sourceComponent: Controls.MenuSection
     {
+        id: section
+
         title: qsTr("Speech") + DeviceAccess.managers.translation.emptyString
 
         Controls.MenuItem
         {
             title: qsTr("Enable Time Reminder") + DeviceAccess.managers.translation.emptyString
+
             QtControls.Switch
             {
                 checked: wordClock.speech_enabled
@@ -59,22 +62,28 @@ QtQuick.Loader
             active: DeviceAccess.managers.speech.hasMultipleVoices// @disable-check M16  @disable-check M31
             extras: QtQuick.ListView
             {
+                id: listView
+
+                onModelChanged: currentIndex= parseInt(DeviceAccess.managers.persistence.value(
+                                                           "Speech/%1_voice".arg(wordClock.selected_language), 0))
                 delegate: QtControls.Button
                 {
                     autoExclusive: true
                     checkable: true
-                    checked: index === DeviceAccess.managers.persistence.value("Speech/%1_voice"
-                                                                               .arg(wordClock.selected_language), 0)
+                    checked: index === parseInt(DeviceAccess.managers.persistence.value(
+                                                    "Speech/%1_voice".arg(wordClock.selected_language), 0))
                     text: modelData
 
                     onClicked:
                     {
+                        QtQuick.ListView.view.currentIndex = index
                         DeviceAccess.managers.speech.setSpeechVoice(index)
                         if (wordClock.speech_enabled)
                             DeviceAccess.managers.speech.say(wordClock.written_time)
                         DeviceAccess.managers.persistence.setValue("Speech/%1_voice"
                                                                    .arg(wordClock.selected_language), index)
                     }
+
                     QtControls.Label
                     {
                         anchors { right: parent.right; bottom: parent.bottom }
@@ -89,6 +98,16 @@ QtQuick.Loader
                 orientation: QtQuick.ListView.Horizontal
                 spacing: 5
                 width: parent ? parent.width : 0
+
+                QtQuick.Connections
+                {
+                    target: section
+                    function onIs_collapsedChanged()
+                    {
+                        if (!section.is_collapsed)
+                            listView.positionViewAtIndex(listView.currentIndex, QtQuick.ListView.Center)
+                    }
+                }
             }
         }
     }

@@ -22,6 +22,7 @@ public:
     void setValue(QString key, QVariant value) final override;
     void timerEvent(QTimerEvent *event) final override;
     void clear() final override;
+    void printAll() final override;
 
 private:
     QSettings m_settings;

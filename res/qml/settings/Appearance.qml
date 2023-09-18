@@ -16,6 +16,8 @@ import "qrc:/js/Helpers.js" as HelpersJS
 
 Controls.MenuSection
 {
+    id: section
+
     title: qsTr("Appearance") + DeviceAccess.managers.translation.emptyString
 
     Controls.MenuItem
@@ -45,24 +47,35 @@ Controls.MenuSection
         }
         extras: QtQuick.ListView
         {
+            id: applicationLanguageListView
+
+            currentIndex: Object.keys(DeviceAccess.managers.translation.availableTranslations).indexOf(
+                              applicationLanguage.selectedLangage)
             delegate: QtControls.Button
             {
                 autoExclusive: true
                 checkable: true
-                checked: modelData === applicationLanguage.selectedLangage
+                checked: index === QtQuick.ListView.view.currentIndex
                 text: DeviceAccess.managers.translation.availableTranslations[modelData]
 
-                onClicked:
-                {
-                    QtQuick.ListView.view.currentIndex = index
-                    applicationLanguage.switchLanguage(modelData)
-                }
+                onClicked: applicationLanguage.switchLanguage(modelData)
             }
             height: contentItem.childrenRect.height
             model: Object.keys(DeviceAccess.managers.translation.availableTranslations)
             orientation: QtQuick.ListView.Horizontal
             spacing: 5
             width: parent.width
+
+            QtQuick.Connections
+            {
+                target: section
+                function onIs_collapsedChanged()
+                {
+                    if (!section.is_collapsed)
+                        applicationLanguageListView.positionViewAtIndex(applicationLanguageListView.currentIndex,
+                                                                        QtQuick.ListView.Center)
+                }
+            }
         }
     }
     Controls.MenuItem
@@ -73,7 +86,7 @@ Controls.MenuSection
         {
             autoExclusive: true
             checkable: true
-            checked: index === DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0)
+            checked: index === parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0))
             text: qsTr(modelData) + DeviceAccess.managers.translation.emptyString
 
             onClicked:
@@ -100,11 +113,14 @@ Controls.MenuSection
         }
         extras: QtQuick.ListView
         {
+            id: clockLanguageListView
+
+            currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
             delegate: QtControls.Button
             {
                 autoExclusive: true
                 checkable: true
-                checked: index === Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
+                checked: index === QtQuick.ListView.view.currentIndex
                 text: modelData
 
                 onClicked: wordClock.selectLanguage(Object.keys(wordClock.languages)[index])
@@ -123,6 +139,17 @@ Controls.MenuSection
             orientation: QtQuick.ListView.Horizontal
             spacing: 5
             width: parent.width
+
+            QtQuick.Connections
+            {
+                target: section
+                function onIs_collapsedChanged()
+                {
+                    if (!section.is_collapsed)
+                        clockLanguageListView.positionViewAtIndex(clockLanguageListView.currentIndex,
+                                                                  QtQuick.ListView.Center)
+                }
+            }
         }
     }
     Controls.MenuItem

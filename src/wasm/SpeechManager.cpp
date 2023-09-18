@@ -132,11 +132,7 @@ void SpeechManager::processVoice(QString iso, QString name, int index)
                                                           speechLocale.nativeCountryName());
         m_speechAvailableLocales.insert(iso, localeName);
     }
-    if (!m_speechAvailableVoices.contains(iso)) {
-        deviceAccess()
-            ->manager<PersistenceManagerBase>()
-            ->setValue(QString("Speech/%1_voice").arg(iso), 0);
-    }
+
     QIntList indices = m_voiceIndices.value(iso);
     indices.push_back(index);
     m_voiceIndices.insert(iso, indices);
@@ -148,6 +144,16 @@ void SpeechManager::processVoice(QString iso, QString name, int index)
 
 void SpeechManager::notifyLocalesAndVoicesChanged()
 {
+    for (const auto &locale : m_speechAvailableLocales.keys()) {
+        if (deviceAccess()->manager<PersistenceManagerBase>()->value(
+                QString("Speech/%1_voice").arg(locale))
+            == QVariant::Invalid) {
+            deviceAccess()
+                ->manager<PersistenceManagerBase>()
+                ->setValue(QString("Speech/%1_voice").arg(locale),
+                           m_speechAvailableVoices[locale].toStringList().size() - 1);
+        }
+    }
     setHasMutipleVoices((m_speechAvailableVoices.size() > 0));
     emit speechAvailableLocalesChanged();
     emit speechAvailableVoicesChanged();
