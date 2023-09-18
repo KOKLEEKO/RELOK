@@ -7,21 +7,32 @@
 **************************************************************************************************/
 #include "AutoLockManagerBase.h"
 
-#include "PersistenceManager.h"
+#include "PersistenceManagerBase.h"
 
 template<>
 QString ManagerBase<AutoLockManagerBase>::m_name{"autoLock"};
 
 AutoLockManagerBase::AutoLockManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)
-{}
+{
+    connect(deviceAccess->manager<PersistenceManagerBase>(),
+            &PersistenceManagerBase::settingsReady,
+            this,
+            [=] {
+                m_isAutoLockRequested = deviceAccess->manager<PersistenceManagerBase>()
+                                            ->value("BatterySaving/isAutoLockRequested", false)
+                                            .toBool();
+            });
+}
 
 void AutoLockManagerBase::requestAutoLock(bool isAutoLockRequested)
 {
     if (m_isAutoLockRequested == isAutoLockRequested)
         return;
-    deviceAccess()->manager<PersistenceManager>()->setValue("BatterySaving/isAutoLockRequested",
-                                                            m_isAutoLockRequested = isAutoLockRequested);
+    qCDebug(lc) << "[R] autoLockRequested:" << isAutoLockRequested;
+    deviceAccess()->manager<PersistenceManagerBase>()->setValue("BatterySaving/isAutoLockRequested",
+                                                                m_isAutoLockRequested
+                                                                = isAutoLockRequested);
     emit isAutoLockRequestedChanged();
 }
 

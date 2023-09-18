@@ -47,8 +47,8 @@ void SpeechManager::setSpeechLanguage(QString iso)
             voicesNames << voice.name().split(" ")[0];
         m_speechAvailableVoices.insert(iso, voicesNames);
         const QString settingName = QString("Speech/%1_voice").arg(iso);
-        if (deviceAccess()->manager<PersistenceManagerBase>()->value(settingName, -1).toInt()
-            == -1) {
+        if (deviceAccess()->manager<PersistenceManagerBase>()->value(settingName)
+            == QVariant::Invalid) {
             int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(' ')[0]);
             deviceAccess()->manager<PersistenceManagerBase>()->setValue(settingName, defaultIndex);
         }

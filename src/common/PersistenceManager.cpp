@@ -7,19 +7,21 @@
 **************************************************************************************************/
 #include "PersistenceManager.h"
 
+#include <QFile>
 #include <QTimerEvent>
 
 PersistenceManager::PersistenceManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : PersistenceManagerBase{deviceAccess, parent}
 {
     m_enabled = true;
-
     startTimer(0);
-    qCDebug(lc) << m_settings.fileName();
 }
 
 QVariant PersistenceManager::value(QString key, QVariant defaultValue) const
 {
+    QVariant value = m_settings.value(key, defaultValue);
+    if (value.type() == QVariant::String && value.toString() == "false")
+        return QVariant::fromValue(false);
     return m_settings.value(key, defaultValue);
 }
 
@@ -40,4 +42,12 @@ void PersistenceManager::timerEvent(QTimerEvent *event)
 void PersistenceManager::clear()
 {
     m_settings.clear();
+}
+
+void PersistenceManager::printAll()
+{
+    const QStringList &allKeys = m_settings.allKeys();
+    qCDebug(lc) << m_settings.fileName() << allKeys.size();
+    for (const auto &key : allKeys)
+        qCDebug(lc) << __func__ << QString("%1: %2").arg(key, m_settings.value(key).toString());
 }
