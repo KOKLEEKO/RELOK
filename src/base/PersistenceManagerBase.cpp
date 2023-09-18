@@ -12,4 +12,8 @@ QString ManagerBase<PersistenceManagerBase>::m_name{"persistence"};
 
 PersistenceManagerBase::PersistenceManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)
-{}
+{
+#ifdef QT_DEBUG
+    connect(this, &PersistenceManagerBase::settingsReady, this, &PersistenceManagerBase::printAll);
+#endif
+}

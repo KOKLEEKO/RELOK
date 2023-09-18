@@ -206,68 +206,68 @@ Developed with love by Johan and published by Denver.</source>
 <context>
     <name>Appearance</name>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="19"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="21"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="150"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="177"/>
         <source>Hide Status Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="151"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="178"/>
         <source>Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="165"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="192"/>
         <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="71"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="84"/>
         <source>Right-handed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="71"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="84"/>
         <source>Left-handed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="35"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="37"/>
         <source>Application Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="41"/>
-        <location filename="../res/qml/settings/Appearance.qml" line="94"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="43"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="107"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="70"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="83"/>
         <source>Handedness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="85"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="98"/>
         <source>Optimize the application layout to suit your handedness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="90"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="103"/>
         <source>Clock Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="130"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="157"/>
         <source>Enable Special Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="131"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="158"/>
         <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -423,7 +423,7 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>Picker</name>
     <message>
-        <location filename="../res/qml/controls/Picker.qml" line="48"/>
+        <location filename="../res/qml/controls/Picker.qml" line="49"/>
         <source>%L1 %</source>
         <translation type="unfinished"></translation>
     </message>
@@ -495,22 +495,22 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>Speech</name>
     <message>
-        <location filename="../res/qml/settings/Speech.qml" line="24"/>
+        <location filename="../res/qml/settings/Speech.qml" line="26"/>
         <source>Speech</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Speech.qml" line="28"/>
+        <location filename="../res/qml/settings/Speech.qml" line="30"/>
         <source>Enable Time Reminder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Speech.qml" line="38"/>
+        <location filename="../res/qml/settings/Speech.qml" line="41"/>
         <source>Interval (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Speech.qml" line="58"/>
+        <location filename="../res/qml/settings/Speech.qml" line="61"/>
         <source>Voice</source>
         <translation type="unfinished"></translation>
     </message>
