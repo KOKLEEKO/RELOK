@@ -9,6 +9,8 @@ import QtQuick 2.15 as QtQuick
 import QtQuick.Controls 2.15 as QtControls
 import QtQuick.Layouts 1.15 as QtLayouts
 
+import "." as Controls
+
 QtQuick.Loader
 {
     id: menuItem
@@ -54,7 +56,7 @@ QtQuick.Loader
             QtQuick.Component.onCompleted: inLineWidth = label.implicitWidth + rowSpacing +
                                            (control ? control.implicitWidth: 0)
 
-            Title { id: label; QtLayouts.Layout.fillWidth: true; heading: headings.h3; text: title }
+            Controls.Title { id: label; QtLayouts.Layout.fillWidth: true; heading: headings.h3; text: title }
             QtQuick.Loader { sourceComponent: controlComponent; onLoaded: control = item }
         }
         QtQuick.Loader

@@ -16,18 +16,26 @@ Controls.Menu
     function greetings()
     {
         if (wordClock.is_AM)
-            return QT_TR_NOOP("Good Morning!")
+        {
+            return QT_TR_NOOP("Good Morning!");
+        }
         else if (parseInt(wordClock.hours_value, 10) < 18) // 6:00 PM
-            return QT_TR_NOOP("Good Afternoon!")
-        return QT_TR_NOOP("Good Evening!")
+        {
+            return QT_TR_NOOP("Good Afternoon!");
+        }
+        return QT_TR_NOOP("Good Evening!");
     }
 
     function openUrl(url)
     {
         if (HelpersJS.isMobile && url.split(":")[0] !== "mailto")
-            webView.openUrl(url)
+        {
+            webView.openUrl(url);
+        }
         else
-            Qt.openUrlExternally(url)
+        {
+            Qt.openUrlExternally(url);
+        }
     }
 
     anchors.fill: parent  // @disable-check M16  @disable-check M31

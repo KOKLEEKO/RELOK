@@ -29,7 +29,7 @@ QtControls.ApplicationWindow
     property bool aboutToQuit: false
     property bool isWidget: false
     property bool isLeftHanded: Boolean(parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference",
-                                                                                         1)))
+                                                                                         1), 10))
     property bool showWelcome: DeviceAccess.managers.persistence.value("Advanced/show_welcome", true)
     property real tmpOpacity: root.opacity
     readonly property size size: Qt.size(width, height)
@@ -50,33 +50,33 @@ QtControls.ApplicationWindow
 
     onClosing:
     {
-        aboutToQuit = true
+        aboutToQuit = true;
         if (HelpersJS.isAndroid)
         {
-            close.accepted = false
-            DeviceAccess.moveTaskToBack()
+            close.accepted = false;
+            DeviceAccess.moveTaskToBack();
         }
         if (!isFullScreen)
         {
-            DeviceAccess.managers.persistence.setValue("Appearance/width", width)
-            DeviceAccess.managers.persistence.setValue("Appearance/height", height)
+            DeviceAccess.managers.persistence.setValue("Appearance/width", width);
+            DeviceAccess.managers.persistence.setValue("Appearance/height", height);
         }
     }
     onIsFullScreenChanged:
     {
         if (!aboutToQuit)
         {
-            DeviceAccess.managers.persistence.setValue("Appearance/fullScreen", isFullScreen)
+            DeviceAccess.managers.persistence.setValue("Appearance/fullScreen", isFullScreen);
             if (HelpersJS.isDesktop)
             {
                 if (isFullScreen)
                 {
-                    tmpOpacity = root.opacity
-                    root.opacity = 1
+                    tmpOpacity = root.opacity;
+                    root.opacity = 1;
                 }
                 else
                 {
-                    root.opacity = tmpOpacity
+                    root.opacity = tmpOpacity;
                 }
             }
         }
@@ -85,31 +85,34 @@ QtControls.ApplicationWindow
     {
         if (HelpersJS.isDesktop)
         {
-            DeviceAccess.managers.persistence.setValue("Advanced/widget", isWidget)
+            DeviceAccess.managers.persistence.setValue("Advanced/widget", isWidget);
         }
     }
     onVisibilityChanged:
     {
         if (HelpersJS.isMobile && !settingsPanel.opened)
         {
-            visibilityChangedSequence.start()
+            visibilityChangedSequence.start();
         }
     }
     QtQuick.Component.onCompleted:
     {
-        console.info("pixelDensity", QtWindows.Screen.pixelDensity)
+        console.info("pixelDensity", QtWindows.Screen.pixelDensity);
 
         if (HelpersJS.isAndroid)
         {
-            onSizeChanged.connect(DeviceAccess.managers.screenSize.updateSafeAreaInsets)
+            onSizeChanged.connect(DeviceAccess.managers.screenSize.updateSafeAreaInsets);
         }
 
         if (isDebug)
         {
             var paletteString = "↓\npalette {\n";
-            for (var prop in palette) paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop])
-            paletteString += "}"
-            console.info(paletteString)
+            for (var prop in palette)
+            {
+                paletteString += "  %1: \"%2\"\n".arg(prop).arg(palette[prop]);
+            }
+            paletteString += "}";
+            console.info(paletteString);
         }
 
         //for (var prop in Qt.rgba(1,0,0,0))
@@ -119,12 +122,11 @@ QtControls.ApplicationWindow
 
     QtQuick.Connections
     {
+        target: DeviceAccess.managers.screenSize
         function onViewConfigurationChanged()
         {
-            viewConfigurationChangedSequence.start()
+            viewConfigurationChangedSequence.start();
         }
-
-        target: DeviceAccess.managers.screenSize
     }
     QtQuick.SequentialAnimation
     {
@@ -139,13 +141,22 @@ QtControls.ApplicationWindow
         {
             script:
             {
-                viewConfigurationChangedSequence.isMenuOpened = settingsPanel.opened
-                settingsPanel.close()
+                viewConfigurationChangedSequence.isMenuOpened = settingsPanel.opened;
+                settingsPanel.close();
             }
         }
         QtQuick.PauseAnimation { duration: 500 }
         QtQuick.PropertyAnimation { targets: [wordClock, settingsPanel]; property: "opacity"; duration: 500; from: 0; to: 1 }
-        QtQuick.ScriptAction { script: if (viewConfigurationChangedSequence.isMenuOpened) settingsPanel.open() }
+        QtQuick.ScriptAction
+        {
+            script:
+            {
+                if (viewConfigurationChangedSequence.isMenuOpened)
+                {
+                    settingsPanel.open()
+                }
+            }
+        }
     }
     QtQuick.SequentialAnimation
     {

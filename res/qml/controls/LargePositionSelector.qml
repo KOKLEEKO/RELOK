@@ -9,9 +9,11 @@ import QtQuick.Controls 2.15 as QtControls
 
 import DeviceAccess 1.0
 
+import "." as Controls
+
 import "qrc:/js/Helpers.js" as HelpersJS
 
-PositionSelector
+Controls.PositionSelector
 {
     delegate: QtControls.RadioButton
     {

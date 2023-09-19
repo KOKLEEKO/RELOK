@@ -39,7 +39,9 @@ is running.").concat(HelpersJS.isMobile ? "\nDon't forget to enable '%1' if you 
                 QtQuick.Component.onCompleted:
                 {
                     if (DeviceAccess.managers.autoLock.enabled)
-                        DeviceAccess.managers.autoLock.isAutoLockRequestedChanged()
+                    {
+                        DeviceAccess.managers.autoLock.isAutoLockRequestedChanged();
+                    }
                 }
             }
         }
@@ -85,7 +87,9 @@ value unless the device charges.").arg(qsTr("Stay Awake")) +
                 QtQuick.Component.onCompleted:
                 {
                     if (HelpersJS.isAndroid)
-                        DeviceAccess.managers.screenBrightness.requestBrightnessUpdate()
+                    {
+                        DeviceAccess.managers.screenBrightness.requestBrightnessUpdate();
+                    }
                 }
             }
             details: qsTr("High brightness levels cause the battery to discharge faster.") +

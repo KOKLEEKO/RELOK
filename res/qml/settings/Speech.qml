@@ -45,14 +45,13 @@ QtQuick.Loader
                 from: 0
                 stepSize: 1
                 to: Object.keys(wordClock.speech_frequencies).length-1
-                value: Object.keys(wordClock.speech_frequencies).indexOf(wordClock.speech_frequency)
+                value: Object.keys(wordClock.speech_frequencies).indexOf(String(wordClock.speech_frequency))
                 width: parent.width
 
                 onMoved:
                 {
-                    const speech_frequency = Object.keys(wordClock.speech_frequencies)[value]
-                    wordClock.speech_frequency = speech_frequency
-                    DeviceAccess.managers.persistence.setValue("Speech/frequency", speech_frequency)
+                    wordClock.speech_frequency = Object.keys(wordClock.speech_frequencies)[value];
+                    DeviceAccess.managers.persistence.setValue("Speech/frequency", wordClock.speech_frequency);
                 }
             }
         }
@@ -64,24 +63,26 @@ QtQuick.Loader
             {
                 id: listView
 
-                onModelChanged: currentIndex= parseInt(DeviceAccess.managers.persistence.value(
-                                                           "Speech/%1_voice".arg(wordClock.selected_language), 0))
+                onModelChanged: currentIndex = parseInt(DeviceAccess.managers.persistence.value(
+                                                            "Speech/%1_voice".arg(wordClock.selected_language), 0), 10);
                 delegate: QtControls.Button
                 {
                     autoExclusive: true
                     checkable: true
                     checked: index === parseInt(DeviceAccess.managers.persistence.value(
-                                                    "Speech/%1_voice".arg(wordClock.selected_language), 0))
+                                                    "Speech/%1_voice".arg(wordClock.selected_language), 0), 10);
                     text: modelData
 
                     onClicked:
                     {
-                        QtQuick.ListView.view.currentIndex = index
-                        DeviceAccess.managers.speech.setSpeechVoice(index)
+                        QtQuick.ListView.view.currentIndex = index;
+                        DeviceAccess.managers.speech.setSpeechVoice(index);
                         if (wordClock.speech_enabled)
-                            DeviceAccess.managers.speech.say(wordClock.written_time)
-                        DeviceAccess.managers.persistence.setValue("Speech/%1_voice"
-                                                                   .arg(wordClock.selected_language), index)
+                        {
+                            DeviceAccess.managers.speech.say(wordClock.written_time);
+                        }
+                        DeviceAccess.managers.persistence.setValue("Speech/%1_voice".arg(wordClock.selected_language),
+                                                                   index);
                     }
 
                     QtControls.Label
@@ -105,7 +106,9 @@ QtQuick.Loader
                     function onIs_collapsedChanged()
                     {
                         if (!section.is_collapsed)
-                            listView.positionViewAtIndex(listView.currentIndex, QtQuick.ListView.Center)
+                        {
+                            listView.positionViewAtIndex(listView.currentIndex, QtQuick.ListView.Center);
+                        }
                     }
                 }
             }

@@ -31,7 +31,9 @@ Controls.MenuSection
             QtQuick.Component.onCompleted:
             {
                 if (root.isWidget !== DeviceAccess.managers.persistence.value("Advanced/widget", false))
-                    toggled()
+                {
+                    toggled();
+                }
             }
         }
     }
@@ -52,8 +54,8 @@ Controls.MenuSection
 
             onValueChanged:
             {
-                root.opacity = value/100
-                DeviceAccess.managers.persistence.setValue("Advanced/opacity", root.opacity)
+                root.opacity = value/100;
+                DeviceAccess.managers.persistence.setValue("Advanced/opacity", root.opacity);
             }
         }
        QtControls.Button
@@ -61,7 +63,7 @@ Controls.MenuSection
            text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
            enabled: parent.parent.parent.parent.extraControls[0].value !== 100
 
-           onClicked: parent.parent.parent.parent.extraControls[0].value = 1000
+           onClicked: parent.parent.parent.parent.extraControls[0].value = 100
        }
     }
     Controls.MenuItem
@@ -74,10 +76,10 @@ Controls.MenuSection
             text: qsTr("Activate") + DeviceAccess.managers.translation.emptyString
             onClicked:
             {
-                root.visibility = Window.Maximized
-                root.opacity = Math.min(root.opacity, .85)
-                root.flags = (Qt.WindowStaysOnTopHint | Qt.WindowTransparentForInput | Qt.FramelessWindowHint)
-                settingsPanel.close()
+                root.visibility = QtControls.ApplicationWindow.Maximized;
+                root.opacity = Math.min(root.opacity, .85);
+                root.flags = (Qt.WindowStaysOnTopHint | Qt.WindowTransparentForInput | Qt.FramelessWindowHint);
+                settingsPanel.close();
             }
         }
     }
@@ -87,7 +89,7 @@ Controls.MenuSection
 
         function update()
         {
-            wordClock.deltaTime = (wordClock.deviceOffset - extraControls[0].value) * 30
+            wordClock.deltaTime = (wordClock.deviceOffset - extraControls[0].value) * 30;
         }
 
         active: !HelpersJS.isWasm
@@ -113,8 +115,8 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
 
             onClicked:
             {
-                timeZone.extraControls[0].value = wordClock.deviceOffset
-                timeZone.update()
+                timeZone.extraControls[0].value = wordClock.deviceOffset;
+                timeZone.update();
             }
         }
     }
