@@ -8,24 +8,26 @@
 import QtQuick 2.15 as QtQuick
 import QtQuick.Controls 2.15 as QtControls
 
+import "." as Controls
+
 import "qrc:/js/Helpers.js" as HelpersJS
 
 QtControls.TextField
 {
     property color selectedColor
-    required property Picker huePicker
-    required property Picker lightnessPicker
-    required property Picker saturationPicker
+    required property Controls.Picker huePicker
+    required property Controls.Picker lightnessPicker
+    required property Controls.Picker saturationPicker
 
     function setColor(text)
     {
-        selectedColor = text
-        huePicker.value = selectedColor.hslHue
-        huePicker.moved()
-        saturationPicker.value = selectedColor.hslSaturation
-        saturationPicker.moved()
-        lightnessPicker.value = selectedColor.hslLightness
-        lightnessPicker.moved()
+        selectedColor = text;
+        huePicker.value = selectedColor.hslHue;
+        huePicker.moved();
+        saturationPicker.value = selectedColor.hslSaturation;
+        saturationPicker.moved();
+        lightnessPicker.value = selectedColor.hslLightness;
+        lightnessPicker.moved();
     }
 
     color: acceptableInput ? palette.text : "red"
@@ -38,5 +40,9 @@ QtControls.TextField
     text: huePicker ? huePicker.selected_color.toString().toUpperCase() : ""
     validator: QtQuick.RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }  // @disable-check M16 @disable-check M31
 
-    QtQuick.Component.onCompleted: editingFinished.connect(() => { setColor(text); focus = false })
+    QtQuick.Component.onCompleted: editingFinished.connect(() =>
+                                                           {
+                                                               setColor(text);
+                                                               focus = false;
+                                                           })
 }

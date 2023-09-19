@@ -1,6 +1,3 @@
-import QtQuick.Controls 2.15 as QtControls
-import QtQuick 2.15 as QtQuick
-
 /**************************************************************************************************
 **  Copyright (c) Kokleeko S.L. (https://github.com/kokleeko) and contributors.
 **  All rights reserved.
@@ -8,6 +5,9 @@ import QtQuick 2.15 as QtQuick
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
+import QtQuick.Controls 2.15 as QtControls
+import QtQuick 2.15 as QtQuick
+
 import DeviceAccess 1.0
 
 QtControls.Dialog
@@ -24,9 +24,9 @@ QtControls.Dialog
     onRejected: tips.store.purchasing = false
     QtQuick.Component.onCompleted: {
         standardButton(QtControls.Dialog.No).text = Qt.binding(() => qsTranslate("QPlatformTheme", "No") +
-                                                               DeviceAccess.managers.translation.emptyString)
+                                                               DeviceAccess.managers.translation.emptyString);
         standardButton(QtControls.Dialog.Yes).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Yes") +
-                                                                DeviceAccess.managers.translation.emptyString)
+                                                                DeviceAccess.managers.translation.emptyString);
     }
 
     QtControls.Label

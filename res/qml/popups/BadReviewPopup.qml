@@ -27,9 +27,9 @@ QtControls.Dialog
     QtQuick.Component.onCompleted:
     {
         standardButton(QtControls.Dialog.Close).text = Qt.binding(() => qsTranslate("QPlatformTheme", "Close") +
-                                                                  DeviceAccess.managers.translation.emptyString)
+                                                                  DeviceAccess.managers.translation.emptyString);
         standardButton(QtControls.Dialog.Ok).text = Qt.binding(() => qsTranslate("QPlatformTheme", "OK") +
-                                                               DeviceAccess.managers.translation.emptyString)
+                                                               DeviceAccess.managers.translation.emptyString);
     }
 
     QtControls.Label

@@ -11,9 +11,11 @@ import QtQuick.Layouts 1.15 as QtLayouts
 
 import DeviceAccess 1.0
 
+import "." as Controls
+
 import "qrc:/js/Helpers.js" as HelpersJS
 
-PositionSelector
+Controls.PositionSelector
 {
     delegate: QtControls.Frame
     {

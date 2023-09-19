@@ -7,9 +7,11 @@
 **************************************************************************************************/
 import QtQuick 2.15 as QtQuick
 
+import "." as Controls
+
 import "qrc:/js/Helpers.js" as HelpersJS
 
-Picker
+Controls.Picker
 {
     id: colorFactorPicker
 
@@ -17,19 +19,21 @@ Picker
     readonly property var getColor: (hue, position) =>
                                     {
                                         switch (factorType) {
-                                            case Picker.Factors.Saturation:
-                                            return Qt.hsla(hue, position, lightness, 1)
-                                            case Picker.Factors.Lightness:
-                                            return Qt.hsla(hue, saturation, position, 1)
-                                            default:
-                                            return Qt.hsla(hue, saturation, lightness, 1)
+                                            case Controls.Picker.Factors.Saturation:
+                                            {
+                                                return Qt.hsla(hue, position, lightness, 1);
+                                            }
+                                            case Controls.Picker.Factors.Lightness:
+                                            {
+                                                return Qt.hsla(hue, saturation, position, 1);
+                                            }
                                         }
+                                        return Qt.hsla(hue, saturation, lightness, 1);
                                     }
 
     background: QtQuick.Rectangle
     {
-        border.color: visualFocus ? palette.highlight
-                                  : enabled ? palette.mid : palette.midlight
+        border.color: visualFocus ? palette.highlight : (enabled ? palette.mid : palette.midlight)
         gradient: QtQuick.Gradient
         {
             orientation: QtQuick.Gradient.Horizontal
@@ -51,16 +55,16 @@ Picker
 
     QtQuick.Component.onCompleted:
     {
-        hueChanged.connect(valueChanged)
-        if (factorType === Picker.Factors.Saturation)
+        hueChanged.connect(valueChanged);
+        if (factorType === Controls.Picker.Factors.Saturation)
         {
-            lightnessChanged.connect(valueChanged)
+            lightnessChanged.connect(valueChanged);
         }
-        else if (factorType === Picker.Factors.Lightness)
+        else if (factorType === Controls.Picker.Factors.Lightness)
         {
-            saturationChanged.connect(valueChanged)
+            saturationChanged.connect(valueChanged);
         }
-        valueChanged.connect(() => selected_color = getColor(hue, value))
-        valueChanged()
+        valueChanged.connect(() => selected_color = getColor(hue, value));
+        valueChanged();
     }
 }

@@ -151,54 +151,54 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="40"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="42"/>
         <source>Opacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="69"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="71"/>
         <source>Display as watermark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="74"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="76"/>
         <source>Activate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="94"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="96"/>
         <source>Time Zone (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="106"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="108"/>
         <source>This setting is not persistent, the time zone of the device &lt;b&gt;(%1)&lt;/b&gt; is used each time the application is launched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="134"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="136"/>
         <source>Persistence Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="61"/>
-        <location filename="../res/qml/settings/Advanced.qml" line="111"/>
-        <location filename="../res/qml/settings/Advanced.qml" line="138"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="63"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="113"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="140"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="44"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="46"/>
         <source>This setting is not persistent and is enabled when the application is not in fullscreen mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="123"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="125"/>
         <source>Welcome popup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="130"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="132"/>
         <source>Display at startup.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -211,27 +211,27 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="177"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="182"/>
         <source>Hide Status Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="178"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="183"/>
         <source>Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="192"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="199"/>
         <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="84"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="87"/>
         <source>Right-handed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="84"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="87"/>
         <source>Left-handed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -242,32 +242,32 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/Appearance.qml" line="43"/>
-        <location filename="../res/qml/settings/Appearance.qml" line="107"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="110"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="83"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="86"/>
         <source>Handedness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="98"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="101"/>
         <source>Optimize the application layout to suit your handedness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="103"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="106"/>
         <source>Clock Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="157"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="160"/>
         <source>Enable Special Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Appearance.qml" line="158"/>
+        <location filename="../res/qml/settings/Appearance.qml" line="161"/>
         <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -296,7 +296,7 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>ColorPicker</name>
     <message>
-        <location filename="../res/qml/controls/ColorPicker.qml" line="63"/>
+        <location filename="../res/qml/controls/ColorPicker.qml" line="78"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -338,7 +338,7 @@ Your suggestions will be taken into account.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/EnergySaving.qml" line="29"/>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="59"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="61"/>
         <source>Stay Awake</source>
         <translation type="unfinished"></translation>
     </message>
@@ -349,7 +349,7 @@ Your suggestions will be taken into account.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/EnergySaving.qml" line="32"/>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="48"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="50"/>
         <source>App pinning</source>
         <translation type="unfinished"></translation>
     </message>
@@ -359,27 +359,27 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="56"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="58"/>
         <source>Minimum Battery Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="58"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="60"/>
         <source>&apos;%1&apos; feature will be automatically disabled when the battery level reaches this value unless the device charges.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="60"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="62"/>
         <source>battery level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="75"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="77"/>
         <source>Brightness Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/EnergySaving.qml" line="91"/>
+        <location filename="../res/qml/settings/EnergySaving.qml" line="95"/>
         <source>High brightness levels cause the battery to discharge faster.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -405,17 +405,17 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>Menu</name>
     <message>
-        <location filename="../res/qml/settings/Menu.qml" line="19"/>
+        <location filename="../res/qml/settings/Menu.qml" line="20"/>
         <source>Good Morning!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Menu.qml" line="21"/>
+        <location filename="../res/qml/settings/Menu.qml" line="24"/>
         <source>Good Afternoon!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Menu.qml" line="22"/>
+        <location filename="../res/qml/settings/Menu.qml" line="26"/>
         <source>Good Evening!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -477,17 +477,17 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>SmallPositionSelector</name>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="42"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="44"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="42"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="44"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="42"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="44"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
@@ -510,7 +510,7 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Speech.qml" line="61"/>
+        <location filename="../res/qml/settings/Speech.qml" line="60"/>
         <source>Voice</source>
         <translation type="unfinished"></translation>
     </message>
@@ -582,12 +582,12 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="../res/js/WebAccess.js" line="42"/>
+        <location filename="../res/js/WebAccess.js" line="44"/>
         <source>Loading...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/js/WebAccess.js" line="48"/>
+        <location filename="../res/js/WebAccess.js" line="54"/>
         <source>Houston, we have a problem</source>
         <translation type="unfinished"></translation>
     </message>

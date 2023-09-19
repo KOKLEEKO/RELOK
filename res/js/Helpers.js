@@ -11,17 +11,17 @@
 
 .import DeviceAccess 1.0 as Global
 
-var isMobile = isWeaklyEqual(Qt.platform.os, "android", "ios")
-var isDesktop = isWeaklyEqual(Qt.platform.os, "linux", "osx", "unix", "windows")
-var isIos = Qt.platform.os === "ios"
-var isAndroid = Qt.platform.os === "android"
-var isWasm = Qt.platform.os === "wasm"
-var isPurchasing = isWeaklyEqual(Qt.platform.os, "android", "ios", "osx", "windows")
+var isMobile = isWeaklyEqual(Qt.platform.os, "android", "ios");
+var isDesktop = isWeaklyEqual(Qt.platform.os, "linux", "osx", "unix", "windows");
+var isIos = Qt.platform.os === "ios";
+var isAndroid = Qt.platform.os === "android";
+var isWasm = Qt.platform.os === "wasm";
+var isPurchasing = isWeaklyEqual(Qt.platform.os, "android", "ios", "osx", "windows");
 
 function createStringArrayWithPadding (min, size, step, targetLength = 2, padString = '0')
 {
     return new Array(size).fill().map((element, index) =>
-                                      (index*step + min).toString().padStart(targetLength, padString))
+                                      (index*step + min).toString().padStart(targetLength, padString));
 }
 
 function createUndefinedMethod(object, name, ...args)
@@ -31,17 +31,17 @@ function createUndefinedMethod(object, name, ...args)
 
 function unimplementedMethodWarning (name)
 {
-    console.warn(`[${name}] not implemented`)
+    console.warn(`[${name}] not implemented`);
 }
 
 function inRange (value, min, max)
 {
-    return (min <= value && value <= max)
+    return (min <= value && value <= max);
 }
 
 function clamp(value, min, max)
 {
-    return Math.max(min, Math.min(value, max))
+    return Math.max(min, Math.min(value, max));
 }
 
 /*
@@ -50,41 +50,41 @@ function clamp(value, min, max)
 */
 function missingLetters(table)
 {
-    var missingLetters = new Array(26).fill().map((element, index) => String.fromCharCode(index+65))
-    var availableSpot = 0
-    const rows = table.length
+    var missingLetters = new Array(26).fill().map((element, index) => String.fromCharCode(index + 65));
+    var availableSpot = 0;
+    const rows = table.length;
     for (var row = 0; row < rows; ++row)
     {
-        const columns = table[row].length
+        const columns = table[row].length;
         for (var column = 0; column < columns; ++column)
         {
-            const letter = table[row][column]
+            const letter = table[row][column];
             if (letter === " ")
             {
-                ++availableSpot
+                ++availableSpot;
             }
             else
             {
                 const index = missingLetters.indexOf(letter);
                 if (index !== -1)
                 {
-                    missingLetters.splice(index, 1)
+                    missingLetters.splice(index, 1);
                 }
             }
         }
     }
-    console.debug(missingLetters, availableSpot)
+    console.debug(missingLetters, availableSpot);
 }
 
 function toggle(object, propertyName, first, second)
 {
     if (object.hasOwnProperty(propertyName))
     {
-        object[propertyName] = (object[propertyName] === first ? second : first)
+        object[propertyName] = (object[propertyName] === first ? second : first);
     }
     else
     {
-        console.error(`${object} doesn't contain a property named "${propertyName}"`)
+        console.error(`${object} doesn't contain a property named "${propertyName}"`);
     }
 }
 
@@ -94,10 +94,10 @@ function isWeaklyEqual(value, ...args)
     {
         if (value === arg)
         {
-            return true
+            return true;
         }
     }
-    return false
+    return false;
 }
 
 function isStrictlyEqual(value, ...args)
@@ -106,32 +106,35 @@ function isStrictlyEqual(value, ...args)
     {
         if (value !== arg)
         {
-            return false
+            return false;
         }
     }
-    return true
+    return true;
 }
 
-function listProperties(name, object) {
+function listProperties(name, object)
+{
     for (var prop in object)
-        console.info("%1[%2] =".arg(name).arg(prop), object[prop])
+    {
+        console.info("%1[%2] =".arg(name).arg(prop), object[prop]);
+    }
 }
 
 function updateVisibility(window)
 {
     if (isIos || isWasm)
     {
-        Global.DeviceAccess.managers.screenSize.toggleFullScreen()
+        Global.DeviceAccess.managers.screenSize.toggleFullScreen();
     }
     else
     {
-        toggle(window, "visibility", QtWindow.Window.FullScreen, QtWindow.Window.AutomaticVisibility)
+        toggle(window, "visibility", QtWindow.Window.FullScreen, QtWindow.Window.AutomaticVisibility);
     }
 }
 
 function updateDisplayMode(window)
 {
-    const widgetFlag = (Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-    window.flags ^= widgetFlag
-    window.isWidget = window.flags & widgetFlag
+    const widgetFlag = (Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint);
+    window.flags ^= widgetFlag;
+    window.isWidget = window.flags & widgetFlag;
 }

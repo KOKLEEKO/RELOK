@@ -8,6 +8,8 @@
 import QtQuick 2.15 as QtQuick
 import QtQuick.Layouts 1.15 as QtLayouts
 
+import "." as Controls
+
 QtLayouts.ColumnLayout
 {
     default property alias contentItem: menuItems.children
@@ -25,22 +27,22 @@ QtLayouts.ColumnLayout
 
     spacing: 20
 
-    Title
+    Controls.Title
     {
         id: label
 
         text: (is_collapsed ? "▷": "▽") + " " + title
-        horizontalAlignment: Title.AlignLeft
+        horizontalAlignment: Controls.Title.AlignLeft
         heading: headings.h2
         mouseArea.enabled: is_collapsable
         mouseArea.onClicked:
         {
             if (is_collapsed && !subMenu)
             {
-                collapsed ? collapsed.is_collapsed = true : { }
-                collapsed = label.parent
+                collapsed ? collapsed.is_collapsed = true : { };
+                collapsed = label.parent;
             }
-            is_collapsed ^= true
+            is_collapsed ^= true;
         }
     }
     QtLayouts.GridLayout

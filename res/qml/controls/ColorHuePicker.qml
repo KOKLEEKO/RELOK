@@ -7,9 +7,11 @@
 **************************************************************************************************/
 import QtQuick 2.15 as QtQuick
 
+import "." as Controls
+
 import "qrc:/js/Helpers.js" as HelpersJS
 
-Picker
+Controls.Picker
 {
     id: colorHuePicker
 
@@ -31,9 +33,13 @@ Picker
 
     QtQuick.Component.onCompleted:
     {
-        saturationChanged.connect(valueChanged)
-        lightnessChanged.connect(valueChanged)
-        valueChanged.connect(() => { hue = value; selected_color = Qt.hsla(hue, saturation, lightness, 1) })
+        saturationChanged.connect(valueChanged);
+        lightnessChanged.connect(valueChanged);
+        valueChanged.connect(() =>
+                             {
+                                 hue = value;
+                                 selected_color = Qt.hsla(hue, saturation, lightness, 1);
+                             });
     }
 
     QtQuick.Instantiator
@@ -41,6 +47,6 @@ Picker
         delegate: QtQuick.GradientStop { position: index/(colorHuePicker.steps-1) }
         model: steps
 
-        onObjectAdded: { object.color = Qt.hsla(object.position,1,.5,1); colorHuePicker.stops.push(object) }
+        onObjectAdded: { object.color = Qt.hsla(object.position,1,.5,1); colorHuePicker.stops.push(object); }
     }
 }

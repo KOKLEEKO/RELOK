@@ -29,9 +29,9 @@ Controls.MenuSection
                                                                                  applicationLanguage.defaultLanguage)
         function switchLanguage(language)
         {
-            selectedLangage = language
-            DeviceAccess.managers.translation.switchLanguage(language)
-            DeviceAccess.managers.persistence.setValue("Appearance/uiLanguage", language)
+            selectedLangage = language;
+            DeviceAccess.managers.translation.switchLanguage(language);
+            DeviceAccess.managers.persistence.setValue("Appearance/uiLanguage", language);
         }
 
         title: qsTr("Application Language") + DeviceAccess.managers.translation.emptyString
@@ -43,6 +43,7 @@ Controls.MenuSection
             text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
             enabled: Object.keys(DeviceAccess.managers.translation.availableTranslations)
                      [applicationLanguage.extraControls[0].currentIndex] !== applicationLanguage.defaultLanguage
+
             onClicked: applicationLanguage.switchLanguage(applicationLanguage.defaultLanguage)
         }
         extras: QtQuick.ListView
@@ -72,8 +73,10 @@ Controls.MenuSection
                 function onIs_collapsedChanged()
                 {
                     if (!section.is_collapsed)
+                    {
                         applicationLanguageListView.positionViewAtIndex(applicationLanguageListView.currentIndex,
-                                                                        QtQuick.ListView.Center)
+                                                                        QtQuick.ListView.Center);
+                    }
                 }
             }
         }
@@ -86,17 +89,17 @@ Controls.MenuSection
         {
             autoExclusive: true
             checkable: true
-            checked: index === parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0))
+            checked: index === parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0), 10)
             text: qsTr(modelData) + DeviceAccess.managers.translation.emptyString
 
             onClicked:
             {
-                isLeftHanded = Boolean(index)
-                DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", index)
+                isLeftHanded = Boolean(index);
+                DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", index);
             }
         }
         details: qsTr("Optimize the application layout to suit your handedness")
-        /**/       + DeviceAccess.managers.translation.emptyString
+        /**/        + DeviceAccess.managers.translation.emptyString
     }
     Controls.MenuItem
     {
@@ -147,7 +150,7 @@ Controls.MenuSection
                 {
                     if (!section.is_collapsed)
                         clockLanguageListView.positionViewAtIndex(clockLanguageListView.currentIndex,
-                                                                  QtQuick.ListView.Center)
+                                                                  QtQuick.ListView.Center);
                 }
             }
         }
@@ -166,9 +169,11 @@ display 0, 1, or 2 lights, allowing you to distinguish these different times.") 
             onToggled:
             {
                 DeviceAccess.managers.persistence.setValue("Appearance/specialMessage",
-                                                           wordClock.enable_special_message = checked)
+                                                           wordClock.enable_special_message = checked);
                 if (HelpersJS.isWeaklyEqual(wordClock.time, "00:00:am", "11:11:am", "22:22:pm"))
-                    wordClock.updateTable()
+                {
+                    wordClock.updateTable();
+                }
             }
         }
     }
@@ -186,7 +191,9 @@ display 0, 1, or 2 lights, allowing you to distinguish these different times.") 
             QtQuick.Component.onCompleted:
             {
                 if (root.isFullScreen !== DeviceAccess.managers.persistence.value("Appearance/fullScreen", false))
-                    toggled()
+                {
+                    toggled();
+                }
             }
         }
         details: qsTr("When the settings menu is closed, this can also be done by a long press on the clock.")

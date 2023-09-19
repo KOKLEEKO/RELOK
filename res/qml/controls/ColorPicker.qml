@@ -10,38 +10,52 @@ import QtQuick.Controls 2.15 as QtControls
 
 import DeviceAccess 1.0
 
-MenuItem
+import "." as Controls
+
+Controls.MenuItem
 {
     property color selected_color: extraControls ? extraControls[0].selected_color : "black"
     required property string name
 
     extras: [
-        ColorHuePicker {},
-        ColorFactorPicker
+        Controls.ColorHuePicker {},
+        Controls.ColorFactorPicker
         {
-            factorType: Picker.Factors.Saturation
+            factorType: Controls.ColorFactorPicker.Factors.Saturation
             hue: parent ? parent.children[0].hue : 0
             lightness: parent ? parent.children[0].lightness : 0
 
             QtQuick.Component.onCompleted:
             {
-                onMoved.connect(() => { if (parent) parent.children[0].saturation = value })
-                moved()
+                onMoved.connect(() =>
+                                {
+                                    if (parent)
+                                    {
+                                        parent.children[0].saturation = value;
+                                    }
+                                });
+                moved();
             }
         },
-        ColorFactorPicker
+        Controls.ColorFactorPicker
         {
-            factorType: Picker.Factors.Lightness
+            factorType: Controls.ColorFactorPicker.Factors.Lightness
             hue: parent ? parent.children[0].hue : 0
             saturation: parent ? parent.children[0].saturation : 0
 
             QtQuick.Component.onCompleted:
             {
-                onMoved.connect(() => { if (parent) parent.children[0].lightness = value })
-                moved()
+                onMoved.connect(() =>
+                                {
+                                    if (parent)
+                                    {
+                                        parent.children[0].lightness = value;
+                                    }
+                                });
+                moved();
             }
         },
-        ColorHexField
+        Controls.ColorHexField
         {
             huePicker: parent ? parent.children[0] : null
             saturationPicker: parent ? parent.children[1] : null
@@ -51,13 +65,14 @@ MenuItem
 
     onLoaded:
     {
-        control.clicked.connect(() => extraControls[3].setColor(parent.parent["default_%1".arg(name)]))
+        control.clicked.connect(() => extraControls[3].setColor(parent.parent["default_%1".arg(name)]));
         selected_colorChanged.connect(
-                    () => {
-                        wordClock[name] = selected_color
+                    () =>
+                    {
+                        wordClock[name] = selected_color;
                         DeviceAccess.managers.persistence.setValue("Colors/%1".arg(name),
-                                                                   selected_color.toString().toUpperCase())
-                    })
+                                                                   selected_color.toString().toUpperCase());
+                    });
     }
 
     QtControls.Button { text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString }
