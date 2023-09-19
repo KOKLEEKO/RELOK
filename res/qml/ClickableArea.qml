@@ -28,8 +28,9 @@ QtQuick.Item
         longPressThreshold: 0.3 //s
 
         onDoubleTapped: HelpersJS.updateVisibility(root)
-        onGrabChanged: (transition, point) => {
-                           isFullCircle = (point.event.device.pointerType !== QtQuick.PointerDevice.Finger)
+        onGrabChanged: (transition, point) =>
+                       {
+                           isFullCircle = (point.event.device.pointerType !== QtQuick.PointerDevice.Finger);
                        }
         onLongPressed: pieMenu.popup(point.position.x, point.position.y)
     }
@@ -43,7 +44,8 @@ QtQuick.Item
                                                            height/2 - __protectedScope.selectionPos.y)
         property int hoveredIndex
 
-        function isMouseOver(itemIndex) {
+        function isMouseOver(itemIndex)
+        {
             if (__style == null)
                 return false;
 
@@ -56,38 +58,50 @@ QtQuick.Item
             var selAngle = selectionAngle;
             var isWithinOurAngle = false;
 
-            if (sectionStart > CppUtils.MathUtils.pi2) {
+            if (sectionStart > CppUtils.MathUtils.pi2)
+            {
                 sectionStart %= CppUtils.MathUtils.pi2;
-            } else if (sectionStart < -CppUtils.MathUtils.pi2) {
+            }
+            else if (sectionStart < -CppUtils.MathUtils.pi2)
+            {
                 sectionStart %= -CppUtils.MathUtils.pi2;
             }
 
-            if (sectionEnd > CppUtils.MathUtils.pi2) {
+            if (sectionEnd > CppUtils.MathUtils.pi2)
+            {
                 sectionEnd %= CppUtils.MathUtils.pi2;
-            } else if (sectionEnd < -CppUtils.MathUtils.pi2) {
+            }
+            else if (sectionEnd < -CppUtils.MathUtils.pi2)
+            {
                 sectionEnd %= -CppUtils.MathUtils.pi2;
             }
 
             // If the section crosses the -180 => 180 wrap-around point (from atan2),
             // temporarily rotate the section so it doesn't.
-            if (sectionStart > Math.PI) {
+            if (sectionStart > Math.PI)
+            {
                 var difference = sectionStart - Math.PI;
                 selAngle -= difference;
                 sectionStart -= difference;
                 sectionEnd -= difference;
-            } else if (sectionStart < -Math.PI) {
+            }
+            else if (sectionStart < -Math.PI)
+            {
                 difference = Math.abs(sectionStart - (-Math.PI));
                 selAngle += difference;
                 sectionStart += difference;
                 sectionEnd += difference;
             }
 
-            if (sectionEnd > Math.PI) {
+            if (sectionEnd > Math.PI)
+            {
                 difference = sectionEnd - Math.PI;
                 selAngle -= difference;
                 sectionStart -= difference;
                 sectionEnd -= difference;
-            } else if (sectionEnd < -Math.PI) {
+            }
+            else if (sectionEnd < -Math.PI)
+            {
                 difference = Math.abs(sectionEnd - (-Math.PI));
                 selAngle += difference;
                 sectionStart += difference;
@@ -96,15 +110,21 @@ QtQuick.Item
 
             // If we moved the mouse past -180 or 180, we need to move it back within,
             // without changing its actual direction.
-            if (selAngle > Math.PI) {
+            if (selAngle > Math.PI)
+            {
                 selAngle = selAngle - CppUtils.MathUtils.pi2;
-            } else if (selAngle < -Math.PI) {
+            }
+            else if (selAngle < -Math.PI)
+            {
                 selAngle += CppUtils.MathUtils.pi2;
             }
 
-            if (sectionStart > sectionEnd) {
+            if (sectionStart > sectionEnd)
+            {
                 isWithinOurAngle = selAngle >= sectionEnd && selAngle < sectionStart;
-            } else {
+            }
+            else
+            {
                 isWithinOurAngle = selAngle >= sectionStart && selAngle < sectionEnd;
             }
 
@@ -124,21 +144,26 @@ QtQuick.Item
         style: QtExtras.PieMenuStyle { startAngle: pieMenuStartAngle; endAngle: pieMenuEndAngle }
 
         onSelectionAngleChanged: {
-            hoveredIndex = parseInt(-1)
+            hoveredIndex = parseInt(-1, 10);
             for (var i = 0; i < __protectedScope.visibleItems.length; ++i)
             {
                 if (isMouseOver(i))
-                    hoveredIndex = i
+                {
+                    hoveredIndex = i;
+                }
             }
-            __protectedScope.currentIndex = hoveredIndex
+            __protectedScope.currentIndex = hoveredIndex;
         }
 
         QtQuick.Component.onCompleted:
         {
-            __protectedScope.currentIndex = parseInt(-1)
-            __protectedScope.currentIndexChanged.connect(() => {
+            __protectedScope.currentIndex = parseInt(-1, 10)
+            __protectedScope.currentIndexChanged.connect(() =>
+                                                         {
                                                              if (__protectedScope.currentIndex !== hoveredIndex)
-                                                             __protectedScope.currentIndex = hoveredIndex
+                                                             {
+                                                                 __protectedScope.currentIndex = hoveredIndex;
+                                                             }
                                                          })
         }
 

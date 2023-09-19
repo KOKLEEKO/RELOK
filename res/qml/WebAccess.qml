@@ -99,7 +99,7 @@ QtControls.Drawer
                 property string error_string
                 property string title
 
-                function openUrl(url) { webAccessJS.openUrl(url) }
+                function openUrl(url) { webAccessJS.openUrl(url); }
 
                 visible: status === QtWebView.WebView.LoadSucceededStatus
                 anchors.fill: parent

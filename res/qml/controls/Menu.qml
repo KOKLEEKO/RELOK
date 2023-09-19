@@ -9,7 +9,7 @@ import QtQuick 2.15 as QtQuick
 import QtQuick.Controls 2.15 as QtControls
 import QtQuick.Layouts 1.15 as QtLayouts
 
-import "qrc:/qml/controls" as Controls
+import "." as Controls
 
 QtLayouts.ColumnLayout
 {
@@ -21,15 +21,15 @@ QtLayouts.ColumnLayout
     property string title
     property url icon
 
-    Title
+    Controls.Title
     {
         id: label
 
         QtLayouts.Layout.alignment: Qt.AlignTop
         QtLayouts.Layout.fillWidth: true
-        fontSizeMode: Title.HorizontalFit
+        fontSizeMode: Controls.Title.HorizontalFit
         heading: headings.h1
-        horizontalAlignment: Title.AlignHCenter
+        horizontalAlignment: Controls.Title.AlignHCenter
         minimumPointSize: heading.h2 + 1
         mouseArea.enabled: true
         mouseArea.onClicked: collapsed ? collapsed.is_collapsed = true : { }

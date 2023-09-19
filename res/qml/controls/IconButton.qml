@@ -26,5 +26,5 @@ QtQuick.Loader
         QtControls.ToolTip { visible: hovered && tooltip; text: tooltip }
     }
 
-    onLoaded: { item.clicked.connect(clicked); item.enabled = Qt.binding(() => enabled) }
+    onLoaded: { item.clicked.connect(clicked); item.enabled = Qt.binding(() => enabled); }
 }

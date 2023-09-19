@@ -22,13 +22,13 @@ Controls.MenuSection
     function applyColors()
     {
         activatedLetterColorPicker.extraControls[3].setColor(
-                    DeviceAccess.managers.persistence.value("Colors/on_color", default_on_color))
+                    DeviceAccess.managers.persistence.value("Colors/on_color", default_on_color));
         deactivatedLetterColorPicker.extraControls[3].setColor(
-                    DeviceAccess.managers.persistence.value("Colors/off_color", default_off_color))
-
-        if (backgroundColorPicker.active) {
+                    DeviceAccess.managers.persistence.value("Colors/off_color", default_off_color));
+        if (backgroundColorPicker.active)
+        {
             backgroundColorPicker.extraControls[3].setColor(
-                        DeviceAccess.managers.persistence.value("Colors/background_color", default_background_color))
+                        DeviceAccess.managers.persistence.value("Colors/background_color", default_background_color));
         }
     }
 

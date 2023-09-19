@@ -33,9 +33,9 @@ QtQuick.Item
 
         onObjectAdded:
         {
-            store.products.push(object)
-            products[model[index].name] = object
-            productsChanged()
+            store.products.push(object);
+            products[model[index].name] = object;
+            productsChanged();
         }
 
         QtPurchasing.Product
@@ -57,32 +57,32 @@ QtQuick.Item
         {
             if (transaction)
             {
-                transaction.finalize()
-                failedProduct = product
-                failedProductErrorString = transaction.errorString
-                failedTransactionPopup.open()
+                transaction.finalize();
+                failedProduct = product;
+                failedProductErrorString = transaction.errorString;
+                failedTransactionPopup.open();
             }
             else
             {
-                purchasing = false
+                purchasing = false;
             }
         }
         function success(transaction)
         {
             if (transaction)
             {
-                transaction.finalize()
+                transaction.finalize();
             }
-            tipsThanksPopup.open()
-            purchasing = false
+            tipsThanksPopup.open();
+            purchasing = false;
         }
 
         onPurchasingChanged:
         {
             if (!purchasing)
             {
-                failedProduct = null
-                failedProductErrorString = ""
+                failedProduct = null;
+                failedProductErrorString = "";
             }
         }
     }
