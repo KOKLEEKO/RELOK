@@ -596,7 +596,7 @@ Your suggestions will be taken into account.</source>
     <name>WelcomePopup</name>
     <message>
         <location filename="../res/qml/popups/WelcomePopup.qml" line="24"/>
-        <source>Welcome to %1</source>
+        <source>Welcome to %1 ( %2 )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

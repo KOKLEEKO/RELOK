@@ -23,6 +23,7 @@ public:
     void timerEvent(QTimerEvent *event) final override;
     void clear() final override;
     void printAll() final override;
+    void processAtSettingsReady() final override;
 
 private:
     QSettings m_settings;

@@ -11,7 +11,7 @@
 #include <QFileInfo>
 
 template<>
-QString ManagerBase<ClockLanguageManagerBase>::m_name{"clockLanguage"};
+QString ManagerBase<ClockLanguageManagerBase>::m_name{QStringLiteral("clockLanguage")};
 
 ClockLanguageManagerBase::ClockLanguageManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

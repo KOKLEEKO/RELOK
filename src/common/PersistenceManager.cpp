@@ -49,5 +49,23 @@ void PersistenceManager::printAll()
     const QStringList &allKeys = m_settings.allKeys();
     qCDebug(lc) << m_settings.fileName() << allKeys.size();
     for (const auto &key : allKeys)
-        qCDebug(lc) << __func__ << QString("%1: %2").arg(key, m_settings.value(key).toString());
+        qCDebug(lc) << __func__
+                    << QStringLiteral("%1: %2").arg(key, m_settings.value(key).toString());
+}
+
+void PersistenceManager::processAtSettingsReady()
+{
+    PersistenceManagerBase::processAtSettingsReady();
+    QString previousVersionName = m_settings.value("Application/versionName").toString();
+    if (previousVersionName != VERSION) {
+        const QStringList &childGroups = m_settings.childGroups();
+        for (const auto &group : childGroups) {
+            if (group != QStringLiteral("Colors")) {
+                m_settings.beginGroup(group);
+                m_settings.remove("");
+                m_settings.endGroup();
+            }
+        }
+        m_settings.setValue("Application/versionName", VERSION);
+    }
 }

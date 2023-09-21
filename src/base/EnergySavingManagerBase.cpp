@@ -10,7 +10,7 @@
 #include "PersistenceManagerBase.h"
 
 template<>
-QString ManagerBase<EnergySavingManagerBase>::m_name{"energySaving"};
+QString ManagerBase<EnergySavingManagerBase>::m_name{QStringLiteral("energySaving")};
 
 EnergySavingManagerBase::EnergySavingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

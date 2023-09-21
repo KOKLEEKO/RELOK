@@ -8,7 +8,7 @@
 #include "TranslationManagerBase.h"
 
 template<>
-QString ManagerBase<TranslationManagerBase>::m_name{"translation"};
+QString ManagerBase<TranslationManagerBase>::m_name{QStringLiteral("translation")};
 
 TranslationManagerBase::TranslationManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

@@ -46,7 +46,7 @@ void SpeechManager::setSpeechLanguage(QString iso)
         for (const auto &voice : availableVoices)
             voicesNames << voice.name().split(" ")[0];
         m_speechAvailableVoices.insert(iso, voicesNames);
-        const QString settingName = QString("Speech/%1_voice").arg(iso);
+        const QString settingName = QStringLiteral("Speech/%1_voice").arg(iso);
         if (deviceAccess()->manager<PersistenceManagerBase>()->value(settingName)
             == QVariant::Invalid) {
             int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(' ')[0]);
@@ -76,14 +76,14 @@ void SpeechManager::initSpeechLocales()
                 const QList uiLanguages{speechLocale.uiLanguages()};
                 for (const auto &uiLanguage : uiLanguages) {
                     if (uiLanguage.split('-').size() == 2) {
-                        iso = QString(uiLanguage).replace('-', '_');
+                        iso = QString{uiLanguage}.replace('-', '_');
                         break;
                     }
                 }
             }
-            const QString name = QString("%1 (%2)").arg(QLocale::languageToString(
-                                                            speechLocale.language()),
-                                                        speechLocale.nativeCountryName());
+            const QString name = QStringLiteral("%1 (%2)").arg(QLocale::languageToString(
+                                                                   speechLocale.language()),
+                                                               speechLocale.nativeCountryName());
             m_speechAvailableLocales.insert(iso, name);
         }
     }
