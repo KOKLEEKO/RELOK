@@ -8,7 +8,7 @@
 #include "ReviewManagerBase.h"
 
 template<>
-QString ManagerBase<ReviewManagerBase>::m_name{"review"};
+QString ManagerBase<ReviewManagerBase>::m_name{QStringLiteral("review")};
 
 ReviewManagerBase::ReviewManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

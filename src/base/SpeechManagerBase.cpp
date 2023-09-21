@@ -8,7 +8,7 @@
 #include "SpeechManagerBase.h"
 
 template<>
-QString ManagerBase<SpeechManagerBase>::m_name{"speech"};
+QString ManagerBase<SpeechManagerBase>::m_name{QStringLiteral("speech")};
 
 SpeechManagerBase::SpeechManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

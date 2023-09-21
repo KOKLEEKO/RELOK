@@ -98,7 +98,7 @@ void SpeechManager::say(QString text)
             utterance.lang = voice.lang;
             utterance.voice = voice;
             synth.speak(utterance);
-        }, m_selectedVoiceIndex, text.toStdString().c_str());
+        }, m_selectedVoiceIndex, qUtf8Printable(text));
         /* clang-format on */
     }
 }
@@ -127,9 +127,9 @@ void SpeechManager::processVoice(QString iso, QString name, int index)
 {
     if (!m_speechAvailableVoices.contains(iso)) {
         const QLocale speechLocale(iso);
-        const QString localeName = QString("%1 (%2)").arg(QLocale::languageToString(
-                                                              speechLocale.language()),
-                                                          speechLocale.nativeCountryName());
+        const QString localeName = QStringLiteral("%1 (%2)").arg(QLocale::languageToString(
+                                                                     speechLocale.language()),
+                                                                 speechLocale.nativeCountryName());
         m_speechAvailableLocales.insert(iso, localeName);
     }
 
@@ -146,11 +146,11 @@ void SpeechManager::notifyLocalesAndVoicesChanged()
 {
     for (const auto &locale : m_speechAvailableLocales.keys()) {
         if (deviceAccess()->manager<PersistenceManagerBase>()->value(
-                QString("Speech/%1_voice").arg(locale))
+                QStringLiteral("Speech/%1_voice").arg(locale))
             == QVariant::Invalid) {
             deviceAccess()
                 ->manager<PersistenceManagerBase>()
-                ->setValue(QString("Speech/%1_voice").arg(locale),
+                ->setValue(QStringLiteral("Speech/%1_voice").arg(locale),
                            m_speechAvailableVoices[locale].toStringList().size() - 1);
         }
     }

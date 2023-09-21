@@ -8,7 +8,7 @@
 #include "TrackingManagerBase.h"
 
 template<>
-QString ManagerBase<TrackingManagerBase>::m_name{"tracking"};
+QString ManagerBase<TrackingManagerBase>::m_name{QStringLiteral("tracking")};
 
 TrackingManagerBase::TrackingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

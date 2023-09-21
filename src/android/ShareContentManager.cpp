@@ -26,8 +26,8 @@ void ShareContentManager::screenshot(QQuickItem *item)
         QDir dir = QDir(filePath);
         if (!dir.exists("images"))
             dir.mkdir("images");
-        const QString mimeType = "image/jpeg";
-        filePath += "/images/wordclock++.jpeg";
+        const QString mimeType = QStringLiteral("image/jpeg");
+        filePath += QStringLiteral("/images/wordclock++.jpeg");
         screenshot.save(filePath);
         QFileInfo fileInfo(filePath);
         if (fileInfo.exists()) {

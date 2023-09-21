@@ -8,12 +8,13 @@
 #include "PersistenceManagerBase.h"
 
 template<>
-QString ManagerBase<PersistenceManagerBase>::m_name{"persistence"};
+QString ManagerBase<PersistenceManagerBase>::m_name{QStringLiteral("persistence")};
 
 PersistenceManagerBase::PersistenceManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)
 {
-#ifdef QT_DEBUG
-    connect(this, &PersistenceManagerBase::settingsReady, this, &PersistenceManagerBase::printAll);
-#endif
+    connect(this,
+            &PersistenceManagerBase::settingsReady,
+            this,
+            &PersistenceManagerBase::processAtSettingsReady);
 }

@@ -8,7 +8,7 @@
 #include "BatteryManagerBase.h"
 
 template<>
-QString ManagerBase<BatteryManagerBase>::m_name{"battery"};
+QString ManagerBase<BatteryManagerBase>::m_name{QStringLiteral("battery")};
 
 BatteryManagerBase::BatteryManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

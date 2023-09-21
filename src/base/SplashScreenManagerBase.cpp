@@ -8,7 +8,7 @@
 #include "SplashScreenManagerBase.h"
 
 template<>
-QString ManagerBase<SplashScreenManagerBase>::m_name{"splashScreen"};
+QString ManagerBase<SplashScreenManagerBase>::m_name{QStringLiteral("splashScreen")};
 
 SplashScreenManagerBase::SplashScreenManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

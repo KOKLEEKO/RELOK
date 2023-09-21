@@ -8,7 +8,7 @@
 #include "ShareContentManagerBase.h"
 
 template<>
-QString ManagerBase<ShareContentManagerBase>::m_name{"shareContent"};
+QString ManagerBase<ShareContentManagerBase>::m_name{QStringLiteral("shareContent")};
 
 ShareContentManagerBase::ShareContentManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

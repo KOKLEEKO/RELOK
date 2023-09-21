@@ -10,7 +10,7 @@
 #include "PersistenceManagerBase.h"
 
 template<>
-QString ManagerBase<AdvertisingManagerBase>::m_name{"advertising"};
+QString ManagerBase<AdvertisingManagerBase>::m_name{QStringLiteral("advertising")};
 
 AdvertisingManagerBase::AdvertisingManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)
@@ -20,7 +20,9 @@ void AdvertisingManagerBase::requestAdvertising(bool isAdvertisingRequested)
 {
     if (m_isAdvertisingRequested == isAdvertisingRequested)
         return;
-    deviceAccess()->manager<PersistenceManagerBase>()->setValue("Advanced/isAdvertisingRequested",
-                                                                m_isAdvertisingRequested = isAdvertisingRequested);
+    deviceAccess()
+        ->manager<PersistenceManagerBase>()
+        ->setValue(QStringLiteral("Advanced/isAdvertisingRequested"),
+                   m_isAdvertisingRequested = isAdvertisingRequested);
     emit isAdvertisingRequestedChanged();
 }
