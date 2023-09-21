@@ -19,13 +19,27 @@ QtControls.Dialog
     anchors.centerIn: parent
     background.opacity: .95
     clip: true
-    closePolicy: QtControls.Dialog.CloseOnPressOutside
-    implicitWidth: Math.max(root.width/2, header.implicitWidth) + 2 * padding
-    title: qsTr("Welcome to %1 ( %2 )").arg(Qt.application.name).arg(Qt.application.version) + DeviceAccess.managers.translation.emptyString
-    z: 1
+    closePolicy: QtControls.Dialog.NoAutoClose
+    implicitWidth: Math.max(root.width/2, header.implicitWidth, footer.implicitWidth) + 2 * padding
+    title: qsTr("Welcome to %1 ( %2 )").arg(Qt.application.name).arg(Qt.application.version) +
+           DeviceAccess.managers.translation.emptyString
+    footer: QtControls.CheckBox
+    {
+        id: hidePopupCheckbox
 
-    onClosed: root.showWelcome = !hidePopupCheckbox.checked
-    QtQuick.Component.onCompleted: { header.background.visible = false; if (showWelcome) open() }
+        indicator.opacity: 0.5
+        padding: welcomePopup.padding
+        text: qsTr("<i>Don't show this again</i>") + DeviceAccess.managers.translation.emptyString
+    }
+
+    onClosed: showWelcome = !hidePopupCheckbox.checked
+    QtQuick.Component.onCompleted:
+    {
+        if (showWelcome)
+        {
+            open();
+        }
+    }
 
     QtLayouts.ColumnLayout
     {
@@ -36,17 +50,10 @@ QtControls.Dialog
             QtLayouts.Layout.fillWidth: true
             fontSizeMode: QtControls.Label.Fit
             minimumPixelSize: 1
-
-            text: "\%1.\n\n%2.".arg(qsTr("We hope you enjoy using it.")).arg(qsTr("Please press and hold outside this \
-popup to close it and open the settings menu.")) + DeviceAccess.managers.translation.emptyString
+            textFormat: QtControls.Label.RichText
+            text: "\%1<br><br>%2".arg(qsTr("We hope you enjoy using it.")).arg(qsTr("Please <b>press and hold</b> outside this \
+popup to close it and open the pie menu.")) + DeviceAccess.managers.translation.emptyString
             wrapMode: QtControls.Label.WordWrap
-        }
-        QtControls.CheckBox
-        {
-            id: hidePopupCheckbox
-
-            indicator.opacity: 0.5
-            text: qsTr("Don't show this again") + DeviceAccess.managers.translation.emptyString
         }
     }
 }

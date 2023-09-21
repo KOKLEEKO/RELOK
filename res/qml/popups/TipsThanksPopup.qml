@@ -16,7 +16,6 @@ QtControls.Dialog
     modal: true
     title: qsTr("Thank you for being so supportive!") + DeviceAccess.managers.translation.emptyString
     width: header.implicitWidth
-    z: 1
 
     QtControls.Label
     {
