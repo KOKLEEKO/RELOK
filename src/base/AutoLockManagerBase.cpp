@@ -10,7 +10,7 @@
 #include "PersistenceManagerBase.h"
 
 template<>
-QString ManagerBase<AutoLockManagerBase>::m_name{"autoLock"};
+QString ManagerBase<AutoLockManagerBase>::m_name{QStringLiteral("autoLock")};
 
 AutoLockManagerBase::AutoLockManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

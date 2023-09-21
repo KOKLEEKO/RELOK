@@ -27,7 +27,7 @@ void ClockLanguageManager::detectClockAvailableLocales()
             const QLocale locale(baseName);
             QString name = QLocale::languageToString(locale.language());
             if (baseName.split('_').size() == 2)
-                name.append(QString(" (%1)").arg(locale.nativeCountryName()));
+                name.append(QStringLiteral(" (%1)").arg(locale.nativeCountryName()));
             m_clockAvailableLocales.insert(baseName, name);
         }
     }

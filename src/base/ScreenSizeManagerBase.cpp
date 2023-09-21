@@ -8,7 +8,7 @@
 #include "ScreenSizeManagerBase.h"
 
 template<>
-QString ManagerBase<ScreenSizeManagerBase>::m_name{"screenSize"};
+QString ManagerBase<ScreenSizeManagerBase>::m_name{QStringLiteral("screenSize")};
 
 ScreenSizeManagerBase::ScreenSizeManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
     : ManagerBase(deviceAccess, parent)

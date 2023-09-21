@@ -30,6 +30,14 @@ public:
     Q_INVOKABLE virtual void clear() { Q_UNIMPLEMENTED(); }
     Q_INVOKABLE virtual void printAll() { Q_UNIMPLEMENTED(); }
 
+public slots:
+    virtual void processAtSettingsReady()
+    {
+#ifdef QT_DEBUG
+        printAll();
+#endif
+    }
+
 signals:
     void settingsReady();
 };

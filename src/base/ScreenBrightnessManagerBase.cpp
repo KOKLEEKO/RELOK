@@ -8,9 +8,10 @@
 #include "ScreenBrightnessManagerBase.h"
 
 template<>
-QString ManagerBase<ScreenBrightnessManagerBase>::m_name{"screenBrightness"};
+QString ManagerBase<ScreenBrightnessManagerBase>::m_name{QStringLiteral("screenBrightness")};
 
-ScreenBrightnessManagerBase::ScreenBrightnessManagerBase(DeviceAccessBase *deviceAccess, QObject *parent)
+ScreenBrightnessManagerBase::ScreenBrightnessManagerBase(DeviceAccessBase *deviceAccess,
+                                                         QObject *parent)
     : ManagerBase(deviceAccess, parent)
 {}
 
