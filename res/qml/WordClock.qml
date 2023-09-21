@@ -228,9 +228,11 @@ QtQuick.Rectangle
     QtQuick.Column
     {
         id: column
+
         anchors.centerIn: parent
         height: width
         width: table_width
+
         QtQuick.Item
         {
             height: cell_width
@@ -257,6 +259,7 @@ QtQuick.Rectangle
             QtQuick.Row
             {
                 anchors.horizontalCenter: parent.horizontalCenter
+
                 QtQuick.Repeater
                 {
                     id: repeater

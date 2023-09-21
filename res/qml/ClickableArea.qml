@@ -32,7 +32,14 @@ QtQuick.Item
                        {
                            isFullCircle = (point.event.device.pointerType !== QtQuick.PointerDevice.Finger);
                        }
-        onLongPressed: pieMenu.popup(point.position.x, point.position.y)
+        onLongPressed:
+        {
+            if (welcomePopup.opened)
+            {
+                welcomePopup.close();
+            }
+            pieMenu.popup(point.position.x, point.position.y);
+        }
     }
 
     QtExtras.PieMenu
@@ -184,7 +191,13 @@ QtQuick.Item
         {
             iconSource: "qrc:/assets/notify_%1.svg".arg(wordClock.speech_enabled ? "off" : "on")
             visible: DeviceAccess.managers.speech.enabled
-            onTriggered: DeviceAccess.managers.persistence.setValue("Speech/enabled", wordClock.speech_enabled ^= true)
+            onTriggered:
+            {
+                DeviceAccess.managers.persistence.setValue("Speech/enabled", wordClock.speech_enabled ^= true)
+                notificationBar.show(qsTr("Time reminder %1").arg(wordClock.speech_enabled ? qsTr("has been enabled.")
+                                                                                           : qsTr("has been disabled.")) +
+                                     DeviceAccess.managers.translation.emptyString)
+            }
         }
         QtExtras.MenuItem
         {
@@ -195,6 +208,7 @@ QtQuick.Item
     QtQuick.Timer
     {
         id: shareTimer
+
         interval: 300
         onTriggered: DeviceAccess.managers.shareContent.screenshot(wordClock)
     }

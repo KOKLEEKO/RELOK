@@ -13,5 +13,4 @@ QtControls.Popup
     closePolicy: QtControls.Popup.NoAutoClose
     modal: true
     visible: tips.store.purchasing
-    z: 1
 }

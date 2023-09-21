@@ -44,6 +44,7 @@ QtLayouts.ColumnLayout
                                               : QtControls.ScrollBar.AsNeeded
         QtLayouts.Layout.fillHeight: true
         QtLayouts.Layout.fillWidth: true
+
         clip: true
         //palette {
         //  /* tribute to Qt (https://brand.qt.io/design)*/

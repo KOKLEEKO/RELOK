@@ -25,17 +25,17 @@ QtControls.ApplicationWindow
 
     property QtWebView.WebView webView: null
     property alias badReviewPopup: badReviewPopup
-    property alias headings: headings
     property bool aboutToQuit: false
     property bool isWidget: false
     property bool isLeftHanded: Boolean(parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference",
                                                                                          1), 10))
     property bool showWelcome: DeviceAccess.managers.persistence.value("Advanced/show_welcome", true)
+    property bool showMenuUsage: DeviceAccess.managers.persistence.value("Advanced/show_menuUsage", true)
     property real tmpOpacity: root.opacity
     readonly property size size: Qt.size(width, height)
     readonly property bool isFullScreen: HelpersJS.isIos ? DeviceAccess.managers.screenSize.prefersStatusBarHidden
                                                          : visibility === QtWindows.Window.FullScreen
-    readonly property bool isLandScape: width > height
+    readonly property bool isLandScape: width/height > 1.5
     property alias tips: tips
     property int minimumSize: 287
 
@@ -173,12 +173,14 @@ QtControls.ApplicationWindow
     WordClock { id: wordClock }
     ClickableArea { }
     SettingsPanel { id: settingsPanel }
+    NotificationBar { id: notificationBar }
 
+    Popups.BadReviewPopup { id: badReviewPopup }
+    Popups.FailedTransactionPopup { id: failedTransactionPopup }
+    Popups.MenuUsagePopup { id: menuUsagePopup }
     Popups.PurchasingPopup { }
     Popups.TipsThanksPopup { id: tipsThanksPopup }
-    Popups.FailedTransactionPopup { id: failedTransactionPopup }
     Popups.WelcomePopup { id: welcomePopup }
-    Popups.BadReviewPopup { id: badReviewPopup }
 
     QtQuick.Loader { active: HelpersJS.isMobile; source: "WebAccess.qml"; onLoaded: webView = item.webView }
 }
