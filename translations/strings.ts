@@ -280,16 +280,34 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/BadReviewPopup.qml" line="24"/>
+        <location filename="../res/qml/popups/BadReviewPopup.qml" line="23"/>
         <source>Suggestions for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/BadReviewPopup.qml" line="37"/>
+        <location filename="../res/qml/popups/BadReviewPopup.qml" line="36"/>
         <source>We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
 Your suggestions will be taken into account.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ClickableArea</name>
+    <message>
+        <location filename="../res/qml/ClickableArea.qml" line="197"/>
+        <source>Time reminder %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/ClickableArea.qml" line="197"/>
+        <source>has been enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/ClickableArea.qml" line="198"/>
+        <source>has been disabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -421,6 +439,48 @@ Your suggestions will be taken into account.</source>
     </message>
 </context>
 <context>
+    <name>MenuUsagePopup</name>
+    <message>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="25"/>
+        <source>How to use it? [%1/%2]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="37"/>
+        <source>&lt;i&gt;Don&apos;t show this again&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="45"/>
+        <source>Previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="51"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="57"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="84"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="95"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="106"/>
+        <source>We hope you enjoy using it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="84"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="95"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="106"/>
+        <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this     popup to close it and open the pie menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Picker</name>
     <message>
         <location filename="../res/qml/controls/Picker.qml" line="49"/>
@@ -464,12 +524,12 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/BadReviewPopup.qml" line="29"/>
+        <location filename="../res/qml/popups/BadReviewPopup.qml" line="28"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/BadReviewPopup.qml" line="31"/>
+        <location filename="../res/qml/popups/BadReviewPopup.qml" line="30"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -574,7 +634,7 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/TipsThanksPopup.qml" line="24"/>
+        <location filename="../res/qml/popups/TipsThanksPopup.qml" line="23"/>
         <source>It means a lot to us.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -600,18 +660,18 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="40"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="32"/>
+        <source>&lt;i&gt;Don&apos;t show this again&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="54"/>
         <source>We hope you enjoy using it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="40"/>
-        <source>Please press and hold outside this popup to close it and open the settings menu.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="49"/>
-        <source>Don&apos;t show this again</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="54"/>
+        <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

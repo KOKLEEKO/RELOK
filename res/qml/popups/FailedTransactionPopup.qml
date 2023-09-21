@@ -18,10 +18,10 @@ QtControls.Dialog
     standardButtons: QtControls.Dialog.No | QtControls.Dialog.Yes
     title: qsTr("Oops...") + DeviceAccess.managers.translation.emptyString
     width: Math.max(root.width/2, header.implicitWidth)
-    z: 1
 
     onAccepted: tips.failedProduct.purchase()
     onRejected: tips.store.purchasing = false
+
     QtQuick.Component.onCompleted: {
         standardButton(QtControls.Dialog.No).text = Qt.binding(() => qsTranslate("QPlatformTheme", "No") +
                                                                DeviceAccess.managers.translation.emptyString);
