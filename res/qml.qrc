@@ -44,6 +44,6 @@
         <file>qml/settings/About.qml</file>
         <file>qml/settings/Speech.qml</file>
         <file>qml/popups/MenuUsagePopup.qml</file>
-        <file>qml/NotificationBar.qml</file>
+        <file>qml/controls/IconImage.qml</file>
     </qresource>
 </RCC>

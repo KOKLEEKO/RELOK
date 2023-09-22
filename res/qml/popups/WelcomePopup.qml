@@ -35,6 +35,7 @@ QtControls.Dialog
     onClosed: showWelcome = !hidePopupCheckbox.checked
     QtQuick.Component.onCompleted:
     {
+        header.background.visible = false
         if (showWelcome)
         {
             open();
