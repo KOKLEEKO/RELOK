@@ -38,6 +38,8 @@ QtQuick.Item
             {
                 welcomePopup.close();
             }
+            /* This is a hack to fix a display glitch on wasm*/
+            timeReminderMenu.iconSource = "qrc:/assets/notify_%1.svg".arg(wordClock.speech_enabled ? "off" : "on")
             pieMenu.popup(point.position.x, point.position.y);
         }
     }
@@ -189,12 +191,10 @@ QtQuick.Item
         }
         QtExtras.MenuItem
         {
-            iconSource: "qrc:/assets/notify_%1.svg".arg(wordClock.speech_enabled ? "off" : "on")
+            id: timeReminderMenu
+
             visible: DeviceAccess.managers.speech.enabled
-            onTriggered:
-            {
-                DeviceAccess.managers.persistence.setValue("Speech/enabled", wordClock.speech_enabled ^= true)
-            }
+            onTriggered: DeviceAccess.managers.persistence.setValue("Speech/enabled", wordClock.speech_enabled ^= true)
         }
         QtExtras.MenuItem
         {
