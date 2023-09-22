@@ -100,14 +100,15 @@ QtQuick.Rectangle
                                      {
                                          switch(accessories[index])
                                          {
-                                             case "ampm"        : return ampm
-                                             case "batteryLevel": return batteryLevel
-                                             case "date"        : return isCorner ? null : date
-                                             case "minutes"     : return isCorner ? dot : dots
-                                             case "seconds"     : return seconds
-                                             case "timeZone"    : return isCorner ? null : timeZone
-                                             case "weekNumber"  : return weekNumber
-                                             default            : return null
+                                             case "timeReminder": return timeReminder;
+                                             case "batteryLevel": return batteryLevel;
+                                             case "timeZone"    : return isCorner ? null : timeZone;
+                                             case "weekNumber"  : return weekNumber;
+                                             case "date"        : return isCorner ? null : date;
+                                             case "ampm"        : return ampm;
+                                             case "minutes"     : return isCorner ? dot : dots;
+                                             case "seconds"     : return seconds;
+                                             default            : return null;
                                          }
                                      }
     property var accessories: new Array(6).fill("")
@@ -208,7 +209,7 @@ QtQuick.Rectangle
         //private
         readonly property int day_to_ms: 86400000
         readonly property int hour_to_ms: 3600000
-        readonly property int minute_to_ms:60000
+        readonly property int minute_to_ms: 60000
         readonly property int s_to_ms: 1000
         readonly property var time_reference_list: time_reference.split(':')
         readonly property int time_reference_ms: -3600000 + // January 1, 1970, 00:00:00
@@ -311,6 +312,74 @@ QtQuick.Rectangle
     }
     QtQuick.Component
     {
+        id: timeReminder
+
+        Controls.IconImage
+        {
+            color: wordClock.speech_enabled ? on_color : off_color
+            opacity: accessoriesOpacity
+            width: cell_width*.5
+            source: "qrc:/assets/notify_%1.svg".arg(wordClock.speech_enabled ? "on" : "off")
+        }
+    }
+    QtQuick.Component
+    {
+        id: batteryLevel
+
+        Controls.AccessoryText
+        {
+            font.family: FixedFont
+            isOn: DeviceAccess.managers.battery.isPlugged
+            opacity: accessoriesOpacity
+            text: "%1 %".arg(DeviceAccess.managers.battery.batteryLevel)
+        }
+    }
+    QtQuick.Component
+    {
+        id: timeZone
+
+        Controls.AccessoryText
+        {
+            isOn: false
+            opacity: accessoriesOpacity
+            text: selectedGMT
+        }
+    }
+    QtQuick.Component
+    {
+        id: weekNumber
+
+        Controls.AccessoryText
+        {
+            isOn: false
+            opacity: accessoriesOpacity
+            text: currentWeekNumber
+        }
+    }
+    QtQuick.Component
+    {
+        id: date
+
+        Controls.AccessoryText
+        {
+            isOn: false
+            opacity: accessoriesOpacity
+            text: currentDate
+        }
+    }
+    QtQuick.Component
+    {
+        id: ampm
+
+        Controls.AccessoryText
+        {
+            isOn: true
+            opacity: accessoriesOpacity
+            text: is_AM  ? "AM" : "PM"
+        }
+    }
+    QtQuick.Component
+    {
         id: dots
 
         QtQuick.Row
@@ -338,39 +407,6 @@ QtQuick.Rectangle
     }
     QtQuick.Component
     {
-        id: date
-
-        Controls.AccessoryText
-        {
-            isOn: false
-            opacity: accessoriesOpacity
-            text: currentDate
-        }
-    }
-    QtQuick.Component
-    {
-        id: timeZone
-
-        Controls.AccessoryText
-        {
-            isOn: false
-            opacity: accessoriesOpacity
-            text: selectedGMT
-        }
-    }
-    QtQuick.Component
-    {
-        id: ampm
-
-        Controls.AccessoryText
-        {
-            isOn: true
-            opacity: accessoriesOpacity
-            text: is_AM  ? "AM" : "PM"
-        }
-    }
-    QtQuick.Component
-    {
         id: seconds
 
         Controls.AccessoryText
@@ -379,29 +415,6 @@ QtQuick.Rectangle
             isOn: true
             opacity: accessoriesOpacity
             text: ("0" + seconds_value).slice(-2)
-        }
-    }
-    QtQuick.Component
-    {
-        id: weekNumber
-
-        Controls.AccessoryText
-        {
-            isOn: false
-            opacity: accessoriesOpacity
-            text: currentWeekNumber
-        }
-    }
-    QtQuick.Component
-    {
-        id: batteryLevel
-
-        Controls.AccessoryText
-        {
-            font.family: FixedFont
-            isOn: DeviceAccess.managers.battery.isPlugged
-            opacity: accessoriesOpacity
-            text: "%1 %".arg(DeviceAccess.managers.battery.batteryLevel)
         }
     }
 }

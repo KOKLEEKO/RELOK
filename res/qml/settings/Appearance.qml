@@ -134,7 +134,7 @@ Controls.MenuSection
                     color: parent.icon.color
                     font.family: SmallestReadableFont.family
                     font.pointSize: HelpersJS.isWasm ? 9 : SmallestReadableFont.pointSize
-                    text: "%1/%2".arg(index+1).arg(parent.QtQuick.ListView.view.count)
+                    text: "%1/%2".arg(index + 1).arg(parent.QtQuick.ListView.view.count)
                 }
             }
             height: contentItem.childrenRect.height

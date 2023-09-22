@@ -103,37 +103,42 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="26"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="24"/>
+        <source>Time Reminder status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Accessories.qml" line="38"/>
         <source>Time Zone display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="32"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="49"/>
         <source>Date display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="37"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="59"/>
         <source>4-Dot display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="42"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="64"/>
         <source>Seconds display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="47"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="54"/>
         <source>AM|PM display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="52"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="44"/>
         <source>Week Number display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="58"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="30"/>
         <source>Battery Level display mode</source>
         <translation type="unfinished"></translation>
     </message>
@@ -290,24 +295,6 @@ Developed with love by Johan and published by Denver.</source>
 With your feedback, we can make it even better!
 
 Your suggestions will be taken into account.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ClickableArea</name>
-    <message>
-        <location filename="../res/qml/ClickableArea.qml" line="197"/>
-        <source>Time reminder %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/ClickableArea.qml" line="197"/>
-        <source>has been enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/ClickableArea.qml" line="198"/>
-        <source>has been disabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -665,12 +652,12 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="54"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="55"/>
         <source>We hope you enjoy using it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="54"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="55"/>
         <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu.</source>
         <translation type="unfinished"></translation>
     </message>

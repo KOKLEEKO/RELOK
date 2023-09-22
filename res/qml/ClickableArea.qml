@@ -194,9 +194,6 @@ QtQuick.Item
             onTriggered:
             {
                 DeviceAccess.managers.persistence.setValue("Speech/enabled", wordClock.speech_enabled ^= true)
-                notificationBar.show(qsTr("Time reminder %1").arg(wordClock.speech_enabled ? qsTr("has been enabled.")
-                                                                                           : qsTr("has been disabled.")) +
-                                     DeviceAccess.managers.translation.emptyString)
             }
         }
         QtExtras.MenuItem
