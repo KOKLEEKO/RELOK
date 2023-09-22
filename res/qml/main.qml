@@ -173,7 +173,6 @@ QtControls.ApplicationWindow
     WordClock { id: wordClock }
     ClickableArea { }
     SettingsPanel { id: settingsPanel }
-    NotificationBar { id: notificationBar }
 
     Popups.BadReviewPopup { id: badReviewPopup }
     Popups.FailedTransactionPopup { id: failedTransactionPopup }

@@ -29,9 +29,37 @@ class Object
 
         switch(instance.name)
         {
+            case "timeReminder":
+            {
+                positionIndex = DeviceAccess.managers.persistence.value("Accessories/timeReminder",
+                                                                        DeviceAccess.managers.speech.enabled
+                                                                        ? (DeviceAccess.managers.battery.enabled ? 0
+                                                                                                                  : 2)
+                                                                        : -1);
+                break;
+            }
+            case "batteryLevel":
+            {
+                positionIndex = DeviceAccess.managers.persistence.value("Accessories/batteryLevel",
+                                                                        DeviceAccess.managers.battery.enabled ? 2 : -1);
+                break;
+            }
+            case "weekNumber":
+            {
+                positionIndex = DeviceAccess.managers.persistence.value("Accessories/weekNumber",
+                                                                        (DeviceAccess.managers.speech.enabled &&
+                                                                         DeviceAccess.managers.battery.enabled) ? -1
+                                                                                                                : 0);
+                break;
+            }
             case "date":
             {
                 positionIndex = DeviceAccess.managers.persistence.value("Accessories/date", 1);
+                break;
+            }
+            case "ampm":
+            {
+                positionIndex = DeviceAccess.managers.persistence.value("Accessories/ampm", 3);
                 break;
             }
             case "minutes":
@@ -42,22 +70,6 @@ class Object
             case "seconds":
             {
                 positionIndex = DeviceAccess.managers.persistence.value("Accessories/seconds", 5);
-                break;
-            }
-            case "ampm":
-            {
-                positionIndex = DeviceAccess.managers.persistence.value("Accessories/ampm", 3);
-                break;
-            }
-            case "weekNumber":
-            {
-                positionIndex = DeviceAccess.managers.persistence.value("Accessories/weekNumber", 0);
-                break;
-            }
-            case "batteryLevel":
-            {
-                positionIndex = DeviceAccess.managers.persistence.value("Accessories/batteryLevel",
-                                                                        DeviceAccess.managers.battery.enabled ? 2 : -1);
                 break;
             }
             default:

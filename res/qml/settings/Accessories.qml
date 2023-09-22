@@ -17,6 +17,18 @@ Controls.MenuSection
 {
     title: qsTr("Accessories") + DeviceAccess.managers.translation.emptyString
 
+    Controls.SmallPositionSelector
+    {
+        active: DeviceAccess.managers.speech.enabled
+        name: "timeReminder"
+        title: qsTr("Time Reminder status") + DeviceAccess.managers.translation.emptyString
+    }
+    Controls.SmallPositionSelector
+    {
+        active: DeviceAccess.managers.battery.enabled
+        name: "batteryLevel"
+        title: qsTr("Battery Level display mode") + DeviceAccess.managers.translation.emptyString
+    }
     QtQuick.Loader
     {
         active: !HelpersJS.isWasm
@@ -26,10 +38,20 @@ Controls.MenuSection
             title: qsTr("Time Zone display mode") + DeviceAccess.managers.translation.emptyString
         }
     }
+    Controls.SmallPositionSelector
+    {
+        name: "weekNumber"
+        title: qsTr("Week Number display mode") + DeviceAccess.managers.translation.emptyString
+    }
     Controls.LargePositionSelector
     {
         name: "date"
         title: qsTr("Date display mode") + DeviceAccess.managers.translation.emptyString
+    }
+    Controls.SmallPositionSelector
+    {
+        name: "ampm"
+        title: qsTr("AM|PM display mode") + DeviceAccess.managers.translation.emptyString
     }
     Controls.LargePositionSelector
     {
@@ -40,21 +62,5 @@ Controls.MenuSection
     {
         name: "seconds"
         title: qsTr("Seconds display mode") + DeviceAccess.managers.translation.emptyString
-    }
-    Controls.SmallPositionSelector
-    {
-        name: "ampm"
-        title: qsTr("AM|PM display mode") + DeviceAccess.managers.translation.emptyString
-    }
-    Controls.SmallPositionSelector
-    {
-        name: "weekNumber"
-        title: qsTr("Week Number display mode") + DeviceAccess.managers.translation.emptyString
-    }
-    Controls.SmallPositionSelector
-    {
-        active: DeviceAccess.managers.battery.enabled
-        name: "batteryLevel"
-        title: qsTr("Battery Level display mode") + DeviceAccess.managers.translation.emptyString
     }
 }

@@ -3,7 +3,6 @@
 ##  Licensed under the LGPL license. See LICENSE file in the project root for details.
 ##  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 ###################################################################################################
-
 TEMPLATE = app
 
 VERSION = 1.2.0
