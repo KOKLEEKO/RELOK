@@ -12,6 +12,8 @@ import DeviceAccess 1.0
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
+import "qrc:/qml/models" as Models
+
 QtControls.Dialog
 {
     id: welcomePopup
@@ -47,13 +49,58 @@ QtControls.Dialog
         anchors { fill: parent; margins: welcomePopup.margins }  // @disable-check M16  @disable-check M31
         QtControls.Label
         {
-            QtLayouts.Layout.fillHeight: true
             QtLayouts.Layout.fillWidth: true
+            font: GeneralFont
             fontSizeMode: QtControls.Label.Fit
             minimumPixelSize: 1
+            text: qsTr("We hope you enjoy using it.") + DeviceAccess.managers.translation.emptyString
             textFormat: QtControls.Label.RichText
-            text: "\%1<br><br>%2".arg(qsTr("We hope you enjoy using it.")).arg(qsTr("Please <b>press and hold</b> outside this \
-popup to close it and open the pie menu.")) + DeviceAccess.managers.translation.emptyString
+            wrapMode: QtControls.Label.WordWrap
+        }
+        QtControls.Pane
+        {
+            QtLayouts.Layout.fillHeight: true
+            QtLayouts.Layout.fillWidth: true
+
+            QtLayouts.ColumnLayout
+            {
+                anchors.fill: parent
+                QtQuick.Text
+                {
+                    QtLayouts.Layout.fillWidth: true
+                    text: qsTr("<b>What's new</b>")
+                    font: GeneralFont
+                }
+
+                QtControls.ScrollView
+                {
+                    id: scrollView
+
+                    QtLayouts.Layout.fillHeight: true
+                    QtLayouts.Layout.fillWidth: true
+                    clip: true
+                    contentWidth: width
+                    QtQuick.Text
+                    {
+                        font: GeneralFont
+                        height: scrollView.availableHeight
+                        text: qsTr(Models.Releases.currentReleaseNote) + DeviceAccess.managers.translation.emptyString
+                        textFormat: QtQuick.Text.RichText
+                        width: scrollView.availableWidth - scrollView.QtControls. ScrollBar.vertical.implicitWidth
+                        wrapMode: QtQuick.Text.Wrap
+                    }
+                }
+            }
+        }
+        QtControls.Label
+        {
+            QtLayouts.Layout.fillWidth: true
+            font: GeneralFont
+            fontSizeMode: QtControls.Label.Fit
+            minimumPixelSize: 1
+            text: qsTr("Please <b>press and hold</b> outside this popup to close it and open the pie menu.") +
+                  DeviceAccess.managers.translation.emptyString
+            textFormat: QtControls.Label.RichText
             wrapMode: QtControls.Label.WordWrap
         }
     }
