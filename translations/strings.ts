@@ -90,7 +90,7 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="127"/>
+        <location filename="../res/qml/settings/About.qml" line="129"/>
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -522,6 +522,41 @@ Your suggestions will be taken into account.</source>
     </message>
 </context>
 <context>
+    <name>Releases</name>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="33"/>
+        <source>1.2.0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="35"/>
+        <location filename="../res/qml/models/Releases.qml" line="43"/>
+        <source>android</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="36"/>
+        <source>iOS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="37"/>
+        <location filename="../res/qml/models/Releases.qml" line="45"/>
+        <source>wasm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="41"/>
+        <source>1.1.0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="44"/>
+        <source>ios</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SmallPositionSelector</name>
     <message>
         <location filename="../res/qml/controls/SmallPositionSelector.qml" line="44"/>
@@ -642,23 +677,28 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>WelcomePopup</name>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="24"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="26"/>
         <source>Welcome to %1 ( %2 )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="32"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="34"/>
         <source>&lt;i&gt;Don&apos;t show this again&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="55"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="56"/>
         <source>We hope you enjoy using it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="55"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="101"/>
         <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="71"/>
+        <source>&lt;b&gt;What&apos;s new&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

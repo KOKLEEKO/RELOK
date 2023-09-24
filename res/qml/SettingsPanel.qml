@@ -17,6 +17,7 @@ import "qrc:/js/Helpers.js" as HelpersJS
 
 QtControls.Drawer
 {
+    property bool isOpened: false
     background: QtQuick.Item
     {
         clip: true
@@ -45,9 +46,11 @@ QtControls.Drawer
     width: isLandScape ? Math.max(parent.width*.65, 300) : parent.width
     y: isFullScreen ? 0 : Math.max(DeviceAccess.managers.screenSize.statusBarHeight, DeviceAccess.managers.screenSize.safeInsetTop)
 
-    onOpened:
+    onOpened: isOpened = true
+    onClosed: isOpened = false
+    onIsOpenedChanged:
     {
-        if (showMenuUsage)
+        if (isOpened && showMenuUsage)
         {
             menuUsagePopup.open();
         }

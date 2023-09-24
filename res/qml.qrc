@@ -45,5 +45,7 @@
         <file>qml/settings/Speech.qml</file>
         <file>qml/popups/MenuUsagePopup.qml</file>
         <file>qml/controls/IconImage.qml</file>
+        <file>qml/models/Releases.qml</file>
+        <file>qml/models/qmldir</file>
     </qresource>
 </RCC>

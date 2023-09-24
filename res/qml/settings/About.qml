@@ -124,5 +124,14 @@ almost as soon as you encounter them. But you can disable this feature to enter 
         details: qsTr("\nDeveloped with love by Johan and published by Denver.") +
                  DeviceAccess.managers.translation.emptyString
     }
-    Controls.MenuItem { title: qsTr("Version"); QtControls.Label { text: Qt.application.version } }
+    Controls.MenuItem
+    {
+        title: qsTr("Version")
+        QtControls.Label
+        {
+            font: GeneralFont
+            text: "<b>%1<b>".arg(Qt.application.version)
+            textFormat: QtControls.Label.RichText
+        }
+    }
 }
