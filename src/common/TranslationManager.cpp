@@ -24,7 +24,7 @@ void TranslationManager::getAvailableTransalations()
     QFileInfoList applicationLanguages = QDir(":/i18n").entryInfoList({"*.qm"});
     m_availableTranslations.insert("en", "English");
     for (const auto &fileInfo : applicationLanguages) {
-        const QString baseName(fileInfo.baseName().split("_")[1]);
+        const QString baseName(fileInfo.baseName().split(QLatin1Char('_'))[1]);
         m_availableTranslations.insert(baseName, QLocale::languageToString(QLocale(baseName).language()));
     }
 }

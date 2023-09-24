@@ -39,19 +39,34 @@ void SpeechManager::setSpeechLanguage(QString iso)
     m_speech.setLocale({iso});
     if (!m_speechAvailableVoices.contains(iso)) {
         const QVector<QVoice> &availableVoices = m_speech.availableVoices();
-        setHasMutipleVoices(!availableVoices.empty());
+        const int availableVoicesSize = availableVoices.size();
+        setHasMutipleVoices(availableVoicesSize > 0);
         if (!hasMultipleVoices())
             return;
-        QStringList voicesNames;
-        for (const auto &voice : availableVoices)
-            voicesNames << voice.name().split(" ")[0];
-        m_speechAvailableVoices.insert(iso, voicesNames);
         const QString settingName = QStringLiteral("Speech/%1_voice").arg(iso);
-        if (deviceAccess()->manager<PersistenceManagerBase>()->value(settingName)
-            == QVariant::Invalid) {
-            int defaultIndex = voicesNames.indexOf(m_speech.voice().name().split(' ')[0]);
-            deviceAccess()->manager<PersistenceManagerBase>()->setValue(settingName, defaultIndex);
+        bool hasSettingPreference = (deviceAccess()->manager<PersistenceManagerBase>()->value(
+                                         settingName)
+                                     == QVariant::Invalid);
+        QStringList voicesNames;
+        for (int voiceIndex = 0; voiceIndex < availableVoicesSize; ++voiceIndex) {
+            const QVoice &voice = availableVoices.at(voiceIndex);
+            QString gender;
+            if (voice.gender() == QVoice::Gender::Female) {
+                gender = QStringLiteral("♀ ");
+            } else if (voice.gender() == QVoice::Gender::Male) {
+                gender = QStringLiteral("♂ ");
+            }
+            voicesNames << gender.append(voice.name().split(QLatin1Char(' '))[0]);
+            if (hasSettingPreference) {
+                if (voice.gender() != QVoice::Gender::Unknown) {
+                    deviceAccess()->manager<PersistenceManagerBase>()->setValue(settingName,
+                                                                                voiceIndex);
+                    hasSettingPreference = false;
+                }
+            }
         }
+        m_speechAvailableVoices.insert(iso, voicesNames);
+
         emit speechAvailableVoicesChanged();
     }
 }
@@ -71,12 +86,12 @@ void SpeechManager::initSpeechLocales()
                 ->clockAvailableLocales()
                 .keys()
                 .contains(speechLocale.bcp47Name().left(2))) {
-            QString iso = speechLocale.bcp47Name().replace('-', '_');
-            if (iso.split('_').size() != 2) {
+            QString iso = speechLocale.bcp47Name().replace(QLatin1Char('-'), QLatin1Char('_'));
+            if (iso.split(QLatin1Char('_')).size() != 2) {
                 const QList uiLanguages{speechLocale.uiLanguages()};
                 for (const auto &uiLanguage : uiLanguages) {
-                    if (uiLanguage.split('-').size() == 2) {
-                        iso = QString{uiLanguage}.replace('-', '_');
+                    if (uiLanguage.split(QLatin1Char('-')).size() == 2) {
+                        iso = QString{uiLanguage}.replace(QLatin1Char('-'), QLatin1Char('_'));
                         break;
                     }
                 }

@@ -61,7 +61,7 @@ EM_JS(void, processVoices, (),
         const iso = stringToNewUTF8(voice.lang.split('-')[0]);
         if (Module._isLocaleSupported(iso)) {
             _free(iso);
-            const lang = stringToNewUTF8(voice.lang.replace('-', "_"));
+            const lang = stringToNewUTF8(voice.lang.replace('-', '_'));
             const name = stringToNewUTF8(voice.name.split(' ')[0]);
             Module._processVoice(lang, name, index);
             lastIndex = index;
