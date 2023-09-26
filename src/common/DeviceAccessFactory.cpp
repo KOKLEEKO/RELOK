@@ -9,7 +9,11 @@
 
 #include <ClockLanguageManager.h>
 #include <PersistenceManager.h>
+#if __has_include(<SpeechManager.h>)
 #include <SpeechManager.h>
+#else
+#include "src/default/SpeechManager.h"
+#endif
 #include <TranslationManager.h>
 
 #ifdef Q_OS_ANDROID

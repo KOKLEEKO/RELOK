@@ -7,9 +7,14 @@ TEMPLATE = app
 
 VERSION = 1.2.0
 
-QT += quick core svg texttospeech
+QT += core quick svg widgets
 
-android|darwin|win32: QT += purchasing webview
+!wasm: QT += texttospeech
+android|darwin|win32 {
+    QT += purchasing
+    android|ios: QT+= webview
+    android: QT+= androidextras
+}
 
 message($$QMAKE_PLATFORM)
 
@@ -114,16 +119,7 @@ darwin {
 
     macx {
 
-        INCLUDEPATH +=                                          \
-            src/macx                                            \
-            src/default
-
-        HEADERS +=                                              \
-            src/default/ShareContentManager.h                   \
-            src/default/SpeechManager.h
-        SOURCES +=                                              \
-            src/default/ShareContentManager.cpp                 \
-            src/default/SpeechManager.cpp
+        INCLUDEPATH += src/macx
 
         OBJECTIVE_HEADERS +=                                    \
             src/macx/DeviceAccess.h                             \
@@ -134,24 +130,18 @@ darwin {
             src/macx/ReviewManager.mm                           \
             src/macx/ShareContentManager.mm
 
+        HEADERS +=                                              \
+            src/default/ShareContentManager.h                   \
+            src/default/SpeechManager.h
+        SOURCES +=                                              \
+            src/default/ShareContentManager.cpp                 \
+            src/default/SpeechManager.cpp
+
         QMAKE_INFO_PLIST = apple/macx/Info.plist
 
     } else:ios {
 
         INCLUDEPATH += src/ios
-
-        HEADERS +=                                              \
-            src/default/AutoLockManager.h                       \
-            src/default/BatteryManager.h                        \
-            src/default/EnergySavingManager.h                   \
-            src/default/ShareContentManager.h                   \
-            src/default/SpeechManager.h
-        SOURCES +=                                              \
-            src/default/AutoLockManager.cpp                     \
-            src/default/BatteryManager.cpp                      \
-            src/default/EnergySavingManager.cpp                 \
-            src/default/ShareContentManager.cpp                 \
-            src/default/SpeechManager.cpp
 
         OBJECTIVE_HEADERS +=                                    \
             src/ios/AutoLockManager.h                           \
@@ -170,6 +160,19 @@ darwin {
             src/ios/ShareContentManager.mm                      \
             src/ios/SpeechManager.mm
 
+        HEADERS +=                                              \
+            src/default/AutoLockManager.h                       \
+            src/default/BatteryManager.h                        \
+            src/default/EnergySavingManager.h                   \
+            src/default/ShareContentManager.h                   \
+            src/default/SpeechManager.h
+        SOURCES +=                                              \
+            src/default/AutoLockManager.cpp                     \
+            src/default/BatteryManager.cpp                      \
+            src/default/EnergySavingManager.cpp                 \
+            src/default/ShareContentManager.cpp                 \
+            src/default/SpeechManager.cpp
+
         QMAKE_INFO_PLIST = apple/ios/Info.plist
         OTHER_FILES += apple/ios/Launch.storyboard
         app_launch_screen.files = apple/ios/Launch.storyboard
@@ -177,8 +180,6 @@ darwin {
     }
 
 } else:android {
-
-    QT += androidextras
 
     INCLUDEPATH += src/android
 
@@ -227,8 +228,6 @@ darwin {
         android/src/io/kokleeko/wordclock/MyActivity.java
 
 } else:wasm {
-
-    QT -= texttospeech
 
     INCLUDEPATH += src/wasm
 
