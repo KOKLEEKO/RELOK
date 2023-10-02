@@ -38,7 +38,8 @@ Controls.PositionSelector
             QtQuick.Flow
             {
                 width: parent.parent.parent.width
-
+                leftPadding: Math.max(parent.parent.topPadding, parent.parent.bottomPadding)
+                rightPadding: leftPadding
                 QtQuick.Repeater
                 {
                     model: [ QT_TR_NOOP("Left"), QT_TR_NOOP("Center"), QT_TR_NOOP("Right") ]
@@ -57,5 +58,7 @@ Controls.PositionSelector
                 }
             }
         }
+        leftPadding: 0
+        rightPadding: 0
     }
 }

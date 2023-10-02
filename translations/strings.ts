@@ -108,32 +108,32 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="38"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="36"/>
         <source>Time Zone display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="49"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="46"/>
         <source>Date display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="59"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="56"/>
         <source>4-Dot display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="64"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="61"/>
         <source>Seconds display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="54"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="51"/>
         <source>AM|PM display mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Accessories.qml" line="44"/>
+        <location filename="../res/qml/settings/Accessories.qml" line="41"/>
         <source>Week Number display mode</source>
         <translation type="unfinished"></translation>
     </message>
@@ -559,17 +559,17 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>SmallPositionSelector</name>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="44"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="45"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="44"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="45"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="44"/>
+        <location filename="../res/qml/controls/SmallPositionSelector.qml" line="45"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>

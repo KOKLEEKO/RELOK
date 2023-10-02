@@ -29,14 +29,11 @@ Controls.MenuSection
         name: "batteryLevel"
         title: qsTr("Battery Level display mode") + DeviceAccess.managers.translation.emptyString
     }
-    QtQuick.Loader
+    Controls.LargePositionSelector
     {
+        name: "timeZone"
         active: !HelpersJS.isWasm
-        sourceComponent: Controls.LargePositionSelector
-        {
-            name: "timeZone"
-            title: qsTr("Time Zone display mode") + DeviceAccess.managers.translation.emptyString
-        }
+        title: qsTr("Time Zone display mode") + DeviceAccess.managers.translation.emptyString
     }
     Controls.SmallPositionSelector
     {
