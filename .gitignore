@@ -71,6 +71,3 @@ asset_catalog_compiler.Info.plist
 
 #Fastlane
 fastlane/report.xml
-
-#Crowdin
-crowdin.yml

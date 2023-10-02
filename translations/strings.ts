@@ -524,11 +524,6 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>Releases</name>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="33"/>
-        <source>1.2.0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/models/Releases.qml" line="35"/>
         <location filename="../res/qml/models/Releases.qml" line="43"/>
         <source>android</source>
@@ -543,11 +538,6 @@ Your suggestions will be taken into account.</source>
         <location filename="../res/qml/models/Releases.qml" line="37"/>
         <location filename="../res/qml/models/Releases.qml" line="45"/>
         <source>wasm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/models/Releases.qml" line="41"/>
-        <source>1.1.0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

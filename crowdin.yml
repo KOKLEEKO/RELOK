@@ -1,0 +1,13 @@
+
+"project_id_env": "CROWDIN_WORDCLOCK_PROJECT_ID"
+"api_token_env": "CROWDIN_PERSONAL_TOKEN"
+"base_path": "."
+"preserve_hierarchy": true
+"base_url": "https://api.crowdin.com"
+
+files: [
+  {
+    "source": "translations/strings.ts",
+    "translation": "translations/wordclock_%two_letters_code%.ts"
+  }
+]

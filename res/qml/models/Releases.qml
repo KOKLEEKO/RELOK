@@ -30,7 +30,7 @@ QtQuick.QtObject
     {
         "1.2.0" :
         {
-            common  : QT_TR_NOOP("1.2.0"),
+            common  : "1.2.0",
 
             android : QT_TR_NOOP("android"),
             ios     : QT_TR_NOOP("iOS"),
@@ -38,7 +38,7 @@ QtQuick.QtObject
         },
         "1.1.0" :
         {
-            common  : QT_TR_NOOP("1.1.0"),
+            common  : "1.1.0",
 
             android : QT_TR_NOOP("android"),
             ios     : QT_TR_NOOP("ios"),
