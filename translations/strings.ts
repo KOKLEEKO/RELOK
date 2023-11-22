@@ -182,13 +182,23 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/Advanced.qml" line="136"/>
+        <source>Menu usage popup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Advanced.qml" line="144"/>
+        <source>Display at menu opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Advanced.qml" line="148"/>
         <source>Persistence Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/settings/Advanced.qml" line="63"/>
         <location filename="../res/qml/settings/Advanced.qml" line="113"/>
-        <location filename="../res/qml/settings/Advanced.qml" line="140"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="152"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -433,36 +443,36 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="37"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="38"/>
         <source>&lt;i&gt;Don&apos;t show this again&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="45"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="46"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="51"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="52"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="57"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="58"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="84"/>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="95"/>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="106"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="85"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="96"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="107"/>
         <source>We hope you enjoy using it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="84"/>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="95"/>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="106"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="85"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="96"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="107"/>
         <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this     popup to close it and open the pie menu.</source>
         <translation type="unfinished"></translation>
     </message>

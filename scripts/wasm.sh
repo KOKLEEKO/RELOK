@@ -20,7 +20,7 @@ echo_exec mkcd $BUILD_DIR
 echo_exec $Qt5_DIR_WASM/bin/qmake -d $PROJECT_DIR/$PROJECT_NAME.pro CONFIG+=debug >> $PROJECT_DIR/qmake.log 2>&1
 echo_exec make -j$(nproc)
 echo_exec make -j$(nproc) check
-echo_exec cp WordClock.js WordClock.wasm ../app/
+echo_exec cp $PROJECT_NAME.js $PROJECT_NAME.wasm ../app/
 
 echo_bold "\nExecution time: $(seconds_to_time totaltime)"
 

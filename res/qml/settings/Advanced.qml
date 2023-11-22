@@ -126,10 +126,22 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
 
         QtControls.Switch
         {
-            checked: root.showWelcome
+            checked: showWelcome
             onCheckedChanged: DeviceAccess.managers.persistence.setValue("Advanced/show_welcome", checked)
         }
         details: qsTr("Display at startup.") + DeviceAccess.managers.translation.emptyString
+    }
+    Controls.MenuItem
+    {
+        title: qsTr("Menu usage popup") + DeviceAccess.managers.translation.emptyString
+
+        QtControls.Switch
+        {
+            checked: showMenuUsage
+            onCheckedChanged: DeviceAccess.managers.persistence.setValue("Advanced/show_menuUsage", checked)
+            onToggled: showMenuUsage = checked
+        }
+        details: qsTr("Display at menu opening") + DeviceAccess.managers.translation.emptyString
     }
     Controls.MenuItem
     {

@@ -32,6 +32,7 @@ QtControls.Dialog
             id: hidePopupCheckbox
 
             QtLayouts.Layout.alignment: Qt.AlignLeft
+            checked: !showMenuUsage
             indicator.opacity: 0.5
             padding: menuUsagePopup.padding
             text: qsTr("<i>Don't show this again</i>") + DeviceAccess.managers.translation.emptyString
