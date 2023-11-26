@@ -5,5 +5,5 @@
 #**  details.
 #**  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 #**************************************************************************************************
-
+singleton MenuUsage 1.0 MenuUsage.qml
 singleton Releases 1.0 Releases.qml

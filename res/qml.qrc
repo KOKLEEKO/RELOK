@@ -47,5 +47,6 @@
         <file>qml/controls/IconImage.qml</file>
         <file>qml/models/Releases.qml</file>
         <file>qml/models/qmldir</file>
+        <file>qml/models/MenuUsage.qml</file>
     </qresource>
 </RCC>

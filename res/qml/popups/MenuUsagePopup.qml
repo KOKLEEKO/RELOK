@@ -12,6 +12,8 @@ import DeviceAccess 1.0
 
 import "qrc:/js/Helpers.js" as HelpersJS
 
+import "qrc:/qml/models" as Models
+
 QtControls.Dialog
 {
     id: menuUsagePopup
@@ -75,38 +77,29 @@ QtControls.Dialog
         anchors { fill: parent; margins: 0 }  // @disable-check M16  @disable-check M31
         clip: true
 
-        QtControls.Label
-        {
-            QtLayouts.Layout.fillHeight: true
-            QtLayouts.Layout.fillWidth: true
-            fontSizeMode: QtControls.Label.Fit
-            minimumPixelSize: 1
-            textFormat: QtControls.Label.RichText
-            text: "\%1<br><br>%2".arg(qsTr("We hope you enjoy using it.")).arg(qsTr("Please <b>press and hold</b> outside this \
-    popup to close it and open the pie menu.")) + DeviceAccess.managers.translation.emptyString
-            wrapMode: QtControls.Label.WordWrap
-        }
-        QtControls.Label
-        {
-            QtLayouts.Layout.fillHeight: true
-            QtLayouts.Layout.fillWidth: true
-            fontSizeMode: QtControls.Label.Fit
-            minimumPixelSize: 1
-            textFormat: QtControls.Label.RichText
-            text: "\%1<br><br>%2".arg(qsTr("We hope you enjoy using it.")).arg(qsTr("Please <b>press and hold</b> outside this \
-    popup to close it and open the pie menu.")) + DeviceAccess.managers.translation.emptyString
-            wrapMode: QtControls.Label.WordWrap
-        }
-        QtControls.Label
-        {
-            QtLayouts.Layout.fillHeight: true
-            QtLayouts.Layout.fillWidth: true
-            fontSizeMode: QtControls.Label.Fit
-            minimumPixelSize: 1
-            textFormat: QtControls.Label.RichText
-            text: "\%1<br><br>%2".arg(qsTr("We hope you enjoy using it.")).arg(qsTr("Please <b>press and hold</b> outside this \
-    popup to close it and open the pie menu.")) + DeviceAccess.managers.translation.emptyString
-            wrapMode: QtControls.Label.WordWrap
+        QtQuick.Repeater {
+            model: Models.MenuUsage.instructions
+            QtControls.Label
+            {
+                property string content: undefined
+
+                QtLayouts.Layout.fillHeight: true
+                QtLayouts.Layout.fillWidth: true
+                fontSizeMode: QtControls.Label.Fit
+                minimumPixelSize: 1
+                textFormat: QtControls.Label.RichText
+                text: "<b>%1</b><ul>%2</ul>".arg(qsTr(modelData.title)).arg(qsTr(content)) +
+                      DeviceAccess.managers.translation.emptyString
+                wrapMode: QtControls.Label.WordWrap
+
+                QtQuick.Component.onCompleted:
+                {
+                    for (var value of modelData.content)
+                    {
+                        content += "<li>%1</li>".arg(value)
+                    }
+                }
+            }
         }
     }
 }
