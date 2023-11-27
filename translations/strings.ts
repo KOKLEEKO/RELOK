@@ -438,57 +438,57 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>MenuUsage</name>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="16"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="18"/>
         <source>Open menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="18"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="20"/>
         <source>&lt;b&gt;Long press&lt;/b&gt; on the clock, then release on the gear icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="19"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="21"/>
         <source>&lt;b&gt;Swipe left&lt;/b&gt; or right from the edge of the screen, based on the selected handeness&lt;br&gt;&lt;i&gt;(left for right-handed [&lt;u&gt;default&lt;/u&gt;] and right for left-handed)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="24"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="26"/>
         <source>Open section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="26"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="28"/>
         <source>&lt;b&gt;Press&lt;/b&gt; on a section&lt;br&gt;&lt;i&gt;(the section will remain open until you close it)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="30"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="32"/>
         <source>Close section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="32"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="34"/>
         <source>&lt;b&gt;Press&lt;/b&gt; the greetings&lt;br&gt;&lt;i&gt;(top-centered text)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="33"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="35"/>
         <source>&lt;b&gt;Open&lt;/b&gt; another section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="37"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="39"/>
         <source>Close menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="39"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="41"/>
         <source>&lt;b&gt;Press&lt;/b&gt; the clock, if visible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="40"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="42"/>
         <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handeness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -578,25 +578,38 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>Releases</name>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="35"/>
-        <location filename="../res/qml/models/Releases.qml" line="43"/>
-        <source>android</source>
+        <location filename="../res/qml/models/Releases.qml" line="52"/>
+        <source>Introduce Pie Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="36"/>
-        <source>iOS</source>
+        <location filename="../res/qml/models/Releases.qml" line="56"/>
+        <source></source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="37"/>
-        <location filename="../res/qml/models/Releases.qml" line="45"/>
-        <source>wasm</source>
+        <location filename="../res/qml/models/Releases.qml" line="59"/>
+        <source></source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="44"/>
-        <source>ios</source>
+        <location filename="../res/qml/models/Releases.qml" line="62"/>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="65"/>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="71"/>
+        <source>Fix unreachable links in the About section</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="72"/>
+        <source>Set default speech frequency to every 15 minutes instead of every minute</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

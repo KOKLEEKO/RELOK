@@ -138,3 +138,30 @@ function updateDisplayMode(window)
     window.flags ^= widgetFlag;
     window.isWidget = window.flags & widgetFlag;
 }
+
+function processListOrString(values, method)
+{
+    var result = "";
+    if (typeof values === typeof String())
+    {
+        result = method(values);
+    }
+    else
+    {
+        for (var value of values)
+        {
+            result += method(value);
+        }
+    }
+    return result;
+}
+
+function appendAsListItem(value)
+{
+    return "<li>%1</li>".arg(value);
+}
+
+function processListOrStringAndAppendAsListItem(values, result)
+{
+    return processListOrString(values, (value) => appendAsListItem(qsTr(value)));
+}

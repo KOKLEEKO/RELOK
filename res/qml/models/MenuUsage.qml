@@ -9,6 +9,8 @@ pragma Singleton
 
 import QtQuick 2.15 as QtQuick
 
+import "qrc:/js/Helpers.js" as HelpersJS
+
 QtQuick.QtObject {
 
     readonly property var instructions: [
@@ -42,4 +44,9 @@ QtQuick.QtObject {
             ]
         }
     ]
+
+    function contentAsListItem(index)
+    {
+        return HelpersJS.processListOrStringAndAppendAsListItem(instructions[index].content);
+    }
 }

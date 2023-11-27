@@ -81,24 +81,14 @@ QtControls.Dialog
             model: Models.MenuUsage.instructions
             QtControls.Label
             {
-                property string content: undefined
-
                 QtLayouts.Layout.fillHeight: true
                 QtLayouts.Layout.fillWidth: true
                 fontSizeMode: QtControls.Label.Fit
                 minimumPixelSize: 1
                 textFormat: QtControls.Label.RichText
-                text: "<b>%1</b><ul>%2</ul>".arg(qsTr(modelData.title)).arg(qsTr(content)) +
+                text: "<b>%1</b><ul>%2</ul>".arg(qsTr(modelData.title)).arg(Models.MenuUsage.contentAsListItem(index)) +
                       DeviceAccess.managers.translation.emptyString
                 wrapMode: QtControls.Label.WordWrap
-
-                QtQuick.Component.onCompleted:
-                {
-                    for (var value of modelData.content)
-                    {
-                        content += "<li>%1</li>".arg(value)
-                    }
-                }
             }
         }
     }
