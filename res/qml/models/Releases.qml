@@ -28,42 +28,18 @@ QtQuick.QtObject
      *
     */
 
-    /*
-common:
-    "Introduce PieMenu with handeness management"
-    "Add notification icon"
-    "Export screenshot"
-    "improve language selection"
-    "Replace the frequency buttons with an interval slider"
-    "Rename "Tip Me" to "Support us"
-    "Fix translations"
-    "Introduce ReleaseNotes model and fix MenuUsagePopup"
-
-wasm:
-    "Enable welcome popup wasm"
-    "Introduce TTS wasm, battery (when supported) , autolock"
-
-  */
     readonly property var notes:
     {
         "1.2.0" :
         {
             common : [
-                QT_TR_NOOP("Introduce Pie Menu")
+                QT_TR_NOOP("Introduce PieMenu with Handedness Management"),
+                QT_TR_NOOP("Add Screenshot Export feature"),
+                QT_TR_NOOP("Improve User Experience in Settings Panel"),
+                QT_TR_NOOP("Tip Me becomes Support Us"),
+                QT_TR_NOOP("Various Fixes and Improvements")
             ],
-
-            android : [
-                QT_TR_NOOP("")
-            ],
-            ios    : [
-                QT_TR_NOOP("")
-            ],
-            wasm   : [
-                QT_TR_NOOP("")
-            ],
-            osx    : [
-                QT_TR_NOOP("")
-            ]
+            wasm   : QT_TR_NOOP("Enable TTS, Battery, and Autolock features"),
         },
         "1.1.0" :
         {

@@ -578,22 +578,47 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>Releases</name>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="52"/>
-        <source>Introduce Pie Menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/models/Releases.qml" line="56"/>
         <source></source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="71"/>
+        <location filename="../res/qml/models/Releases.qml" line="36"/>
+        <source>Introduce PieMenu with Handedness Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="37"/>
+        <source>Add Screenshot Export feature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="38"/>
+        <source>Improve User Experience in Settings Panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="39"/>
+        <source>Tip Me becomes Support Us</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="40"/>
+        <source>Various Fixes and Improvements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="42"/>
+        <source>Enable TTS, Battery, and Autolock features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="47"/>
         <source>Fix unreachable links in the About section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="72"/>
+        <location filename="../res/qml/models/Releases.qml" line="48"/>
         <source>Set default speech frequency to every 15 minutes instead of every minute</source>
         <translation type="unfinished"></translation>
     </message>
@@ -734,13 +759,13 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="101"/>
-        <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu.</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="71"/>
+        <source>&lt;b&gt;What&apos;s new?&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="71"/>
-        <source>&lt;b&gt;What&apos;s new&lt;/b&gt;</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="101"/>
+        <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

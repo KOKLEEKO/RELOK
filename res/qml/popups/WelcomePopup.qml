@@ -68,7 +68,7 @@ QtControls.Dialog
                 QtQuick.Text
                 {
                     QtLayouts.Layout.fillWidth: true
-                    text: qsTr("<b>What's new</b>")
+                    text: qsTr("<b>What's new?</b>")
                     font: GeneralFont
                 }
 
