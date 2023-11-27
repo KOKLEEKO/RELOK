@@ -585,22 +585,7 @@ Your suggestions will be taken into account.</source>
     <message>
         <location filename="../res/qml/models/Releases.qml" line="56"/>
         <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/models/Releases.qml" line="59"/>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/models/Releases.qml" line="62"/>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/models/Releases.qml" line="65"/>
-        <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../res/qml/models/Releases.qml" line="71"/>
