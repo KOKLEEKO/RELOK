@@ -105,8 +105,8 @@ Controls.MenuSection
             onPressedChanged: if (!pressed) timeZone.update()
             onValueChanged: wordClock.selectedOffset = value
         }
-        details: qsTr("This setting is not persistent, the time zone of the device <b>(%1)</b> is used each \
-time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.managers.translation.emptyString
+        details: qsTr("This setting is not persistent, the time zone of the device %1 is used each \
+time the application is launched").arg("<b>(%1)</b>".arg(wordClock.deviceGMT)) + DeviceAccess.managers.translation.emptyString
 
         QtControls.Button
         {
@@ -145,7 +145,7 @@ time the application is launched").arg(wordClock.deviceGMT) + DeviceAccess.manag
     }
     Controls.MenuItem
     {
-        title: qsTr("Persistence Settings") + DeviceAccess.managers.translation.emptyString
+        title: qsTr("Settings Persistence") + DeviceAccess.managers.translation.emptyString
         active: isDebug
         QtControls.Button
         {

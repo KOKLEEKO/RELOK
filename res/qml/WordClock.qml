@@ -37,7 +37,7 @@ QtQuick.Rectangle
     readonly property real table_width: Math.min(height, width)
     readonly property real cell_width: table_width/(rows+2)
     readonly property real dot_size: cell_width/4
-    readonly property var speech_frequencies:
+    readonly property var speech_intervals:
     {
         1 : qsTr("every minute")     + DeviceAccess.managers.translation.emptyString,
         5 : qsTr("every 5 minutes")  + DeviceAccess.managers.translation.emptyString,
@@ -48,7 +48,7 @@ QtQuick.Rectangle
         60: qsTr("every hour")       + DeviceAccess.managers.translation.emptyString,
     }
     readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
-    property int speech_frequency: DeviceAccess.managers.persistence.value("Speech/frequency", 15)
+    property int speech_interval: DeviceAccess.managers.persistence.value("Speech/interval", 15)
     property Language language
     //onLanguageChanged: HelpersJS.missingLetters(language.table)
     property var currentDateTime

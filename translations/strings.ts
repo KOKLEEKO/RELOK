@@ -176,8 +176,8 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="108"/>
-        <source>This setting is not persistent, the time zone of the device &lt;b&gt;(%1)&lt;/b&gt; is used each time the application is launched</source>
+        <location filename="../res/qml/settings/Advanced.qml" line="148"/>
+        <source>Settings Persistence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -191,11 +191,6 @@ Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="148"/>
-        <source>Persistence Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../res/qml/settings/Advanced.qml" line="63"/>
         <location filename="../res/qml/settings/Advanced.qml" line="113"/>
         <location filename="../res/qml/settings/Advanced.qml" line="152"/>
@@ -205,6 +200,11 @@ Developed with love by Johan and published by Denver.</source>
     <message>
         <location filename="../res/qml/settings/Advanced.qml" line="46"/>
         <source>This setting is not persistent and is enabled when the application is not in fullscreen mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Advanced.qml" line="108"/>
+        <source>This setting is not persistent, the time zone of the device %1 is used each time the application is launched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -463,32 +463,32 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="32"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="33"/>
         <source>Close section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="34"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="35"/>
         <source>&lt;b&gt;Press&lt;/b&gt; the greetings&lt;br&gt;&lt;i&gt;(top-centered text)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="35"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="36"/>
         <source>&lt;b&gt;Open&lt;/b&gt; another section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="39"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="40"/>
         <source>Close menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="41"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="42"/>
         <source>&lt;b&gt;Press&lt;/b&gt; the clock, if visible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="42"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="43"/>
         <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handeness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -501,22 +501,22 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="40"/>
-        <source>&lt;i&gt;Don&apos;t show this again&lt;/i&gt;</source>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="41"/>
+        <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="48"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="51"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="54"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="59"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="60"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="67"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -599,7 +599,12 @@ Your suggestions will be taken into account.</source>
     </message>
     <message>
         <location filename="../res/qml/models/Releases.qml" line="39"/>
-        <source>Tip Me becomes Support Us</source>
+        <source>&apos;Tip Me&apos; becomes &apos;Support Us&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="47"/>
+        <source>Fix unreachable links in the &apos;About&apos; section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -610,11 +615,6 @@ Your suggestions will be taken into account.</source>
     <message>
         <location filename="../res/qml/models/Releases.qml" line="42"/>
         <source>Enable TTS, Battery, and Autolock features</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../res/qml/models/Releases.qml" line="47"/>
-        <source>Fix unreachable links in the About section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -681,37 +681,37 @@ Your suggestions will be taken into account.</source>
     <name>Tips</name>
     <message>
         <location filename="../res/qml/Tips.qml" line="20"/>
-        <source>Tip me a Bone (for Denver)</source>
+        <source>Support Us with a Bone (for Denver)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/Tips.qml" line="21"/>
-        <source>Tip me a Coffee</source>
+        <source>Support Us with a Coffee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/Tips.qml" line="22"/>
-        <source>Tip me a Cookie</source>
+        <source>Support Us with a Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/Tips.qml" line="23"/>
-        <source>Tip me an Ice Cream</source>
+        <source>Support Us with an Ice Cream</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/Tips.qml" line="24"/>
-        <source>Tip me a Beer</source>
+        <source>Support Us with a Beer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/Tips.qml" line="25"/>
-        <source>Tip me a Burger</source>
+        <source>Support Us with a Burger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../res/qml/Tips.qml" line="26"/>
-        <source>Tip me a Wine Bottle</source>
+        <source>Support Us with a Wine Bottle</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -744,28 +744,28 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>WelcomePopup</name>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="26"/>
-        <source>Welcome to %1 ( %2 )</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="28"/>
+        <source>Welcome to %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="34"/>
-        <source>&lt;i&gt;Don&apos;t show this again&lt;/i&gt;</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="36"/>
+        <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="56"/>
-        <source>We hope you enjoy using it.</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="58"/>
+        <source>We hope you enjoy using it!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="71"/>
-        <source>&lt;b&gt;What&apos;s new?&lt;/b&gt;</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="74"/>
+        <source>What&apos;s new?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="101"/>
-        <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu.</source>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="105"/>
+        <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

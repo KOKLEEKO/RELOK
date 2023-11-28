@@ -161,7 +161,7 @@ function appendAsListItem(value)
     return "<li>%1</li>".arg(value);
 }
 
-function processListOrStringAndAppendAsListItem(values, result)
+function processListOrStringAndAppendAsListItem(values, context = "")
 {
-    return processListOrString(values, (value) => appendAsListItem(qsTr(value)));
+    return processListOrString(values, (value) => appendAsListItem(qsTranslate(context, value)));
 }

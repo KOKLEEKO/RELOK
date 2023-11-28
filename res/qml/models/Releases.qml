@@ -33,23 +33,22 @@ QtQuick.QtObject
         "1.2.0" :
         {
             common : [
-                QT_TR_NOOP("Introduce PieMenu with Handedness Management"),
-                QT_TR_NOOP("Add Screenshot Export feature"),
-                QT_TR_NOOP("Improve User Experience in Settings Panel"),
-                QT_TR_NOOP("Tip Me becomes Support Us"),
-                QT_TR_NOOP("Various Fixes and Improvements")
+                QT_TRANSLATE_NOOP("Releases", "Introduce PieMenu with Handedness Management"),
+                QT_TRANSLATE_NOOP("Releases", "Add Screenshot Export feature"),
+                QT_TRANSLATE_NOOP("Releases", "Improve User Experience in Settings Panel"),
+                QT_TRANSLATE_NOOP("Releases", "'Tip Me' becomes 'Support Us'"),
+                QT_TRANSLATE_NOOP("Releases", "Various Fixes and Improvements")
             ],
-            wasm   : QT_TR_NOOP("Enable TTS, Battery, and Autolock features"),
+            wasm   : QT_TRANSLATE_NOOP("Releases", "Enable TTS, Battery, and Autolock features"),
         },
         "1.1.0" :
         {
             common  : [
-                QT_TR_NOOP("Fix unreachable links in the About section"),
-                QT_TR_NOOP("Set default speech frequency to every 15 minutes instead of every minute")
+                QT_TRANSLATE_NOOP("Releases", "Fix unreachable links in the 'About' section"),
+                QT_TRANSLATE_NOOP("Releases", "Set default speech frequency to every 15 minutes instead of every minute")
             ],
         }
     }
-    readonly property string currentReleaseNote: releaseNote(Qt.application.version, Qt.platform.os)
 
     function releaseNote(version, platform = "")
     {
@@ -57,10 +56,10 @@ QtQuick.QtObject
         if (notes.hasOwnProperty(version))
         {
             var versionNote = notes[version];
-            note += HelpersJS.processListOrStringAndAppendAsListItem(versionNote.common);
+            note += HelpersJS.processListOrStringAndAppendAsListItem(versionNote.common, "Releases");
             if (platform !== "common" && versionNote.hasOwnProperty(platform))
             {
-                note += HelpersJS.processListOrStringAndAppendAsListItem(versionNote[platform]);
+                note += HelpersJS.processListOrStringAndAppendAsListItem(versionNote[platform], "Releases");
             }
         }
         return note += "</ul>";

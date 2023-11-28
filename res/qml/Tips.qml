@@ -17,13 +17,13 @@ QtQuick.Item
     property var failedProduct: null
     property var products: ({})
     readonly property var tipsModel: [
-        { name: "bone"    , tooltip: QT_TRANSLATE_NOOP("Tips", "Tip me a Bone (for Denver)") },
-        { name: "coffee"  , tooltip: QT_TRANSLATE_NOOP("Tips", "Tip me a Coffee")            },
-        { name: "cookie"  , tooltip: QT_TRANSLATE_NOOP("Tips", "Tip me a Cookie")            },
-        { name: "icecream", tooltip: QT_TRANSLATE_NOOP("Tips", "Tip me an Ice Cream")        },
-        { name: "beer"    , tooltip: QT_TRANSLATE_NOOP("Tips", "Tip me a Beer")              },
-        { name: "burger"  , tooltip: QT_TRANSLATE_NOOP("Tips", "Tip me a Burger")            },
-        { name: "wine"    , tooltip: QT_TRANSLATE_NOOP("Tips", "Tip me a Wine Bottle")       }
+        { name: "bone"    , tooltip: QT_TRANSLATE_NOOP("Tips", "Support Us with a Bone (for Denver)") },
+        { name: "coffee"  , tooltip: QT_TRANSLATE_NOOP("Tips", "Support Us with a Coffee")            },
+        { name: "cookie"  , tooltip: QT_TRANSLATE_NOOP("Tips", "Support Us with a Cookie")            },
+        { name: "icecream", tooltip: QT_TRANSLATE_NOOP("Tips", "Support Us with an Ice Cream")        },
+        { name: "beer"    , tooltip: QT_TRANSLATE_NOOP("Tips", "Support Us with a Beer")              },
+        { name: "burger"  , tooltip: QT_TRANSLATE_NOOP("Tips", "Support Us with a Burger")            },
+        { name: "wine"    , tooltip: QT_TRANSLATE_NOOP("Tips", "Support Us with a Wine Bottle")       }
     ]
 
     QtQuick.Instantiator

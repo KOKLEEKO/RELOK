@@ -28,6 +28,7 @@ QtControls.Dialog
     spacing: 0
     footer: QtLayouts.ColumnLayout
     {
+        QtLayouts.Layout.fillWidth: true
         spacing: 0
         QtControls.CheckBox
         {
@@ -37,27 +38,34 @@ QtControls.Dialog
             checked: !showMenuUsage
             indicator.opacity: 0.5
             padding: menuUsagePopup.padding
-            text: qsTr("<i>Don't show this again</i>") + DeviceAccess.managers.translation.emptyString
+            text: "<i>%1</i>".arg(qsTr("Don't show this again")) + DeviceAccess.managers.translation.emptyString
         }
         QtControls.DialogButtonBox
         {
             QtLayouts.Layout.fillWidth: true
+            QtLayouts.Layout.preferredWidth: menuUsagePopup.implicitContentWidth
             background: null
             QtControls.Button
             {
+                QtLayouts.Layout.fillWidth: true
                 text: qsTr("Previous") + DeviceAccess.managers.translation.emptyString
                 enabled: view.isPreviousItem
+
                 onClicked: view.decrementCurrentIndex()
             }
             QtControls.Button
             {
+                QtLayouts.Layout.fillWidth: true
                 text: qsTr("Next") + DeviceAccess.managers.translation.emptyString
                 enabled: view.isNextItem
+
                 onClicked: view.incrementCurrentIndex()
             }
             QtControls.Button
             {
+                QtLayouts.Layout.fillWidth: true
                 text: qsTr("Close") + DeviceAccess.managers.translation.emptyString
+
                 onClicked: close()
             }
         }
@@ -86,8 +94,8 @@ QtControls.Dialog
                 fontSizeMode: QtControls.Label.Fit
                 minimumPixelSize: 1
                 textFormat: QtControls.Label.RichText
-                text: "<b>%1</b><ul>%2</ul>".arg(qsTr(modelData.title)).arg(Models.MenuUsage.contentAsListItem(index)) +
-                      DeviceAccess.managers.translation.emptyString
+                text: "<b>%1</b><ul>%2</ul>".arg(qsTranslate("MenuUsage", modelData.title))
+                /**/.arg(Models.MenuUsage.contentAsListItem(index)) + DeviceAccess.managers.translation.emptyString
                 wrapMode: QtControls.Label.WordWrap
             }
         }

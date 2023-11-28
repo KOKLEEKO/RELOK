@@ -38,20 +38,20 @@ QtQuick.Loader
         }
         Controls.MenuItem
         {
-            title: qsTr("Interval (%1)").arg(Object.values(wordClock.speech_frequencies)[extraControls[0].value]) +
+            title: qsTr("Interval (%1)").arg(Object.values(wordClock.speech_intervals)[extraControls[0].value]) +
                    DeviceAccess.managers.translation.emptyString
             extras: QtControls.Slider
             {
                 from: 0
                 stepSize: 1
-                to: Object.keys(wordClock.speech_frequencies).length-1
-                value: Object.keys(wordClock.speech_frequencies).indexOf(String(wordClock.speech_frequency))
+                to: Object.keys(wordClock.speech_intervals).length-1
+                value: Object.keys(wordClock.speech_intervals).indexOf(String(wordClock.speech_interval))
                 width: parent.width
 
                 onMoved:
                 {
-                    wordClock.speech_frequency = Object.keys(wordClock.speech_frequencies)[value];
-                    DeviceAccess.managers.persistence.setValue("Speech/frequency", wordClock.speech_frequency);
+                    wordClock.speech_interval = Object.keys(wordClock.speech_intervals)[value];
+                    DeviceAccess.managers.persistence.setValue("Speech/interval", wordClock.speech_interval);
                 }
             }
         }

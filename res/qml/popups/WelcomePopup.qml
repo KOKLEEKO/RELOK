@@ -21,9 +21,11 @@ QtControls.Dialog
     anchors.centerIn: parent
     background.opacity: .95
     clip: true
+    topPadding: 0
+    bottomPadding: 0
     closePolicy: QtControls.Dialog.NoAutoClose
     implicitWidth: Math.max(root.width/2, header.implicitWidth, footer.implicitWidth) + 2 * padding
-    title: qsTr("Welcome to %1 ( %2 )").arg(Qt.application.name).arg(Qt.application.version) +
+    title: qsTr("Welcome to %1 (%2)").arg(Qt.application.name).arg(Qt.application.version) +
            DeviceAccess.managers.translation.emptyString
     footer: QtControls.CheckBox
     {
@@ -31,7 +33,7 @@ QtControls.Dialog
 
         indicator.opacity: 0.5
         padding: welcomePopup.padding
-        text: qsTr("<i>Don't show this again</i>") + DeviceAccess.managers.translation.emptyString
+        text: "<i>%1</i>".arg(qsTr("Don't show this again")) + DeviceAccess.managers.translation.emptyString
     }
 
     onClosed: showWelcome = !hidePopupCheckbox.checked
@@ -53,13 +55,14 @@ QtControls.Dialog
             font: GeneralFont
             fontSizeMode: QtControls.Label.Fit
             minimumPixelSize: 1
-            text: qsTr("We hope you enjoy using it.") + DeviceAccess.managers.translation.emptyString
+            text: qsTr("We hope you enjoy using it!") + DeviceAccess.managers.translation.emptyString
             textFormat: QtControls.Label.RichText
             wrapMode: QtControls.Label.WordWrap
         }
         QtControls.Pane
         {
             QtLayouts.Layout.fillHeight: true
+            QtLayouts.Layout.maximumHeight: root.height/5
             QtLayouts.Layout.fillWidth: true
 
             QtLayouts.ColumnLayout
@@ -68,7 +71,7 @@ QtControls.Dialog
                 QtQuick.Text
                 {
                     QtLayouts.Layout.fillWidth: true
-                    text: qsTr("<b>What's new?</b>")
+                    text: "<b>%1</b>".arg(qsTr("What's new?")) + DeviceAccess.managers.translation.emptyString
                     font: GeneralFont
                 }
 
@@ -84,7 +87,8 @@ QtControls.Dialog
                     {
                         font: GeneralFont
                         height: scrollView.availableHeight
-                        text: qsTr(Models.Releases.currentReleaseNote) + DeviceAccess.managers.translation.emptyString
+                        text: Models.Releases.releaseNote(Qt.application.version, Qt.platform.os) +
+                              DeviceAccess.managers.translation.emptyString
                         textFormat: QtQuick.Text.RichText
                         width: scrollView.availableWidth - scrollView.QtControls. ScrollBar.vertical.implicitWidth
                         wrapMode: QtQuick.Text.Wrap
@@ -98,7 +102,7 @@ QtControls.Dialog
             font: GeneralFont
             fontSizeMode: QtControls.Label.Fit
             minimumPixelSize: 1
-            text: qsTr("Please <b>press and hold</b> outside this popup to close it and open the pie menu.") +
+            text: qsTr("Please <b>press and hold</b> outside this popup to close it and open the pie menu") +
                   DeviceAccess.managers.translation.emptyString
             textFormat: QtControls.Label.RichText
             wrapMode: QtControls.Label.WordWrap

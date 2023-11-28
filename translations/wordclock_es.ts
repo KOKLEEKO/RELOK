@@ -91,7 +91,7 @@ Developed with love by Johan and published by Denver.</source>
 Desarrollada con amor por Johan y publicada por Denver.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="127"/>
+      <location filename="../res/qml/settings/About.qml" line="129"/>
       <source>Version</source>
       <translation>Versión</translation>
     </message>
@@ -99,42 +99,47 @@ Desarrollada con amor por Johan y publicada por Denver.</translation>
   <context>
     <name>Accessories</name>
     <message>
-      <location filename="../res/qml/settings/Accessories.qml" line="14"/>
+      <location filename="../res/qml/settings/Accessories.qml" line="18"/>
       <source>Accessories</source>
       <translation>Accesorios</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Accessories.qml" line="19"/>
+      <location filename="../res/qml/settings/Accessories.qml" line="24"/>
+      <source>Time Reminder status</source>
+      <translation>Estado del recordatorio de la hora</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/settings/Accessories.qml" line="36"/>
       <source>Time Zone display mode</source>
       <translation>Visualización del huso horario</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Accessories.qml" line="24"/>
+      <location filename="../res/qml/settings/Accessories.qml" line="46"/>
       <source>Date display mode</source>
       <translation>Visualización de la fecha</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Accessories.qml" line="29"/>
+      <location filename="../res/qml/settings/Accessories.qml" line="56"/>
       <source>4-Dot display mode</source>
       <translation>Visualización de los 4 puntos</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Accessories.qml" line="34"/>
+      <location filename="../res/qml/settings/Accessories.qml" line="61"/>
       <source>Seconds display mode</source>
       <translation>Visualización de los segundos</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Accessories.qml" line="39"/>
+      <location filename="../res/qml/settings/Accessories.qml" line="51"/>
       <source>AM|PM display mode</source>
       <translation>Visualización AM|MP</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Accessories.qml" line="44"/>
+      <location filename="../res/qml/settings/Accessories.qml" line="41"/>
       <source>Week Number display mode</source>
       <translation>Visualización del número de semana</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Accessories.qml" line="50"/>
+      <location filename="../res/qml/settings/Accessories.qml" line="30"/>
       <source>Battery Level display mode</source>
       <translation>Visualización del nivel de batería</translation>
     </message>
@@ -152,48 +157,64 @@ Desarrollada con amor por Johan y publicada por Denver.</translation>
       <translation>Mostrar como artilugio</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="40"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="42"/>
       <source>Opacity</source>
       <translation>Opacidad</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="69"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="71"/>
       <source>Display as watermark</source>
       <translation>Mostrar como marca de agua</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="74"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="76"/>
       <source>Activate</source>
       <translation>Activar</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="93"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="96"/>
       <source>Time Zone (%1)</source>
       <translation>Huso horario (%1)</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="105"/>
-      <source>This setting is not persistent, the time zone of the device &lt;b&gt;(%1)&lt;/b&gt; is used each time the application is launched</source>
-      <translation>Este ajuste no es persistente, el huso horario del dispositivo (%1) se utiliza cada vez que se inicia la aplicación</translation>
+      <location filename="../res/qml/settings/Advanced.qml" line="148"/>
+      <source>Settings Persistence</source>
+      <translation>Persistencia de ajustes</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="61"/>
-      <location filename="../res/qml/settings/Advanced.qml" line="110"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="136"/>
+      <source>Menu usage popup</source>
+      <translation>Ventana de uso del menú</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/settings/Advanced.qml" line="144"/>
+      <source>Display at menu opening</source>
+      <translation>Mostrar en la apertura del menú</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/settings/Advanced.qml" line="63"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="113"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="152"/>
       <source>Reset</source>
       <translation>Reiniciar</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="44"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="46"/>
       <source>This setting is not persistent and is enabled when the application is not in fullscreen mode</source>
       <translation>Este ajuste no es persistente y se activa cuando la aplicación no está en modo de pantalla completa</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="122"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="108"/>
+      <source>This setting is not persistent, the time zone of the device %1 is used each time the application is launched</source>
+      <translation>Este ajuste no es persistente, la zona horaria del dispositivo %1 se utiliza cada vez que se inicia la aplicación</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/settings/Advanced.qml" line="125"/>
       <source>Welcome popup</source>
       <translation>Ventana de bienvenida</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Advanced.qml" line="129"/>
+      <location filename="../res/qml/settings/Advanced.qml" line="132"/>
       <source>Display at startup.</source>
       <translation>Mostrar al inicio.</translation>
     </message>
@@ -201,68 +222,68 @@ Desarrollada con amor por Johan y publicada por Denver.</translation>
   <context>
     <name>Appearance</name>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="19"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="21"/>
       <source>Appearance</source>
       <translation>Apariencia</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="151"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="182"/>
       <source>Hide Status Bar</source>
       <translation>Ocultar la barra de estado</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="152"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="183"/>
       <source>Full Screen</source>
       <translation>Pantalla completa</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="166"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="199"/>
       <source>When the settings menu is closed, this can also be done by a long press on the clock.</source>
       <translation>Cuando el menú de ajustes está cerrado, también puede hacerse mediante una pulsación larga en el reloj.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="72"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="87"/>
       <source>Right-handed</source>
       <translation>Diestr@</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="72"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="87"/>
       <source>Left-handed</source>
       <translation>Zurd@</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="35"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="37"/>
       <source>Application Language</source>
       <translation>Idioma de la aplicación</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="41"/>
-      <location filename="../res/qml/settings/Appearance.qml" line="95"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="43"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="110"/>
       <source>Reset</source>
       <translation>Reiniciar</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="71"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="86"/>
       <source>Handedness</source>
       <translation>Mano dominante</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="86"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="101"/>
       <source>Optimize the application layout to suit your handedness</source>
       <translation>Optimiza el diseño de la aplicación para adaptarla a tu mano dominante</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="91"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="106"/>
       <source>Clock Language</source>
       <translation>Idioma del reloj</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="131"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="160"/>
       <source>Enable Special Message</source>
       <translation>Activar mensaje especial</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Appearance.qml" line="132"/>
+      <location filename="../res/qml/settings/Appearance.qml" line="161"/>
       <source>Each grid contains a special message displayed in place of the hour for one minute at the following times: 00:00 (12:00 AM), 11:11 (11:11 AM), and 22:22 (10:22 PM). The (4-dot) minute indicator will display 0, 1, or 2 lights, allowing you to distinguish these different times.</source>
       <translation>Cada cuadrícula contiene un mensaje especial que aparece en lugar de la hora durante un minuto en los siguientes momentos: 00:00 (12:00 AM), 11:11 (11:11 AM) y 22:22 (10:22 PM). El indicador de minutos (de 4 puntos) mostrará 0, 1 o 2 luces, lo que le permitirá distinguir estas diferentes horas.</translation>
     </message>
@@ -275,12 +296,12 @@ Desarrollada con amor por Johan y publicada por Denver.</translation>
       <translation>Gracias por su reseña</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/BadReviewPopup.qml" line="24"/>
+      <location filename="../res/qml/popups/BadReviewPopup.qml" line="23"/>
       <source>Suggestions for %1</source>
       <translation>Sugerencias para %1</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/BadReviewPopup.qml" line="37"/>
+      <location filename="../res/qml/popups/BadReviewPopup.qml" line="36"/>
       <source>We are sorry to find out that you are not completely satisfied with this application...
 With your feedback, we can make it even better!
 
@@ -294,7 +315,7 @@ Tendremos en cuenta sus sugerencias.</translation>
   <context>
     <name>ColorPicker</name>
     <message>
-      <location filename="../res/qml/controls/ColorPicker.qml" line="63"/>
+      <location filename="../res/qml/controls/ColorPicker.qml" line="78"/>
       <source>Reset</source>
       <translation>Reiniciar</translation>
     </message>
@@ -335,51 +356,49 @@ Tendremos en cuenta sus sugerencias.</translation>
       <translation>Ahorro de Energía</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="28"/>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="52"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="29"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="61"/>
       <source>Stay Awake</source>
       <translation>Mantener pantalla activa</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="29"/>
-      <source>If this option is enabled, the device&apos;s screen will remain active while the application is running.
-Don&apos;t forget to enable &apos;%1&apos; if you might lose attention on your device.</source>
-      <translation>Si esta opción está activada, la pantalla del dispositivo permanecerá activa mientras se ejecuta la aplicación.
-No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="30"/>
+      <source>If this option is enabled, the device&apos;s screen will remain active while the application is running.</source>
+      <translation>Si esta opción está activada, la pantalla del dispositivo permanecerá activa mientras la aplicación se ejecuta.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="31"/>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="42"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="32"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="50"/>
       <source>App pinning</source>
       <translation>Fijar aplicación</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="32"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="33"/>
       <source>Guided Access</source>
       <translation>Acceso guiado</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="49"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="58"/>
       <source>Minimum Battery Level</source>
       <translation>Nivel mínimo de batería</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="51"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="60"/>
       <source>&apos;%1&apos; feature will be automatically disabled when the battery level reaches this value unless the device charges.</source>
       <translation>La función '%1' se desactivará automáticamente cuando el nivel de batería alcance este valor, a menos que el dispositivo se esté cargando.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="53"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="62"/>
       <source>battery level</source>
       <translation>nivel de batería</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="68"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="77"/>
       <source>Brightness Level</source>
       <translation>Nivel de brillo</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/EnergySaving.qml" line="84"/>
+      <location filename="../res/qml/settings/EnergySaving.qml" line="95"/>
       <source>High brightness levels cause the battery to discharge faster.</source>
       <translation>Niveles altos de brillo hacen que la batería se descargue más rápidamente.</translation>
     </message>
@@ -405,25 +424,111 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
   <context>
     <name>Menu</name>
     <message>
-      <location filename="../res/qml/settings/Menu.qml" line="19"/>
+      <location filename="../res/qml/settings/Menu.qml" line="20"/>
       <source>Good Morning!</source>
       <translation>¡Buenos días!</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Menu.qml" line="21"/>
+      <location filename="../res/qml/settings/Menu.qml" line="24"/>
       <source>Good Afternoon!</source>
       <translation>¡Buenas tardes!</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Menu.qml" line="22"/>
+      <location filename="../res/qml/settings/Menu.qml" line="26"/>
       <source>Good Evening!</source>
       <translation>¡Buenas noches!</translation>
     </message>
   </context>
   <context>
+    <name>MenuUsage</name>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="18"/>
+      <source>Open menu</source>
+      <translation>Mostrar el menú</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="20"/>
+      <source>&lt;b&gt;Long press&lt;/b&gt; on the clock, then release on the gear icon</source>
+      <translation>&lt;b&gt;Mantenga pulsado&lt;/b&gt; en el reloj y, a continuación, suelte en el icono de engranaje</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="21"/>
+      <source>&lt;b&gt;Swipe left&lt;/b&gt; or right from the edge of the screen, based on the selected handeness&lt;br&gt;&lt;i&gt;(left for right-handed [&lt;u&gt;default&lt;/u&gt;] and right for left-handed)&lt;/i&gt;</source>
+      <translation>&lt;b&gt;Desliza el dedo hacia la izquierda&lt;/b&gt; o hacia la derecha desde el borde de la pantalla, en función de la mano dominante seleccionada&lt;br&gt;&lt;i&gt;(izquierda para diestr@s [&lt;u&gt;por defecto&lt;/u&gt;] y derecha para zurd@s)&lt;/i&gt;</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="26"/>
+      <source>Open section</source>
+      <translation>Abrir una sección</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="28"/>
+      <source>&lt;b&gt;Press&lt;/b&gt; on a section&lt;br&gt;&lt;i&gt;(the section will remain open until you close it)&lt;/i&gt;</source>
+      <translation>&lt;b&gt;Pulsa&lt;/b&gt; sobre una sección&lt;br&gt;&lt;i&gt;(la sección permanecerá abierta hasta que la cierres)&lt;/i&gt;</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="33"/>
+      <source>Close section</source>
+      <translation>Cerrar una sección</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="35"/>
+      <source>&lt;b&gt;Press&lt;/b&gt; the greetings&lt;br&gt;&lt;i&gt;(top-centered text)&lt;/i&gt;</source>
+      <translation>&lt;b&gt;Pulsa&lt;/b&gt; los saludos&lt;br&gt;&lt;i&gt;(texto centrado en el centro superior)&lt;/i&gt;</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="36"/>
+      <source>&lt;b&gt;Open&lt;/b&gt; another section</source>
+      <translation>&lt;b&gt;Abrir&lt;/b&gt; otra sección</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="40"/>
+      <source>Close menu</source>
+      <translation>Cerrar el menú</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="42"/>
+      <source>&lt;b&gt;Press&lt;/b&gt; the clock, if visible</source>
+      <translation>&lt;b&gt;Pulsa&lt;/b&gt; el reloj, si es visible</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="43"/>
+      <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handeness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
+      <translation>&lt;b&gt;Arrastra el menú a la derecha&lt;/b&gt; o a la izquierda, dependiendo de la mano dominante seleccionada &lt;br&gt;&lt;i&gt;(derecha para diestr@s [&lt;u&gt;por defecto&lt;/u&gt;] e izquierda para zurd@s)&lt;/i&gt;</translation>
+    </message>
+  </context>
+  <context>
+    <name>MenuUsagePopup</name>
+    <message>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="27"/>
+      <source>How to use it? [%1/%2]</source>
+      <translation>¿Cómo usarlo? [%1/%2]</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="41"/>
+      <source>Don&apos;t show this again</source>
+      <translation>No mostrar esto de nuevo</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="51"/>
+      <source>Previous</source>
+      <translation>Anterior</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="59"/>
+      <source>Next</source>
+      <translation>Siguiente</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="67"/>
+      <source>Close</source>
+      <translation>Cerrar</translation>
+    </message>
+  </context>
+  <context>
     <name>Picker</name>
     <message>
-      <location filename="../res/qml/controls/Picker.qml" line="48"/>
+      <location filename="../res/qml/controls/Picker.qml" line="49"/>
       <source>%L1 %</source>
       <translation>%L1 %</translation>
     </message>
@@ -464,30 +569,78 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
       <translation>Sí</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/BadReviewPopup.qml" line="29"/>
+      <location filename="../res/qml/popups/BadReviewPopup.qml" line="28"/>
       <source>Close</source>
       <translation>Cerrar</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/BadReviewPopup.qml" line="31"/>
+      <location filename="../res/qml/popups/BadReviewPopup.qml" line="30"/>
       <source>OK</source>
       <translation>Aceptar</translation>
     </message>
   </context>
   <context>
+    <name>Releases</name>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="56"/>
+      <source/>
+      <translation type="unfinished"/>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="36"/>
+      <source>Introduce PieMenu with Handedness Management</source>
+      <translation>Introducción del menú circular con la gestión de la mano dominante</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="37"/>
+      <source>Add Screenshot Export feature</source>
+      <translation>Añadir función de exportación de captura de pantalla</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="38"/>
+      <source>Improve User Experience in Settings Panel</source>
+      <translation>Mejorar la experiencia del usuario en el panel de ajustes</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="39"/>
+      <source>&apos;Tip Me&apos; becomes &apos;Support Us&apos;</source>
+      <translation>&apos;Dame una propina&apos; se convierte en &apos;Apóyanos&apos;</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="47"/>
+      <source>Fix unreachable links in the &apos;About&apos; section</source>
+      <translation>Corregir los enlaces inaccesibles de la sección &apos;Acerca de&apos;</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="40"/>
+      <source>Various Fixes and Improvements</source>
+      <translation>Varias correcciones y mejoras</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="42"/>
+      <source>Enable TTS, Battery, and Autolock features</source>
+      <translation>Activar la síntesis de voz, la gestión de la batería y el bloqueo automático</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="48"/>
+      <source>Set default speech frequency to every 15 minutes instead of every minute</source>
+      <translation>Establecer frecuencia de voz predeterminada a cada 15 minutos en lugar de cada minuto</translation>
+    </message>
+  </context>
+  <context>
     <name>SmallPositionSelector</name>
     <message>
-      <location filename="../res/qml/controls/SmallPositionSelector.qml" line="42"/>
+      <location filename="../res/qml/controls/SmallPositionSelector.qml" line="45"/>
       <source>Left</source>
       <translation>Izquierda</translation>
     </message>
     <message>
-      <location filename="../res/qml/controls/SmallPositionSelector.qml" line="42"/>
+      <location filename="../res/qml/controls/SmallPositionSelector.qml" line="45"/>
       <source>Center</source>
       <translation>Centrado</translation>
     </message>
     <message>
-      <location filename="../res/qml/controls/SmallPositionSelector.qml" line="42"/>
+      <location filename="../res/qml/controls/SmallPositionSelector.qml" line="45"/>
       <source>Right</source>
       <translation>Derecha</translation>
     </message>
@@ -495,22 +648,22 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
   <context>
     <name>Speech</name>
     <message>
-      <location filename="../res/qml/settings/Speech.qml" line="24"/>
+      <location filename="../res/qml/settings/Speech.qml" line="26"/>
       <source>Speech</source>
       <translation>Síntesis de voz</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Speech.qml" line="28"/>
+      <location filename="../res/qml/settings/Speech.qml" line="30"/>
       <source>Enable Time Reminder</source>
       <translation>Activar recordatorio de tiempo</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Speech.qml" line="38"/>
+      <location filename="../res/qml/settings/Speech.qml" line="41"/>
       <source>Interval (%1)</source>
       <translation>Intervalo (%1)</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/Speech.qml" line="58"/>
+      <location filename="../res/qml/settings/Speech.qml" line="60"/>
       <source>Voice</source>
       <translation>Voz</translation>
     </message>
@@ -519,8 +672,8 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
     <name>TipJar</name>
     <message>
       <location filename="../res/qml/settings/TipJar.qml" line="25"/>
-      <source>Tip Jar</source>
-      <translation>Bote de propinas</translation>
+      <source>Support us</source>
+      <translation>Apóyanos</translation>
     </message>
     <message>
       <location filename="../res/qml/settings/TipJar.qml" line="57"/>
@@ -532,38 +685,38 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
     <name>Tips</name>
     <message>
       <location filename="../res/qml/Tips.qml" line="20"/>
-      <source>Tip me a Bone (for Denver)</source>
-      <translation>Regálame un Hueso (para Denver)</translation>
+      <source>Support Us with a Bone (for Denver)</source>
+      <translation>Apóyanos con un hueso (para Denver)</translation>
     </message>
     <message>
       <location filename="../res/qml/Tips.qml" line="21"/>
-      <source>Tip me a Coffee</source>
-      <translation>Regálame un Café</translation>
+      <source>Support Us with a Coffee</source>
+      <translation>Apóyanos con un café</translation>
     </message>
     <message>
       <location filename="../res/qml/Tips.qml" line="22"/>
-      <source>Tip me a Cookie</source>
-      <translation>Regálame una Galleta</translation>
+      <source>Support Us with a Cookie</source>
+      <translation>Apóyanos con una galleta</translation>
     </message>
     <message>
       <location filename="../res/qml/Tips.qml" line="23"/>
-      <source>Tip me an Ice Cream</source>
-      <translation>Regálame un Helado</translation>
+      <source>Support Us with an Ice Cream</source>
+      <translation>Apóyanos con un helado</translation>
     </message>
     <message>
       <location filename="../res/qml/Tips.qml" line="24"/>
-      <source>Tip me a Beer</source>
-      <translation>Regálame una Cerveza</translation>
+      <source>Support Us with a Beer</source>
+      <translation>Apóyanos con una cerveza</translation>
     </message>
     <message>
       <location filename="../res/qml/Tips.qml" line="25"/>
-      <source>Tip me a Burger</source>
-      <translation>Regálame una Hamburguesa</translation>
+      <source>Support Us with a Burger</source>
+      <translation>Apóyanos con una hamburguesa</translation>
     </message>
     <message>
       <location filename="../res/qml/Tips.qml" line="26"/>
-      <source>Tip me a Wine Bottle</source>
-      <translation>Regálame una Botella de Vino</translation>
+      <source>Support Us with a Wine Bottle</source>
+      <translation>Apóyanos con una botella de vino</translation>
     </message>
   </context>
   <context>
@@ -574,7 +727,7 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
       <translation>¡Gracias por su apoyo!</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/TipsThanksPopup.qml" line="24"/>
+      <location filename="../res/qml/popups/TipsThanksPopup.qml" line="23"/>
       <source>It means a lot to us.</source>
       <translation>Esto significa mucho para nosotros.</translation>
     </message>
@@ -582,12 +735,12 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
   <context>
     <name>WebAccess</name>
     <message>
-      <location filename="../res/js/WebAccess.js" line="42"/>
+      <location filename="../res/js/WebAccess.js" line="44"/>
       <source>Loading...</source>
       <translation>Cargando...</translation>
     </message>
     <message>
-      <location filename="../res/js/WebAccess.js" line="48"/>
+      <location filename="../res/js/WebAccess.js" line="54"/>
       <source>Houston, we have a problem</source>
       <translation>Houston, tenemos un problema</translation>
     </message>
@@ -595,24 +748,29 @@ No olvide activar '%1'; si puede perder de vista su dispositivo.</translation>
   <context>
     <name>WelcomePopup</name>
     <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="24"/>
-      <source>Welcome to %1</source>
-      <translation>Bienvenido a %1</translation>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="28"/>
+      <source>Welcome to %1 (%2)</source>
+      <translation>Bienvenid@ en %1 (%2)</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="40"/>
-      <source>We hope you enjoy using it.</source>
-      <translation>Esperamos que disfrute utilizándolo.</translation>
-    </message>
-    <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="40"/>
-      <source>Please press and hold outside this popup to close it and open the settings menu.</source>
-      <translation>Mantenga pulsado fuera de esta ventana emergente para cerrarla y abrir el menú de ajustes.</translation>
-    </message>
-    <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="49"/>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="36"/>
       <source>Don&apos;t show this again</source>
       <translation>No mostrar esto de nuevo</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="58"/>
+      <source>We hope you enjoy using it!</source>
+      <translation>¡Esperamos que disfrute utilizándolo!</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="74"/>
+      <source>What&apos;s new?</source>
+      <translation>Novedades:</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="105"/>
+      <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu</source>
+      <translation>&lt;b&gt;Mantenga pulsado&lt;/b&gt; fuera de esta ventana emergente para cerrarla y abrir el menú circular</translation>
     </message>
   </context>
   <context>

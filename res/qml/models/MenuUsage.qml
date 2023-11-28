@@ -15,38 +15,39 @@ QtQuick.QtObject {
 
     readonly property var instructions: [
         {
-            title: QT_TR_NOOP("Open menu"),
+            title: QT_TRANSLATE_NOOP("MenuUsage", "Open menu"),
             content: [
-                QT_TR_NOOP("<b>Long press</b> on the clock, then release on the gear icon"),
-                QT_TR_NOOP("<b>Swipe left</b> or right from the edge of the screen, based on the selected handeness<br>\
-<i>(left for right-handed [<u>default</u>] and right for left-handed)</i>"),
+                QT_TRANSLATE_NOOP("MenuUsage", "<b>Long press</b> on the clock, then release on the gear icon"),
+                QT_TRANSLATE_NOOP("MenuUsage", "<b>Swipe left</b> or right from the edge of the screen, based on the \
+selected handeness<br><i>(left for right-handed [<u>default</u>] and right for left-handed)</i>"),
             ]
         },
         {
-            title: QT_TR_NOOP("Open section"),
+            title: QT_TRANSLATE_NOOP("MenuUsage", "Open section"),
             content: [
-                QT_TR_NOOP("<b>Press</b> on a section<br><i>(the section will remain open until you close it)</i>")
+                QT_TRANSLATE_NOOP("MenuUsage", "<b>Press</b> on a section<br><i>(the section will remain open until \
+you close it)</i>")
             ]
         },
         {
-            title: QT_TR_NOOP("Close section"),
+            title: QT_TRANSLATE_NOOP("MenuUsage", "Close section"),
             content: [
-                QT_TR_NOOP("<b>Press</b> the greetings<br><i>(top-centered text)</i>"),
-                QT_TR_NOOP("<b>Open</b> another section")
+                QT_TRANSLATE_NOOP("MenuUsage", "<b>Press</b> the greetings<br><i>(top-centered text)</i>"),
+                QT_TRANSLATE_NOOP("MenuUsage", "<b>Open</b> another section")
             ]
         },
         {
-            title: QT_TR_NOOP("Close menu"),
+            title: QT_TRANSLATE_NOOP("MenuUsage", "Close menu"),
             content: [
-                QT_TR_NOOP("<b>Press</b> the clock, if visible"),
-                QT_TR_NOOP("<b>Drag the menu to the right</b> or left, based on the selected handeness \
-<br><i>(right for right-handed [<u>default</u>] and left for left-handed)</i>")
+                QT_TRANSLATE_NOOP("MenuUsage", "<b>Press</b> the clock, if visible"),
+                QT_TRANSLATE_NOOP("MenuUsage", "<b>Drag the menu to the right</b> or left, based on the selected \
+handeness <br><i>(right for right-handed [<u>default</u>] and left for left-handed)</i>")
             ]
         }
     ]
 
     function contentAsListItem(index)
     {
-        return HelpersJS.processListOrStringAndAppendAsListItem(instructions[index].content);
+        return HelpersJS.processListOrStringAndAppendAsListItem(instructions[index].content, "MenuUsage");
     }
 }
