@@ -79,6 +79,7 @@ QtControls.Dialog
                 {
                     id: scrollView
 
+                    QtControls.ScrollBar.vertical.policy: QtControls.ScrollBar.AlwaysOn
                     QtLayouts.Layout.fillHeight: true
                     QtLayouts.Layout.fillWidth: true
                     clip: true

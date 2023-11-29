@@ -33,6 +33,7 @@ you close it)</i>")
             title: QT_TRANSLATE_NOOP("MenuUsage", "Close section"),
             content: [
                 QT_TRANSLATE_NOOP("MenuUsage", "<b>Press</b> the greetings<br><i>(top-centered text)</i>"),
+                QT_TRANSLATE_NOOP("MenuUsage", "<b>Press</b> on the title of the open section"),
                 QT_TRANSLATE_NOOP("MenuUsage", "<b>Open</b> another section")
             ]
         },

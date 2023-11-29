@@ -474,21 +474,26 @@ Your suggestions will be taken into account.</source>
     </message>
     <message>
         <location filename="../res/qml/models/MenuUsage.qml" line="36"/>
+        <source>&lt;b&gt;Press&lt;/b&gt; on the title of the open section</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/MenuUsage.qml" line="37"/>
         <source>&lt;b&gt;Open&lt;/b&gt; another section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="40"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="41"/>
         <source>Close menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="42"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="43"/>
         <source>&lt;b&gt;Press&lt;/b&gt; the clock, if visible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/MenuUsage.qml" line="43"/>
+        <location filename="../res/qml/models/MenuUsage.qml" line="44"/>
         <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handeness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -764,7 +769,7 @@ Your suggestions will be taken into account.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="105"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="106"/>
         <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu</source>
         <translation type="unfinished"></translation>
     </message>

@@ -478,21 +478,26 @@ Tendremos en cuenta sus sugerencias.</translation>
     </message>
     <message>
       <location filename="../res/qml/models/MenuUsage.qml" line="36"/>
+      <source>&lt;b&gt;Press&lt;/b&gt; on the title of the open section</source>
+      <translation>&lt;b&gt;Pulsa&lt;/b&gt; sobre el título de la sección abierta</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/MenuUsage.qml" line="37"/>
       <source>&lt;b&gt;Open&lt;/b&gt; another section</source>
       <translation>&lt;b&gt;Abrir&lt;/b&gt; otra sección</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/MenuUsage.qml" line="40"/>
+      <location filename="../res/qml/models/MenuUsage.qml" line="41"/>
       <source>Close menu</source>
       <translation>Cerrar el menú</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/MenuUsage.qml" line="42"/>
+      <location filename="../res/qml/models/MenuUsage.qml" line="43"/>
       <source>&lt;b&gt;Press&lt;/b&gt; the clock, if visible</source>
       <translation>&lt;b&gt;Pulsa&lt;/b&gt; el reloj, si es visible</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/MenuUsage.qml" line="43"/>
+      <location filename="../res/qml/models/MenuUsage.qml" line="44"/>
       <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handeness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
       <translation>&lt;b&gt;Arrastra el menú a la derecha&lt;/b&gt; o a la izquierda, dependiendo de la mano dominante seleccionada &lt;br&gt;&lt;i&gt;(derecha para diestr@s [&lt;u&gt;por defecto&lt;/u&gt;] e izquierda para zurd@s)&lt;/i&gt;</translation>
     </message>
@@ -768,7 +773,7 @@ Tendremos en cuenta sus sugerencias.</translation>
       <translation>Novedades:</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="105"/>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="106"/>
       <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu</source>
       <translation>&lt;b&gt;Mantenga pulsado&lt;/b&gt; fuera de esta ventana emergente para cerrarla y abrir el menú circular</translation>
     </message>
