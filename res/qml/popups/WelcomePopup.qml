@@ -4,7 +4,8 @@
 **  Licensed under the LGPL license. See LICENSE file in the project root for
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
-**************************************************************************************************/import QtQuick 2.15 as QtQuick
+**************************************************************************************************/
+import QtQuick 2.15 as QtQuick
 import QtQuick.Controls 2.15 as QtControls
 import QtQuick.Layouts 1.15 as QtLayouts
 
@@ -79,11 +80,16 @@ QtControls.Dialog
                 {
                     id: scrollView
 
-                    QtControls.ScrollBar.vertical.policy: QtControls.ScrollBar.AlwaysOn
                     QtLayouts.Layout.fillHeight: true
                     QtLayouts.Layout.fillWidth: true
                     clip: true
                     contentWidth: width
+                    QtQuick.Component.onCompleted: {
+                        QtControls.ScrollBar.vertical.policy = Qt.binding(() => (contentHeight > availableHeight)
+                                                                          ? QtControls.ScrollBar.AlwaysOn
+                                                                          : QtControls.ScrollBar.AsNeeded)
+                    }
+
                     QtQuick.Text
                     {
                         font: GeneralFont

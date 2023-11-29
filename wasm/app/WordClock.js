@@ -1293,11 +1293,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 15564800,
+    STACK_BASE = 15581824,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 10321920,
-    DYNAMIC_BASE = 15564800,
-    DYNAMICTOP_PTR = 10321744;
+    STACK_MAX = 10338944,
+    DYNAMIC_BASE = 15581824,
+    DYNAMICTOP_PTR = 10338768;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1825,23 +1825,24 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  9448: function() {document.addEventListener('visibilitychange', () => { if (Module.wakeLock && document.visibilityState === 'visible') disableAutoLock(); });},  
- 9636: function() {if ('getBattery' in navigator) { navigator.getBattery().then((battery) => { Module._updateBatteryLevel(battery.level); battery.addEventListener("levelchange", () => { Module._updateBatteryLevel(battery.level) }); Module._updateIsPlugged(battery.charging); battery.addEventListener("chargingchange", () => { Module._updateIsPlugged(battery.charging) }); }) } else { Module._disableBatteryAndEnergySavingManagers() }},  
- 10708: function($0, $1) {const synth = window.speechSynthesis; synth.cancel(); const voiceIndex = $0; const textToSay = UTF8ToString($1); const utterance = new SpeechSynthesisUtterance(textToSay); var voice = synth.getVoices()[voiceIndex]; utterance.lang = voice.lang; utterance.voice = voice; synth.speak(utterance);},  
- 11008: function() {if ('speechSynthesis' in window) { processVoices(); window.speechSynthesis.onvoiceschanged = () => processVoices(); } else { Module._disableSpeechManager(); }}
+  9444: function() {document.addEventListener('visibilitychange', () => { if (Module.wakeLock && document.visibilityState === 'visible') disableAutoLock(); });},  
+ 9632: function() {if ('getBattery' in navigator) { navigator.getBattery().then((battery) => { Module._updateBatteryLevel(battery.level); battery.addEventListener("levelchange", () => { Module._updateBatteryLevel(battery.level) }); Module._updateIsPlugged(battery.charging); battery.addEventListener("chargingchange", () => { Module._updateIsPlugged(battery.charging) }); }) } else { Module._disableBatteryAndEnergySavingManagers() }},  
+ 10051: function() {if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();},  
+ 10736: function($0, $1) {const synth = window.speechSynthesis; synth.cancel(); const voiceIndex = $0; const textToSay = UTF8ToString($1); const utterance = new SpeechSynthesisUtterance(textToSay); var voice = synth.getVoices()[voiceIndex]; utterance.lang = voice.lang; utterance.voice = voice; synth.speak(utterance);},  
+ 11036: function() {if ('speechSynthesis' in window) { processVoices(); window.speechSynthesis.onvoiceschanged = () => processVoices(); } else { Module._disableSpeechManager(); }}
 };
 
 function _emscripten_asm_const_iii(code, sigPtr, argbuf) {
   var args = readAsmConstArgs(sigPtr, argbuf);
   return ASM_CONSTS[code].apply(null, args);
-}function processVoices(){ Module._clearAll(); const voices = window.speechSynthesis.getVoices(); var lastIndex = 0; voices.forEach((voice, index) => { const iso = stringToNewUTF8(voice.lang.split('-')[0]); if (Module._isLocaleSupported(iso)) { _free(iso); const lang = stringToNewUTF8(voice.lang.replace('-', "_")); const name = stringToNewUTF8(voice.name.split(' ')[0]); Module._processVoice(lang, name, index); lastIndex = index; _free(lang); _free(name); } }); Module._notifyLocalesAndVoicesChanged(); }
+}function processVoices(){ Module._clearAll(); const voices = window.speechSynthesis.getVoices(); var lastIndex = 0; voices.forEach((voice, index) => { const iso = stringToNewUTF8(voice.lang.split('-')[0]); if (Module._isLocaleSupported(iso)) { _free(iso); const lang = stringToNewUTF8(voice.lang.replace('-', '_')); const name = stringToNewUTF8(voice.name.split(' ')[0]); Module._processVoice(lang, name, index); lastIndex = index; _free(lang); _free(name); } }); Module._notifyLocalesAndVoicesChanged(); }
 function isWakeLockSupported(){ return ("wakeLock" in navigator); }
 function disableAutoLock(){ Module.wakeLock = null; navigator.wakeLock.request('screen').then((wakeLock) => { Module.wakeLock = wakeLock; Module._setIsAutoLockDisabled(true); }); }
 function enableAutoLock(){ if (Module.wakeLock) Module.wakeLock.release().then(() => { Module.wakeLock = null; Module._setIsAutoLockDisabled(false); }); }
 
 
 
-// STATICTOP = STATIC_BASE + 10320896;
+// STATICTOP = STATIC_BASE + 10337920;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -8314,7 +8315,7 @@ function enableAutoLock(){ if (Module.wakeLock) Module.wakeLock.release().then((
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 10321744;
+      return 10338768;
     }
 
   
@@ -12683,7 +12684,7 @@ function enableAutoLock(){ if (Module.wakeLock) Module.wakeLock.release().then((
   }
   
   
-  var _fetch_work_queue=10321904;function __emscripten_get_fetch_work_queue() {
+  var _fetch_work_queue=10338928;function __emscripten_get_fetch_work_queue() {
       return _fetch_work_queue;
     }function _emscripten_start_fetch(fetch, successcb, errorcb, progresscb, readystatechangecb) {
     if (typeof noExitRuntime !== 'undefined') noExitRuntime = true; // If we are the main Emscripten runtime, we should not be closing down.
@@ -13303,10 +13304,10 @@ function enableAutoLock(){ if (Module.wakeLock) Module.wakeLock.release().then((
     }
 
   
-  var ___tm_current=10321760;
+  var ___tm_current=10338784;
   
   
-  var ___tm_timezone=(stringToUTF8("GMT", 10321808, 4), 10321808);
+  var ___tm_timezone=(stringToUTF8("GMT", 10338832, 4), 10338832);
   
   function _tzset() {
       // TODO: Use (malleable) environment variables instead of system settings.

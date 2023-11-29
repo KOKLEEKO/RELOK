@@ -749,27 +749,27 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>WelcomePopup</name>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="28"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="29"/>
         <source>Welcome to %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="36"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="37"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="58"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="59"/>
         <source>We hope you enjoy using it!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="74"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="75"/>
         <source>What&apos;s new?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="106"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="112"/>
         <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu</source>
         <translation type="unfinished"></translation>
     </message>
