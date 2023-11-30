@@ -152,68 +152,78 @@ Developed with love by Johan and published by Denver.</source>
     </message>
     <message>
         <location filename="../res/qml/settings/Advanced.qml" line="23"/>
+        <source>Fake time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Advanced.qml" line="33"/>
+        <source>Fake special message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/settings/Advanced.qml" line="61"/>
         <source>Display as widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="42"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="80"/>
         <source>Opacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="71"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="109"/>
         <source>Display as watermark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="76"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="114"/>
         <source>Activate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="96"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="134"/>
         <source>Time Zone (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="148"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="51"/>
         <source>Settings Persistence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="136"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="174"/>
         <source>Menu usage popup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="144"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="182"/>
         <source>Display at menu opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="63"/>
-        <location filename="../res/qml/settings/Advanced.qml" line="113"/>
-        <location filename="../res/qml/settings/Advanced.qml" line="152"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="55"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="101"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="151"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="46"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="84"/>
         <source>This setting is not persistent and is enabled when the application is not in fullscreen mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="108"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="146"/>
         <source>This setting is not persistent, the time zone of the device %1 is used each time the application is launched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="125"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="163"/>
         <source>Welcome popup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/Advanced.qml" line="132"/>
+        <location filename="../res/qml/settings/Advanced.qml" line="170"/>
         <source>Display at startup.</source>
         <translation type="unfinished"></translation>
     </message>

@@ -59,11 +59,12 @@ class Object
         if (instance.timer.is_debug)
         {
             instance.currentDateTime = new Date(instance.timer.time_reference_ms +
-                                                (instance.timer.jump_by_minute +
-                                                 instance.timer.jump_by_5_minutes * 5 +
-                                                 instance.timer.jump_by_hour * 60) *
-                                                instance.timer.fake_counter *
-                                                instance.timer.minute_to_ms);
+                                                (instance.timer.fake_counter *
+                                                 ((instance.timer.jump_by_minute +
+                                                   instance.timer.jump_by_5_minutes * 5 +
+                                                   instance.timer.jump_by_hour * 60 ) * instance.timer.minute_to_ms +
+                                                  instance.timer.jump_by_sec * instance.timer.sec_to_ms)) %
+                                                instance.timer.day_to_ms)
             ++instance.timer.fake_counter;
         }
         else

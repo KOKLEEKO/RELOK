@@ -201,23 +201,20 @@ QtQuick.Rectangle
 
         //public
         property bool is_debug: false
-        property bool jump_by_5_minutes: false
-        property bool jump_by_minute: false
-        property bool jump_by_hour: false
+        property bool jump_by_5_minutes: true
+        property bool jump_by_minute: true
+        property bool jump_by_hour: true
+        property bool jump_by_sec: true
         property int fake_counter: 0
-        readonly property string time_reference: "00:00:00"
+        property string date_reference: "1990-07-28T00:00:00"
         //private
         readonly property int day_to_ms: 86400000
         readonly property int hour_to_ms: 3600000
         readonly property int minute_to_ms: 60000
-        readonly property int s_to_ms: 1000
-        readonly property var time_reference_list: time_reference.split(':')
-        readonly property int time_reference_ms: -3600000 + // January 1, 1970, 00:00:00
-                                                 parseInt(time_reference_list[0], 10)*hour_to_ms +
-                                                 parseInt(time_reference_list[1], 10)*minute_to_ms +
-                                                 parseInt(time_reference_list[2], 10)*s_to_ms
+        readonly property int sec_to_ms: 1000
+        readonly property real time_reference_ms: new Date(date_reference).getTime()
 
-        interval: is_debug ? 5000 : 200
+        interval: 200
         repeat: true
         running: false
         triggeredOnStart: true
@@ -331,7 +328,7 @@ QtQuick.Rectangle
             font.family: FixedFont
             isOn: DeviceAccess.managers.battery.isPlugged
             opacity: accessoriesOpacity
-            text: "%1 %".arg(DeviceAccess.managers.battery.batteryLevel)
+            text: "%1 %".arg(Math.abs(DeviceAccess.managers.battery.batteryLevel))
         }
     }
     QtQuick.Component

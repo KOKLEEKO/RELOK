@@ -20,6 +20,44 @@ Controls.MenuSection
 
     Controls.MenuItem
     {
+        title: qsTr("Fake time") + DeviceAccess.managers.translation.emptyString
+        active: isDebug
+        QtControls.Switch
+        {
+            checked: wordClock.timer.is_debug
+            onToggled: wordClock.timer.is_debug = checked
+        }
+    }
+    Controls.MenuItem
+    {
+        title: qsTr("Fake special message") + DeviceAccess.managers.translation.emptyString
+        enabled: wordClock.timer.is_debug
+        active: isDebug
+        QtControls.Switch
+        {
+            onToggled:
+            {
+                wordClock.timer.jump_by_5_minutes =
+                        wordClock.timer.jump_by_minute =
+                        wordClock.timer.jump_by_hour =
+                        wordClock.timer.jump_by_sec =
+                        !checked;
+                wordClock.timer.date_reference = "1990-07-28T%1:%1:%1".arg(checked ? "11" : "00");
+            }
+        }
+    }
+    Controls.MenuItem
+    {
+        title: qsTr("Settings Persistence") + DeviceAccess.managers.translation.emptyString
+        active: isDebug
+        QtControls.Button
+        {
+            text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
+            onClicked: DeviceAccess.managers.persistence.clear()
+        }
+    }
+    Controls.MenuItem
+    {
         title: qsTr("Display as widget") + DeviceAccess.managers.translation.emptyString
         active: HelpersJS.isDesktop  // @disable-check M16  @disable-check M31
 
@@ -45,7 +83,7 @@ Controls.MenuSection
         enabled: !root.isFullScreen  // @disable-check M16  @disable-check M31
         details: qsTr("This setting is not persistent and is enabled when the application is not in fullscreen mode") +
                  DeviceAccess.managers.translation.emptyString
-       extras: QtControls.Slider
+        extras: QtControls.Slider
         {
             from: 10
             to: 100
@@ -58,13 +96,13 @@ Controls.MenuSection
                 DeviceAccess.managers.persistence.setValue("Advanced/opacity", root.opacity);
             }
         }
-       QtControls.Button
-       {
-           text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
-           enabled: parent.parent.parent.parent.extraControls[0].value !== 100
+        QtControls.Button
+        {
+            text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
+            enabled: parent.parent.parent.parent.extraControls[0].value !== 100
 
-           onClicked: parent.parent.parent.parent.extraControls[0].value = 100
-       }
+            onClicked: parent.parent.parent.parent.extraControls[0].value = 100
+        }
     }
     Controls.MenuItem
     {
@@ -142,15 +180,5 @@ time the application is launched").arg("<b>(%1)</b>".arg(wordClock.deviceGMT)) +
             onToggled: showMenuUsage = checked
         }
         details: qsTr("Display at menu opening") + DeviceAccess.managers.translation.emptyString
-    }
-    Controls.MenuItem
-    {
-        title: qsTr("Settings Persistence") + DeviceAccess.managers.translation.emptyString
-        active: isDebug
-        QtControls.Button
-        {
-            text: qsTr("Reset") + DeviceAccess.managers.translation.emptyString
-            onClicked: DeviceAccess.managers.persistence.clear()
-        }
     }
 }
