@@ -80,9 +80,11 @@ class Object
     selectLanguage(language)
     {
         var fileBaseName = language;
-        if (!instance.supportedLanguages.includes(fileBaseName));
-        fileBaseName = (instance.supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2)
-                                                                                           : "en";
+        if (!instance.supportedLanguages.includes(fileBaseName))
+        {
+            fileBaseName = (instance.supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2)
+                                                                                               : "en";
+        }
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName);
 
         if (isDebug)
