@@ -25,7 +25,7 @@ QtControls.Dialog
     topPadding: 0
     bottomPadding: 0
     closePolicy: QtControls.Dialog.NoAutoClose
-    implicitWidth: Math.max(root.width/2, header.implicitWidth, footer.implicitWidth) + 2 * padding
+    implicitWidth: Math.max(root.width/2, implicitHeaderWidth, implicitFooterWidth) + 2 * padding
     title: qsTr("Welcome to %1 (%2)").arg(Qt.application.name).arg(Qt.application.version) +
            DeviceAccess.managers.translation.emptyString
     footer: QtControls.CheckBox

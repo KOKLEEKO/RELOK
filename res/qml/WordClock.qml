@@ -33,6 +33,7 @@ QtQuick.Rectangle
     property var languages: Object.keys(DeviceAccess.managers.speech.speechAvailableLocales).length ?
                                 DeviceAccess.managers.speech.speechAvailableLocales :
                                 DeviceAccess.managers.clockLanguage.clockAvailableLocales
+    readonly property var languagesKeys: Object.keys(languages)
     property url language_url
     readonly property real table_width: Math.min(height, width)
     readonly property real cell_width: table_width/(rows+2)

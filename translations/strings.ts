@@ -511,27 +511,27 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>MenuUsagePopup</name>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="27"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="28"/>
         <source>How to use it? [%1/%2]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="41"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="43"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="51"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="53"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="59"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="61"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="67"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="69"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -787,37 +787,37 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>WordClock</name>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="42"/>
+        <location filename="../res/qml/WordClock.qml" line="43"/>
         <source>every minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="43"/>
+        <location filename="../res/qml/WordClock.qml" line="44"/>
         <source>every 5 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="44"/>
+        <location filename="../res/qml/WordClock.qml" line="45"/>
         <source>every 10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="45"/>
+        <location filename="../res/qml/WordClock.qml" line="46"/>
         <source>every 15 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="46"/>
+        <location filename="../res/qml/WordClock.qml" line="47"/>
         <source>every 20 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="47"/>
+        <location filename="../res/qml/WordClock.qml" line="48"/>
         <source>every 30 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/WordClock.qml" line="48"/>
+        <location filename="../res/qml/WordClock.qml" line="49"/>
         <source>every hour</source>
         <translation type="unfinished"></translation>
     </message>

@@ -80,10 +80,11 @@ class Object
     selectLanguage(language)
     {
         var fileBaseName = language;
+        const languageCode = language.substring(0,2);
         if (!instance.supportedLanguages.includes(fileBaseName))
         {
-            fileBaseName = (instance.supportedLanguages.includes(fileBaseName.substring(0,2))) ? language.substring(0,2)
-                                                                                               : "en";
+            fileBaseName = (instance.supportedLanguages.includes(languageCode) ? languageCode
+                                                                               : "en");
         }
         const tmp_language_url = "qrc:/qml/languages/%1.qml".arg(fileBaseName);
 
@@ -93,7 +94,29 @@ class Object
         }
 
         instance.language_url = tmp_language_url;
-        instance.selected_language = DeviceAccess.managers.speech.enabled ? language : fileBaseName;
+
+        if (DeviceAccess.managers.speech.enabled)
+        {
+            instance.selected_language = DeviceAccess.managers.speech.enabled ? language : fileBaseName;
+            if (instance.languagesKeys.indexOf(language) === -1)
+            {
+                switch (languageCode)
+                {
+                    case "es":
+                    instance.selected_language = "es_ES";
+                    break;
+                    case "fr":
+                    instance.selected_language = "fr_FR";
+                    break;
+                    default:
+                    instance.selected_language = "en_GB";
+                }
+            };
+        }
+        else
+        {
+            instance.selected_language = fileBaseName;
+        }
 
         if (DeviceAccess.managers.speech.enabled)
         {

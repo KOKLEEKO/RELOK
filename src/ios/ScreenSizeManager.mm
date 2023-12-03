@@ -31,16 +31,18 @@ void ScreenSizeManager::updateSafeAreaInsets()
 {
     // get notch height
     if (@available(iOS 11.0, *)) {
-        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
+        UIWindow *keyWindow = UIApplication.sharedApplication.windows.firstObject;
+        UIEdgeInsets safeAreaInsets = keyWindow.safeAreaInsets;
+
         m_safeInsetBottom = safeAreaInsets.bottom;
         m_safeInsetLeft = safeAreaInsets.left;
         m_safeInsetRight = safeAreaInsets.right;
         m_safeInsetTop = safeAreaInsets.top;
+
         if (@available(iOS 13.0, *))
-            m_statusBarHeight = [[[UIApplication sharedApplication] keyWindow] windowScene]
-                                    .statusBarManager.statusBarFrame.size.height;
+            m_statusBarHeight = keyWindow.windowScene.statusBarManager.statusBarFrame.size.height;
         else
-            m_statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+            m_statusBarHeight = UIApplication.sharedApplication.statusBarFrame.size.height;
         qCDebug(lc) << "statusBarHeight:" << m_statusBarHeight;
         emit safeInsetsChanged();
         if (m_shouldNotifyViewConfigurationChanged)

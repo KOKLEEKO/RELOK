@@ -22,9 +22,11 @@ QtControls.Dialog
     background.opacity: .95
     clip: true
     closePolicy: QtControls.Dialog.NoAutoClose
-    implicitWidth: Math.max(root.width/2, header.implicitWidth, footer.implicitWidth) + 2 * padding
+    implicitHeight: implicitHeaderHeight + implicitContentHeight + implicitFooterHeight + 2 * padding
+    implicitWidth: Math.max(root.width/2, implicitContentWidth)
     modal: true
-    title: qsTr("How to use it? [%1/%2]").arg(view.currentIndex+1).arg(view.count) + DeviceAccess.managers.translation.emptyString
+    title: qsTr("How to use it? [%1/%2]").arg(view.currentIndex+1).arg(view.count) +
+           DeviceAccess.managers.translation.emptyString
     spacing: 0
     footer: QtLayouts.ColumnLayout
     {
@@ -43,7 +45,7 @@ QtControls.Dialog
         QtControls.DialogButtonBox
         {
             QtLayouts.Layout.fillWidth: true
-            QtLayouts.Layout.preferredWidth: menuUsagePopup.implicitContentWidth
+            QtLayouts.Layout.preferredWidth: menuUsagePopup.implicitWidth
             background: null
             QtControls.Button
             {

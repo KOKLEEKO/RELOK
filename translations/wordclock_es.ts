@@ -154,12 +154,12 @@ Desarrollada con amor por Johan y publicada por Denver.</translation>
     <message>
       <location filename="../res/qml/settings/Advanced.qml" line="23"/>
       <source>Fake time</source>
-      <translation type="unfinished"/>
+      <translation>Hora falsa</translation>
     </message>
     <message>
       <location filename="../res/qml/settings/Advanced.qml" line="33"/>
       <source>Fake special message</source>
-      <translation type="unfinished"/>
+      <translation>Mensaje especial falso</translation>
     </message>
     <message>
       <location filename="../res/qml/settings/Advanced.qml" line="61"/>
@@ -515,27 +515,27 @@ Tendremos en cuenta sus sugerencias.</translation>
   <context>
     <name>MenuUsagePopup</name>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="27"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="28"/>
       <source>How to use it? [%1/%2]</source>
       <translation>¿Cómo usarlo? [%1/%2]</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="41"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="43"/>
       <source>Don&apos;t show this again</source>
       <translation>No mostrar esto de nuevo</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="51"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="53"/>
       <source>Previous</source>
       <translation>Anterior</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="59"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="61"/>
       <source>Next</source>
       <translation>Siguiente</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="67"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="69"/>
       <source>Close</source>
       <translation>Cerrar</translation>
     </message>
@@ -791,37 +791,37 @@ Tendremos en cuenta sus sugerencias.</translation>
   <context>
     <name>WordClock</name>
     <message>
-      <location filename="../res/qml/WordClock.qml" line="42"/>
+      <location filename="../res/qml/WordClock.qml" line="43"/>
       <source>every minute</source>
       <translation>cada minuto</translation>
     </message>
     <message>
-      <location filename="../res/qml/WordClock.qml" line="43"/>
+      <location filename="../res/qml/WordClock.qml" line="44"/>
       <source>every 5 minutes</source>
       <translation>cada 5 minutos</translation>
     </message>
     <message>
-      <location filename="../res/qml/WordClock.qml" line="44"/>
+      <location filename="../res/qml/WordClock.qml" line="45"/>
       <source>every 10 minutes</source>
       <translation>cada 10 minutos</translation>
     </message>
     <message>
-      <location filename="../res/qml/WordClock.qml" line="45"/>
+      <location filename="../res/qml/WordClock.qml" line="46"/>
       <source>every 15 minutes</source>
       <translation>cada 15 minutos</translation>
     </message>
     <message>
-      <location filename="../res/qml/WordClock.qml" line="46"/>
+      <location filename="../res/qml/WordClock.qml" line="47"/>
       <source>every 20 minutes</source>
       <translation>cada 20 minutos</translation>
     </message>
     <message>
-      <location filename="../res/qml/WordClock.qml" line="47"/>
+      <location filename="../res/qml/WordClock.qml" line="48"/>
       <source>every 30 minutes</source>
       <translation>cada 30 minutos</translation>
     </message>
     <message>
-      <location filename="../res/qml/WordClock.qml" line="48"/>
+      <location filename="../res/qml/WordClock.qml" line="49"/>
       <source>every hour</source>
       <translation>cada hora</translation>
     </message>

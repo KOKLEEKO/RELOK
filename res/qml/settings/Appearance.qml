@@ -118,7 +118,7 @@ Controls.MenuSection
         {
             id: clockLanguageListView
 
-            currentIndex: Object.keys(wordClock.languages).indexOf(wordClock.selected_language)
+            currentIndex: wordClock.languagesKeys.indexOf(wordClock.selected_language)
             delegate: QtControls.Button
             {
                 autoExclusive: true
@@ -126,7 +126,7 @@ Controls.MenuSection
                 checked: index === QtQuick.ListView.view.currentIndex
                 text: modelData
 
-                onClicked: wordClock.selectLanguage(Object.keys(wordClock.languages)[index])
+                onClicked: wordClock.selectLanguage(wordClock.languagesKeys[index])
 
                 QtControls.Label
                 {
