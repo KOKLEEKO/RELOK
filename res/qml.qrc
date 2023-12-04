@@ -13,7 +13,6 @@
         <file>qml/languages/fr.qml</file>
         <file>qml/languages/Language.qml</file>
         <file>qml/languages/es.qml</file>
-        <file>qml/SettingsMenu.qml</file>
         <file>qml/WebAccess.qml</file>
         <file>qml/WordClock.qml</file>
         <file>qml/controls/ColorHexField.qml</file>
@@ -25,5 +24,29 @@
         <file>qml/controls/AccessoryText.qml</file>
         <file>qml/controls/ColorPicker.qml</file>
         <file>qml/controls/LargePositionSelector.qml</file>
+        <file>qml/popups/BadReviewPopup.qml</file>
+        <file>qml/popups/WelcomePopup.qml</file>
+        <file>qml/popups/FailedTransactionPopup.qml</file>
+        <file>qml/popups/TipsThanksPopup.qml</file>
+        <file>qml/popups/PurchasingPopup.qml</file>
+        <file>qml/SettingsPanel.qml</file>
+        <file>qml/Headings.qml</file>
+        <file>qml/ClickableArea.qml</file>
+        <file>qml/Tips.qml</file>
+        <file>qml/SystemPalette.qml</file>
+        <file>qml/settings/Menu.qml</file>
+        <file>qml/settings/TipJar.qml</file>
+        <file>qml/settings/Appearance.qml</file>
+        <file>qml/settings/Advanced.qml</file>
+        <file>qml/settings/EnergySaving.qml</file>
+        <file>qml/settings/Accessories.qml</file>
+        <file>qml/settings/Colors.qml</file>
+        <file>qml/settings/About.qml</file>
+        <file>qml/settings/Speech.qml</file>
+        <file>qml/popups/MenuUsagePopup.qml</file>
+        <file>qml/controls/IconImage.qml</file>
+        <file>qml/models/Releases.qml</file>
+        <file>qml/models/qmldir</file>
+        <file>qml/models/MenuUsage.qml</file>
     </qresource>
 </RCC>

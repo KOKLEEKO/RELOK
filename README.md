@@ -20,15 +20,21 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 [![Crowdin](https://badges.crowdin.net/wordclock/localized.svg)](https://crowdin.com/project/wordclock)
 
 <p float="left">
-  <a href="https://apps.apple.com/app/wordclock/id1626068981">
-    <img src="https://github.com/kokleeko/WordClock/assets/15193153/9364ee0d-8a6d-4534-9938-4fd215286d4c" alt="App Store" width="180">
-  </a>
-  <a href="https://play.google.com/store/apps/details?id=io.kokleeko.wordclock">
-    <img src="https://github.com/kokleeko/WordClock/assets/15193153/190a9bdc-be5b-4f9b-809b-4ebf8a4819f4" alt="Google Play" width="180">
-  </a>
-  <a href="https://wordclock.kokleeko.io">
-    <img src="https://github.com/kokleeko/WordClock/assets/15193153/0422fc2f-5828-47c0-b78f-c270a084f942" alt="WebAssembly" width="180">
-  </a>
+	<a href="https://apps.apple.com/app/wordclock/id1626068981">
+  		<picture>
+    		<img src="https://github.com/kokleeko/WordClock/assets/15193153/9364ee0d-8a6d-4534-9938-4fd215286d4c" alt="App Store" width="180">
+    	</picture>
+  	</a>
+  	<a href="https://play.google.com/store/apps/details?id=io.kokleeko.wordclock">
+  		<picture>
+   			<img src="https://github.com/kokleeko/WordClock/assets/15193153/190a9bdc-be5b-4f9b-809b-4ebf8a4819f4" alt="Google Play" width="180">
+   		</picture>
+  	</a>
+  	<a href="https://wordclock.kokleeko.io">
+   		<picture>
+   			<img src="https://github.com/kokleeko/WordClock/assets/15193153/0422fc2f-5828-47c0-b78f-c270a084f942" alt="WebAssembly" width="180">
+   		</picture>
+  	</a>
 </p>
 
 Languages currently supported: 
@@ -42,8 +48,8 @@ Languages currently supported:
 
 <details>
   <summary> (optional) </summary>
-💡 Each grid contains a special message that will be displayed instead of the time for a minute at the following times 12:00 AM (00:00), 11:11 AM (*11:11) and 10:22 PM (22:22).
-The minute indicator at the bottom of the panel will show 0, 1 or 2 lights, which will allow user to distinguish between these different states.
+💡 Each grid contains a special message that will be displayed instead of the time for a minute at the following times 12:00 AM (00:00), 11:11 AM (*11:11), and 10:22 PM (22:22).
+The minute indicator at the bottom of the panel will show 0, 1, or 2 lights, which will allow the user to distinguish between these different states.
 This feature can be deactivated
 </details>
 

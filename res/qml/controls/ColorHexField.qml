@@ -5,33 +5,44 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 2.15 as QtQuick
+import QtQuick.Controls 2.15 as QtControls
 
-import "qrc:/js/Helpers.js" as Helpers
+import "." as Controls
 
-TextField {
-    function setColor(text) {
-        selectedColor = text
-        huePicker.value = selectedColor.hslHue
-        huePicker.moved()
-        saturationPicker.value = selectedColor.hslSaturation
-        saturationPicker.moved()
-        lightnessPicker.value = selectedColor.hslLightness
-        lightnessPicker.moved()
-    }
-    required property Picker huePicker
-    required property Picker saturationPicker
-    required property Picker lightnessPicker
+import "qrc:/js/Helpers.js" as HelpersJS
+
+QtControls.TextField
+{
     property color selectedColor
-    implicitWidth: 200
-    text: huePicker.selected_color.toString().toUpperCase()
-    font.pointSize: headings.p1
-    horizontalAlignment: TextField.AlignHCenter
+    required property Controls.Picker huePicker
+    required property Controls.Picker lightnessPicker
+    required property Controls.Picker saturationPicker
+
+    function setColor(text)
+    {
+        selectedColor = text;
+        huePicker.value = selectedColor.hslHue;
+        huePicker.moved();
+        saturationPicker.value = selectedColor.hslSaturation;
+        saturationPicker.moved();
+        lightnessPicker.value = selectedColor.hslLightness;
+        lightnessPicker.moved();
+    }
+
     color: acceptableInput ? palette.text : "red"
-    validator: RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }  // @disable-check M16 @disable-check M31
+    font.pointSize: headings.p1
+    horizontalAlignment: QtControls.TextField.AlignHCenter
+    implicitWidth: 200
     inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
     selectByMouse: true
     selectedTextColor: "white"
-    Component.onCompleted: editingFinished.connect(() => { setColor(text); focus = false })
+    text: huePicker ? huePicker.selected_color.toString().toUpperCase() : ""
+    validator: QtQuick.RegExpValidator { regExp: /#(?:[0-9a-fA-F]{3}){1,2}$/ }  // @disable-check M16 @disable-check M31
+
+    QtQuick.Component.onCompleted: editingFinished.connect(() =>
+                                                           {
+                                                               setColor(text);
+                                                               focus = false;
+                                                           })
 }

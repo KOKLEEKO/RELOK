@@ -23,7 +23,6 @@ jobs:
       uses: johanremilien/install-qt-action@v3
       with:
         arch: wasm_32
-        modules: qtpurchasing
 
     - name: qmake
       run: qmake

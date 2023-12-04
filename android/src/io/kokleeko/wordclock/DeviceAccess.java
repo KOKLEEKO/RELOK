@@ -15,10 +15,16 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.provider.Settings;
+import android.util.Log;
+import androidx.core.content.FileProvider;
+import java.io.File;
+import org.qtproject.qt5.android.QtNative;
 
 public class DeviceAccess {
 
     public static Context context;
+    private static String AUTHORITY="io.kokleeko.wordclock.fileprovider";
+    private static String TAG = "Device-android";
 
     static ContentObserver brightnessContentObserver = new ContentObserver(null)
     {
@@ -51,7 +57,7 @@ public class DeviceAccess {
         int brightnessLevel = Settings.System.getInt(context.getContentResolver(),
                                                      Settings.System.SCREEN_BRIGHTNESS,0);
         updateBrightness(brightnessLevel);
-  }
+    }
 
     private static native void updateBrightness(int value);
 
@@ -75,6 +81,23 @@ public class DeviceAccess {
                                    Settings.System.SCREEN_BRIGHTNESS,
                                    brightness);
         } else openAndroidPermissionsMenu();
+    }
+
+    public static void share(String mimeType, String filePath)
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        File file = new File(filePath);
+        Uri uri;
+        try {
+            uri = FileProvider.getUriForFile(QtNative.activity(), AUTHORITY, file);
+        } catch (IllegalArgumentException e) {
+            Log.d(TAG, e.getMessage());
+            return;
+        }
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setType(mimeType);
+        if (intent.resolveActivity(context.getPackageManager()) != null)
+            context.startActivity(intent);
     }
 
     private static void openAndroidPermissionsMenu()

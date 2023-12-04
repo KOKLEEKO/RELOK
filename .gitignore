@@ -10,7 +10,7 @@
 *.dll
 *.dylib
 
-# Qt-es
+# Qt
 object_script.*.Release
 object_script.*.Debug
 *_plugin_import.cpp
@@ -53,6 +53,7 @@ compile_commands.json
 
 # Local files
 .DS_Store
+asset_catalog_compiler.Info.plist
 
 # Build directories
 *build*
@@ -70,6 +71,3 @@ compile_commands.json
 
 #Fastlane
 fastlane/report.xml
-
-#Crowdin
-crowdin.yml

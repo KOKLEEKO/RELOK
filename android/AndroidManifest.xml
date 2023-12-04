@@ -66,7 +66,15 @@
             <meta-data android:name="android.app.splash_screen_drawable_landscape" android:resource="@drawable/splashscreen_land"/>
             <meta-data android:name="android.app.splash_screen_sticky" android:value="true"/>
         </activity>
-        <!-- For adding service(s) please check: https://wiki.qt.io/AndroidServices -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="io.kokleeko.wordclock.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
     </application>
 <!-- %%INSERT_FEATURES -->
 </manifest>

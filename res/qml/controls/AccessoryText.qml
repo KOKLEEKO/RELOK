@@ -5,19 +5,21 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-import QtQuick 2.15
+import QtQuick 2.15 as QtQuick
 
-Text {
+QtQuick.Text
+{
     property bool isOn
-    height: cell_width*.4
-    width: contentWidth
+
     color: isOn ? on_color : off_color
-    style: isOn ? Text.Outline : Text.Sunken
-    styleColor: isOn ? Qt.lighter(on_color, 1.1) : Qt.darker(background_color, 1.1)
-    horizontalAlignment: Text.AlignHCenter
-    verticalAlignment: Text.AlignVCenter
-    font.family: SmallestReadableFont
-    fontSizeMode: Text.VerticalFit
-    minimumPointSize: 1
     font { pointSize: 32; kerning: false; preferShaping: false }
+    font.family: SmallestReadableFont
+    fontSizeMode: QtQuick.Text.VerticalFit
+    height: cell_width*.55
+    horizontalAlignment: QtQuick.Text.AlignHCenter
+    minimumPointSize: 1
+    style: isOn ? QtQuick.Text.Outline : QtQuick.Text.Sunken
+    styleColor: isOn ? Qt.lighter(on_color, 1.1) : Qt.darker(background_color, 1.1)
+    verticalAlignment: QtQuick.Text.AlignVCenter
+    width: contentWidth
 }
