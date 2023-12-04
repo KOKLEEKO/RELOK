@@ -1293,11 +1293,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 15581824,
+    STACK_BASE = 15582464,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 10338944,
-    DYNAMIC_BASE = 15581824,
-    DYNAMICTOP_PTR = 10338768;
+    STACK_MAX = 10339584,
+    DYNAMIC_BASE = 15582464,
+    DYNAMICTOP_PTR = 10339408;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1842,7 +1842,7 @@ function enableAutoLock(){ if (Module.wakeLock) Module.wakeLock.release().then((
 
 
 
-// STATICTOP = STATIC_BASE + 10337920;
+// STATICTOP = STATIC_BASE + 10338560;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -8315,7 +8315,7 @@ function enableAutoLock(){ if (Module.wakeLock) Module.wakeLock.release().then((
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 10338768;
+      return 10339408;
     }
 
   
@@ -12684,7 +12684,7 @@ function enableAutoLock(){ if (Module.wakeLock) Module.wakeLock.release().then((
   }
   
   
-  var _fetch_work_queue=10338928;function __emscripten_get_fetch_work_queue() {
+  var _fetch_work_queue=10339568;function __emscripten_get_fetch_work_queue() {
       return _fetch_work_queue;
     }function _emscripten_start_fetch(fetch, successcb, errorcb, progresscb, readystatechangecb) {
     if (typeof noExitRuntime !== 'undefined') noExitRuntime = true; // If we are the main Emscripten runtime, we should not be closing down.
@@ -13304,10 +13304,10 @@ function enableAutoLock(){ if (Module.wakeLock) Module.wakeLock.release().then((
     }
 
   
-  var ___tm_current=10338784;
+  var ___tm_current=10339424;
   
   
-  var ___tm_timezone=(stringToUTF8("GMT", 10338832, 4), 10338832);
+  var ___tm_timezone=(stringToUTF8("GMT", 10339472, 4), 10339472);
   
   function _tzset() {
       // TODO: Use (malleable) environment variables instead of system settings.
