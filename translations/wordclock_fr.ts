@@ -602,42 +602,43 @@ Vos suggestions seront prises en compte.</translation>
       <translation type="unfinished"/>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="36"/>
+      <location filename="../res/qml/models/Releases.qml" line="42"/>
       <source>Introduce PieMenu with Handedness Management</source>
       <translation>Introduction du menu circulaire avec la gestion de préférence manuelle</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="37"/>
+      <location filename="../res/qml/models/Releases.qml" line="43"/>
       <source>Add Screenshot Export feature</source>
       <translation>Ajout de l'exportation de capture d'écran</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="38"/>
+      <location filename="../res/qml/models/Releases.qml" line="44"/>
       <source>Improve User Experience in Settings Panel</source>
       <translation>Améliorer l'expérience utilisateur dans le panneau de configuration</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="39"/>
+      <location filename="../res/qml/models/Releases.qml" line="45"/>
       <source>&apos;Tip Me&apos; becomes &apos;Support Us&apos;</source>
       <translation>'Donner un pourboire' devient 'Soutenez-nous'</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="47"/>
+      <location filename="../res/qml/models/Releases.qml" line="53"/>
       <source>Fix unreachable links in the &apos;About&apos; section</source>
       <translation>Corriger les liens inaccessibles de la section 'À propos'</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="40"/>
+      <location filename="../res/qml/models/Releases.qml" line="36"/>
+      <location filename="../res/qml/models/Releases.qml" line="46"/>
       <source>Various Fixes and Improvements</source>
       <translation>Diverses corrections et améliorations</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="42"/>
+      <location filename="../res/qml/models/Releases.qml" line="48"/>
       <source>Enable TTS, Battery, and Autolock features</source>
       <translation>Activer la synthèse vocale, la gestion de la Batterie et du verrouillage automatique</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="48"/>
+      <location filename="../res/qml/models/Releases.qml" line="54"/>
       <source>Set default speech frequency to every 15 minutes instead of every minute</source>
       <translation>Changer la fréquence par défaut des annonces vocales pour les faire toutes les 15 minutes au lieu de chaque minute</translation>
     </message>

@@ -30,6 +30,12 @@ QtQuick.QtObject
 
     readonly property var notes:
     {
+        "1.2.1" :
+        {
+            common : [
+                QT_TRANSLATE_NOOP("Releases", "Various Fixes and Improvements")
+            ]
+        },
         "1.2.0" :
         {
             common : [
