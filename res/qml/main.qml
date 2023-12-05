@@ -27,7 +27,7 @@ QtControls.ApplicationWindow
     property alias badReviewPopup: badReviewPopup
     property bool aboutToQuit: false
     property bool isWidget: false
-    property bool isLeftHanded: Boolean(parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference",
+    property bool isRightHanded: Boolean(parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference",
                                                                                          1), 10))
     property bool showWelcome: DeviceAccess.managers.persistence.value("Advanced/show_welcome", true)
     property bool showMenuUsage: DeviceAccess.managers.persistence.value("Advanced/show_menuUsage", true)

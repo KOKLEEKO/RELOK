@@ -139,7 +139,7 @@ QtQuick.Rectangle
     anchors.verticalCenter: parent.verticalCenter
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.horizontalCenterOffset: (isLandScape ? settingsPanel.position *
-                                                   (isLeftHanded ? 1 : -1) *
+                                                   (isRightHanded ? 1 : -1) *
                                                    (DeviceAccess.managers.screenSize.safeInsetRight -
                                                     settingsPanel.width): 0)/2
     color: background_color

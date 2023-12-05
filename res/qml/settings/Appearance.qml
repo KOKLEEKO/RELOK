@@ -94,7 +94,7 @@ Controls.MenuSection
 
             onClicked:
             {
-                isLeftHanded = Boolean(index);
+                isRightHanded = Boolean(index);
                 DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", index);
             }
         }

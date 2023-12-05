@@ -17,10 +17,6 @@ import "qrc:/js/Helpers.js" as HelpersJS
 
 QtQuick.Item
 {
-    property bool isFullCircle: true
-    readonly property int pieMenuEndAngle: isFullCircle ? -180 : (isLeftHanded ? 1 : -1) * 105
-    readonly property int pieMenuStartAngle: isFullCircle ? 180 : (isLeftHanded ? -1 : 1) * 195
-
     anchors.fill: parent
 
     QtQuick.TapHandler
@@ -30,7 +26,7 @@ QtQuick.Item
         onDoubleTapped: HelpersJS.updateVisibility(root)
         onGrabChanged: (transition, point) =>
                        {
-                           isFullCircle = (point.event.device.pointerType !== QtQuick.PointerDevice.Finger);
+                           pieMenu.isFullCircle = (point.event.device.pointerType !== QtQuick.PointerDevice.Finger);
                        }
         onLongPressed:
         {
@@ -48,10 +44,15 @@ QtQuick.Item
     {
         id: pieMenu
 
+        property bool isFullCircle
+        property int hoveredIndex
+
+        readonly property int startAngle: isFullCircle ? 180 : isRightHanded ? parseInt(-195) : 195
+        readonly property int endAngle: isFullCircle ? parseInt(-180) : isRightHanded ? 105 : parseInt(-105)
+
         // This is a hack to fix an issue in wasm/safari
         readonly property real selectionAngle: -Math.atan2(width/2 - __protectedScope.selectionPos.x,
                                                            height/2 - __protectedScope.selectionPos.y)
-        property int hoveredIndex
 
         function isMouseOver(itemIndex)
         {
@@ -150,9 +151,10 @@ QtQuick.Item
         }
 
         triggerMode: QtExtras.TriggerMode.TriggerOnRelease
-        style: QtExtras.PieMenuStyle { startAngle: pieMenuStartAngle; endAngle: pieMenuEndAngle }
+        style: QtExtras.PieMenuStyle { startAngle: pieMenu.startAngle; endAngle: pieMenu.endAngle }
 
-        onSelectionAngleChanged: {
+        onSelectionAngleChanged:
+        {
             hoveredIndex = parseInt(-1, 10);
             for (var i = 0; i < __protectedScope.visibleItems.length; ++i)
             {
