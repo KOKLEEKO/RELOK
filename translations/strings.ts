@@ -539,7 +539,7 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>Picker</name>
     <message>
-        <location filename="../res/qml/controls/Picker.qml" line="49"/>
+        <location filename="../res/qml/controls/Picker.qml" line="48"/>
         <source>%L1 %</source>
         <translation type="unfinished"></translation>
     </message>

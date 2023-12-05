@@ -20,10 +20,11 @@ QtQuick.Loader
     {
         display: QtControls.Button.IconOnly
         flat: true
+        hoverEnabled: true
         icon.source: "qrc:/assets/%1.svg".arg(name)
         implicitWidth: implicitHeight
 
-        QtControls.ToolTip { visible: hovered && tooltip; text: tooltip }
+        QtControls.ToolTip { delay: 800; timeout: 5000; text: tooltip; visible: hovered && tooltip }
     }
 
     onLoaded: { item.clicked.connect(clicked); item.enabled = Qt.binding(() => enabled); }

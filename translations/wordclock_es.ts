@@ -543,7 +543,7 @@ Tendremos en cuenta sus sugerencias.</translation>
   <context>
     <name>Picker</name>
     <message>
-      <location filename="../res/qml/controls/Picker.qml" line="49"/>
+      <location filename="../res/qml/controls/Picker.qml" line="48"/>
       <source>%L1 %</source>
       <translation>%L1 %</translation>
     </message>
