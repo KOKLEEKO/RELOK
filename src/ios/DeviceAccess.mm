@@ -45,7 +45,7 @@ Q_LOGGING_CATEGORY(lc, "Device-ios")
 {
     auto screenSizeManager = DeviceAccess::instance()->manager<ScreenSizeManagerBase>();
     if (screenSizeManager && screenSizeManager->enabled())
-        return screenSizeManager->prefersStatusBarHidden();
+        return screenSizeManager->isFullScreen();
     else
         return NO;
 }

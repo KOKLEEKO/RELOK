@@ -154,7 +154,8 @@ QtQuick.Rectangle
     {
         target: DeviceAccess.managers.speech
         enabled: DeviceAccess.managers.speech.enabled
-        function onSpeechAvailableLocalesChanged() {
+        function onSpeechAvailableLocalesChanged()
+        {
             DeviceAccess.managers.speech.setSpeechVoice(DeviceAccess.managers.persistence.value("Speech/%1_voice"
                                                                                                 .arg(selected_language),
                                                                                                 0))

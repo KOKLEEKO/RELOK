@@ -34,8 +34,9 @@ QtQuick.Item
             {
                 welcomePopup.close();
             }
-            /* This is a hack to fix a display glitch on wasm*/
+            /* These are hacks to fix a display glitch on wasm */
             timeReminderMenu.iconSource = "qrc:/assets/notify_%1.svg".arg(wordClock.speech_enabled ? "off" : "on")
+            visibilityMenu.iconSource = "qrc:/assets/fullscreen_%1.svg".arg(isFullScreen ? "off" : "on")
             pieMenu.popup(point.position.x, point.position.y);
         }
     }
@@ -200,7 +201,9 @@ QtQuick.Item
         }
         QtExtras.MenuItem
         {
-            iconSource: "qrc:/assets/fullscreen_%1.svg".arg(isFullScreen ? "off" : "on")
+            id: visibilityMenu
+
+            visible: DeviceAccess.managers.screenSize.enabled
             onTriggered: HelpersJS.updateVisibility(root)
         }
     }

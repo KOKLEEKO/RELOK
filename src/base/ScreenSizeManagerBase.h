@@ -14,7 +14,7 @@ class ScreenSizeManagerBase : public ManagerBase<ScreenSizeManagerBase>
     Q_OBJECT
 
     Q_PROPERTY(bool enabled READ enabled CONSTANT)
-    Q_PROPERTY(bool prefersStatusBarHidden MEMBER m_prefersStatusBarHidden NOTIFY prefersStatusBarHiddenChanged)
+    Q_PROPERTY(bool isFullScreen MEMBER m_isFullScreen NOTIFY isFullScreenChanged)
     Q_PROPERTY(float navigationBarHeight MEMBER m_navigationBarHeight NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetBottom MEMBER m_safeInsetBottom NOTIFY safeInsetsChanged)
     Q_PROPERTY(float safeInsetLeft MEMBER m_safeInsetLeft NOTIFY safeInsetsChanged)
@@ -25,19 +25,19 @@ class ScreenSizeManagerBase : public ManagerBase<ScreenSizeManagerBase>
 public:
     explicit ScreenSizeManagerBase(DeviceAccessBase *deviceAccess, QObject *parent = nullptr);
 
-    bool prefersStatusBarHidden() const { return m_prefersStatusBarHidden; }
+    bool isFullScreen() const { return m_isFullScreen; }
 
     Q_INVOKABLE virtual void updateSafeAreaInsets() { Q_UNIMPLEMENTED(); }
     Q_INVOKABLE virtual void toggleFullScreen() { Q_UNIMPLEMENTED(); }
 
 signals:
-    void prefersStatusBarHiddenChanged();
+    void isFullScreenChanged();
     void safeInsetsChanged();
     void viewConfigurationChanged();
 
 protected:
     bool m_shouldNotifyViewConfigurationChanged = true;
-    bool m_prefersStatusBarHidden = false;
+    bool m_isFullScreen = false;
     float m_navigationBarHeight = .0;
     float m_safeInsetBottom = .0;
     float m_safeInsetLeft = .0;
