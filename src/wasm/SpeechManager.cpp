@@ -76,12 +76,18 @@ EM_JS(void, processVoices, (),
 SpeechManager::SpeechManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : SpeechManagerBase{deviceAccess, parent}
 {
-    m_enabled = true;
+    /* clang-format off */
+    m_enabled = EM_ASM_INT({ return typeof speechSynthesis !== 'undefined' });
+    /* clang-format on */
 
     connect(deviceAccess->manager<PersistenceManagerBase>(),
             &PersistenceManagerBase::settingsReady,
             this,
-            [=] { initSpeechLocales(); });
+            [=] {
+                if (m_enabled) {
+                    initSpeechLocales();
+                }
+            });
 }
 
 void SpeechManager::say(QString text)
