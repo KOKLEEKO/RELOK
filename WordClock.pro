@@ -98,7 +98,8 @@ DISTFILES +=                                                    \
     LICENSE                                                     \
     README.md                                                   \
     fastlane/*                                                  \
-    src/README.md
+    src/README.md                                               \
+    wasm/app/index.html
 
 TRANSLATIONS = $$system("ls translations/[^strings]*.ts")
 
