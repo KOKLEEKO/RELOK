@@ -14,9 +14,9 @@
     <meta name="description" content="web application built with Qt that displays time as a word clock">
     <style>
       /* Make the html body cover the entire (visual) viewport with no scroll bars. */
-      html, body { padding: 0; margin: 0; color: white; background-color: black; overflow:hidden; height: 100vh }
+      html, body { padding: 0; margin: 0; background-color: black; overflow:hidden; height: 100% }
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-      canvas { border: 0px none; color: white; background-color: black; height:100%; width:100%;  }
+      canvas { border: 0px none; background-color: black; height:100%; width:100%;  }
       /* The contenteditable property is set to true for the canvas in order to support
          clipboard events. Hide the resulting focus frame and set the cursor back to
          the default cursor. */
@@ -59,10 +59,6 @@
                       status.innerHTML += " (" + qtLoader.exitText + ")";
                   spinner.style.display = 'block';
                   canvas.style.display = 'none';
-              },
-              showCanvas: function() {
-                  spinner.style.display = 'none';
-                  canvas.style.display = 'block';
               },
           });
           qtLoader.loadEmscriptenModule("WordClock");

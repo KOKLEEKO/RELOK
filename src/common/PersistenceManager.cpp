@@ -10,6 +10,10 @@
 #include <QFile>
 #include <QTimerEvent>
 
+#ifdef Q_OS_WASM
+#include <emscripten.h>
+#endif
+
 PersistenceManager::PersistenceManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : PersistenceManagerBase{deviceAccess, parent}
 {
@@ -56,6 +60,12 @@ void PersistenceManager::printAll()
 void PersistenceManager::processAtSettingsReady()
 {
     PersistenceManagerBase::processAtSettingsReady();
+#ifdef Q_OS_WASM
+    EM_ASM({
+        document.querySelector('#qtspinner').style.display = 'none';
+        document.querySelector('#qtcanvas').style.display = 'block';
+    });
+#endif
     QString previousVersionName = m_settings.value("Application/versionName").toString();
     if (previousVersionName != VERSION) {
         const QStringList &childGroups = m_settings.childGroups();

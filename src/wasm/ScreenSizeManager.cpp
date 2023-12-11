@@ -20,36 +20,13 @@ void updateIsFullScreen(bool isFullScreen)
     static_cast<ScreenSizeManager *>(DeviceAccessBase::instance()->manager<ScreenSizeManagerBase>())
         ->updateIsFullScreen(isFullScreen);
 }
-
-EMSCRIPTEN_KEEPALIVE
-void setSafeInsets(float verticalDelta, float horizontalDelta)
-{
-    auto *ssm = static_cast<ScreenSizeManager *>(
-        DeviceAccessBase::instance()->manager<ScreenSizeManagerBase>());
-    qCDebug(lc) << ssm->name() << verticalDelta << horizontalDelta;
-}
 }
 
 ScreenSizeManager::ScreenSizeManager(DeviceAccessBase *deviceAccess, QObject *parent)
     : ScreenSizeManagerBase{deviceAccess, parent}
 {
     m_enabled = EM_ASM_INT({ return document.fullscreenEnabled; });
-
-    /* clang-format off */
-    EM_ASM(
-    {
-        window.addEventListener('resize', () => getInnerSize());
-        getInnerSize();
-    });
-    /* clang-format on */
 }
-
-/* clang-format off */
-EM_JS(void, getInnerSize, (),
-{
-    Module._setSafeInsets(document.body.clientHeight - window.innerHeight, document.body.clientWidth - window.innerWidth);
-});
-/* clang-format on */
 
 void ScreenSizeManager::updateIsFullScreen(bool isFullScreen)
 {
