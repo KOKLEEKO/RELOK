@@ -25,8 +25,6 @@ QtLayouts.ColumnLayout
     property var details: null
     property bool subMenu: false
 
-    spacing: 20
-
     Controls.Title
     {
         id: label
@@ -49,7 +47,6 @@ QtLayouts.ColumnLayout
     {
         id: menuItems
 
-        QtLayouts.Layout.alignment: Qt.AlignHCenter
         QtLayouts.Layout.fillWidth: true
         QtLayouts.Layout.maximumHeight: is_collapsed ? 0 : implicitHeight
         clip: true  // @disable-check M16 @disable-check M31

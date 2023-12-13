@@ -30,9 +30,9 @@ QtQuick.Rectangle
     // Internal Settings
     property bool is_color_animation_enabled: true
     readonly property int animation_easing: QtQuick.Easing.Linear
-    property var languages: Object.keys(DeviceAccess.managers.speech.speechAvailableLocales).length ?
-                                DeviceAccess.managers.speech.speechAvailableLocales :
-                                DeviceAccess.managers.clockLanguage.clockAvailableLocales
+    property var languages: Object.keys(DeviceAccess.managers.speech.speechAvailableLocales).length
+                            ? DeviceAccess.managers.speech.speechAvailableLocales
+                            : DeviceAccess.managers.clockLanguage.clockAvailableLocales
     readonly property var languagesKeys: Object.keys(languages)
     property url language_url
     readonly property real table_width: Math.min(height, width)
@@ -46,7 +46,7 @@ QtQuick.Rectangle
         15: qsTr("every 15 minutes") + DeviceAccess.managers.translation.emptyString,
         20: qsTr("every 20 minutes") + DeviceAccess.managers.translation.emptyString,
         30: qsTr("every 30 minutes") + DeviceAccess.managers.translation.emptyString,
-        60: qsTr("every hour")       + DeviceAccess.managers.translation.emptyString,
+        60: qsTr("every hour")       + DeviceAccess.managers.translation.emptyString
     }
     readonly property var supportedLanguages: Object.keys(DeviceAccess.managers.clockLanguage.clockAvailableLocales)
     property int speech_interval: DeviceAccess.managers.persistence.value("Speech/interval", 15)
@@ -138,10 +138,9 @@ QtQuick.Rectangle
 
     anchors.verticalCenter: parent.verticalCenter
     anchors.horizontalCenter: parent.horizontalCenter
-    anchors.horizontalCenterOffset: (isLandScape ? settingsPanel.position *
-                                                   (isLeftHanded ? 1 : -1) *
-                                                   (DeviceAccess.managers.screenSize.safeInsetRight -
-                                                    settingsPanel.width): 0)/2
+    anchors.horizontalCenterOffset: ( isLandScape ? (isRightHanded ? settingsPanel.position : -settingsPanel.position) *
+                                                   (DeviceAccess.managers.screenSize.safeInsetRight-settingsPanel.width)
+                                                 : 0 ) / 2
     color: background_color
     layer.enabled: true
     width: Math.min(availableSize.width, availableSize.height)
@@ -155,7 +154,8 @@ QtQuick.Rectangle
     {
         target: DeviceAccess.managers.speech
         enabled: DeviceAccess.managers.speech.enabled
-        function onSpeechAvailableLocalesChanged() {
+        function onSpeechAvailableLocalesChanged()
+        {
             DeviceAccess.managers.speech.setSpeechVoice(DeviceAccess.managers.persistence.value("Speech/%1_voice"
                                                                                                 .arg(selected_language),
                                                                                                 0))

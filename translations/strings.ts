@@ -459,7 +459,7 @@ Your suggestions will be taken into account.</source>
     </message>
     <message>
         <location filename="../res/qml/models/MenuUsage.qml" line="21"/>
-        <source>&lt;b&gt;Swipe left&lt;/b&gt; or right from the edge of the screen, based on the selected handeness&lt;br&gt;&lt;i&gt;(left for right-handed [&lt;u&gt;default&lt;/u&gt;] and right for left-handed)&lt;/i&gt;</source>
+        <source>&lt;b&gt;Swipe left&lt;/b&gt; or right from the edge of the screen, based on the selected handedness&lt;br&gt;&lt;i&gt;(left for right-handed [&lt;u&gt;default&lt;/u&gt;] and right for left-handed)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -504,7 +504,7 @@ Your suggestions will be taken into account.</source>
     </message>
     <message>
         <location filename="../res/qml/models/MenuUsage.qml" line="44"/>
-        <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handeness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
+        <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handedness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -539,7 +539,7 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>Picker</name>
     <message>
-        <location filename="../res/qml/controls/Picker.qml" line="49"/>
+        <location filename="../res/qml/controls/Picker.qml" line="48"/>
         <source>%L1 %</source>
         <translation type="unfinished"></translation>
     </message>
@@ -598,42 +598,48 @@ Your suggestions will be taken into account.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="36"/>
+        <location filename="../res/qml/models/Releases.qml" line="43"/>
         <source>Introduce PieMenu with Handedness Management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="37"/>
+        <location filename="../res/qml/models/Releases.qml" line="44"/>
         <source>Add Screenshot Export feature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="38"/>
+        <location filename="../res/qml/models/Releases.qml" line="45"/>
         <source>Improve User Experience in Settings Panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="39"/>
+        <location filename="../res/qml/models/Releases.qml" line="46"/>
         <source>&apos;Tip Me&apos; becomes &apos;Support Us&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="47"/>
+        <location filename="../res/qml/models/Releases.qml" line="54"/>
         <source>Fix unreachable links in the &apos;About&apos; section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="40"/>
+        <location filename="../res/qml/models/Releases.qml" line="37"/>
+        <location filename="../res/qml/models/Releases.qml" line="47"/>
         <source>Various Fixes and Improvements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="42"/>
+        <location filename="../res/qml/models/Releases.qml" line="36"/>
+        <source>Introducing a new clock language: German!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../res/qml/models/Releases.qml" line="49"/>
         <source>Enable TTS, Battery, and Autolock features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="48"/>
+        <location filename="../res/qml/models/Releases.qml" line="55"/>
         <source>Set default speech frequency to every 15 minutes instead of every minute</source>
         <translation type="unfinished"></translation>
     </message>

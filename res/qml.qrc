@@ -48,5 +48,6 @@
         <file>qml/models/Releases.qml</file>
         <file>qml/models/qmldir</file>
         <file>qml/models/MenuUsage.qml</file>
+        <file>qml/languages/de.qml</file>
     </qresource>
 </RCC>

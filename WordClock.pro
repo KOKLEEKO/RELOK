@@ -5,7 +5,7 @@
 ###################################################################################################
 TEMPLATE = app
 
-VERSION = 1.2.0
+VERSION = 1.2.1
 
 QT += core quick svg widgets
 
@@ -98,7 +98,8 @@ DISTFILES +=                                                    \
     LICENSE                                                     \
     README.md                                                   \
     fastlane/*                                                  \
-    src/README.md
+    src/README.md                                               \
+    wasm/app/index.html
 
 TRANSLATIONS = $$system("ls translations/[^strings]*.ts")
 

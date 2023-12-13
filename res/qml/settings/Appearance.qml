@@ -89,12 +89,12 @@ Controls.MenuSection
         {
             autoExclusive: true
             checkable: true
-            checked: index === parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference", 0), 10)
+            checked: index === parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference", 1), 10)
             text: qsTr(modelData) + DeviceAccess.managers.translation.emptyString
 
             onClicked:
             {
-                isLeftHanded = Boolean(index);
+                isRightHanded = Boolean(index);
                 DeviceAccess.managers.persistence.setValue("Appearance/hand_preference", index);
             }
         }

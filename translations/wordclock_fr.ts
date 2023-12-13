@@ -463,7 +463,7 @@ Vos suggestions seront prises en compte.</translation>
     </message>
     <message>
       <location filename="../res/qml/models/MenuUsage.qml" line="21"/>
-      <source>&lt;b&gt;Swipe left&lt;/b&gt; or right from the edge of the screen, based on the selected handeness&lt;br&gt;&lt;i&gt;(left for right-handed [&lt;u&gt;default&lt;/u&gt;] and right for left-handed)&lt;/i&gt;</source>
+      <source>&lt;b&gt;Swipe left&lt;/b&gt; or right from the edge of the screen, based on the selected handedness&lt;br&gt;&lt;i&gt;(left for right-handed [&lt;u&gt;default&lt;/u&gt;] and right for left-handed)&lt;/i&gt;</source>
       <translation>&lt;b&gt;Faire glisser votre doigt vers la gauche&lt;/b&gt; ou la droite à partir du bord de l'écran, en fonction de la préférence manuelle sélectionnée&lt;br&gt;&lt;i&gt;(gauche pour les droitiers [&lt;u&gt;par défaut&lt;/u&gt;] et droite pour les gauchers)&lt;/i&gt;</translation>
     </message>
     <message>
@@ -508,7 +508,7 @@ Vos suggestions seront prises en compte.</translation>
     </message>
     <message>
       <location filename="../res/qml/models/MenuUsage.qml" line="44"/>
-      <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handeness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
+      <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handedness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
       <translation>&lt;b&gt;Faites glisser le menu vers la droite&lt;/b&gt; ou la gauche, en fonction de la préférence manuelle sélectionnée &lt;br&gt;&lt;i&gt;(droite pour droitier [&lt;u&gt;par défaut&lt;/u&gt;] et gauche pour gaucher)&lt;/i&gt;</translation>
     </message>
   </context>
@@ -543,7 +543,7 @@ Vos suggestions seront prises en compte.</translation>
   <context>
     <name>Picker</name>
     <message>
-      <location filename="../res/qml/controls/Picker.qml" line="49"/>
+      <location filename="../res/qml/controls/Picker.qml" line="48"/>
       <source>%L1 %</source>
       <translation>%L1 %</translation>
     </message>
@@ -602,42 +602,48 @@ Vos suggestions seront prises en compte.</translation>
       <translation type="unfinished"/>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="36"/>
+      <location filename="../res/qml/models/Releases.qml" line="43"/>
       <source>Introduce PieMenu with Handedness Management</source>
       <translation>Introduction du menu circulaire avec la gestion de préférence manuelle</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="37"/>
+      <location filename="../res/qml/models/Releases.qml" line="44"/>
       <source>Add Screenshot Export feature</source>
       <translation>Ajout de l'exportation de capture d'écran</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="38"/>
+      <location filename="../res/qml/models/Releases.qml" line="45"/>
       <source>Improve User Experience in Settings Panel</source>
       <translation>Améliorer l'expérience utilisateur dans le panneau de configuration</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="39"/>
+      <location filename="../res/qml/models/Releases.qml" line="46"/>
       <source>&apos;Tip Me&apos; becomes &apos;Support Us&apos;</source>
       <translation>'Donner un pourboire' devient 'Soutenez-nous'</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="47"/>
+      <location filename="../res/qml/models/Releases.qml" line="54"/>
       <source>Fix unreachable links in the &apos;About&apos; section</source>
       <translation>Corriger les liens inaccessibles de la section 'À propos'</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="40"/>
+      <location filename="../res/qml/models/Releases.qml" line="37"/>
+      <location filename="../res/qml/models/Releases.qml" line="47"/>
       <source>Various Fixes and Improvements</source>
       <translation>Diverses corrections et améliorations</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="42"/>
+      <location filename="../res/qml/models/Releases.qml" line="36"/>
+      <source>Introducing a new clock language: German!</source>
+      <translation>Ajout d'une nouvelle langue pour l'horloge : allemand !</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="49"/>
       <source>Enable TTS, Battery, and Autolock features</source>
       <translation>Activer la synthèse vocale, la gestion de la Batterie et du verrouillage automatique</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="48"/>
+      <location filename="../res/qml/models/Releases.qml" line="55"/>
       <source>Set default speech frequency to every 15 minutes instead of every minute</source>
       <translation>Changer la fréquence par défaut des annonces vocales pour les faire toutes les 15 minutes au lieu de chaque minute</translation>
     </message>

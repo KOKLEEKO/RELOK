@@ -45,8 +45,8 @@ QtControls.Slider
 
     QtControls.ToolTip
     {
-        y: -control.height + height/2
         text: qsTr("%L1 %").arg((Math.round(value*1000)/10).toFixed(1)) + DeviceAccess.managers.translation.emptyString
         visible: pressed
+        y: -control.height + height/2
     }
 }

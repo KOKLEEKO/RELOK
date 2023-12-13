@@ -32,7 +32,7 @@ QtControls.Drawer
     }
     bottomPadding: 20 + isFullScreen ? DeviceAccess.managers.screenSize.safeInsetBottom : 0
     dim: false
-    edge: isLeftHanded ? Qt.RightEdge : Qt.LeftEdge
+    edge: isRightHanded ? Qt.RightEdge : Qt.LeftEdge
     height: parent.height
             - (isFullScreen ? 0
                             : (Math.max(DeviceAccess.managers.screenSize.statusBarHeight,

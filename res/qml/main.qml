@@ -27,14 +27,15 @@ QtControls.ApplicationWindow
     property alias badReviewPopup: badReviewPopup
     property bool aboutToQuit: false
     property bool isWidget: false
-    property bool isLeftHanded: Boolean(parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference",
-                                                                                         1), 10))
+    property bool isRightHanded: Boolean(parseInt(DeviceAccess.managers.persistence.value("Appearance/hand_preference",
+                                                                                          1), 10))
     property bool showWelcome: DeviceAccess.managers.persistence.value("Advanced/show_welcome", true)
     property bool showMenuUsage: DeviceAccess.managers.persistence.value("Advanced/show_menuUsage", true)
     property real tmpOpacity: root.opacity
     readonly property size size: Qt.size(width, height)
-    readonly property bool isFullScreen: HelpersJS.isIos ? DeviceAccess.managers.screenSize.prefersStatusBarHidden
-                                                         : visibility === QtWindows.Window.FullScreen
+    readonly property bool isFullScreen: (HelpersJS.isIos || HelpersJS.isWasm)
+                                         ? DeviceAccess.managers.screenSize.isFullScreen
+                                         : visibility === QtWindows.Window.FullScreen
     readonly property bool isLandScape: width/height > 1.5
     property alias tips: tips
     property int minimumSize: 287

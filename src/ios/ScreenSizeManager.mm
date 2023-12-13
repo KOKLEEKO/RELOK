@@ -20,9 +20,9 @@ ScreenSizeManager::ScreenSizeManager(DeviceAccessBase *deviceAccess, QObject *pa
 }
 void ScreenSizeManager::toggleFullScreen()
 {
-    m_prefersStatusBarHidden ^= true;
+    m_isFullScreen ^= true;
     m_shouldNotifyViewConfigurationChanged = NO;
-    emit prefersStatusBarHiddenChanged();
+    emit isFullScreenChanged();
     [[[[UIApplication sharedApplication] keyWindow] rootViewController]
         setNeedsStatusBarAppearanceUpdate];
 }

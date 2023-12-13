@@ -52,13 +52,13 @@ QtQuick.Loader
                   ? QtLayouts.GridLayout.TopToBottom
                   : QtLayouts.GridLayout.LeftToRight
 
-
             QtQuick.Component.onCompleted: inLineWidth = label.implicitWidth + rowSpacing +
                                            (control ? control.implicitWidth: 0)
 
-            Controls.Title { id: label; QtLayouts.Layout.fillWidth: true; heading: headings.h3; text: title }
+            Controls.Title { id: label; QtLayouts.Layout.fillWidth: true; heading: headings.h3; text:"• " + title }
             QtQuick.Loader { sourceComponent: controlComponent; onLoaded: control = item }
         }
+
         QtQuick.Loader
         {
             QtLayouts.Layout.fillWidth: true

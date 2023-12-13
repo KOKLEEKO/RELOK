@@ -19,7 +19,7 @@ QtQuick.QtObject {
             content: [
                 QT_TRANSLATE_NOOP("MenuUsage", "<b>Long press</b> on the clock, then release on the gear icon"),
                 QT_TRANSLATE_NOOP("MenuUsage", "<b>Swipe left</b> or right from the edge of the screen, based on the \
-selected handeness<br><i>(left for right-handed [<u>default</u>] and right for left-handed)</i>"),
+selected handedness<br><i>(left for right-handed [<u>default</u>] and right for left-handed)</i>"),
             ]
         },
         {
@@ -42,7 +42,7 @@ you close it)</i>")
             content: [
                 QT_TRANSLATE_NOOP("MenuUsage", "<b>Press</b> the clock, if visible"),
                 QT_TRANSLATE_NOOP("MenuUsage", "<b>Drag the menu to the right</b> or left, based on the selected \
-handeness <br><i>(right for right-handed [<u>default</u>] and left for left-handed)</i>")
+handedness <br><i>(right for right-handed [<u>default</u>] and left for left-handed)</i>")
             ]
         }
     ]
