@@ -635,7 +635,7 @@ Tendremos en cuenta sus sugerencias.</translation>
     <message>
       <location filename="../res/qml/models/Releases.qml" line="36"/>
       <source>Introducing a new clock language: German!</source>
-      <translation type="unfinished"/>
+      <translation>¡Introducción de un nuevo idioma para el reloj: alemán!</translation>
     </message>
     <message>
       <location filename="../res/qml/models/Releases.qml" line="49"/>

@@ -41,6 +41,7 @@ Languages currently supported:
 - American English (🇺🇸)
 - British English (🇬🇧)
 - French (Français)
+- German (Deutsch)
 - Spanish (Español)
 
 🗣 [WordClock++](https://github.com/kokleeko/WordClock) will use the language defined in the preferences of your device
@@ -178,5 +179,4 @@ This feature can be deactivated
 
 ## 🚀 Coming soon:
 - 🍕 Italian
-- 🥨 German
 - ⚽ Portuguese
