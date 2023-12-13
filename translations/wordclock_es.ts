@@ -464,7 +464,7 @@ Tendremos en cuenta sus sugerencias.</translation>
     <message>
       <location filename="../res/qml/models/MenuUsage.qml" line="21"/>
       <source>&lt;b&gt;Swipe left&lt;/b&gt; or right from the edge of the screen, based on the selected handedness&lt;br&gt;&lt;i&gt;(left for right-handed [&lt;u&gt;default&lt;/u&gt;] and right for left-handed)&lt;/i&gt;</source>
-      <translation type="unfinished"/>
+      <translation>&lt;b&gt;Desliza el dedo hacia la izquierda&lt;/b&gt; o hacia la derecha desde el borde de la pantalla, en función de la mano dominante seleccionada&lt;br&gt;&lt;i&gt;(izquierda para diestr@s [&lt;u&gt;por defecto&lt;/u&gt;] y derecha para zurd@s)&lt;/i&gt;</translation>
     </message>
     <message>
       <location filename="../res/qml/models/MenuUsage.qml" line="26"/>
@@ -509,7 +509,7 @@ Tendremos en cuenta sus sugerencias.</translation>
     <message>
       <location filename="../res/qml/models/MenuUsage.qml" line="44"/>
       <source>&lt;b&gt;Drag the menu to the right&lt;/b&gt; or left, based on the selected handedness &lt;br&gt;&lt;i&gt;(right for right-handed [&lt;u&gt;default&lt;/u&gt;] and left for left-handed)&lt;/i&gt;</source>
-      <translation type="unfinished"/>
+      <translation>&lt;b&gt;Arrastra el menú a la derecha&lt;/b&gt; o a la izquierda, dependiendo de la mano dominante seleccionada &lt;br&gt;&lt;i&gt;(derecha para diestr@s [&lt;u&gt;por defecto&lt;/u&gt;] e izquierda para zurd@s)&lt;/i&gt;</translation>
     </message>
   </context>
   <context>
