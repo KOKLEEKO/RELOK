@@ -108,7 +108,7 @@ platform :ios do
     )
 
     # Build the app
-    gym(
+    build_app(
       scheme: "WordClock",
       output_name: output_name,
       configuration: "Release",
@@ -118,6 +118,9 @@ platform :ios do
           app_identifier => profile_name
         }
       }
+      clean: true, # Ensure a clean build
+      include_bitcode: false, # Adjust based on your project settings
+      export_xcargs: "-allowProvisioningUpdates" # Enable automatic signing
     )
   end
 

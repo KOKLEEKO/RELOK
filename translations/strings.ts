@@ -598,48 +598,49 @@ Your suggestions will be taken into account.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="43"/>
+        <location filename="../res/qml/models/Releases.qml" line="49"/>
         <source>Introduce PieMenu with Handedness Management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="44"/>
+        <location filename="../res/qml/models/Releases.qml" line="50"/>
         <source>Add Screenshot Export feature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="45"/>
+        <location filename="../res/qml/models/Releases.qml" line="51"/>
         <source>Improve User Experience in Settings Panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="46"/>
+        <location filename="../res/qml/models/Releases.qml" line="52"/>
         <source>&apos;Tip Me&apos; becomes &apos;Support Us&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="54"/>
+        <location filename="../res/qml/models/Releases.qml" line="60"/>
         <source>Fix unreachable links in the &apos;About&apos; section</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="37"/>
-        <location filename="../res/qml/models/Releases.qml" line="47"/>
+        <location filename="../res/qml/models/Releases.qml" line="36"/>
+        <location filename="../res/qml/models/Releases.qml" line="43"/>
+        <location filename="../res/qml/models/Releases.qml" line="53"/>
         <source>Various Fixes and Improvements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="36"/>
+        <location filename="../res/qml/models/Releases.qml" line="42"/>
         <source>Introducing a new clock language: German!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="49"/>
+        <location filename="../res/qml/models/Releases.qml" line="55"/>
         <source>Enable TTS, Battery, and Autolock features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/models/Releases.qml" line="55"/>
+        <location filename="../res/qml/models/Releases.qml" line="61"/>
         <source>Set default speech frequency to every 15 minutes instead of every minute</source>
         <translation type="unfinished"></translation>
     </message>
