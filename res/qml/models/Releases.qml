@@ -33,6 +33,7 @@ QtQuick.QtObject
         "1.2.1" :
         {
             common : [
+                QT_TRANSLATE_NOOP("Releases", "Introducing a new clock language: German!"),
                 QT_TRANSLATE_NOOP("Releases", "Various Fixes and Improvements")
             ]
         },
