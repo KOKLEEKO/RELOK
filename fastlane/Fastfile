@@ -118,9 +118,6 @@ platform :ios do
           app_identifier => profile_name
         }
       }
-      clean: true, # Ensure a clean build
-      include_bitcode: false, # Adjust based on your project settings
-      export_xcargs: "-allowProvisioningUpdates" # Enable automatic signing
     )
   end
 
