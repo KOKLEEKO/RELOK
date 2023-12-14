@@ -605,17 +605,17 @@ Tendremos en cuenta sus sugerencias.</translation>
       <location filename="../res/qml/models/Releases.qml" line="36"/>
       <location filename="../res/qml/models/Releases.qml" line="44"/>
       <source>Introducing a new clock language: %1!</source>
-      <translation type="unfinished"/>
+      <translation>¡Introducción de un nuevo idioma para el reloj: %1!</translation>
     </message>
     <message>
       <location filename="../res/qml/models/Releases.qml" line="37"/>
       <source>Portuguese</source>
-      <translation type="unfinished"/>
+      <translation>Portugués</translation>
     </message>
     <message>
       <location filename="../res/qml/models/Releases.qml" line="45"/>
       <source>German</source>
-      <translation type="unfinished"/>
+      <translation>Alemán</translation>
     </message>
     <message>
       <location filename="../res/qml/models/Releases.qml" line="52"/>

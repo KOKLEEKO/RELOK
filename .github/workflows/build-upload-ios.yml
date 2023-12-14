@@ -44,7 +44,7 @@ jobs:
         run: sed -i '' 's/\usr\/bin\/python/\usr\/bin\/python3/g' ${{ env.Qt5_DIR }}/mkspecs/features/uikit/devices.py
 
       - name: qmake
-        run: qmake CONFIG+=release
+        run: qmake CONFIG-=debug
 
       - name: make (generate qrc_ and moc_ files)
         run: make -j$(sysctl -n hw.physicalcpu) -i
