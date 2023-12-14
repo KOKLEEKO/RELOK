@@ -28,11 +28,6 @@ Language
         heure(enable);
         tmp_onoff_table[5][10] = enable;
     }
-    function et(enable)
-    {
-        tmp_onoff_table[6][1] = enable;
-        tmp_onoff_table[6][2] = enable;
-    }
     function moins(enable)
     {
         tmp_onoff_table[6][3] = enable;
@@ -40,6 +35,11 @@ Language
         tmp_onoff_table[6][5] = enable;
         tmp_onoff_table[6][6] = enable;
         tmp_onoff_table[6][7] = enable;
+    }
+    function et(enable)
+    {
+        tmp_onoff_table[6][1] = enable;
+        tmp_onoff_table[6][2] = enable;
     }
 
     function cinq_minutes(enable)
@@ -197,60 +197,65 @@ Language
         heures(enable);
     }
 
-    function minutes_00(enable) { }
-    function minutes_05(enable)     //"CINQ"
+    function minutes_00(enable, hours_array_index) { }
+    function minutes_05(enable, hours_array_index)     //"CINQ"
     {
         cinq_minutes(enable);
     }
-    function minutes_10(enable)     //"DIX"
+    function minutes_10(enable, hours_array_index)     //"DIX"
     {
         dix_minutes(enable);
     }
-    function minutes_15(enable)     //"ET QUART"
+    function minutes_15(enable, hours_array_index)     //"ET QUART"
     {
         et(enable);
         quinze_minutes(enable);
     }
-    function minutes_20(enable)     //"VINGT"
+    function minutes_20(enable, hours_array_index)     //"VINGT"
     {
         vingt_minutes(enable);
     }
-    function minutes_25(enable)     //"VINGT-CINQ"
+    function minutes_25(enable, hours_array_index)     //"VINGT-CINQ"
     {
         vingtcinq_minutes(enable);
     }
-    function minutes_30(enable)     //"ET DEMIE"
+    function minutes_30(enable, hours_array_index)     //"ET DEMI(E)"
     {
         et(enable);
         tmp_onoff_table[7][6]  = enable;
         tmp_onoff_table[7][7]  = enable;
         tmp_onoff_table[7][8]  = enable;
         tmp_onoff_table[7][9]  = enable;
-        tmp_onoff_table[7][10] = enable;
+
+        if (hours_array_index > 0)
+        {
+            tmp_onoff_table[7][10] = enable;
+        }
+
     }
-    function minutes_35(enable)     //"MOINS VINGT-CINQ"
+    function minutes_35(enable, hours_array_index)     //"MOINS VINGT-CINQ"
     {
         moins(enable);
         vingtcinq_minutes(enable);
     }
-    function minutes_40(enable)     //"MOINS VINGT"
+    function minutes_40(enable, hours_array_index)     //"MOINS VINGT"
     {
         moins(enable);
         vingt_minutes(enable);
     }
-    function minutes_45(enable)     //"MOINS LE QUART"
+    function minutes_45(enable, hours_array_index)     //"MOINS LE QUART"
     {
         moins(enable);
         tmp_onoff_table[9][0] = enable;
         tmp_onoff_table[9][1] = enable;
         quinze_minutes(enable);
     }
-    function minutes_50(enable)     //"MOINS DIX"
+    function minutes_50(enable, hours_array_index)     //"MOINS DIX"
     {
         moins(enable);
         dix_minutes(enable);
     }
-    function minutes_55(enable)     //"MOINS CINQ"
+    function minutes_55(enable, hours_array_index)     //"MOINS CINQ"
     {
         moins(enable);
         cinq_minutes(enable);
@@ -258,9 +263,17 @@ Language
 
     function special_message(enable)
     {
-        il_est(enable);
+        tmp_onoff_table[0][0] = enable;
+        tmp_onoff_table[0][1] = enable;
+        tmp_onoff_table[0][3] = enable;
+        tmp_onoff_table[0][4] = enable;
+        tmp_onoff_table[0][5] = enable;
         tmp_onoff_table[5][4] = enable;
-        heure(enable);
+        tmp_onoff_table[5][5] = enable;
+        tmp_onoff_table[5][6] = enable;
+        tmp_onoff_table[5][7] = enable;
+        tmp_onoff_table[5][8] = enable;
+        tmp_onoff_table[5][9] = enable;
         tmp_onoff_table[6][0] = enable;
         tmp_onoff_table[6][1] = enable;
         tmp_onoff_table[6][7] = enable;
@@ -286,7 +299,14 @@ Language
             written_time += written_hours_array[hours_array_index];
             written_time += " HEURE" + ((hours_array_index > 1) ? "S" : "");
         }
-        written_time += ' ' + written_minutes_array[minutes_array_index];
+        if (minutes_array_index > 0)
+        {
+            written_time += ' ' + written_minutes_array[minutes_array_index];
+            if (minutes_array_index === 6 && hours_array_index === 0)
+            {
+                written_time += 'E';
+            }
+        }
         return written_time;
     }
 
@@ -306,6 +326,6 @@ Language
         ["MINUIT|MIDI", "UNE", "DEUX", "TROIS", "QUATRE", "CINQ", "SIX", "SEPT", "HUIT", "NEUF",
         "DIX", "ONZE"]
     written_minutes_array:
-        ["", "CINQ", "DIX", "ET QUART", "VINGT", "VINGT-CINQ", "ET DEMIE",
+        ["", "CINQ", "DIX", "ET QUART", "VINGT", "VINGT-CINQ", "ET DEMI",
         "MOINS VINGT-CINQ", "MOINS VINGT", "MOINS LE QUART", "MOINS DIX", "MOINS CINQ"]
 }

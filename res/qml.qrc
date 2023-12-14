@@ -18,7 +18,7 @@
         <file>qml/controls/ColorHexField.qml</file>
         <file>qml/controls/IconButton.qml</file>
         <file>qml/languages/en_US.qml</file>
-        <file>qml/languages/.fr_CA.qml</file>
+        <file>qml/languages/fr_CA.qml</file>
         <file>qml/controls/SmallPositionSelector.qml</file>
         <file>qml/controls/PositionSelector.qml</file>
         <file>qml/controls/AccessoryText.qml</file>
@@ -49,5 +49,6 @@
         <file>qml/models/qmldir</file>
         <file>qml/models/MenuUsage.qml</file>
         <file>qml/languages/de.qml</file>
+        <file>qml/languages/pt.qml</file>
     </qresource>
 </RCC>
