@@ -29,69 +29,69 @@
       <translation>Hacemos un seguimiento anónimo de la aparición de errores en Firebase para corregirlos casi tan pronto como los encuentres. Pero puedes desactivar esta función para entrar en modo submarino.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="52"/>
+      <location filename="../res/qml/settings/About.qml" line="53"/>
       <source>Review</source>
       <translation>Reseña</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="71"/>
+      <location filename="../res/qml/settings/About.qml" line="72"/>
       <source>Rate us by clicking on the stars.</source>
       <translation>Puntúanos haciendo clic en las estrellas.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="75"/>
+      <location filename="../res/qml/settings/About.qml" line="76"/>
       <source>Also available on</source>
       <translation>También disponible en</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="90"/>
+      <location filename="../res/qml/settings/About.qml" line="91"/>
       <source>The application may be slightly different depending on the platform used.</source>
       <translation>La aplicación puede ser ligeramente diferente dependiendo de la plataforma utilizada.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="95"/>
+      <location filename="../res/qml/settings/About.qml" line="96"/>
       <source>Contact</source>
       <translation>Contacto</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="105"/>
+      <location filename="../res/qml/settings/About.qml" line="112"/>
       <source>We would be happy to receive your feedback.</source>
       <translation>Esperamos sus comentarios.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="110"/>
+      <location filename="../res/qml/settings/About.qml" line="117"/>
       <source>Credits</source>
       <translation>Agradecimientos</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="112"/>
+      <location filename="../res/qml/settings/About.qml" line="119"/>
       <source>Built with Qt</source>
       <translation>Desarrollada con Qt</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="113"/>
+      <location filename="../res/qml/settings/About.qml" line="120"/>
       <source>Released with Fastlane</source>
       <translation>Publicada con Fastlane</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="114"/>
+      <location filename="../res/qml/settings/About.qml" line="121"/>
       <source>Icons from SVG Repo</source>
       <translation>Iconos de SVG Repo</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="115"/>
+      <location filename="../res/qml/settings/About.qml" line="122"/>
       <source>Localization with Crowdin</source>
       <translation>Localización con Crowdin</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="124"/>
+      <location filename="../res/qml/settings/About.qml" line="131"/>
       <source>
 Developed with love by Johan and published by Denver.</source>
       <translation>
 Desarrollada con amor por Johan y publicada por Denver.</translation>
     </message>
     <message>
-      <location filename="../res/qml/settings/About.qml" line="129"/>
+      <location filename="../res/qml/settings/About.qml" line="136"/>
       <source>Version</source>
       <translation>Versión</translation>
     </message>
@@ -515,27 +515,27 @@ Tendremos en cuenta sus sugerencias.</translation>
   <context>
     <name>MenuUsagePopup</name>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="28"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="26"/>
       <source>How to use it? [%1/%2]</source>
       <translation>¿Cómo usarlo? [%1/%2]</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="43"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="41"/>
       <source>Don&apos;t show this again</source>
       <translation>No mostrar esto de nuevo</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="53"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="51"/>
       <source>Previous</source>
       <translation>Anterior</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="61"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="59"/>
       <source>Next</source>
       <translation>Siguiente</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="69"/>
+      <location filename="../res/qml/popups/MenuUsagePopup.qml" line="67"/>
       <source>Close</source>
       <translation>Cerrar</translation>
     </message>
@@ -602,48 +602,60 @@ Tendremos en cuenta sus sugerencias.</translation>
       <translation type="unfinished"/>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="43"/>
+      <location filename="../res/qml/models/Releases.qml" line="36"/>
+      <location filename="../res/qml/models/Releases.qml" line="44"/>
+      <source>Introducing a new clock language: %1!</source>
+      <translation>¡Introducción de un nuevo idioma para el reloj: %1!</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="37"/>
+      <source>Portuguese</source>
+      <translation>Portugués</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="45"/>
+      <source>German</source>
+      <translation>Alemán</translation>
+    </message>
+    <message>
+      <location filename="../res/qml/models/Releases.qml" line="52"/>
       <source>Introduce PieMenu with Handedness Management</source>
       <translation>Introducción del menú circular con la gestión de la mano dominante</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="44"/>
+      <location filename="../res/qml/models/Releases.qml" line="53"/>
       <source>Add Screenshot Export feature</source>
       <translation>Añadir función de exportación de captura de pantalla</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="45"/>
+      <location filename="../res/qml/models/Releases.qml" line="54"/>
       <source>Improve User Experience in Settings Panel</source>
       <translation>Mejorar la experiencia del usuario en el panel de ajustes</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="46"/>
+      <location filename="../res/qml/models/Releases.qml" line="55"/>
       <source>&apos;Tip Me&apos; becomes &apos;Support Us&apos;</source>
       <translation>&apos;Dame una propina&apos; se convierte en &apos;Apóyanos&apos;</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="54"/>
+      <location filename="../res/qml/models/Releases.qml" line="63"/>
       <source>Fix unreachable links in the &apos;About&apos; section</source>
       <translation>Corregir los enlaces inaccesibles de la sección &apos;Acerca de&apos;</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="37"/>
-      <location filename="../res/qml/models/Releases.qml" line="47"/>
+      <location filename="../res/qml/models/Releases.qml" line="38"/>
+      <location filename="../res/qml/models/Releases.qml" line="46"/>
+      <location filename="../res/qml/models/Releases.qml" line="56"/>
       <source>Various Fixes and Improvements</source>
       <translation>Varias correcciones y mejoras</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="36"/>
-      <source>Introducing a new clock language: German!</source>
-      <translation>¡Introducción de un nuevo idioma para el reloj: alemán!</translation>
-    </message>
-    <message>
-      <location filename="../res/qml/models/Releases.qml" line="49"/>
+      <location filename="../res/qml/models/Releases.qml" line="58"/>
       <source>Enable TTS, Battery, and Autolock features</source>
       <translation>Activar la síntesis de voz, la gestión de la batería y el bloqueo automático</translation>
     </message>
     <message>
-      <location filename="../res/qml/models/Releases.qml" line="55"/>
+      <location filename="../res/qml/models/Releases.qml" line="64"/>
       <source>Set default speech frequency to every 15 minutes instead of every minute</source>
       <translation>Establecer frecuencia de voz predeterminada a cada 15 minutos en lugar de cada minuto</translation>
     </message>
@@ -769,27 +781,27 @@ Tendremos en cuenta sus sugerencias.</translation>
   <context>
     <name>WelcomePopup</name>
     <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="29"/>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="27"/>
       <source>Welcome to %1 (%2)</source>
       <translation>Bienvenid@ en %1 (%2)</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="37"/>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="35"/>
       <source>Don&apos;t show this again</source>
       <translation>No mostrar esto de nuevo</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="59"/>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="57"/>
       <source>We hope you enjoy using it!</source>
       <translation>¡Esperamos que disfrute utilizándolo!</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="75"/>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="73"/>
       <source>What&apos;s new?</source>
       <translation>Novedades:</translation>
     </message>
     <message>
-      <location filename="../res/qml/popups/WelcomePopup.qml" line="112"/>
+      <location filename="../res/qml/popups/WelcomePopup.qml" line="110"/>
       <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu</source>
       <translation>&lt;b&gt;Mantenga pulsado&lt;/b&gt; fuera de esta ventana emergente para cerrarla y abrir el menú circular</translation>
     </message>

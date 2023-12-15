@@ -165,7 +165,7 @@ Language
         tmp_onoff_table[4][10] = enable;
     }
 
-    function minutes_00(enable)     // "O'CLOCK"
+    function minutes_00(enable, hours_array_index)     // "O'CLOCK"
     {
         tmp_onoff_table[9][5]  = enable;
         tmp_onoff_table[9][6]  = enable;
@@ -174,32 +174,32 @@ Language
         tmp_onoff_table[9][9]  = enable;
         tmp_onoff_table[9][10] = enable;
     }
-    function minutes_05(enable)     //"FIVE PAST"
+    function minutes_05(enable, hours_array_index)     //"FIVE PAST"
     {
         five_minutes(enable);
         past(enable);
     }
-    function minutes_10(enable)     //"TEN PAST"
+    function minutes_10(enable, hours_array_index)     //"TEN PAST"
     {
         ten_minutes(enable);
         past(enable);
     }
-    function minutes_15(enable)     //"A QUARTER PAST"
+    function minutes_15(enable, hours_array_index)     //"A QUARTER PAST"
     {
         fifteen_minutes(enable);
         past(enable);
     }
-    function minutes_20(enable)     //"TWENTY PAST"
+    function minutes_20(enable, hours_array_index)     //"TWENTY PAST"
     {
         twenty_minutes(enable);
         past(enable);
     }
-    function minutes_25(enable)     //"TWENTY FIVE PAST"
+    function minutes_25(enable, hours_array_index)     //"TWENTY FIVE PAST"
     {
         twentyfive_minutes(enable);
         past(enable);
     }
-    function minutes_30(enable)     //"HALF PAST"
+    function minutes_30(enable, hours_array_index)     //"HALF PAST"
     {
         tmp_onoff_table[0][6] = enable;
         tmp_onoff_table[0][7] = enable;
@@ -207,27 +207,27 @@ Language
         tmp_onoff_table[0][9] = enable;
         past(enable);
     }
-    function minutes_35(enable)     //"TWENTY FIVE TO"
+    function minutes_35(enable, hours_array_index)     //"TWENTY FIVE TO"
     {
         twentyfive_minutes(enable);
         to(enable);
     }
-    function minutes_40(enable)      //"TWENTY TO"
+    function minutes_40(enable, hours_array_index)      //"TWENTY TO"
     {
         twenty_minutes(enable);
         to(enable);
     }
-    function minutes_45(enable)      //"A QUARTER TO"
+    function minutes_45(enable, hours_array_index)      //"A QUARTER TO"
     {
         fifteen_minutes(enable);
         to(enable);
     }
-    function minutes_50(enable)      //"TEN TO"
+    function minutes_50(enable, hours_array_index)      //"TEN TO"
     {
         ten_minutes(enable);
         to(enable);
     }
-    function minutes_55(enable)     //"FIVE TO"
+    function minutes_55(enable, hours_array_index)     //"FIVE TO"
     {
         five_minutes(enable);
         to(enable);
@@ -235,7 +235,10 @@ Language
 
     function special_message(enable)
     {
-        it_is(enable);
+        tmp_onoff_table[0][0]  = enable;
+        tmp_onoff_table[0][1]  = enable;
+        tmp_onoff_table[0][3]  = enable;
+        tmp_onoff_table[0][4]  = enable;
         tmp_onoff_table[1][0]  = enable;
         tmp_onoff_table[1][1]  = enable;
         tmp_onoff_table[1][2]  = enable;
@@ -251,12 +254,12 @@ Language
 
     function written_time(hours_array_index, minutes_array_index, isAM)
     {
-        var written_time = "IT IS";
-        if (minutes_array_index !== 0)
+        var written_time = "IT IS ";
+        if (minutes_array_index > 0)
         {
-            written_time += ' ' + written_minutes_array[minutes_array_index];
+            written_time += written_minutes_array[minutes_array_index] + ' ';
         }
-        written_time += ' ' + written_hours_array[hours_array_index];
+        written_time += written_hours_array[hours_array_index];
         if (minutes_array_index === 0)
         {
             written_time += ' ' + written_minutes_array[0];

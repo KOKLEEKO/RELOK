@@ -25,7 +25,7 @@ QtQuick.QtObject
         }
         for (var minutes of minutes_array)
         {
-            HelpersJS.createUndefinedMethod(this, "minutes_" + minutes, "enable");
+            HelpersJS.createUndefinedMethod(this, "minutes_" + minutes, "enable", "hours_array_index");
         }
     }
 }

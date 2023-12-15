@@ -9,12 +9,11 @@ import QtQuick 2.15 as QtQuick
 
 QtQuick.QtObject
 {
-    readonly property real h0: Math.round(p1 * 2.25)
-    readonly property real h1: Math.round(p1 * 2.00)
-    readonly property real h2: Math.round(p1 * 1.75)
-    readonly property real h3: Math.round(p1 * 1.50)
-    readonly property real h4: Math.round(p1 * 1.25)
+    readonly property real h0: Math.round(p1 * 2.0)
+    readonly property real h1: Math.round(p1 * 1.8)
+    readonly property real h2: Math.round(p1 * 1.6)
+    readonly property real h3: Math.round(p1 * 1.4)
+    readonly property real h4: Math.round(p1 * 1.2)
     readonly property real p1: GeneralFont ? GeneralFont.pointSize : 12
-    readonly property real p2: Math.round(p1 * 0.75)
+    readonly property real p2: Math.round(p1 * 0.8)
 }
-

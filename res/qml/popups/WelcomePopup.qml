@@ -11,8 +11,6 @@ import QtQuick.Layouts 1.15 as QtLayouts
 
 import DeviceAccess 1.0
 
-import "qrc:/js/Helpers.js" as HelpersJS
-
 import "qrc:/qml/models" as Models
 
 QtControls.Dialog

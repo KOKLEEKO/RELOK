@@ -42,7 +42,7 @@ Language
         tmp_onoff_table[1][2] = enable;
         tmp_onoff_table[1][3] = enable;
     }
-    function viertel_minuten(enable)
+    function fünfzehn_minuten(enable)
     {
         tmp_onoff_table[1][4]  = enable;
         tmp_onoff_table[1][5]  = enable;
@@ -170,59 +170,59 @@ Language
         tmp_onoff_table[6][10] = enable;
     }
 
-    function minutes_00(enable) { }
-    function minutes_05(enable)     //"FÜNF NACH"
+    function minutes_00(enable, hours_array_index) { }
+    function minutes_05(enable, hours_array_index)     //"FÜNF NACH"
     {
         funf_minuten(enable);
         nach(enable);
     }
-    function minutes_10(enable)     //"ZEHN NACH"
+    function minutes_10(enable, hours_array_index)     //"ZEHN NACH"
     {
         zehn_minuten(enable);
         nach(enable);
     }
-    function minutes_15(enable)     //"VIERTEL NACH"
+    function minutes_15(enable, hours_array_index)     //"VIERTEL NACH"
     {
-        viertel_minuten(enable);
+        fünfzehn_minuten(enable);
         nach(enable);
     }
-    function minutes_20(enable)     //"ZWANZIG NACH"
+    function minutes_20(enable, hours_array_index)     //"ZWANZIG NACH"
     {
         zwanzig_minuten(enable);
         nach(enable);
     }
-    function minutes_25(enable)     //"FÜNF VOR HALB"
+    function minutes_25(enable, hours_array_index)     //"FÜNF VOR HALB"
     {
         funf_minuten(enable);
         vor(enable)
         halb(enable);
     }
-    function minutes_30(enable)     //"HALB"
+    function minutes_30(enable, hours_array_index)     //"HALB"
     {
         halb(enable);
     }
-    function minutes_35(enable)     //"FÜNF NACH HALB"
+    function minutes_35(enable, hours_array_index)     //"FÜNF NACH HALB"
     {
         funf_minuten(enable);
         nach(enable)
         halb(enable);
     }
-    function minutes_40(enable)      //"ZWANZIG VOR"
+    function minutes_40(enable, hours_array_index)      //"ZWANZIG VOR"
     {
         zwanzig_minuten(enable);
         vor(enable);
     }
-    function minutes_45(enable)      //"VIERTEL VOR"
+    function minutes_45(enable, hours_array_index)      //"VIERTEL VOR"
     {
-        viertel_minuten(enable);
+        fünfzehn_minuten(enable);
         vor(enable);
     }
-    function minutes_50(enable)      //"ZEHN VOR"
+    function minutes_50(enable, hours_array_index)      //"ZEHN VOR"
     {
         zehn_minuten(enable);
         vor(enable);
     }
-    function minutes_55(enable)     //"FÜNF VOR"
+    function minutes_55(enable, hours_array_index)     //"FÜNF VOR"
     {
         funf_minuten(enable);
         vor(enable);
@@ -255,20 +255,12 @@ Language
 
     function written_time(hours_array_index, minutes_array_index, isAM)
     {
-        var written_time = "ES IST";
-        if (minutes_array_index !== 0)
+        var written_time = "ES IST ";
+        if (minutes_array_index > 0)
         {
-            written_time += ' ' + written_minutes_array[minutes_array_index];
+            written_time += written_minutes_array[minutes_array_index] + ' ';
         }
-        written_time += ' ' + written_hours_array[hours_array_index];
-        if (minutes_array_index !== 0 && hours_array_index === 1)
-        {
-            written_time += "S";
-        }
-        if (minutes_array_index === 0)
-        {
-            written_time += ' ' + written_minutes_array[0];
-        }
+        written_time += written_hours_array[hours_array_index];
         return written_time;
     }
 
@@ -285,7 +277,7 @@ Language
         ,["T", "A", "N", "Z", "W", "Ö", "L", "F", "Ü", "N", "F"]  // 8
         ,["Z", "E", "H", "N", "E", "U", "N", "A", "C", "H", "T"]] // 9
     written_hours_array:
-        ["ZWÖLF", "EIN", "ZWEI", "DREI", "VIER", "FÜNF", "SECHS", "SIEBEN", "ACHT", "NEUN", "ZEHN", "ELF"]
+        ["ZWÖLF", "EINS", "ZWEI", "DREI", "VIER", "FÜNF", "SECHS", "SIEBEN", "ACHT", "NEUN", "ZEHN", "ELF"]
     written_minutes_array:
         ["", "FÜNF NACH", "ZEHN NACH", "VIERTEL NACH", "ZWANZIG NACH", "FÜNF VOR HALB", "HALB", "FÜNF NACH HALB",
         "ZWANZIG VOR", "VIERTEL VOR", "ZEHN VOR", "FÜNF VOR"]

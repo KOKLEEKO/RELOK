@@ -30,10 +30,19 @@ QtQuick.QtObject
 
     readonly property var notes:
     {
+        "1.2.2" :
+        {
+            common : [
+                QT_TRANSLATE_NOOP("Releases", "Introducing a new clock language: %1!").arg(
+                    QT_TRANSLATE_NOOP("Releases", "Portuguese")),
+                QT_TRANSLATE_NOOP("Releases", "Various Fixes and Improvements")
+            ]
+        },
         "1.2.1" :
         {
             common : [
-                QT_TRANSLATE_NOOP("Releases", "Introducing a new clock language: German!"),
+                QT_TRANSLATE_NOOP("Releases", "Introducing a new clock language: %1!").arg(
+                    QT_TRANSLATE_NOOP("Releases", "German")),
                 QT_TRANSLATE_NOOP("Releases", "Various Fixes and Improvements")
             ]
         },

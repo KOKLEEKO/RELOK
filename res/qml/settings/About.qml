@@ -49,6 +49,7 @@ almost as soon as you encounter them. But you can disable this feature to enter 
 
         property int rating: DeviceAccess.managers.persistence.value("About/rating", -1)
 
+        active: !HelpersJS.isWasm
         title: qsTr("Review") + DeviceAccess.managers.translation.emptyString
         model: 5
         delegate: QtControls.Button
@@ -98,10 +99,16 @@ almost as soon as you encounter them. But you can disable this feature to enter 
             { name: "youtube", link: "https://youtube.com/channel/UCJ0QPsxjk_mxdIQtEZsIA6w" },
             { name: "linkedin", link: "https://www.linkedin.com/in/johanremilien"           },
             { name: "instagram", link: "https://instagram.com/kokleeko.io"                  },
-            { name: "email", link: "mailto:contact@kokleeko.io"                             },
-            { name: "website", link: "https://www.kokleeko.io"                              }
+            { name: "email", link: "mailto:johan.remilien+wordclock++@gmail.com"            },
+            { name: "website", active: false, link: "https://www.kokleeko.io"               }
         ]
-        delegate: Controls.IconButton { name: modelData.name; onClicked: openUrl(modelData.link) }
+        delegate: Controls.IconButton
+        {
+            name: modelData.name
+            active: modelData.active ?? true
+
+            onClicked: openUrl(modelData.link)
+        }
         details: qsTr("We would be happy to receive your feedback.") +
                  DeviceAccess.managers.translation.emptyString
     }

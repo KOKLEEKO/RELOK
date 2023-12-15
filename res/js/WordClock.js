@@ -193,6 +193,25 @@ class Object
             instance.language.special_message(false);
         }
 
+        if ((instance.previous_minutes_array_index !== instance.minutes_array_index) || is_special
+            || instance.was_special)
+        {
+            if (instance.previous_minutes_array_index !== parseInt(-1, 10))
+            {
+                instance.language[
+                    "minutes_" + instance.minutes_array[
+                        instance.previous_minutes_array_index]](false, instance.previous_hours_array_index);
+            }
+
+            if (!is_special)
+            {
+                instance.language[
+                    "minutes_" + instance.minutes_array[
+                        instance.minutes_array_index]](true, instance.hours_array_index);
+                instance.previous_minutes_array_index = instance.minutes_array_index;
+            }
+        }
+
         if ((instance.previous_hours_array_index !== instance.hours_array_index) || is_special || instance.was_special)
         {
             if (instance.previous_hours_array_index !== parseInt(-1, 10))
@@ -206,21 +225,6 @@ class Object
             {
                 instance.language["hours_" + instance.hours_array[instance.hours_array_index]](true, isAM);
                 instance.previous_hours_array_index = instance.hours_array_index;
-            }
-        }
-
-        if ((instance.previous_minutes_array_index !== instance.minutes_array_index) || is_special
-            || instance.was_special)
-        {
-            if (instance.previous_minutes_array_index !== parseInt(-1, 10))
-            {
-                instance.language["minutes_" + instance.minutes_array[instance.previous_minutes_array_index]](false);
-            }
-
-            if (!is_special)
-            {
-                instance.language["minutes_" + instance.minutes_array[instance.minutes_array_index]](true);
-                instance.previous_minutes_array_index = instance.minutes_array_index;
             }
         }
 

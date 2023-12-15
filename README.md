@@ -40,9 +40,11 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 Languages currently supported: 
 - American English (🇺🇸)
 - British English (🇬🇧)
-- French (Français)
-- German (Deutsch)
-- Spanish (Español)
+- Canadian French [Français Canadien] (🇫🇷)
+- French of France [Français de France] (🇨🇦)
+- German [Deutsch]
+- Portuguese [Português]
+- Spanish [Español]
 
 🗣 [WordClock++](https://github.com/kokleeko/WordClock) will use the language defined in the preferences of your device
 (_if this language is not yet supported, English will be used by default_).
@@ -178,5 +180,4 @@ This feature can be deactivated
 </details>
 
 ## 🚀 Coming soon:
-- 🍕 Italian
-- ⚽ Portuguese
+- 🇮🇹  Italian 🍕

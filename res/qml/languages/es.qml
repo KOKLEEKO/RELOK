@@ -180,33 +180,33 @@ Language
         tmp_onoff_table[5][10] = enable;
     }
 
-    function minutes_00(enable) { }
-    function minutes_05(enable)     //"Y CINCO"
+    function minutes_00(enable, hours_array_index) { }
+    function minutes_05(enable, hours_array_index)     //"Y CINCO"
     {
         y(enable);
         cinco_minutos(enable);
     }
-    function minutes_10(enable)      //"Y DIEZ"
+    function minutes_10(enable, hours_array_index)      //"Y DIEZ"
     {
         y(enable);
         diez_minutos(enable);
     }
-    function minutes_15(enable)      //"Y CUARTO"
+    function minutes_15(enable, hours_array_index)      //"Y CUARTO"
     {
         y(enable);
         quince_minutos(enable);
     }
-    function minutes_20(enable)      //"Y VEINTE"
+    function minutes_20(enable, hours_array_index)      //"Y VEINTE"
     {
         y(enable);
         veinte_minutos(enable);
     }
-    function minutes_25(enable)     //"Y VEINTICINCO"
+    function minutes_25(enable, hours_array_index)     //"Y VEINTICINCO"
     {
         y(enable);
         veinticinco_minutos(enable);
     }
-    function minutes_30(enable)     //"Y MEDIA"
+    function minutes_30(enable, hours_array_index)     //"Y MEDIA"
     {
         y(enable);
         tmp_onoff_table[9][0] = enable;
@@ -215,27 +215,27 @@ Language
         tmp_onoff_table[9][3] = enable;
         tmp_onoff_table[9][4] = enable;
     }
-    function minutes_35(enable)     //"MENOS VEINTICINCO"
+    function minutes_35(enable, hours_array_index)     //"MENOS VEINTICINCO"
     {
         menos(enable);
         veinticinco_minutos(enable);
     }
-    function minutes_40(enable)     //"MENOS VEINTE"
+    function minutes_40(enable, hours_array_index)     //"MENOS VEINTE"
     {
         menos(enable);
         veinte_minutos(enable);
     }
-    function minutes_45(enable)     //"MENOS CUARTO"
+    function minutes_45(enable, hours_array_index)     //"MENOS CUARTO"
     {
         menos(enable);
         quince_minutos(enable);
     }
-    function minutes_50(enable)     //"MENOS DIEZ"
+    function minutes_50(enable, hours_array_index)     //"MENOS DIEZ"
     {
         menos(enable);
         diez_minutos(enable);
     }
-    function minutes_55(enable)     //"MENOS CINCO"
+    function minutes_55(enable, hours_array_index)     //"MENOS CINCO"
     {
         menos(enable);
         cinco_minutos(enable);
@@ -271,7 +271,10 @@ Language
     {
         var written_time = hours_array_index === 1 ? "ES LA " : "SON LAS ";
         written_time += written_hours_array[hours_array_index];
-        written_time += ' ' + written_minutes_array[minutes_array_index];
+        if (minutes_array_index !== 0)
+        {
+            written_time += ' ' + written_minutes_array[minutes_array_index];
+        }
         return written_time;
     }
 

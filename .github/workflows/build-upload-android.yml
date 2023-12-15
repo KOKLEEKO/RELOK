@@ -48,7 +48,7 @@ jobs:
           echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
 
       - name: qmake
-        run: qmake "ANDROID_VERSION_CODE=${{ env.version_code }}"
+        run: qmake CONFIG-=debug ANDROID_VERSION_CODE=${{ env.version_code }}
 
       - name: make
         run: make -j$(nproc) && make -j$(nproc) apk_install_target
