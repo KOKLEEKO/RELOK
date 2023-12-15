@@ -29,68 +29,68 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="52"/>
+        <location filename="../res/qml/settings/About.qml" line="53"/>
         <source>Review</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="71"/>
+        <location filename="../res/qml/settings/About.qml" line="72"/>
         <source>Rate us by clicking on the stars.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="75"/>
+        <location filename="../res/qml/settings/About.qml" line="76"/>
         <source>Also available on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="90"/>
+        <location filename="../res/qml/settings/About.qml" line="91"/>
         <source>The application may be slightly different depending on the platform used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="95"/>
+        <location filename="../res/qml/settings/About.qml" line="96"/>
         <source>Contact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="105"/>
+        <location filename="../res/qml/settings/About.qml" line="112"/>
         <source>We would be happy to receive your feedback.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="110"/>
+        <location filename="../res/qml/settings/About.qml" line="117"/>
         <source>Credits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="112"/>
+        <location filename="../res/qml/settings/About.qml" line="119"/>
         <source>Built with Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="113"/>
+        <location filename="../res/qml/settings/About.qml" line="120"/>
         <source>Released with Fastlane</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="114"/>
+        <location filename="../res/qml/settings/About.qml" line="121"/>
         <source>Icons from SVG Repo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="115"/>
+        <location filename="../res/qml/settings/About.qml" line="122"/>
         <source>Localization with Crowdin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="124"/>
+        <location filename="../res/qml/settings/About.qml" line="131"/>
         <source>
 Developed with love by Johan and published by Denver.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/settings/About.qml" line="129"/>
+        <location filename="../res/qml/settings/About.qml" line="136"/>
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -511,27 +511,27 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>MenuUsagePopup</name>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="28"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="26"/>
         <source>How to use it? [%1/%2]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="43"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="41"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="53"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="51"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="61"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="59"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="69"/>
+        <location filename="../res/qml/popups/MenuUsagePopup.qml" line="67"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -777,27 +777,27 @@ Your suggestions will be taken into account.</source>
 <context>
     <name>WelcomePopup</name>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="29"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="27"/>
         <source>Welcome to %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="37"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="35"/>
         <source>Don&apos;t show this again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="59"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="57"/>
         <source>We hope you enjoy using it!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="75"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="73"/>
         <source>What&apos;s new?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../res/qml/popups/WelcomePopup.qml" line="112"/>
+        <location filename="../res/qml/popups/WelcomePopup.qml" line="110"/>
         <source>Please &lt;b&gt;press and hold&lt;/b&gt; outside this popup to close it and open the pie menu</source>
         <translation type="unfinished"></translation>
     </message>

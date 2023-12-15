@@ -316,7 +316,7 @@ Language
         ,["M", "O", "I", "N", "S", "E", "V", "I", "N", "G", "T"]  // 6
         ,["E" ,"N", "C", "I", "N", "Q", "D", "E", "M", "I", "E"]  // 7
         ,["T", "R", "O", "I", "S", "O", "Q", "U", "A", "R", "T"]  // 8
-        ,["D", "I", "X", "H", "A", "R", "M", "O" , "N", "I", "E"]] // 9
+        ,["D", "I", "X", "H", "A", "R", "M", "O", "N", "I", "E"]] // 9
     written_hours_array:
         ["MINUIT|MIDI", "UNE", "DEUX", "TROIS", "QUATRE", "CINQ", "SIX", "SEPT", "HUIT", "NEUF",
         "DIX", "ONZE"]
