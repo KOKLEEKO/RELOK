@@ -7,7 +7,7 @@ TEMPLATE = app
 
 VERSION = 1.2.3
 
-QT += core quick svg widgets
+QT += quick svg widgets
 
 !wasm: QT += texttospeech
 android|darwin|win32 {
