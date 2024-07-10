@@ -19,10 +19,10 @@ Q_LOGGING_CATEGORY(lc, "Device-android")
 void DeviceAccess::specificInitializationSteps()
 {
     qCDebug(lc) << "[R] versionName:"
-                << QAndroidJniObject::getStaticObjectField<jstring>("io/kokleeko/wordclock/BuildConfig", "VERSION_NAME")
+                << QAndroidJniObject::getStaticObjectField<jstring>("io/kokleeko/relok/BuildConfig", "VERSION_NAME")
                        .toString();
 
-    QAndroidJniObject::callStaticMethod<void>("io/kokleeko/wordclock/DeviceAccess",
+    QAndroidJniObject::callStaticMethod<void>("io/kokleeko/relok/DeviceAccess",
                                               "registerListeners",
                                               "(Landroid/content/Context;)V",
                                               QtAndroid::androidContext().object());
@@ -61,7 +61,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void * /*reserved*/)
     if (vm->GetEnv(reinterpret_cast<void **>(&env), jni_version) != JNI_OK)
         return JNI_ERR;
     jclass activityObjectClass = env->GetObjectClass(QtAndroid::androidActivity().object<jobject>());
-    jclass deviceAccessClass = env->FindClass("io/kokleeko/wordclock/DeviceAccess");
+    jclass deviceAccessClass = env->FindClass("io/kokleeko/relok/DeviceAccess");
     if (!deviceAccessClass || !activityObjectClass)
         return JNI_ERR;
     JNINativeMethod activityObjectMethods[]{

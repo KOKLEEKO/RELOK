@@ -27,12 +27,12 @@ void ShareContentManager::screenshot(QQuickItem *item)
         if (!dir.exists("images"))
             dir.mkdir("images");
         const QString mimeType = QStringLiteral("image/jpeg");
-        filePath += QStringLiteral("/images/wordclock++.jpeg");
+        filePath += QStringLiteral("/images/RELOK.jpeg");
         screenshot.save(filePath);
         QFileInfo fileInfo(filePath);
         if (fileInfo.exists()) {
             QAndroidJniObject::callStaticMethod<void>(
-                "io/kokleeko/wordclock/DeviceAccess",
+                "io/kokleeko/relok/DeviceAccess",
                 "share",
                 "(Ljava/lang/String;Ljava/lang/String;)V",
                 QAndroidJniObject::fromString(mimeType).object<jstring>(),

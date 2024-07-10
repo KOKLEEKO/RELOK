@@ -35,7 +35,7 @@ jobs:
       run: make -j$(nproc) check
 
     - name: Prepare webapp
-      run: cp WordClock.js WordClock.wasm wasm/app/
+      run: cp RELOK.js RELOK.wasm wasm/app/
 
     - name: Upload webapp
       uses: actions/upload-artifact@v3

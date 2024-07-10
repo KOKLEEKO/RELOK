@@ -19,7 +19,7 @@ ScreenBrightnessManager::ScreenBrightnessManager(DeviceAccessBase *deviceAccess,
 
 void ScreenBrightnessManager::setBrightnessRequested(float brightness)
 {
-    QAndroidJniObject::callStaticMethod<void>("io/kokleeko/wordclock/DeviceAccess",
+    QAndroidJniObject::callStaticMethod<void>("io/kokleeko/relok/DeviceAccess",
                                               "setBrightness",
                                               "(I)V",
                                               qRound(brightness * 255));
@@ -27,5 +27,5 @@ void ScreenBrightnessManager::setBrightnessRequested(float brightness)
 
 void ScreenBrightnessManager::requestBrightnessUpdate()
 {
-    QAndroidJniObject::callStaticMethod<void>("io/kokleeko/wordclock/DeviceAccess", "getBrightness", "()V");
+    QAndroidJniObject::callStaticMethod<void>("io/kokleeko/relok/DeviceAccess", "getBrightness", "()V");
 }
