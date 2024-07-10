@@ -1,2 +1,2 @@
-app_identifier("io.kokleeko.WordClock") # The bundle identifier of your app
-package_name("io.kokleeko.wordclock")
+app_identifier("io.kokleeko.relok") # The bundle identifier of your app
+package_name("io.kokleeko.relok")

@@ -59,7 +59,7 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE_FILE }}
 
       - name: androiddeployqt
-        run: androiddeployqt --input android-WordClock-deployment-settings.json --output android-build --android-platform android-33 --jdk /opt/homebrew/opt/openjdk@11 --gradle --jarsigner --release --sign $QT_ANDROID_KEYSTORE_PATH $QT_ANDROID_KEYSTORE_ALIAS --storepass $QT_ANDROID_KEYSTORE_STORE_PASS --keypass $QT_ANDROID_KEYSTORE_KEY_PASS
+        run: androiddeployqt --input android-relok-deployment-settings.json --output android-build --android-platform android-33 --jdk /opt/homebrew/opt/openjdk@11 --gradle --jarsigner --release --sign $QT_ANDROID_KEYSTORE_PATH $QT_ANDROID_KEYSTORE_ALIAS --storepass $QT_ANDROID_KEYSTORE_STORE_PASS --keypass $QT_ANDROID_KEYSTORE_KEY_PASS
         env:
           QT_ANDROID_KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
           QT_ANDROID_KEYSTORE_STORE_PASS: ${{ secrets.KEYSTORE_PASSWORD }}

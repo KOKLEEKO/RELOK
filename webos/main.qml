@@ -19,7 +19,7 @@ WebOSWindow {
     height: 1080
     visible: true
     appId: "io.kokleeko.wordclock"
-    title: "WordClock"
+    title: "RELOK"
     color: wordClock.background_color
     displayAffinity: params["displayAffinity"]
 

@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-package io.kokleeko.wordclock;
+package io.kokleeko.relok;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,7 +23,7 @@ import org.qtproject.qt5.android.QtNative;
 public class DeviceAccess {
 
     public static Context context;
-    private static String AUTHORITY="io.kokleeko.wordclock.fileprovider";
+    private static String AUTHORITY="io.kokleeko.relok.fileprovider";
     private static String TAG = "Device-android";
 
     static ContentObserver brightnessContentObserver = new ContentObserver(null)

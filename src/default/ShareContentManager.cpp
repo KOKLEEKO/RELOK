@@ -32,7 +32,7 @@ void ShareContentManager::screenshot(QQuickItem *item)
         QBuffer buffer(&byteArray);
         buffer.open(QIODevice::WriteOnly);
         image.save(&buffer, "JPEG");
-        QFileDialog::saveFileContent(byteArray, "wordclock++.jpeg");
+        QFileDialog::saveFileContent(byteArray, "RELOK.jpeg");
     });
 }
 

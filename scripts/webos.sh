@@ -13,15 +13,15 @@ export TARGET_DEVICE=$1
 
 echo_bold "env:"
 echo_vars SCRIPT_DIR 	\
-		  PROJECT_DIR 	\
-		  PROJECT_NAME 	\
-		  BUILD_DIR 	\
-		  TARGET_DEVICE
+          PROJECT_DIR 	\
+          PROJECT_NAME 	\
+          BUILD_DIR 	\
+	  TARGET_DEVICE
 
 echo_exec ares-package ${PROJECT_DIR}/webos -o $BUILD_DIR
-echo_exec ares-install --device $TARGET_DEVICE ${BUILD_DIR}/io.kokleeko.wordclock_1.0.0_all.ipk
+echo_exec ares-install --device $TARGET_DEVICE ${BUILD_DIR}/io.kokleeko.relok_1.0.0_all.ipk
 
 echo_bold "\nExecution time: $(seconds_to_time totaltime)"
 
 echo_bold "Launch..."
-echo_exec ares-launch --device $TARGET_DEVICE io.kokleeko.wordclock
+echo_exec ares-launch --device $TARGET_DEVICE io.kokleeko.relok

@@ -36,7 +36,7 @@ void TranslationManager::switchLanguage(QString language)
         //qGuiApp->removeTranslator(&m_translatorQt);
         if (m_availableTranslations.contains(language)) {
             if (m_translator.load(QLocale(language),
-                                  QStringLiteral("wordclock"),
+                                  QStringLiteral("relok"),
                                   QStringLiteral("_"),
                                   QStringLiteral(":/i18n")))
                 qGuiApp->installTranslator(&m_translator);

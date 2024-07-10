@@ -5,9 +5,9 @@
 ###################################################################################################
 TEMPLATE = app
 
-VERSION = 1.2.2
+VERSION = 1.2.3
 
-QT += core quick svg widgets
+QT += quick svg widgets
 
 !wasm: QT += texttospeech
 android|darwin|win32 {
@@ -225,8 +225,8 @@ darwin {
         android/gradlew.bat                                     \
         android/res/values/libs.xml                             \
         android/res/xml/paths.xml                               \
-        android/src/io/kokleeko/wordclock/DeviceAccess.java     \
-        android/src/io/kokleeko/wordclock/MyActivity.java
+        android/src/io/kokleeko/relok/DeviceAccess.java     \
+        android/src/io/kokleeko/relok/MyActivity.java
 
 } else:wasm {
 

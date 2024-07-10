@@ -4,40 +4,40 @@ Copyright (c) [Kokleeko S.L.](https://github.com/kokleeko) and contributors. All
 <br>Licensed under the LGPL license. See [LICENSE](LICENSE) file in the project root for details.
 </p></details>
 
-# WordClock++
+# RELOK
 [![Qt](https://img.shields.io/badge/Qt-5.15%20LTS-green)](https://doc.qt.io/qt-5)
-![ViewCount](https://views.whatilearened.today/views/github/kokleeko/WordClock.svg)
+![ViewCount](https://views.whatilearened.today/views/github/kokleeko/relok.svg)
 
-[![Android](https://github.com/kokleeko/WordClock/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/build-upload-android.yml)
-[![iOS](https://github.com/kokleeko/WordClock/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/build-upload-ios.yml)
-[![macOS](https://github.com/kokleeko/WordClock/actions/workflows/macos.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/macos.yml)
-[![Ubuntu](https://github.com/kokleeko/WordClock/actions/workflows/ubuntu.yml/badge.svg?branch=main)](https://github.com/kokleeko/WordClock/actions/workflows/ubuntu.yml)
-[![WebAssembly](https://github.com/kokleeko/WordClock/actions/workflows/wasm.yml/badge.svg)](https://github.com/kokleeko/WordClock/actions/workflows/wasm.yml)
-[![Windows](https://github.com/kokleeko/WordClock/actions/workflows/windows.yml/badge.svg?branch=main)](https://github.com/johanrkokleekoemilien/WordClock/actions/workflows/windows.yml)
+[![Android](https://github.com/kokleeko/relok/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/kokleeko/relok/actions/workflows/build-upload-android.yml)
+[![iOS](https://github.com/kokleeko/relok/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/kokleeko/relok/actions/workflows/build-upload-ios.yml)
+[![macOS](https://github.com/kokleeko/relok/actions/workflows/macos.yml/badge.svg?branch=main)](https://github.com/kokleeko/relok/actions/workflows/macos.yml)
+[![Ubuntu](https://github.com/kokleeko/relok/actions/workflows/ubuntu.yml/badge.svg?branch=main)](https://github.com/kokleeko/relok/actions/workflows/ubuntu.yml)
+[![WebAssembly](https://github.com/kokleeko/relok/actions/workflows/wasm.yml/badge.svg)](https://github.com/kokleeko/relok/actions/workflows/wasm.yml)
+[![Windows](https://github.com/kokleeko/relok/actions/workflows/windows.yml/badge.svg?branch=main)](https://github.com/johanrkokleekoemilien/relok/actions/workflows/windows.yml)
 
-[![codefactor](https://www.codefactor.io/repository/github/kokleeko/WordClock/badge)](https://www.codefactor.io/repository/github/kokleeko/WordClock)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/52b97f63c7374ead9f582e8631cef76a)](https://www.codacy.com/gh/kokleeko/WordClock/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kokleeko/WordClock&amp;utm_campaign=Badge_Grade)
-[![Crowdin](https://badges.crowdin.net/wordclock/localized.svg)](https://crowdin.com/project/wordclock)
+[![codefactor](https://www.codefactor.io/repository/github/kokleeko/relok/badge)](https://www.codefactor.io/repository/github/kokleeko/relok)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/52b97f63c7374ead9f582e8631cef76a)](https://www.codacy.com/gh/kokleeko/relok/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kokleeko/relok&amp;utm_campaign=Badge_Grade)
+[![Crowdin](https://badges.crowdin.net/relok/localized.svg)](https://crowdin.com/project/relok)
 
 <p float="left">
-	<a href="https://apps.apple.com/app/wordclock/id1626068981">
-  		<picture>
-    		<img src="https://github.com/kokleeko/WordClock/assets/15193153/9364ee0d-8a6d-4534-9938-4fd215286d4c" alt="App Store" width="180">
-    	</picture>
-  	</a>
-  	<a href="https://play.google.com/store/apps/details?id=io.kokleeko.wordclock">
-  		<picture>
-   			<img src="https://github.com/kokleeko/WordClock/assets/15193153/190a9bdc-be5b-4f9b-809b-4ebf8a4819f4" alt="Google Play" width="180">
-   		</picture>
-  	</a>
-  	<a href="https://wordclock.kokleeko.io">
-   		<picture>
-   			<img src="https://github.com/kokleeko/WordClock/assets/15193153/0422fc2f-5828-47c0-b78f-c270a084f942" alt="WebAssembly" width="180">
-   		</picture>
-  	</a>
+        <a href="https://apps.apple.com/app/relok/id1626068981">
+                <picture>
+                <img src="https://github.com/kokleeko/relok/assets/15193153/9364ee0d-8a6d-4534-9938-4fd215286d4c" alt="App Store" width="180">
+        </picture>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=io.kokleeko.relok">
+                <picture>
+                        <img src="https://github.com/kokleeko/relok/assets/15193153/190a9bdc-be5b-4f9b-809b-4ebf8a4819f4" alt="Google Play" width="180">
+                </picture>
+        </a>
+        <a href="https://relok.kokleeko.io">
+                <picture>
+                        <img src="https://github.com/kokleeko/relok/assets/15193153/0422fc2f-5828-47c0-b78f-c270a084f942" alt="WebAssembly" width="180">
+                </picture>
+        </a>
 </p>
 
-Languages currently supported: 
+Languages currently supported:
 - American English (🇺🇸)
 - British English (🇬🇧)
 - Canadian French [Français Canadien] (🇫🇷)
@@ -46,7 +46,7 @@ Languages currently supported:
 - Portuguese [Português]
 - Spanish [Español]
 
-🗣 [WordClock++](https://github.com/kokleeko/WordClock) will use the language defined in the preferences of your device
+🗣 [RELOK](https://github.com/kokleeko/relok) will use the language defined in the preferences of your device
 (_if this language is not yet supported, English will be used by default_).
 
 <details>
@@ -65,7 +65,7 @@ This feature can be deactivated
 
 <details>
   <summary> ➕ See more </summary>
-  
+
   - #### 🕠 05:00 AM|PM
     <img width="752" alt="🇺🇸 (05:00 AM|PM)" src="https://user-images.githubusercontent.com/15193153/162683884-e6ef8f53-1cc0-4fee-9585-46a46eda7172.png">
 
@@ -105,7 +105,7 @@ This feature can be deactivated
 
 <details>
   <summary> ➕ Ver más </summary>
-  
+
   - #### 🕞 03:30 AM|PM
     <img width="752" alt="🇪🇸 (03:30 AM|PM)" src="https://user-images.githubusercontent.com/15193153/162685208-773dac03-5db1-4446-8390-0da1c25c5f15.png">
   - #### 🕘 09:O0 AM|PM
@@ -124,9 +124,9 @@ This feature can be deactivated
   #### ¿Lo habías descubierto? 🧠
   <details>
     <summary>🤩 ¡¡Sí!! Reciba tu regalo 🎁 </summary>
-    
+
 [![flamenco](https://madridpourvous.com/wp-content/uploads/2018/09/tablao-flamenco-915x515.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-    
+
 *origen de la fotografía: https://madridpourvous.com*
 
   </details>
@@ -162,10 +162,10 @@ This feature can be deactivated
   <summary> 👀 Le message secret est caché ici</summary>
   <img width="752" alt="🇫🇷 (22:22 PM)" src="https://user-images.githubusercontent.com/15193153/163484447-e8b58713-d808-41c0-8295-16144ef89f68.png">
 
-  #### Tu l'avais trouvé ? 🧠 
+  #### Tu l'avais trouvé ? 🧠
   <details>
     <summary>🤩 Oui!! Récupère ton cadeau 🎁 </summary>
-    
+
 [![croissants](https://www.cocinayvino.com/wp-content/uploads/2021/07/www.cocinayvino.com-el-croissant-el-preferido-del-desayuno-parisino-croissant-e1626216131239-696x392.jpg)](https://www.youtube.com/watch?v=kJQP7kiw5Fk&t=84s)
 
 *source of the picture: www.cocinayvino.com*

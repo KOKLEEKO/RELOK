@@ -75,7 +75,7 @@ almost as soon as you encounter them. But you can disable this feature to enter 
     {
         title: qsTr("Also available on") + DeviceAccess.managers.translation.emptyString
         model: [
-            { name: "webassembly", visbible: !HelpersJS.isWasm, link: "https://wordclock.kokleeko.io"          },
+            { name: "webassembly", visbible: !HelpersJS.isWasm, link: "https://relok.kokleeko.io"          },
             { name: "app-store", link: "https://apps.apple.com/app/wordclock/id1626068981"                     },
             { name: "google-play", link: "https://play.google.com/store/apps/details?id=io.kokleeko.wordclock" },
             { name: "lg-store", active: false, link: ""                                                        },
@@ -99,7 +99,7 @@ almost as soon as you encounter them. But you can disable this feature to enter 
             { name: "youtube", link: "https://youtube.com/channel/UCJ0QPsxjk_mxdIQtEZsIA6w" },
             { name: "linkedin", link: "https://www.linkedin.com/in/johanremilien"           },
             { name: "instagram", link: "https://instagram.com/kokleeko.io"                  },
-            { name: "email", link: "mailto:johan.remilien+wordclock++@gmail.com"            },
+            { name: "email", link: "mailto:johan.remilien+RELOK@gmail.com"            },
             { name: "website", active: false, link: "https://www.kokleeko.io"               }
         ]
         delegate: Controls.IconButton

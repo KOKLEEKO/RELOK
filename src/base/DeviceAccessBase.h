@@ -43,11 +43,13 @@ public:
     }
 
     template<class ManagerImpl>
-    std::shared_ptr<ManagerImpl> addManager(const std::shared_ptr<ManagerImpl> &manager)
+    void addManager(std::unique_ptr<ManagerImpl> manager)
     {
-        m_sharedPointers.insert(manager.get()->name(), manager);
-        m_managers.insert(manager.get()->name(), QVariant::fromValue(manager.get()));
-        return std::move(manager);
+        if (manager)
+        {
+            m_managers.insert(manager->name(), QVariant::fromValue(manager.get()));
+            m_uniquePointers.insert(manager->name(), std::move(manager));
+        }
     }
 
 protected:
@@ -55,5 +57,5 @@ protected:
 
 private:
     QVariantMap m_managers{};
-    QMap<QString, std::shared_ptr<void> > m_sharedPointers;
+    QMap<QString, std::shared_ptr<void> > m_uniquePointers;
 };

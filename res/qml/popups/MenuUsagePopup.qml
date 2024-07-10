@@ -20,7 +20,7 @@ QtControls.Dialog
     background.opacity: .95
     clip: true
     closePolicy: QtControls.Dialog.NoAutoClose
-    implicitHeight: implicitHeaderHeight + implicitContentHeight + implicitFooterHeight + 2 * padding
+    //implicitHeight: implicitHeaderHeight + implicitContentHeight + implicitFooterHeight + 2 * padding
     implicitWidth: Math.max(root.width/2, implicitContentWidth)
     modal: true
     title: qsTr("How to use it? [%1/%2]").arg(view.currentIndex+1).arg(view.count) +

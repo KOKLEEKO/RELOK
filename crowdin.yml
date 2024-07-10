@@ -8,6 +8,6 @@
 files: [
   {
     "source": "translations/strings.ts",
-    "translation": "translations/wordclock_%two_letters_code%.ts"
+    "translation": "translations/relok_%two_letters_code%.ts"
   }
 ]

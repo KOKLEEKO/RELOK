@@ -5,7 +5,7 @@
 **  details.
 **  Author: Johan, Axel REMILIEN (https://github.com/johanremilien)
 **************************************************************************************************/
-package io.kokleeko.wordclock;
+package io.kokleeko.relok;
 
 import android.content.Context;
 import android.content.res.Configuration;
